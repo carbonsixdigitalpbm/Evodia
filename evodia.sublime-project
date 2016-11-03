@@ -1,0 +1,46 @@
+{
+    "folders":
+    [
+        {
+            "file_exclude_patterns":
+            [
+                "._*",
+                "*.bak",
+                "*.ico",
+                "*.sample",
+                "*.swf",
+                "*.tar",
+                "*.tgz",
+                "wp-*.php",
+                "*.md",
+                "*.sublime-workspace",
+                "*.sln",
+                "*.Debug.config",
+                "*.Release.config",
+                // "*.csproj",
+                "*.csproj.user",
+                "*.aspx",
+                "*.asax"
+            ],
+            "folder_exclude_patterns":
+            [
+                ".tmp",
+                ".sass-cache",
+                ".vs",
+                "node_modules",
+                "packages",
+                "Evodia.Web/App_Browsers",
+                "Evodia.Web/bin",
+                "Evodia.Web/Css",
+                "Evodia.Web/Masterpages",
+                "Evodia.Web/media",
+                "Evodia.Web/obj",
+                "Evodia.Web/Properties",
+                "Evodia.Web/Umbraco_Client",
+                "Evodia.Web/UserControls",
+                "Evodia.Web/Xslt"
+            ],
+            "path": "."
+        }
+    ]
+}
