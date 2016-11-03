@@ -1,0 +1,65 @@
+﻿.gibe-link-picker
+{
+	margin: 0;
+	padding: 0;
+}
+
+/*.gibe-link-picker .chosen
+{
+	margin: 0;
+	padding: 0;
+}*/
+
+.gibe-link-picker .internal-picker
+{
+	margin: 0;
+	padding: 0;
+}
+
+.gibe-link-picker .toggle
+{
+	margin: 0;
+	padding: 0;
+}
+
+.gibe-link-picker .new-window
+{
+	margin: 0;
+	padding: 10px 0 0 0;
+}
+
+.gibe-link-picker .new-window label
+{
+	margin: 0;
+	padding: 0;
+}
+
+.gibe-link-picker .form-row
+{
+	margin: 0;
+	padding: 0 0 5px 0;
+}
+
+.gibe-link-picker .form-row .umb-editor
+{
+	min-width: 300px;
+}
+
+.gibe-link-picker a {
+	cursor: pointer;
+}
+
+.gibe-link-picker .nested-content__icon--delete,
+.gibe-link-picker .nested-content__icon--edit {
+	opacity: 0;
+}
+
+.gibe-link-picker .chosen:hover .nested-content__icon--delete,
+.gibe-link-picker .chosen:hover .nested-content__icon--edit {
+	opacity: 1;
+}
+
+.gibe-link-picker .chosen {
+	padding-top: 2px;
+	padding-bottom: 10px;
+}

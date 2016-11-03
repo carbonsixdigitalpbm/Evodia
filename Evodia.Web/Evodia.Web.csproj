@@ -120,6 +120,10 @@
       <HintPath>..\packages\Markdown.1.14.4\lib\net45\MarkdownSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Mayfly.MrNPicker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MrNPicker.1.1.0\lib\Mayfly.MrNPicker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
       <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>True</Private>
@@ -432,6 +436,9 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.htm" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
+    <Content Include="App_Plugins\MrNPicker\mayfly.mrnpicker.controller.js" />
+    <Content Include="App_Plugins\MrNPicker\views\mayfly.mrnpicker.html" />
+    <Content Include="App_Plugins\MrNPicker\views\mayfly.multipicker.html" />
     <Content Include="App_Plugins\SEOChecker\css\seochecker-propertyeditors.css" />
     <Content Include="App_Plugins\SEOChecker\directives\valShowError.js" />
     <Content Include="App_Plugins\SEOChecker\redirects\redirectsController.js" />
@@ -498,6 +505,7 @@
     <Content Include="App_Data\TEMP\PluginCache\umbraco-plugins.DESKTOP-5BHHJ25.list" />
     <Content Include="App_Data\umbraco.config" />
     <Content Include="App_Data\TEMP\SEOChecker\SEOChecker.config" />
+    <Content Include="App_Plugins\MrNPicker\package.manifest" />
     <None Include="Config\connectionStrings.config" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />

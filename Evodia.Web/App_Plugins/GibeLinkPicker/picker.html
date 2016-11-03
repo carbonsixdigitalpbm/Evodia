@@ -1,0 +1,21 @@
+﻿<div ng-controller="Gibe.LinkPickerController">
+
+	<div class="gibe-link-picker">
+		<p class="chosen" ng-show="model.value">
+		    <a href="{{model.value.url}}" target="_blank">{{model.value.name || model.value.url}}</a>
+			<a class="nested-content__icon nested-content__icon--delete" ng-click="removeLink()" prevent-default="">
+				<i class="icon icon-trash"></i>
+			</a>
+			<a class="nested-content__icon nested-content__icon--edit" ng-click="editLink()" prevent-default="">
+				<i class="icon icon-edit"></i>
+			</a>
+		</p>
+		<p class="internal-picker" ng-hide="model.value">
+			<a ng-click="chooseLink()" prevent-default="">Add link</a>
+			<a class="nested-content__icon" ng-click="chooseLink()" prevent-default="">
+				<i class=" icon icon-add"></i>
+			</a>
+		</p>
+	</div>
+
+</div>
