@@ -1,0 +1,39 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = null;
+
+    library.ChangeContentType("text/xml");
+    var siteUrl = "http://" +  Request.Url.Host;
+
+    var ci = new System.Globalization.CultureInfo("en-GB");
+    System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+    System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+
+    var homePage = Model.AncestorOrSelf(1);
+    var settings = homePage.Descendants("globalSettings").First();
+    var blog = homePage.Descendants("blog").First();
+
+    var allPosts = blog.Descendants("posts").First().Descendants().OrderBy("releaseDate desc");
+}<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>@blog.Name | @settings.GetPropertyValue("websiteName")</title>
+        @Html.Raw("<link>")@siteUrl@Html.Raw("</link>")
+        <description>@blog.GetPropertyValue("description")</description>
+        <pubDate>@String.Format("{0:ddd, dd MMM yyyy HH:mm:ss}", @Model.CreateDate) GMT</pubDate>
+        <lastBuildDate>@String.Format("{0:ddd, dd MMM yyyy HH:mm:ss}", DateTime.Now) GMT</lastBuildDate>
+        <language>en</language>
+        <generator>Umbraco</generator>
+        @foreach(var article in allPosts)
+        {
+            <item>
+                <title>@( article.HasValue("headline") ? article.GetPropertyValue("headline") : article.Name )</title>
+                @Html.Raw("<link>")@siteUrl@article.Url@Html.Raw("</link>")
+                <description>@article.GetPropertyValue("excerpt")</description>
+                <pubDate>@String.Format("{0:ddd, dd MMM yyyy} {1:HH:mm:ss}", @article.GetPropertyValue("releaseDate"), @article.CreateDate) GMT</pubDate>
+            </item>
+        }
+    </channel>
+</rss>
+

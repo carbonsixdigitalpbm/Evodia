@@ -1,0 +1,57 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var mediaIds = Model.GetPropertyValue<string>("gallery");
+    var hasImages = !string.IsNullOrEmpty(mediaIds);
+}
+
+@if (hasImages)
+{
+    var caption = Model.GetPropertyValue<string>("caption");
+    var hasRatio = Model.HasValue("aspectRatio");
+    var aspectRatio = hasRatio ? Model.GetPropertyValue<string>("aspectRatio") : null;
+    var aspectRatioClass = hasRatio ? "o-media--" + aspectRatio.Replace(":", "-") : "";
+    var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
+
+    <figure class="c-gallery o-media @aspectRatioClass o-align--@alignment o-page-component">
+        <div class="c-gallery__inner js-gallery">
+            @foreach (var media in mediaIds.Split(',').Select(mediaId => Umbraco.TypedMedia(mediaId)))
+            {
+                if (media.DocumentTypeAlias == "Image")
+                {
+                    @RenderImage(media, aspectRatio)
+                }
+
+                if (media.Descendants("Image").Any())
+                {
+                    foreach (var image in media.Descendants("Image"))
+                    {
+                        @RenderImage(image, aspectRatio)
+                    }
+                }
+            }
+        </div>
+
+        @if (caption != "")
+        {
+            <figcaption class="c-caption clearfix">
+                @caption
+            </figcaption>
+        }
+    </figure>
+}
+
+@helper RenderImage(IPublishedContent item, string ratio)
+{
+    var image = item;
+    var aspectRatio = ratio == null ? "4:3" : ratio;
+    var imageUrl = image.Url + "?width=1200&quality=85";
+    var imageCropUrlLow = Url.GetCropUrl(image, cropAlias: aspectRatio, width: 900, quality: 18, htmlEncode: false).ToString();
+    var imageCropUrlHigh = Url.GetCropUrl(image, cropAlias: aspectRatio, width: 900, quality: 85, htmlEncode: false).ToString();
+    //var caption = image.GetPropertyValue<string>("caption");
+    var altText = image.GetPropertyValue<string>("altText");
+
+    <a href="@imageUrl" target="_blank" class="c-gallery__item">
+        <img src="@imageCropUrlLow" data-src="@imageCropUrlHigh" class="c-gallery__image" alt="@altText"/>
+    </a>
+}

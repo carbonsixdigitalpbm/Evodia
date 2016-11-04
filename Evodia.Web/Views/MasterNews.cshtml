@@ -1,0 +1,23 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+}
+
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix">
+    <main class="o-page__content o-page__content--sidebar-layout">
+        @RenderBody()
+    </main>
+    <aside class="o-page__sidebar" role="complementary">
+        @RenderSection("Sidebar", required: false)
+    </aside>
+</div>
+
+@section OpenGraph {
+    @RenderSection("OpenGraph", required: false)
+}
+
+@section Scripts {
+    @* Qualify scripts if they isModern *@
+    @RenderSection("Scripts", required: false)
+}

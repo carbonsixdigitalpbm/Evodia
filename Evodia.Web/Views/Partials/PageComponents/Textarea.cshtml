@@ -1,0 +1,11 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var content = Model.GetPropertyValue<HtmlString>("mainContent");
+    var hasContent = Model.HasValue("mainContent");
+}
+
+@if (hasContent)
+{
+    @content
+}

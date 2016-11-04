@@ -1,0 +1,32 @@
+@using Umbraco.Web
+@using Umbraco.Web.Mvc
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+    string siteName = settings.GetPropertyValue<string>("websiteName");
+}
+
+@**@
+<header id="header" class="c-header" role="banner">
+@*
+	<div class="c-header__super u-clearfix">
+		<div class="o-wrap o-wrap--x-large">
+			@Html.Partial("Page/SuperNav")
+			@Html.Partial("Components/SocialLinks")
+		</div>
+	</div>
+*@
+	<div class="o-wrap o-wrap--x-large u-clearfix">
+		<div class="c-header__inner u-clearfix">
+			<a href="/" class="c-header__logo-link">
+				<img src="/assets/img/SITENAME-logo.svg" alt="@siteName" class="c-header__logo-image">
+			</a>
+			<button class="c-header__toggle-menu-button" id="toggle-menu" aria-haspopup="true" data-toggle="js-nav"><i class="ico-list"></i> <span class="u-hide-text">Menu</span></button>
+		</div>
+		<div class="c-header__nav-wrap">
+			@Html.Partial("~/Views/Partials/Page/MainNavigation.cshtml")
+@*			@Html.Partial("~/Views/Partials/Page/SuperNavigation.cshtml")	*@
+		</div>
+    </div>
+</header>

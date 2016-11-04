@@ -1,0 +1,33 @@
+@using Umbraco.Web
+@using Umbraco.Web.Mvc
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+    var socialChannels = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("socialChannels");
+    var hasSocialLinks = socialChannels != null;
+}
+
+@if( hasSocialLinks )
+{
+    <div class="c-social u-clearfix">
+
+        @foreach( IPublishedContent socialChannel in socialChannels )
+        {
+            string channelName = socialChannel.GetPropertyValue<string>("socialChannelName");
+            string url = socialChannel.GetPropertyValue<string>("socialChannelUrl");
+            string cssClass = channelName.ToLower();
+
+            if( cssClass == "google+" ) {
+                cssClass = "google";
+            }
+
+            if( !string.IsNullOrEmpty(url) )
+            {
+                <a href="@url" title="Go to our @channelName page (external url)" class="c-social__link c-social__link--@cssClass" target="_blank">
+                    <i class="ico-@cssClass"></i> <span class="u-hide-text">@channelName</span>
+                </a>
+            }
+        }
+    </div>
+}

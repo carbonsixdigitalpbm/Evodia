@@ -1,0 +1,40 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var subPages = Model.Children.Where( x => x.IsVisible() );
+    var homePage = Model.AncestorOrSelf(1);
+    var settings = homePage.Descendants("globalSettings").First();
+
+    var defaultImageId = settings.GetPropertyValue<string>("defaultSocialMediaImage");
+}
+
+@foreach( IPublishedContent item in subPages ) {
+    string tileName = item.Name;
+    string description = item.GetPropertyValue<string>("description");
+    string url = item.Url;
+
+    bool hasDescription = item.HasValue("description");
+    string tileClasses = hasDescription ? null : "c-tile--no-description";
+
+    string imageId = item.HasValue("thumbnail") ? item.GetPropertyValue<string>("thumbnail") : defaultImageId;
+    var image = Umbraco.TypedMedia( imageId );
+    string altText = image.GetPropertyValue<string>("altText");
+
+    string aspectRatio = "3:2";
+    int imageWidth = 400;
+    var imageUrl = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, htmlEncode: false);
+
+    <div class="c-tile @tileClasses o-grid__item">
+        <a href="@url" class="c-tile__link">
+            <div class="c-tile__image-wrap js-lazyload" data-bg="@imageUrl" style="background-image: url(@imageUrl&quality=18);"></div>
+            <div class="c-tile__content">
+                <h3 class="c-tile__name">@tileName</h3>
+                @if( hasDescription ) {
+                    <div class="c-tile__description">
+                        <p>@description</p>
+                    </div>
+                }
+            </div>
+        </a>
+    </div>
+}

@@ -1,0 +1,37 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+
+    bool hasSubNav = Model.AncestorOrSelf(2).Children().Any(x => x.IsVisible() && x.TemplateId > 0) ? true : false;
+    bool hideSubNav = Model.DocumentTypeAlias == "gatewayPage" && Model.Level == 2 ? true : false;
+}
+
+@if( !hasSubNav || hideSubNav )
+{
+    @Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
+    <main class="o-page__inner o-page__content o-section o-wrap o-wrap--large s-free-content" role="main">
+        @RenderBody()
+    </main>
+}
+else
+{
+    <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-subnav o-section">
+        @Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
+        <main class="o-page__content o-page__content--sidebar-layout s-free-content">
+            @RenderBody()
+        </main>
+        <nav class="o-page__sidebar c-nav c-nav--sub" role="navigation">
+            @Html.Partial("Page/SubNavigation")
+        </nav>
+    </div>
+}
+
+@section OpenGraph {
+    @RenderSection("OpenGraph", required: false)
+}
+
+@section Scripts {
+    @* Qualify scripts if they isModern *@
+    @RenderSection("Scripts", required: false)
+}

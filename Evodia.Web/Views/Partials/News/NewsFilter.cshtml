@@ -1,0 +1,38 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+
+    var homePage = Model.AncestorOrSelf(1);
+    var news = homePage.Descendants("news").First();
+    var everything = news.Descendants().OrderBy("releaseDate desc");
+
+    var qCat = Request.QueryString["category"];
+
+    bool hasGeneral = everything.Any(x => x.IsVisible() && x.DocumentTypeAlias == "generalNews") ? true : false;
+    bool hasInTheMedia = everything.Any(x => x.IsVisible() && x.DocumentTypeAlias == "inTheMedia") ? true : false;
+    bool hasPress = everything.Any(x => x.IsVisible() && x.DocumentTypeAlias == "pressRelease") ? true : false;
+
+}
+
+
+@if( hasGeneral || hasInTheMedia || hasPress )
+{
+    <h3 class="u-zeta">Categories</h3>
+    <ul class="c-link-list">
+        @if( hasGeneral ) {
+            <li class="c-link-list__item">
+                <a href="/news?category=general-news" class="c-link-list__link @(qCat == "general-news" ? "is-active" : null)">General news</a>
+            </li>
+        }
+        @if( hasInTheMedia ) {
+            <li class="c-link-list__item">
+                <a href="/news?category=in-the-media" class="c-link-list__link @(qCat == "in-the-media" ? "is-active" : null)">In the media</a>
+            </li>
+        }
+        @if( hasPress ) {
+            <li class="c-link-list__item">
+                <a href="/news?category=press-release" class="c-link-list__link @(qCat == "press-release" ? "is-active" : null)">Press release</a>
+            </li>
+        }
+    </ul>
+}

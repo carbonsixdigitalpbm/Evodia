@@ -1,0 +1,32 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+
+    var hasPhone = settings.HasValue("phoneNumber") ? true : false;
+    var hasEmail = settings.HasValue("emailAddress") ? true : false;
+    var hasAddress = settings.HasValue("postalAddress") ? true : false;
+}
+
+@if( hasPhone || hasEmail || hasAddress )
+{
+    <div class="vcard">
+        @if( hasAddress )
+        {
+            <p class="adr">
+                @Html.Raw(@library.ReplaceLineBreaks(settings.GetPropertyValue("postalAddress").ToString()))
+            </p>
+        }
+        @if( hasPhone )
+        {
+            string phoneNumber = settings.GetPropertyValue<string>("phoneNumber");
+            <p class="tel">@phoneNumber</p>
+        }
+        @if( hasEmail )
+        {
+            string emailAddress = settings.GetPropertyValue<string>("emailAddress");
+            <a href="mailto:@emailAddress">@emailAddress</a>
+        }
+    </div>
+}

@@ -1,0 +1,14 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var code = Model.GetPropertyValue<string>("code");
+    var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
+    var hasCode = !string.IsNullOrEmpty(code);
+}
+
+@if( hasCode )
+{
+    <div class="o-media o-media--video o-page-component o-align--@alignment">
+        @Html.Raw(code)
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@using Umbraco.Web
+@using Umbraco.Web.Mvc
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+}
+
+<h1>@headline</h1>
+@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")

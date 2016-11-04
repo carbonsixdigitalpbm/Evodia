@@ -1,0 +1,17 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    // Add MvcHtmlString when OEmbed is added
+    // var media = Model.GetPropertyValue<MvcHtmlString>("media");
+    // var hasMedia = !MvcHtmlString.IsNullOrEmpty(media);
+    var media = Model.GetPropertyValue<string>("media");
+    var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
+    var hasMedia = !string.IsNullOrEmpty(media);
+}
+
+@if (hasMedia)
+{
+    <div class="o-media o-media--video o-page-component o-align--@alignment">
+        @media
+    </div>
+}

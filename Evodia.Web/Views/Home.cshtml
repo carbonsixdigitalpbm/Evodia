@@ -1,0 +1,12 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+}
+
+<main class="o-page__inner o-page__content o-wrap o-wrap--large s-free-content" role="main">
+	<h1 class="o-page__heading">@headline</h1>
+</main>
+
+

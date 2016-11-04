@@ -1,0 +1,22 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Layout.cshtml";
+
+    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+    bool hasDescription = Model.HasValue("introduction");
+}
+
+<header class="c-hero o-wrap o-wrap--large">
+    <h1 class="c-hero__heading o-page__heading">@headline</h1>
+    @if( hasDescription )
+    {
+        <div class="c-hero__description u-intro">
+            @(Model.GetPropertyValue<HtmlString>("introduction"))
+        </div>
+    }
+</header>
+<section class="o-wrap o-wrap--large o-grid--three u-clearfix">
+    @Html.Partial("~/Views/Partials/Components/GatewayLinks.cshtml")
+</section>
+

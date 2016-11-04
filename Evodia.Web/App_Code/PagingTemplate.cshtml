@@ -1,0 +1,26 @@
+@using umbraco;
+
+@helper RenderPaging(Paging paging, int currentId)
+{
+    var year = Request.QueryString["year"] != null ? "&year=" + Request.QueryString["year"] : "";
+    var month = Request.QueryString["month"] != null ? "&month=" + Request.QueryString["month"] : "";
+    var tags = Request.QueryString["tags"] != null ? "&tags=" + Request.QueryString["tags"] : "";
+
+
+    if (paging.CurrentPage > 1)
+    {
+        <a href="@library.NiceUrl(currentId)?page=@paging.PreviousPage@year@month@tags" class="c-pagination__link c-pagination__link--prev" rel="prev"><i role="presentation"></i> Previous</a>
+    }
+
+    for (var i = 1; i <= paging.TotalPages; i++)
+    {
+        <a href="@library.NiceUrl(currentId)?page=@i@year@month@tags" class='c-pagination__link c-pagination__link--index @( paging.CurrentPage == i ? "is-active" : "" )'>
+            @i
+        </a>
+    }
+
+    if (paging.CurrentPage < paging.TotalPages)
+    {
+        <a href="@library.NiceUrl(currentId)?page=@paging.NextPage@year@month@tags" class="c-pagination__link c-pagination__link--next" rel="next">Next <i role="presentation"></i></a>
+    }
+}

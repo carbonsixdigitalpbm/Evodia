@@ -1,0 +1,62 @@
+﻿@using Umbraco.Web
+@using UmbracoStarterKit.Utility
+@using Umbraco.Web.
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "MasterNews.cshtml";
+
+    var homePage = Model.AncestorOrSelf(1);
+    var news = homePage.Descendants("news").First();
+    var allPosts = news.Descendants().Where( x => x.IsVisible() ).OrderBy("releaseDate desc").ToList();
+
+    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+    DateTime releaseDate = Model.GetPropertyValue<DateTime>("releaseDate");
+    string excerpt = Model.GetPropertyValue<string>("excerpt");
+
+    string docType = Model.DocumentTypeAlias;
+    string category = "";
+
+    switch(docType)
+    {
+        case "generalNews":
+            category = "General news";
+            break;
+        case "pressRelease":
+            category = "Press release";
+            break;
+        case "inTheMedia":
+            category = "In the media";
+            break;
+    }
+
+    string categoryUrl = Model.Ancestor().Url + "?category=" + category.ToLower().Replace(" ", "-");
+}
+
+<article class="c-article" itemscope itemtype="http://schema.org/Article">
+    <header class="c-article__header">
+        <h1 class="c-article__heading" itemprop="headline">@headline</h1>
+        <ul class="c-meta-data">
+            <li class="c-meta-data__item">
+                <time datetime="@releaseDate" pubdate="pubdate">
+                    @releaseDate.ToString("%d")<sup>@Helpers.GetDaySuffix(releaseDate.ToString("%d"))</sup> @releaseDate.ToString("MMMM yyyy")
+                </time>
+                <meta itemprop="datePublished" content="@releaseDate.ToString("yyyy-MM-dd")">
+            </li>
+            <li class="c-meta-data__item" itemprop="keywords">
+                <a href="@categoryUrl" rel="category">@category</a>
+            </li>
+        </ul>
+    </header>
+    <div class="s-free-content" itemprop="articleBody">
+        <div class="c-article__description u-intro" itemprop="description">
+            <p>@excerpt</p>
+        </div>
+
+        @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+    </div>
+</article>
+
+@section Sidebar {
+   @Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
+   @Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
+}

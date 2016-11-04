@@ -1,0 +1,52 @@
+﻿@using Umbraco.Web
+@using UmbracoStarterKit.Models
+@inherits UmbracoViewPage<ContactForm>
+@{
+    var success = TempData["ValidationPasses"] != null;
+    var error = TempData["ValidationFailed"] != null;
+    var folderId = TempData["FormFolderId"];
+}
+
+@if (success)
+{
+    if (folderId != null)
+    {
+        var folder = Umbraco.TypedContent(folderId);
+        var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
+
+        @message
+    }
+}
+else
+{
+    if (error)
+    {
+        @Html.ValidationSummary()
+    }
+
+    using (Html.BeginUmbracoForm("ProcessFormSubmission", "ContactForm", FormMethod.Post, new { @id = "contact-form", @class = "c-form js-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset class="o-form__fieldset">
+            <legend class="o-legend">Contact form</legend>
+            <div class="o-form__field">
+                @Html.LabelFor(x => x.Name, new { @class = "o-label" })
+                @Html.TextBoxFor(x => x.Name, new { @required = "required", @class = "o-input", @placeholder = "Name" })
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+            <div class="o-form__field">
+                @Html.LabelFor(x => x.Email, new { @class = "o-label" })
+                @Html.TextBoxFor(x => x.Email, new { @required = "required", @class = "o-input", @placeholder = "Email address" })
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+            <div class="o-form__field">
+                @Html.LabelFor(x => x.Message, new { @class = "o-label" })
+                @Html.TextAreaFor(x => x.Message, new { required = (string)null, @class = "o-input", @placeholder = "Message", @rows = 6 })
+                @Html.ValidationMessageFor(x => x.Message)
+            </div>
+            <div class="o-form__field o-form__field--submit">
+                <button type="submit" class="c-button c-button--primary">Send form</button>
+            </div>
+        </fieldset>
+    }
+}

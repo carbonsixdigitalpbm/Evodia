@@ -1,0 +1,54 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+
+    var homePage = Model.AncestorOrSelf(1);
+    var blog = homePage.Descendants("blog").First();
+    int categoryId = Model.GetPropertyValue<int>("category");
+    bool hasCategory = categoryId != 0 ? true : false;
+    int postsToShow = 3;
+    var allArticles = blog.Descendants("post")
+        .Where(
+            x => x.IsVisible() &&
+            x.GetPropertyValue<string>("category", "").Equals(categoryId.ToString()) &&
+            x.IsNotEqual(Model)
+        ).OrderBy("releaseDate desc").ToList();
+}
+
+@if( hasCategory && allArticles.Any() )
+{
+    var category = Umbraco.Content(categoryId);
+
+    <h3>Related articles in <strong>@category.Name</strong></h3>
+    <ul class="c-link-list">
+        @foreach( var article in allArticles.Take(postsToShow) )
+        {
+            <li class="c-link-list__item">
+                <a href="@article.Url" class="c-link-list__link">
+                    @article.Name
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    var randomArticles = blog.Descendants("post")
+        .Where(
+            x => x.IsVisible() &&
+            x.IsNotEqual(Model)
+        ).OrderBy("releaseDate desc").ToList();
+
+    <h3>Other articles you might like</h3>
+    <ul class="c-link-list">
+        @foreach( var article in randomArticles.RandomOrder().Take(3) )
+        {
+            <li class="c-link-list__item">
+                <a href="@article.Url" class="c-link-list__link">
+                    @article.Name
+                </a>
+            </li>
+        }
+    </ul>
+}
+

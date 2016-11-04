@@ -1,0 +1,385 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+		
+
+<main class="o-page__inner o-page__content o-wrap o-wrap--large" role="main">
+	<ol>
+		<li id="typography" class="o-section">
+			<section>
+				<header>
+					<h1>Typography</h1>
+				</header>
+				<div>
+					<h1 class="u-tera">tera</h1>
+					<h1 class="u-giga">giga</h1>
+					<h1 class="u-mega">mega</h1>
+					<h1 class="u-alpha">alpha</h1>
+					<h1 class="u-beta">beta</h1>
+					<h1 class="u-gamma">gamma</h1>
+					<h1 class="u-delta">delta</h1>
+					<h1 class="u-epsilon">epsilon</h1>
+					<h1 class="u-zeta">zeta</h1>
+					<h1 class="u-small">small</h1>
+				</div>
+				<hr>
+				<h5>Paragraph</h5>
+				<p class='intro'>A <strong>paragraph</strong> (from the Greek paragraphos, <em>to write beside</em> or <em>written beside</em>) is a <a href=''>self-contained</a> unit of a discourse in writing dealing with a particular point or idea.</p><p>A paragraph consists of one or more sentences. Though not required by the syntax of any language, paragraphs are usually an expected part of formal writing, used to organize longer prose.</p>
+
+				<h5>Unordered List</h5>
+				<ul>
+					<li>
+						This is a list item in an unordered list
+					</li>
+					<li>
+						An unordered list is a list in which the sequence of items is not important. Sometimes, an unordered list is a bulleted list. And this is a long list item in an unordered list that can wrap onto a new line.
+					</li>
+					<li>
+						Lists can be nested inside of each other
+						<ul>
+							<li>This is a nested list item</li>
+							<li>This is another nested list item in an unordered list</li>
+						</ul>
+					</li>
+				</ul>
+
+				<h5>Ordered List</h5>
+				<ol>
+					<li>
+						This is a list item in an ordered list
+					</li>
+					<li>
+						An ordered list is a list in which the sequence of items is important. An ordered list does not necessarily contain sequence characters.
+					</li>
+					<li>
+						Lists can be nested inside of each other
+						<ol>
+							<li>This is a nested list item</li>
+							<li>This is another nested list item in an ordered list</li>
+						</ol>
+					</li>
+				</ol>
+				
+				<h5>Blockquote</h5>
+				<blockquote class="c-quote">
+					<div class="c-quote__copy">
+						Donec sed odio dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+					</div>
+					<footer class="c-quote__src">Quote source</footer>
+				</blockquote>
+			</section>
+		</li>
+
+		<li id="buttons" class="o-section">
+			<section>
+				<header>
+					<h1>Buttons</h1>
+				</header>
+
+				<div class="o-col--three u-clearfix">
+					<div class="o-col">
+						<h5>Primary Button</h5>
+						<div class="o-form__field">
+							<button class="c-button c-button--primary">Button</button>
+						</div>
+					</div>
+
+					<div class="o-col">
+						<h5>Secondary Button</h5>
+						<div class="o-form__field">
+							<button class="c-button c-button--secondary">Button</button>
+						</div>
+					</div>
+
+					<div class="o-col">
+						<h5>Disabled Button</h5>
+						<div class="o-form__field">
+							<button class="c-button is-disabled" disabled="disabled">Button</button>
+						</div>
+					</div>
+				</div>
+			</section>
+		</li>
+
+		<li id="tables" class="o-section">
+			<section>
+				<header>
+					<h1>Tables <em><small>These are different in mobile view</small></em></h1>
+				</header>
+
+				<div>
+					<h5>Scroll Table</h5>
+					<div class="o-table o-table--scroll">
+						<table summary="Table Summary">
+							<thead>
+								<tr>
+									<th scope="col">Column Heading 1</th>
+									<th scope="col">Column Heading 2</th>
+									<th scope="col">Column Heading 3</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td data-label="Column Heading 1">Quisque placerat facilisis egestas cillum dolore.</td>
+									<td data-label="Column Heading 2">At nos hinc posthac, sitientis piros Afros.</td>
+									<td data-label="Column Heading 3">Integer legentibus erat a ante historiarum dapibus.</td>
+								</tr>
+									<tr>
+										<td data-label="Column Heading 1">Salutantibus vitae elit libero, a pharetra augue.</td>
+										<td data-label="Column Heading 2">Quo usque tandem abutere, Catilina, patientia nostra?</td>
+										<td data-label="Column Heading 3">Qui ipsorum lingua Celtae, nostra Galli appellantur.</td>
+									</tr>
+									<tr>
+										<td data-label="Column Heading 1">Quo usque tandem abutere, Catilina, patientia nostra?</td>
+										<td data-label="Column Heading 2">Quid securi etiam tamquam eu fugiat nulla pariatur.</td>
+										<td data-label="Column Heading 3">Quid securi etiam tamquam eu fugiat nulla pariatur.</td>
+									</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div>
+					<h5>Stacked Table</h5>
+					<div class="o-table o-table--stacked">
+						<table summary="Table Summary">
+							<thead>
+								<tr>
+									<th scope="col">Column Heading 1</th>
+									<th scope="col">Column Heading 2</th>
+									<th scope="col">Column Heading 3</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td data-label="Column Heading 1">Quisque placerat facilisis egestas cillum dolore.</td>
+									<td data-label="Column Heading 2">At nos hinc posthac, sitientis piros Afros.</td>
+									<td data-label="Column Heading 3">Integer legentibus erat a ante historiarum dapibus.</td>
+								</tr>
+								<tr>
+									<td data-label="Column Heading 1">Salutantibus vitae elit libero, a pharetra augue.</td>
+									<td data-label="Column Heading 2">Quo usque tandem abutere, Catilina, patientia nostra?</td>
+									<td data-label="Column Heading 3">Qui ipsorum lingua Celtae, nostra Galli appellantur.</td>
+								</tr>
+								<tr>
+									<td data-label="Column Heading 1">Quo usque tandem abutere, Catilina, patientia nostra?</td>
+									<td data-label="Column Heading 2">Quid securi etiam tamquam eu fugiat nulla pariatur.</td>
+									<td data-label="Column Heading 3">Quid securi etiam tamquam eu fugiat nulla pariatur.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</li>
+
+		<li id="forms" class="o-section">
+			<section>
+				<header>
+					<h1>Forms</h1>
+				</header>
+				<div>
+					<div>
+						<h5>Default Inputs</h5>
+						<div class="o-form__field">
+							<label class="o-label" for="input">Input <span class="o-label__note">Optional</span></label>
+							<input class="o-input" id="input" type="text" placeholder="Placeholder text...">
+						</div>
+						<div class="o-form__field">
+							<label class="o-label" for="">Select <span class="o-label__note">Optional</span></label>
+							<div class="o-select">
+								<select id="" name="">
+									
+										<option value="0" selected>Please select...</option>
+									
+										<option value="1">Option 1</option>
+									
+										<option value="2">Option 2</option>
+									
+								</select>
+							</div>
+						</div>
+						<div class="o-form__field">
+							<label class="o-label" for="textarea">Textarea <span class="o-label__note">Optional</span></label>
+							<textarea class="o-textarea" id="textarea" cols="30" rows="8" placeholder="Enter your message here..."></textarea>
+						</div>
+						<div class="o-form__field">
+							<fieldset class="o-fieldset">
+								<legend class="o-fieldset__legend">Checkbox <span class="o-label__note">Optional</span></legend>
+								<ul class="o-fieldset__list">
+										<li class="o-fieldset__item">
+											<label class="o-label o-checkbox" for="checkbox1Disabled">
+												<input id="checkbox1Disabled" type="checkbox" class="o-checkbox__input"> 
+												<span class="o-checkbox__label">Choice A</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-checkbox" for="checkbox2Disabled">
+												<input id="checkbox2Disabled" type="checkbox" class="o-checkbox__input"> 
+												<span class="o-checkbox__label">Choice B</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-checkbox" for="checkbox3Disabled">
+												<input id="checkbox3Disabled" type="checkbox" class="o-checkbox__input"> 
+												<span class="o-checkbox__label">Choice C</span>
+											</label>
+										</li>
+								</ul>
+							</fieldset>
+						</div>
+						<div class="o-form__field">
+							<fieldset class="o-fieldset">
+								<legend class="o-fieldset__legend">Radio buttons <span class="o-label__note">Optional</span></legend>
+								<ul class="o-fieldset__list">
+										<li class="o-fieldset__item">
+											<label class="o-label o-radio" for="radio1">
+												<input id="radio1" type="radio" name="radio" class="o-radio__input">
+												<span class="o-radio__label">Option A</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-radio" for="radio2">
+												<input id="radio2" type="radio" name="radio" class="o-radio__input">
+												<span class="o-radio__label">Option B</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-radio" for="radio3">
+												<input id="radio3" type="radio" name="radio" class="o-radio__input">
+												<span class="o-radio__label">Option C</span>
+											</label>
+										</li>
+								</ul>
+							</fieldset>
+						</div>
+					</div>
+					<div>
+						<h5>Disabled Inputs</h5>
+						<div class="o-form__field is-disabled">
+							<label class="o-label" for="inputDisabled">Input </label>
+							<input class="o-input" id="inputDisabled" type="text" placeholder="Placeholder text..." disabled>
+						</div>
+						<div class="o-form__field is-disabled">
+							<label class="o-label" for="">Select </label>
+							<div class="o-select">
+								<select id="" name="" disabled>
+									
+										<option value="0" selected>Please select...</option>
+									
+										<option value="1">Option 1</option>
+									
+										<option value="2">Option 2</option>
+									
+								</select>
+							</div>
+						</div>
+						<div class="o-form__field is-disabled">
+							<label class="o-label" for="textareaDisabled">Textarea </label>
+							<textarea class="o-textarea" id="textareaDisabled" cols="30" rows="8" placeholder="Enter your message here..." disabled></textarea>
+						</div>
+						<div class="o-form__field is-disabled">
+							<fieldset class="o-fieldset" disabled>
+								<legend class="o-fieldset__legend">Checkbox <span class="o-label__note">Optional</span></legend>
+								<ul class="o-fieldset__list">
+										<li class="o-fieldset__item">
+											<label class="o-label o-checkbox" for="checkbox1">
+												<input id="checkbox1" type="checkbox" class="o-checkbox__input"> 
+												<span class="o-checkbox__label">Choice A</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-checkbox" for="checkbox2">
+												<input id="checkbox2" type="checkbox" class="o-checkbox__input"> 
+												<span class="o-checkbox__label">Choice B</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-checkbox" for="checkbox3">
+												<input id="checkbox3" type="checkbox" class="o-checkbox__input"> 
+												<span class="o-checkbox__label">Choice C</span>
+											</label>
+										</li>
+								</ul>
+							</fieldset>
+						</div>
+						<div class="o-form__field is-disabled">
+							<fieldset class="o-fieldset" disabled>
+								<legend class="o-fieldset__legend">Radio buttons <span class="o-label__note">Optional</span></legend>
+								<ul class="o-fieldset__list">
+										<li class="o-fieldset__item">
+											<label class="o-label o-radio" for="radio1Disabled">
+												<input id="radio1Disabled" type="radio" name="radio" class="o-radio__input"> 
+												<span class="o-radio__label">Option A</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-radio" for="radio2Disabled">
+												<input id="radio2Disabled" type="radio" name="radio" class="o-radio__input"> 
+												<span class="o-radio__label">Option B</span>
+											</label>
+										</li>
+										<li class="o-fieldset__item">
+											<label class="o-label o-radio" for="radio3Disabled">
+												<input id="radio3Disabled" type="radio" name="radio" class="o-radio__input"> 
+												<span class="o-radio__label">Option C</span>
+											</label>
+										</li>
+								</ul>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div>
+						<h5>Valid Inputs</h5>
+						<div class="o-form__field is-valid">
+							<label class="o-label" for="inputValid">Input </label>
+							<input class="o-input" id="inputValid" type="text" placeholder="Placeholder text...">
+						</div>
+						<div class="o-form__field is-valid">
+							<label class="o-label" for="">Select </label>
+							<div class="o-select">
+								<select id="" name="">
+										<option value="0" selected>Please select...</option>
+										<option value="1">Option 1</option>
+										<option value="2">Option 2</option>
+								</select>
+							</div>
+						</div>
+						<div class="o-form__field is-valid">
+							<label class="o-label" for="textareaValid">Textarea </label>
+							<textarea class="o-textarea" id="textareaValid" cols="30" rows="8" placeholder="Enter your message here..."></textarea>
+						</div>
+					</div>
+					<div>
+						<h5>Invalid Inputs</h5>
+						<div class="o-form__field is-invalid">
+							<label class="o-label" for="inputInvalid">Input </label>
+							<input class="o-input" id="inputInvalid" type="text" placeholder="Placeholder text...">
+							<span class="o-validation u-small">Please enter a value</span>
+						</div>
+						<div class="o-form__field is-invalid">
+							<label class="o-label" for="">Select </label>
+							<div class="o-select">
+								<select id="" name="">
+										<option value="0" selected>Please select...</option>
+										<option value="1">Option 1</option>
+										<option value="2">Option 2</option>
+								</select>
+							</div>
+							<span class="o-validation u-small">Please select a value</span>
+						</div>
+						<div class="o-form__field is-invalid">
+							<label class="o-label" for="textareaInvalid">Textarea </label>
+							<textarea class="o-textarea" id="textareaInvalid" cols="30" rows="8" placeholder="Enter your message here..."></textarea>
+							<span class="o-validation u-small">Please enter a value</span>
+						</div>
+					</div>
+				</div>
+			</section>
+		</li>
+	</ol>
+</main>

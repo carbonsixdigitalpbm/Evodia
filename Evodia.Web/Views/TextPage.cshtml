@@ -1,0 +1,22 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Layout.cshtml";
+    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+}
+
+<h1 class="o-page__heading">@headline</h1>
+@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+
+@*
+<!-- note: there's a scope on the wrap -->
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-subnav">
+	<main class="o-page__content o-page__content--sidebar-layout s-free-content">
+		<h1 class="o-page__heading">@headline</h1>
+		@Html.Partial("Page/Content")
+	</main>
+	<nav class="o-page__sidebar c-nav c-nav--sub">
+		@Html.Partial("Page/Subnav")
+	</nav>
+</div>
+*@

@@ -1,0 +1,31 @@
+@using UmbracoStarterKit.ExtensionMethods
+@using UmbracoStarterKit.Models
+@inherits UmbracoViewPage<Post>
+
+<article class="c-listing--article" itemscope itemtype="http://schema.org/Blog">
+    <a href="@Model.Content.Url" class="c-listing__link" itemprop="url">
+        <div class="c-listing__content">
+            <h2 class="c-listing__title" itemprop="name">@Model.Headline</h2>
+            <ul class="c-meta-data__item">
+                <li class="c-meta-data__item__item">
+                    <time datetime="{{metaDate}}" pubdate="pubdate">
+                        @Model.ReleaseDate.ToFormattedDateTime()
+                    </time>
+                    <meta itemprop="dateCreated" content="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
+                </li>
+                @if (Model.HasAuthor)
+                {
+                    <li class="c-meta-data__item__item" itemprop="author">@Model.AuthorName</li>
+                }
+                @if (Model.HasCategory)
+                {
+                    <li class="c-meta-data__item__item" itemprop="keywords">@Model.CategoryName</li>
+                }
+            </ul>
+
+            <div class="c-listing__description">
+                <p>@Model.Excerpt</p>
+            </div>
+        </div>
+    </a>
+</article>

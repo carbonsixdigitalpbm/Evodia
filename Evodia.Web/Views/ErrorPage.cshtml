@@ -1,0 +1,16 @@
+﻿@using System.Net.Mail
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Layout.cshtml";
+
+    string errorPath = Request.QueryString["aspxerrorpath"];
+    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+}
+
+<h1 class="o-page__heading">@headline</h1>
+@if( !string.IsNullOrEmpty(errorPath) )
+{
+    <p>Path @errorPath just  broke the internet. Just kidding, but something unexpeted did happen.</p>
+}
+@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
