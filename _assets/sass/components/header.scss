@@ -82,9 +82,46 @@
 		width: 15rem;
 	}
 
+	.c-header__group {
+		float: left;
+	}
 
-	.c-nav--main {
+
+	.c-header__nav-wrap,
+	.c-header__supplementary {
 		float: right;
 	}
+
+	.c-header__nav-wrap {
+		margin-top: 4rem;
+		margin-bottom: 2rem;
+	}
+
+	.c-header__supplementary {
+		margin: 4rem 0 2rem;
+
+		.c-button {
+			padding: 1rem 1.5rem;
+			font-weight: 500;
+		}
+	}
+
+	.flexbox {
+
+		.c-header__inner {
+			display: flex;
+		}
+
+		.c-header__nav-wrap {
+			flex-grow: 1;
+			text-align: center;
+		}
+
+		.c-header__supplementary {
+			order: 3;
+		}
+
+	}
+
 
 }

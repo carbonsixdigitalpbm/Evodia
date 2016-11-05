@@ -10,6 +10,26 @@
 		}
 
 	};
+	
+	var scrollTo = function(el) {
+
+        el.on('click', function(event) {
+            var $this = $(this),
+                target = $($this.attr('href')),
+                heightOffset = 60;
+
+            if (target.length) {
+                var ref = $this.data("ref");
+                event.preventDefault();
+
+                $('html, body').animate({
+                    scrollTop: (target.offset().top - heightOffset)
+                }, 500);
+
+            }
+
+        });
+    };
 
 /* ===========================================================
 		# breakpoints
