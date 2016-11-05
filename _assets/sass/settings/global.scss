@@ -24,13 +24,16 @@ $green:						#4caf50;
 $dark-1:					#003046;
 $dark-2:					#2B5466;
 
-$dark-grey:					#3B3B3B;
+$dark-grey-1:				#3B3B3B;
 
 $grey-1:					#DBDBDB;
 $grey-2:					#aeaeae;
 
 $light-1:					#F4F3F3;
 $light-2:					darken( $light-1, 5% );
+
+$light-blue-1:				#EAF7FC;
+$light-blue-2:				#CEEBF8;
 
 $blue-1:					#0092D3;
 $blue-2:					#0071A5;
@@ -63,8 +66,8 @@ $type-scale-small:			1.125;
 $type-scale-medium:			1.150;
 $type-scale-large:			1.175;
 
-$heading-colour:			$black;
-$text-colour:				$black;
+$heading-colour:			$pri;
+$text-colour:				$dark-grey-1;
 $background-colour:			$white;
 $border-colour:				#ccc;
 $link-colour:				$pri;

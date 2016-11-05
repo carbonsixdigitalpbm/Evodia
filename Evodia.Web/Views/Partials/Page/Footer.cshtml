@@ -7,13 +7,19 @@
 
 <footer id="footer" class="c-footer" role="contentinfo">
 	<div class="c-footer__inner o-section o-wrap o-wrap--x-large">
-		<div class="c-footer__col c-footer__col--first">
-			@Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
-        	@Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
-			<p class="c-footer__copyright">@(settings.GetPropertyValue<string>("copyrightDisclaimer"))</p>
+		<div class="u-clearfix">
+			<div class="c-footer__col c-footer__col--first">
+				<h3>Contact us</h3>
+				@Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
+	        	@Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
+			</div>
+			<div class="c-footer__col c-footer__col--last">
+				<h3>Explore</h3>
+				@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
+			</div>
 		</div>
-		<div class="c-footer__col c-footer__col--last">
-			@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
+		<div class="c-footer__sub">
+			<p class="c-footer__copyright">@(settings.GetPropertyValue<string>("copyrightDisclaimer"))</p>
 		</div>
 	</div>
 </footer>
