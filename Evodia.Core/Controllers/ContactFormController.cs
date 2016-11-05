@@ -4,18 +4,18 @@ using Umbraco.Core.Logging;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 using Umbraco.Core;
-using UmbracoStarterKit.Models;
-using UmbracoStarterKit.Utility;
+using Evodia.Core.Models;
+using Evodia.Core.Utility;
 using Umbraco.Core.Services;
 
-namespace UmbracoStarterKit.Controllers
+namespace Evodia.Core.Controllers
 {
     public class ContactFormController : SurfaceController
     {
         private readonly MailHelper _mailHelper = new MailHelper();
         private readonly IContentService _contentService = ApplicationContext.Current.Services.ContentService;
         private readonly UmbracoHelper _umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-        private const int FormFolderId = 1081;
+        private const int FormFolderId = 1155;
 
         public ActionResult RenderContactForm()
         {

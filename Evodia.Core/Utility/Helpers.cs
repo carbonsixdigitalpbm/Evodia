@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace UmbracoStarterKit.Utility
+namespace Evodia.Core.Utility
 {
     public static class Helpers
     {

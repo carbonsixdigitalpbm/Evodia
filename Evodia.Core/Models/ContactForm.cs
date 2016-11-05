@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace UmbracoStarterKit.Models
+namespace Evodia.Core.Models
 {
     public class ContactForm
     {

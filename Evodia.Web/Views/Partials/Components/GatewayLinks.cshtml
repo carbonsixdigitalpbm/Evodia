@@ -9,20 +9,25 @@
 }
 
 @foreach( IPublishedContent item in subPages ) {
-    string tileName = item.Name;
-    string description = item.GetPropertyValue<string>("description");
-    string url = item.Url;
+    var tileName = item.Name;
+    var description = item.GetPropertyValue<string>("description");
+    var url = item.Url;
 
-    bool hasDescription = item.HasValue("description");
-    string tileClasses = hasDescription ? null : "c-tile--no-description";
+    var hasDescription = item.HasValue("description");
+    var tileClasses = hasDescription ? null : "c-tile--no-description";
 
-    string imageId = item.HasValue("thumbnail") ? item.GetPropertyValue<string>("thumbnail") : defaultImageId;
+    var imageId = item.HasValue("thumbnail") ? item.GetPropertyValue<string>("thumbnail") : defaultImageId;
     var image = Umbraco.TypedMedia( imageId );
-    string altText = image.GetPropertyValue<string>("altText");
+    var altText = "";
+    var imageUrl = "";
+    var aspectRatio = "3:2";
+    var imageWidth = 400;
 
-    string aspectRatio = "3:2";
-    int imageWidth = 400;
-    var imageUrl = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, htmlEncode: false);
+    if(image != null)
+    {
+        altText = image.GetPropertyValue<string>("altText");
+        imageUrl = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, htmlEncode: false).ToString();
+    }
 
     <div class="c-tile @tileClasses o-grid__item">
         <a href="@url" class="c-tile__link">

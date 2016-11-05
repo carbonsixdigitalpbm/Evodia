@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text;
 using Umbraco.Core.Models;
 
-namespace UmbracoStarterKit.Utility
+namespace Evodia.Core.Utility
 {
     public class MailHelper
     {

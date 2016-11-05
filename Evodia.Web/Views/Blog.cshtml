@@ -1,4 +1,4 @@
-﻿@using Umbraco.Web
+﻿@*@using Umbraco.Web
 @using UmbracoStarterKit.Models
 @using UmbracoStarterKit.Utility
 @inherits UmbracoViewPage<Blog>
@@ -30,8 +30,8 @@ else
 
 @section Sidebar {
 	@Html.Partial("~/Views/Partials/Blog/BlogCategories.cshtml")
-	@*@if( allPosts.Any() )
+	@if( allPosts.Any() )
 	{
 		@Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts)
-	}*@
-}
+	}
+}*@
