@@ -1,6 +1,6 @@
 /*!
  * modernizr v3.3.1
- * Build http://modernizr.com/download?-classlist-csstransforms-history-setclasses-dontmin
+ * Build http://modernizr.com/download?-classlist-contains-csstransforms-history-setclasses-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
@@ -285,6 +285,20 @@ Detects support for the History API for manipulating the browser session history
     // Return the regular check
     return (window.history && 'pushState' in window.history);
   });
+
+/*!
+{
+  "name": "ES5 String.prototype.contains",
+  "property": "contains",
+  "authors": ["Robert Kowalski"],
+  "tags": ["es6"]
+}
+!*/
+/* DOC
+Check if browser implements ECMAScript 6 `String.prototype.contains` per specification.
+*/
+
+  Modernizr.addTest('contains', is(String.prototype.contains, 'function'));
 
 
   /**

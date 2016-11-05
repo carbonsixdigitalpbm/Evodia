@@ -21,14 +21,22 @@ $black: 					#000000;
 $red:						#f44336;
 $green:						#4caf50;
 
-$dark-1:					#1d1d1d;
+$dark-1:					#003046;
+$dark-2:					#2B5466;
 
-$light-1:					#f7f7f7;
+$dark-grey:					#3B3B3B;
+
+$grey-1:					#DBDBDB;
+$grey-2:					#aeaeae;
+
+$light-1:					#F4F3F3;
 $light-2:					darken( $light-1, 5% );
 
-$pri: 						#00b7ce;
-$sec: 						#ed1165;
-$ter:				 		#fad620;
+$blue-1:					#0092D3;
+$blue-2:					#0071A5;
+
+$pri: 						$blue-1;
+$sec: 						$dark-1;
 
 $facebook: 					#3b5998;
 $twitter: 					#55acee;
