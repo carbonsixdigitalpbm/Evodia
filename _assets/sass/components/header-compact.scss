@@ -1,0 +1,71 @@
+/* ===========================================================
+
+	# Header - compact
+
+=========================================================== */
+
+.enhance {
+
+	.is-fixed {
+		position: fixed;
+		top: 0;
+		right: 0;
+		left: 0;
+	}
+
+	.c-header {
+		transition: color $speed $ease,
+                    background $speed $ease,
+                    box-shadow $speed $ease;
+
+        &.is-fixed.c-header--compact {
+            color: $pri;
+            background-color: $white;
+			box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+
+            a {
+                color: $pri;
+
+                &:hover,
+                &:focus {
+                    color: $white;
+                }
+            }
+
+            .c-button {
+                border-color: $pri;
+
+                &:hover,
+                &:focus {
+                    color: $white;
+                    background-color: $pri;
+                }
+            }
+
+		}
+	}
+
+}
+
+@include respond-min( $mq-medium )  {
+
+	.enhance {
+
+		.c-header__logo-image {
+			will-change: transform;
+			transform-origin: left;
+			transition: transform $speed $ease;
+		}
+
+		.c-header--compact {
+
+			.c-header__logo-image {
+				transform: scale(.85);
+			}
+
+		}
+
+
+	}
+
+}

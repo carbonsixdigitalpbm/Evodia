@@ -5,6 +5,14 @@
 
 =========================================================== */
 
+@include respond-max( $mq-small ) {
+
+	html {
+		font-family: 'small-max';
+	}
+
+}
+
 @include respond-min( $mq-small ) {
 
 	html {

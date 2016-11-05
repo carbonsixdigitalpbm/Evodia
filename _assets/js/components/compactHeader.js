@@ -10,7 +10,7 @@ var CompactHeader = (function ($) {
 		previousTop = 0,
 		currentTop = 0,
 		scrollDelta = 10,
-		scrollOffset = 100;
+		scrollOffset = 50;
 
 
 	var _setElOffsets = function() {

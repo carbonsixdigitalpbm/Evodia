@@ -10,7 +10,7 @@
 		}
 
 	};
-	
+
 	var scrollTo = function(el) {
 
         el.on('click', function(event) {
@@ -72,6 +72,7 @@
 		enhanceEdgeCaseBrowsers();
 
 		$window.ToggleClass.init();
+		$window.CompactHeader.init( true );
 		$window.ValidateForms.init( $('.js-form') );
 		$('.js-tabs').tabs();
 //		$('select').selectric();
