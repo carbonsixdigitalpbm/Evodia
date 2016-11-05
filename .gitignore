@@ -302,3 +302,4 @@ __pycache__/
 
 # connectionStrings
 Evodia.Web/Config/connectionStrings.config
+**/Evodia.Web/Voyager/

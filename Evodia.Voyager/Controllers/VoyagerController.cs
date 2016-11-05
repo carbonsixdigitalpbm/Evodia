@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Umbraco.Core.Logging;
 using Umbraco.Web.Mvc;
 
 namespace Evodia.Voyager.Controllers
@@ -10,10 +9,11 @@ namespace Evodia.Voyager.Controllers
         [HttpPost]
         public JsonResult Sync()
         {
-            LogHelper.Info(GetType(), "Sync method has just been called.");
-
             try
             {
+                var api = new Domain.Voyager(Services.ContentService);
+                api.Fetch();
+
                 return Json(new {
                     status = "OK",
                     data = "",

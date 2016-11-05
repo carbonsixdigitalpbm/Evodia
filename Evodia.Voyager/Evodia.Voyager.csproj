@@ -46,6 +46,7 @@
       <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc">
@@ -86,7 +87,9 @@
     <Compile Include="Common\XmlUtils.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\VoyagerController.cs" />
+    <Compile Include="Domain\Configuration.cs" />
     <Compile Include="Domain\Voyager.cs" />
+    <Compile Include="Domain\VoyagerApi.cs" />
     <Compile Include="Domain\VoyagerObjects\Account.cs" />
     <Compile Include="Domain\VoyagerObjects\Attribute.cs" />
     <Compile Include="Domain\VoyagerObjects\Attributes.cs" />

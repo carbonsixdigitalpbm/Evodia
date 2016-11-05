@@ -525,6 +525,7 @@
     <Content Include="App_Plugins\GibeLinkPicker\package.manifest" />
     <Content Include="App_Plugins\NestedContent\package.manifest" />
     <Content Include="App_Plugins\VoyagerDashboard\package.manifest" />
+    <Content Include="Config\appSettings.config" />
     <None Include="Config\connectionStrings.config" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
