@@ -8,17 +8,10 @@
 }
 
 @**@
-<header id="header" class="c-header" role="banner">
-@*
-	<div class="c-header__super u-clearfix">
-		<div class="o-wrap o-wrap--x-large">
-			@Html.Partial("Page/SuperNav")
-			@Html.Partial("Components/SocialLinks")
-		</div>
-	</div>
-*@
-	<div class="o-wrap o-wrap--x-large u-clearfix">
-		<div class="c-header__inner u-clearfix">
+<header id="header" class="c-header o-wrap" role="banner">
+
+	<div class="c-header__inner o-wrap--center o-wrap--x-large u-clearfix">
+		<div class="u-clearfix">
 			<a href="/" class="c-header__logo-link">
 				<img src="/assets/img/SITENAME-logo.svg" alt="@siteName" class="c-header__logo-image">
 			</a>
@@ -26,7 +19,6 @@
 		</div>
 		<div class="c-header__nav-wrap">
 			@Html.Partial("~/Views/Partials/Page/MainNavigation.cshtml")
-@*			@Html.Partial("~/Views/Partials/Page/SuperNavigation.cshtml")	*@
 		</div>
     </div>
 </header>

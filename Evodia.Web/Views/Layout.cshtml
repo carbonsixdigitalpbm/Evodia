@@ -9,15 +9,14 @@
 
 @if( !hasSubNav || hideSubNav )
 {
-    @Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
-    <main class="o-page__inner o-page__content o-section o-wrap o-wrap--large s-free-content" role="main">
+    <main class="o-page__inner" role="main">
+		@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
         @RenderBody()
     </main>
 }
 else
 {
     <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-subnav o-section">
-        @Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
         <main class="o-page__content o-page__content--sidebar-layout s-free-content">
             @RenderBody()
         </main>

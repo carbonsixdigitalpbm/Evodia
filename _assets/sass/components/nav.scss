@@ -9,13 +9,13 @@
 	.c-nav__list {
 		list-style: none;
 	}
-	
+
 	.c-nav__item {
 		margin: 0;
 	}
 
 	.c-nav__link {
-		color: $text-colour;
+		color: $white;
 		padding: 1rem;
 		display: block;
 		transition: color $speed $ease,
@@ -27,7 +27,7 @@
 		}
 
 		&.is-active {
-			color: $pri;
+			color: $blue-2;
 		}
 	}
 
@@ -86,7 +86,7 @@
 }
 
 @include respond-max( $mq-large ) {
-	
+
 	.enhance {
 
 		.c-header__nav-wrap {
@@ -108,15 +108,6 @@
 				opacity: 1;
 				visibility: visible;
 				transform: translateY(0rem);
-
-				.c-nav__link {
-					color: $white;
-
-					&.is-active {
-						color: $pri;
-					}
-				}
-
 			}
 
 		}
@@ -140,10 +131,6 @@
 			display: inline-block;
 			padding: 1rem;
 			transition: color $speed $ease;
-
-			&.is-active {
-				color: $pri;
-			}
 		}
 
 		.c-nav__list--parent {
@@ -172,7 +159,7 @@
 			.c-nav__link {
 				margin: 0;
 				padding-top: 1rem;
-				
+
 
 				&:hover,
 				&:focus {
@@ -195,7 +182,7 @@
 		}
 
 		.c-nav__item--parent:hover {
-			
+
 			.c-nav__list--sub {
 				opacity: 1;
 				visibility: visible;

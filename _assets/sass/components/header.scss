@@ -5,11 +5,16 @@
 =========================================================== */
 
 .c-header {
-	background-color: $light-1;
+	color: $white;
+	background-color: $pri;
 	position: relative;
 	z-index: 10;
 	transition: background $speed $ease,
 				border-color $speed $ease;
+}
+
+.c-header__inner {
+	border-bottom: .1rem solid rgba( $white, .5 );
 }
 
 .c-header__logo-link {
@@ -77,14 +82,9 @@
 		width: 15rem;
 	}
 
-	.c-header__inner {
-		float: left;
-	}
 
 	.c-nav--main {
 		float: right;
 	}
 
 }
-
-
