@@ -461,6 +461,9 @@
     <Content Include="App_Plugins\SEOChecker\seochecker\seoCheckerPropertyEditor.html" />
     <Content Include="App_Plugins\SEOChecker\seochecker\seoCheckerPropertyEditorController.js" />
     <Content Include="App_Plugins\SEOChecker\XMLSitemapEditor\xmlsitemapeditor.html" />
+    <Content Include="App_Plugins\VoyagerDashboard\VoyagerDashboard.Controller.js" />
+    <Content Include="App_Plugins\VoyagerDashboard\voyagerdashboard.html" />
+    <Content Include="App_Plugins\VoyagerDashboard\VoyagerDashboard.Services.js" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -521,6 +524,7 @@
     <Content Include="App_Plugins\MrNPicker\package.manifest" />
     <Content Include="App_Plugins\GibeLinkPicker\package.manifest" />
     <Content Include="App_Plugins\NestedContent\package.manifest" />
+    <Content Include="App_Plugins\VoyagerDashboard\package.manifest" />
     <None Include="Config\connectionStrings.config" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />

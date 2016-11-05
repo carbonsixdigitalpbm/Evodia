@@ -1,0 +1,6 @@
+{
+    javascript: [
+        '~/App_Plugins/VoyagerDashboard/VoyagerDashboard.Services.js',
+        '~/App_Plugins/VoyagerDashboard/VoyagerDashboard.Controller.js'
+    ]
+}
