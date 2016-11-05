@@ -1,0 +1,12 @@
+# robots.txt
+User-agent: *
+Sitemap: http://evodia.co.uk/sitemap?altTemplate=xmlsitemap
+Host: http://evodia.co.uk
+Disallow: /aspnet_client/
+Disallow: /bin/
+Disallow: /config/
+Disallow: /data/
+Disallow: /umbraco/
+Disallow: /umbraco_client/
+Disallow: /usercontrols/
+Disallow: /xslt/
