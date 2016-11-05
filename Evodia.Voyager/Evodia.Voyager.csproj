@@ -32,6 +32,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\Evodia.Web\bin\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,9 +44,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\XmlUtils.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Domain\Voyager.cs" />
+    <Compile Include="Domain\VoyagerObjects\Account.cs" />
+    <Compile Include="Domain\VoyagerObjects\Attribute.cs" />
+    <Compile Include="Domain\VoyagerObjects\Attributes.cs" />
+    <Compile Include="Domain\VoyagerObjects\Vacancy.cs" />
+    <Compile Include="Domain\VoyagerObjects\Compensation.cs" />
+    <Compile Include="Domain\VoyagerObjects\Consultant.cs" />
+    <Compile Include="Domain\VoyagerObjects\ConsultantMobile.cs" />
+    <Compile Include="Domain\VoyagerObjects\Consultants.cs" />
+    <Compile Include="Domain\VoyagerObjects\Date.cs" />
+    <Compile Include="Domain\VoyagerObjects\DisplayTo.cs" />
+    <Compile Include="Domain\VoyagerObjects\EndDate.cs" />
+    <Compile Include="Domain\VoyagerObjects\Fax.cs" />
+    <Compile Include="Domain\VoyagerObjects\JobLocation.cs" />
+    <Compile Include="Domain\VoyagerObjects\Name.cs" />
+    <Compile Include="Domain\VoyagerObjects\NotificationDetails.cs" />
+    <Compile Include="Domain\VoyagerObjects\PhoneNumbers.cs" />
+    <Compile Include="Domain\VoyagerObjects\SalaryDescription.cs" />
+    <Compile Include="Domain\VoyagerObjects\SalaryRange.cs" />
+    <Compile Include="Domain\VoyagerObjects\StartDate.cs" />
+    <Compile Include="Domain\VoyagerObjects\TechSupport.cs" />
+    <Compile Include="Domain\VoyagerObjects\VacancyFeed.cs" />
+    <Compile Include="Domain\VoyagerObjects\VacancyPosting.cs" />
+    <Compile Include="Domain\VoyagerObjects\Voice.cs" />
+    <Compile Include="EventHandlers\CheckVoyager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)Evodia.Web\bin\" /R /H /Y /D</PostBuildEvent>
