@@ -2,8 +2,7 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Layout.cshtml";
-    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
-
-<h1 class="o-page__heading">@headline</h1>
-@Html.Partial("~/Views/Partials/Components/Sitemap.cshtml")
+<div class="o-section o-wrap o-wrap--small">
+	@Html.Partial("~/Views/Partials/Components/Sitemap.cshtml")
+</div>
