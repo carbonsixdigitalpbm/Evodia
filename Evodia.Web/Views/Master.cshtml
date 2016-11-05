@@ -1,4 +1,4 @@
-﻿@using Umbraco.Web
+@using Umbraco.Web
 @using Umbraco.Web.Mvc
 @using System.Text.RegularExpressions
 @inherits UmbracoViewPage<IPublishedContent>
@@ -28,14 +28,14 @@
         <!--<![endif]-->
 
         <!--[if lt IE 9]>
-            <script src="/assets/js/html5shiv.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
             <link rel="stylesheet" href="/assets/css/ie.css">
         <![endif]-->
 
         <script src="/assets/js/head.js"></script>
 
         @Html.Partial("~/Views/Partials/Components/Fonts.cshtml")
-        @Html.Partial("~/Views/Partials/Components/SEO.cshtml")
+        @Html.Partial("~/Views/Partials/Components/SocialMeta.cshtml")
         <!-- ADDITIONAL OPEN GRAPH, TWITTER CARD PROPERTIES -->
         @RenderSection("OpenGraph", required: false)
         @Html.Partial("~/Views/Partials/Components/Favicons.cshtml")
