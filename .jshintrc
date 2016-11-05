@@ -10,6 +10,7 @@
         "Modernizr": false,
         "define": false,
         "jQuery": false,
-        "require": false
+        "require": false,
+        "google": false
     }
 }

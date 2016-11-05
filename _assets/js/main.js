@@ -50,9 +50,27 @@
 	if( $window.IsModern ){
 
 		enhanceEdgeCaseBrowsers();
+
+		$window.ToggleClass.init();
+		$window.ValidateForms.init( $('.js-form') );
 		$('.js-tabs').tabs();
+//		$('select').selectric();
+		scrollTo($('a[href^="#"]:not(".js-no-scroll")'));
+
+		$window.Carousel.init( $('.js-carousel') );
+		$window.Modal.init( $('.js-modal') );
 
 		//MQ.init(breakpoints);
 	}
+
+	$(window).load(function() {
+
+        if (!Modernizr.svg) {
+            $('img[src*="svg"]').attr('src', function() {
+                return $(this).attr('src').replace('.svg', '.png');
+            });
+        }
+
+    });
 
 })(jQuery);

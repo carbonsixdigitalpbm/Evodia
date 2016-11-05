@@ -6,7 +6,7 @@
 
 .c-header {
 	color: $white;
-	background-color: $pri;
+	background-color: $blue-2;
 	position: relative;
 	z-index: 10;
 	transition: background $speed $ease,
@@ -37,7 +37,7 @@
 	.enhance {
 
 		.c-header__toggle-menu-button {
-			color: $pri;
+			color: $white;
 			font-size: 2.4rem;
 			display: block;
 			float: right;
@@ -51,7 +51,7 @@
 
 			&:hover,
 			&:focus {
-				color: $sec;
+				background-color: $sec;
 			}
 		}
 

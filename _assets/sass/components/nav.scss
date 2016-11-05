@@ -23,11 +23,11 @@
 
 		&:hover,
 		&:focus {
-			color: $sec;
+			background-color: $pri;
 		}
 
 		&.is-active {
-			color: $blue-2;
+			background-color: $pri;
 		}
 	}
 
@@ -95,14 +95,15 @@
 			left: 0;
 			visibility: hidden;
 			opacity: 0;
-			background-color: $pri;
+			text-align: center;
+			background-color: $dark-1;
 			transform: translateY(-1rem);
 			transition: opacity $speed $ease,
 						visibility $speed $ease,
 						transform $speed $ease;
 		}
 
-		&.nav-main-open {
+		&.js-nav-open {
 
 			.c-header__nav-wrap {
 				opacity: 1;
@@ -129,8 +130,8 @@
 
 		.c-nav__link {
 			display: inline-block;
-			padding: 1rem;
-			transition: color $speed $ease;
+			padding: 1rem 1.5rem;
+			border-radius: 2.5rem;
 		}
 
 		.c-nav__list--parent {

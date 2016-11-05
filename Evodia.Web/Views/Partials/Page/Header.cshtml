@@ -15,7 +15,10 @@
 			<a href="/" class="c-header__logo-link">
 				<img src="/assets/img/SITENAME-logo.svg" alt="@siteName" class="c-header__logo-image">
 			</a>
-			<button class="c-header__toggle-menu-button" id="toggle-menu" aria-haspopup="true" data-toggle="js-nav"><i class="ico-list"></i> <span class="u-hide-text">Menu</span></button>
+			<button class="c-header__toggle-menu-button" id="toggle-menu" aria-haspopup="true" data-toggle="js-nav">
+				<span class="o-icon--list" aria-hidden="hidden"></span>
+				<span class="u-hide-text">Menu</span>
+			</button>
 		</div>
 		<div class="c-header__nav-wrap">
 			@Html.Partial("~/Views/Partials/Page/MainNavigation.cshtml")
