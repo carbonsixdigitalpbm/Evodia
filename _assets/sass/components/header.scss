@@ -14,7 +14,7 @@
 }
 
 .c-header__inner {
-	border-bottom: .1rem solid rgba( $white, .5 );
+	border-bottom: .1rem solid rgba( $white, .3 );
 }
 
 .c-header__logo-link {
@@ -103,6 +103,7 @@
 		.c-button {
 			padding: 1rem 1.5rem;
 			font-weight: 500;
+			margin-left: 1rem;
 		}
 	}
 

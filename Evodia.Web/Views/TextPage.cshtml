@@ -5,9 +5,34 @@
     string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
 
-<h1 class="o-page__heading">@headline</h1>
-@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+<section class="o-section s-free-content">
+	@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
 
+
+	<div class="o-wrap o-wrap--small">
+
+		<table>
+		<thead>
+		<tr>
+			<td>Title 1</td>
+			<td>Title 2</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<td>Value</td>
+		<td>Value</td>
+		</tr>
+		<tr>
+		<td>Value</td>
+		<td>Value</td>
+		</tr>
+		</tbody>
+		</table>
+
+	</div>
+
+</section>
 @*
 <!-- note: there's a scope on the wrap -->
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-subnav">

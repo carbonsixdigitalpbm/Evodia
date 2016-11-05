@@ -5,14 +5,40 @@
 =========================================================== */
 
 table {
-	border: $border-width solid $border-colour;
+	border: none;
 	border-collapse: collapse;
 	width: 100%;
 }
 
 th,
 td {
-	border-bottom: $border-width solid $border-colour;
 	padding: 1rem 2rem;
 	text-align: left;
+}
+
+thead td,
+th {
+	color: $white;
+	background-color: $pri;
+}
+
+td {
+	background-color: $light-blue-1;
+	border-bottom: .2rem solid $white;
+}
+
+.no-enhance {
+
+	td {
+		border-bottom: $border-width solid $border-colour;
+	}
+
+}
+
+.enhance {
+
+	tr:nth-child(even) td {
+		background-color: $light-blue-2;
+	}
+
 }

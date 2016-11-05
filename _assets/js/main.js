@@ -31,6 +31,18 @@
         });
     };
 
+	var responsiveTables = function() {
+        var $tables = $('.s-free-content').find('table'),
+            $tableWrap = $('<div>', {
+                class: 'o-table o-table--scroll'
+            });
+
+        $tables.each(function() {
+            $(this).wrap($tableWrap);
+        });
+
+    };
+
 /* ===========================================================
 		# breakpoints
 =========================================================== */
@@ -77,6 +89,7 @@
 		$('.js-tabs').tabs();
 //		$('select').selectric();
 		scrollTo($('a[href^="#"]:not(".js-no-scroll")'));
+		responsiveTables();
 
 		$window.Carousel.init( $('.js-carousel') );
 		$window.Modal.init( $('.js-modal') );

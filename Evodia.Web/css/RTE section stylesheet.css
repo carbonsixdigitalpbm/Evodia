@@ -1,4 +1,30 @@
+table {
+  width: 100%;
+	border: none;
+	border-collapse: collapse;
+	width: 100%;
+}
 
+th,
+td {
+	padding: 10px 20px;
+	text-align: left;
+}
+
+thead td,
+th {
+	color: #fff;
+	background-color: #0092D3;
+}
+
+td {
+	background-color: #EAF7FC;
+	border-bottom: 2px solid #fff;
+}
+
+tr:nth-child(even) td {
+	background-color: #CEEBF8;
+}
 
 /**umb_name:Heading 2*/
 h2{}
