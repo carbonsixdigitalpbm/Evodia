@@ -21,12 +21,12 @@
         @if( hasPhone )
         {
             string phoneNumber = settings.GetPropertyValue<string>("phoneNumber");
-            <p class="tel">@phoneNumber</p>
+            <p class="tel">Tel: @phoneNumber</p>
         }
         @if( hasEmail )
         {
             string emailAddress = settings.GetPropertyValue<string>("emailAddress");
-            <a href="mailto:@emailAddress">@emailAddress</a>
+            @:Email: <a href="mailto:@emailAddress">@emailAddress</a>
         }
     </div>
 }

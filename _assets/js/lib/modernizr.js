@@ -1,6 +1,6 @@
 /*!
  * modernizr v3.3.1
- * Build http://modernizr.com/download?-classlist-contains-csstransforms-history-setclasses-dontmin
+ * Build http://modernizr.com/download?-classlist-contains-csstransforms-flexbox-flexwrap-history-setclasses-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
@@ -836,6 +836,58 @@ Check if browser implements ECMAScript 6 `String.prototype.contains` per specifi
     return navigator.userAgent.indexOf('Android 2.') === -1 &&
            testAllProps('transform', 'scale(1)', true);
   });
+
+/*!
+{
+  "name": "Flexbox",
+  "property": "flexbox",
+  "caniuse": "flexbox",
+  "tags": ["css"],
+  "notes": [{
+    "name": "The _new_ flexbox",
+    "href": "http://dev.w3.org/csswg/css3-flexbox"
+  }],
+  "warnings": [
+    "A `true` result for this detect does not imply that the `flex-wrap` property is supported; see the `flexwrap` detect."
+  ]
+}
+!*/
+/* DOC
+Detects support for the Flexible Box Layout model, a.k.a. Flexbox, which allows easy manipulation of layout order and sizing within a container.
+*/
+
+  Modernizr.addTest('flexbox', testAllProps('flexBasis', '1px', true));
+
+/*!
+{
+  "name": "Flex Line Wrapping",
+  "property": "flexwrap",
+  "tags": ["css", "flexbox"],
+  "notes": [{
+    "name": "W3C Flexible Box Layout spec",
+    "href": "http://dev.w3.org/csswg/css3-flexbox"
+  }],
+  "warnings": [
+    "Does not imply a modern implementation – see documentation."
+  ]
+}
+!*/
+/* DOC
+Detects support for the `flex-wrap` CSS property, part of Flexbox, which isn’t present in all Flexbox implementations (notably Firefox).
+
+This featured in both the 'tweener' syntax (implemented by IE10) and the 'modern' syntax (implemented by others). This detect will return `true` for either of these implementations, as long as the `flex-wrap` property is supported. So to ensure the modern syntax is supported, use together with `Modernizr.flexbox`:
+
+```javascript
+if (Modernizr.flexbox && Modernizr.flexwrap) {
+  // Modern Flexbox with `flex-wrap` supported
+}
+else {
+  // Either old Flexbox syntax, or `flex-wrap` not supported
+}
+```
+*/
+
+  Modernizr.addTest('flexwrap', testAllProps('flexWrap', 'wrap', true));
 
 
   // Run each test

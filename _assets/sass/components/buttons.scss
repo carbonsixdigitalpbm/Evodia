@@ -5,14 +5,16 @@
 =========================================================== */
 
 .c-button {
-	border-radius: $border-radius;
+	border-radius: 2.5rem;
 	display: block;
 	line-height: 1;
 	text-align: center;
 	padding: 1.5rem 2rem;
+	border: .1rem solid transparent;
 	transition: background $speed $ease,
 				box-shadow $speed $ease,
-				color $speed $ease;
+				color $speed $ease,
+				border $speed $ease;
 
 	&:hover,
 	&:focus {
@@ -46,13 +48,27 @@
 }
 
 .c-button--secondary {
-	background: $sec;
-	color: $white;
+	color: $sec;
+	border-color: $sec;
 
 	&:hover,
 	&:focus {
 		background: $black;
 	}
+
+}
+
+.c-button--secondary-invert {
+	color: $white;
+	border-color: $white;
+
+
+	&:hover,
+	&:focus {
+		color: $sec;
+		background-color: $white;
+	}
+
 }
 
 @include respond-max( $mq-small ) {

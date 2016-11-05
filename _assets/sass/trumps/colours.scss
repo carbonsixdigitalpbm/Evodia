@@ -1,0 +1,21 @@
+/* ===========================================================
+
+	# Colours
+
+=========================================================== */
+
+.u-background--dark,
+.u-background--blue {
+	color: $white;
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		color: inherit;
+	}
+}
+
+.u-background--dark {
+	background-color: $dark-1;
+}

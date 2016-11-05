@@ -44,7 +44,7 @@
 		'components/quote.scss',
 		'components/cover.scss',
 		'components/footer.scss',
-		'components/tile.scss',
+		'components/link-list-grid.scss',
 		'components/caption.scss',
 		'components/breadcrumb.scss',
 		'components/alert.scss',
@@ -52,4 +52,5 @@
 		'components/sitemap.scss';
 
 @import 'trumps/overrides.scss',
-		'trumps/free-content.scss';
+		'trumps/free-content.scss',
+		'trumps/colours.scss';

@@ -5,8 +5,58 @@
     string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
 
-<main class="o-page__inner o-page__content o-wrap o-wrap--large s-free-content" role="main">
-	<h1 class="o-page__heading">@headline</h1>
+<main class="o-page__inner" role="main">
+
+	@RenderSpecials()
+
+	<section class="o-section u-background--dark">
+		<div class="o-section__inner o-wrap o-wrap--small u-center-content">
+			<h2>Need to submit a vacancy?</h2>
+			<a href="" class="c-button c-button--secondary-invert">Get in touch ></a>
+		</div>
+	</section>
+
+	@RenderQuotes()
+
 </main>
 
 
+@helper RenderSpecials() {
+	string links = "Support engineering,Investment appraisal,Information assurance,Consulting and support,Systems engineering & software,Defence and space,Operational research & modelling, Autonomous systems,Public sector";
+
+	<section class="o-section o-wrap o-wrap--x-large">
+		<h2 class="u-center-content">Our specialisms</h2>
+		<div class="o-section__inner u-clearfix">
+			<ul class="c-link-list--grid">
+				@foreach( var item in links.Split(',') ) {
+					<li class="c-link-list__item">
+						<a href="" class="c-link-list__link">@item</a>
+					</li>
+				}
+			</ul>
+		</div>
+	</section>
+
+}
+
+@helper RenderQuotes() {
+	var quote = "Can't believe I've landed something so quickly! Thank you again for all your assistance and getting me the interview in the first place. Thanks again, you have been great!";
+
+	<section class="o-section o-wrap o-wrap--x-large">
+		<div class="o-section__inner u-center-content">
+			@RenderQuote( quote, "Carl Jameson", "CEO" )
+		</div>
+	</section>
+
+}
+
+@helper RenderQuote(string quote = "", string source = "", string role = "") {
+
+    <blockquote class="c-quote o-wrap--medium o-wrap--center">
+        <div class="c-quote__copy">
+            @quote
+        </div>
+
+        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
+    </blockquote>
+}
