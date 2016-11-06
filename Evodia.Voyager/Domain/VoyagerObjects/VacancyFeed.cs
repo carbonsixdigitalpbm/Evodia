@@ -13,5 +13,23 @@ namespace Evodia.Voyager.Domain.VoyagerObjects
 
         [XmlElement(ElementName = "VacancyPosting")]
         public VacancyPosting VacancyPosting { get; set; }
+
+        [XmlIgnore]
+        public string FingerPrint { get; set; }
+
+        [XmlIgnore]
+        public bool New { get; set; }
+
+        //[XmlIgnore]
+        //public bool? Published { get; set; }
+
+        [XmlIgnore]
+        public bool Dirty { get; set; }
+
+        //[XmlIgnore]
+        //public int? UmbracoEventId { get; set; }
+
+        [XmlIgnore]
+        public bool Delete { get; set; }
     }
 }

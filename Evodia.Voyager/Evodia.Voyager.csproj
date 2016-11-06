@@ -114,9 +114,19 @@
     <Compile Include="Domain\VoyagerObjects\VacancyPosting.cs" />
     <Compile Include="Domain\VoyagerObjects\Voice.cs" />
     <Compile Include="EventHandlers\CheckVoyager.cs" />
+    <Compile Include="Exceptions\NoRootNodeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Evodia.Core\Evodia.Core.csproj">
+      <Project>{1888aa2d-f0e6-40f7-8f4e-05c256f3eef0}</Project>
+      <Name>Evodia.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evodia.Data\Evodia.Data.csproj">
+      <Project>{c80cee07-4820-41da-a9ac-1a5d57dbe0d7}</Project>
+      <Name>Evodia.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)Evodia.Web\bin\" /R /H /Y /D</PostBuildEvent>

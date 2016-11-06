@@ -12,7 +12,7 @@ namespace Evodia.Voyager.Controllers
             try
             {
                 var api = new Domain.Voyager(Services.ContentService);
-                api.Fetch();
+                api.SyncAll();
 
                 return Json(new {
                     status = "OK",
