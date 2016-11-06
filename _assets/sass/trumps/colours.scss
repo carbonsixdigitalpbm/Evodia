@@ -17,7 +17,8 @@
 }
 
 .u-background--dark,
-.u-background--blue {
+.u-background--blue,
+.u-background--blue-2 {
 	color: $white;
 
 	h1,
@@ -30,4 +31,12 @@
 
 .u-background--dark {
 	background-color: $dark-1;
+}
+
+.u-background--blue {
+	background-color: $blue-1;
+}
+
+.u-background--blue-2 {
+	background-color: $blue-2;
 }
