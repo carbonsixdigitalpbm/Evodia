@@ -1,0 +1,29 @@
+/* ===========================================================
+
+	# Mouse
+
+=========================================================== */
+
+.t-mouse {
+	position: relative;
+	display: block;
+	width: 13px;
+	height: 24px;
+	margin: 0 auto;
+	border: 1px solid $white;
+	border-radius: 12px;
+
+	&:before {
+		content: "";
+		position: absolute;
+		display: block;
+		top: 29%;
+		left: 50%;
+		width: 5px;
+		height: 5px;
+		margin: -4px 0 0 -3px;
+		background: $white;
+		border-radius: 50%;
+		animation: mouseWheel 2.5s linear infinite;
+	}
+}

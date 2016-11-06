@@ -43,6 +43,8 @@
 		'lib/slick.scss',
 		'lib/slick.theme.scss';
 
+@import 'animations/animations.scss';
+
 @import 'components/header.scss',
 		'components/nav.scss',
 		'components/header-compact.scss',
@@ -65,4 +67,5 @@
 @import 'trumps/overrides.scss',
 		'trumps/free-content.scss',
 		'trumps/colours.scss',
-		'trumps/decoration';
+		'trumps/decoration.scss',
+		'trumps/mouse.scss';
