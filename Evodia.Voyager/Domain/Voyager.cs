@@ -213,30 +213,107 @@ namespace Evodia.Voyager.Domain
 
         private static void SetVoyagerProperties(IContent newNode, VacancyFeed vacancy)
         {
-            newNode.Name = vacancy.VacancyPosting.Vacancy.JobTitle.Trim();
+            
 
             SetUmbracoProperty(newNode, "fingerprint", vacancy.FingerPrint);
 
-            SetUmbracoProperty(newNode, "jobReference", vacancy.VacancyPosting.Vacancy.JobReference);
-            SetUmbracoProperty(newNode, "jobType", vacancy.VacancyPosting.Vacancy.JobType);
-            SetUmbracoProperty(newNode, "sector", vacancy.VacancyPosting.Vacancy.Sector);
+            var vacancyPosting = vacancy.VacancyPosting;
 
-            SetUmbracoProperty(newNode, "location", vacancy.VacancyPosting.Vacancy.JobLocation.Location);
-            SetUmbracoProperty(newNode, "addressLine1", vacancy.VacancyPosting.Vacancy.JobLocation.AddressLine1);
-            SetUmbracoProperty(newNode, "addressLine2", vacancy.VacancyPosting.Vacancy.JobLocation.AddressLine2);
-            SetUmbracoProperty(newNode, "addressLine3", vacancy.VacancyPosting.Vacancy.JobLocation.AddressLine3);
-            SetUmbracoProperty(newNode, "town", vacancy.VacancyPosting.Vacancy.JobLocation.Town);
-            SetUmbracoProperty(newNode, "county", vacancy.VacancyPosting.Vacancy.JobLocation.County);
-            SetUmbracoProperty(newNode, "postcode", vacancy.VacancyPosting.Vacancy.JobLocation.Postcode);
-            SetUmbracoProperty(newNode, "country", vacancy.VacancyPosting.Vacancy.JobLocation.Country);
-            SetUmbracoProperty(newNode, "countryCode", vacancy.VacancyPosting.Vacancy.JobLocation.CountryCode);
+            if (vacancyPosting == null) return;
 
-            SetUmbracoProperty(newNode, "from", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.From);
-            SetUmbracoProperty(newNode, "to", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.To);
-            SetUmbracoProperty(newNode, "packageMin", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.PackageMin);
-            SetUmbracoProperty(newNode, "packageMax", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.PackageMax);
-            SetUmbracoProperty(newNode, "isoCurrency", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.IsoCurrency);
-            SetUmbracoProperty(newNode, "period", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.Period);
+            var vacancyElement = vacancyPosting.Vacancy;
+
+            if (vacancyElement != null)
+            {
+                newNode.Name = vacancyElement.JobTitle;
+
+                SetUmbracoProperty(newNode, "jobReference", vacancyElement.JobReference);
+                SetUmbracoProperty(newNode, "clientJobTitle", vacancyElement.ClientJobTitle);
+                SetUmbracoProperty(newNode, "jobType", vacancyElement.JobType);
+                SetUmbracoProperty(newNode, "sector", vacancyElement.Sector);
+                SetUmbracoProperty(newNode, "company", vacancyElement.Company);
+                SetUmbracoProperty(newNode, "contact", vacancyElement.Contact);
+                SetUmbracoProperty(newNode, "class1", vacancyElement.Class1);
+                SetUmbracoProperty(newNode, "class2", vacancyElement.Class2);
+                SetUmbracoProperty(newNode, "class3", vacancyElement.Class3);
+                SetUmbracoProperty(newNode, "jobDescription", vacancyElement.JobDescription);
+
+                var jobLocation = vacancyElement.JobLocation;
+
+                if (jobLocation != null)
+                {
+                    SetUmbracoProperty(newNode, "location", jobLocation.Location);
+                    SetUmbracoProperty(newNode, "addressLine1", jobLocation.AddressLine1);
+                    SetUmbracoProperty(newNode, "addressLine2", jobLocation.AddressLine2);
+                    SetUmbracoProperty(newNode, "addressLine3", jobLocation.AddressLine3);
+                    SetUmbracoProperty(newNode, "town", jobLocation.Town);
+                    SetUmbracoProperty(newNode, "county", jobLocation.County);
+                    SetUmbracoProperty(newNode, "postcode", jobLocation.Postcode);
+                    SetUmbracoProperty(newNode, "country", jobLocation.Country);
+                    SetUmbracoProperty(newNode, "countryCode", jobLocation.CountryCode);
+                }
+
+                var compensation = vacancyElement.Compensation;
+
+                if (compensation != null)
+                {
+                    var salaryDescription = compensation.SalaryDescription;
+
+                    if (salaryDescription != null)
+                    {
+                        var salaryRange = salaryDescription.SalaryRange;
+
+                        if (salaryRange != null)
+                        {
+                            SetUmbracoProperty(newNode, "from", salaryRange.From);
+                            SetUmbracoProperty(newNode, "to", salaryRange.To);
+                            SetUmbracoProperty(newNode, "packageMin", salaryRange.PackageMin);
+                            SetUmbracoProperty(newNode, "packageMax", salaryRange.PackageMax);
+                            SetUmbracoProperty(newNode, "isoCurrency", salaryRange.IsoCurrency);
+                            SetUmbracoProperty(newNode, "period", salaryRange.Period);
+                        }
+                    }
+                }
+            }
+
+            var consultants = vacancyPosting.Consultants;
+
+            if (consultants != null)
+            {
+                var consultant = vacancy.VacancyPosting.Consultants.Consultant.FirstOrDefault();
+
+                if (consultant != null)
+                {
+                    SetUmbracoProperty(newNode, "firstName", consultant.Name.First);
+                    SetUmbracoProperty(newNode, "lastName", consultant.Name.Last);
+                    SetUmbracoProperty(newNode, "emailAddress", consultant.EmailAddress);
+
+                    var phoneNumbers = consultant.PhoneNumbers;
+
+                    if (phoneNumbers != null)
+                    {
+                        var voice = phoneNumbers.Voice;
+                        var fax = phoneNumbers.Fax;
+                        var mobile = phoneNumbers.ConsultantMobile;
+
+                        if (voice != null)
+                        {
+                            SetUmbracoProperty(newNode, "voice", consultant.PhoneNumbers.Voice.TelNumber);
+                        }
+
+                        if (fax != null)
+                        {
+                            SetUmbracoProperty(newNode, "fax", consultant.PhoneNumbers.Fax.TelNumber);
+                        }
+
+                        if (mobile != null)
+                        {
+                            SetUmbracoProperty(newNode, "consultantMobile", consultant.PhoneNumbers.ConsultantMobile.TelNumber);
+                        }
+
+                    }
+                }
+            }
         }
 
         private static void SetUmbracoProperty(IContent node, string propertyAlias, string value)

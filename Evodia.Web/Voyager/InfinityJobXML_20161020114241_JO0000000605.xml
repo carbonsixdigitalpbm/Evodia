@@ -11,11 +11,11 @@
     </Account>
     <VacancyPosting>
         <Vacancy>
-            <AdvertStatus>Delete</AdvertStatus>
+            <AdvertStatus>New</AdvertStatus>
             <Attributes>
                 <Attribute>
-                    <Name>Degreee</Name>
-                    <Essential>D</Essential>
+                    <Name>Degree</Name>
+                    <Essential>E</Essential>
                 </Attribute>
                 <Attribute>
                     <Name>BTEC</Name>
@@ -55,7 +55,7 @@
             <Class1>Banking</Class1>
             <Class2>Small 1 to 15 </Class2>
             <Class3>£45,000 or over</Class3>
-            <JobDescription>Top salaries can easily exceed £70k.</JobDescription>
+            <JobDescription></JobDescription>
             <EndDate>
                 <Date>
                     <Day>1</Day>
@@ -82,7 +82,7 @@
                 <Country/>
                 <CountryCode/>
             </JobLocation>
-            <JobTitle>Part time sales assistant</JobTitle>
+            <JobTitle>Sales Manager</JobTitle>
             <JobType>Permanent</JobType>
             <OtherContacts>Richard Drake</OtherContacts>
             <ProjectCode/>

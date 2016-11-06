@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace Evodia.Voyager.Domain.VoyagerObjects
 {
@@ -8,6 +9,7 @@ namespace Evodia.Voyager.Domain.VoyagerObjects
         [XmlElement(ElementName = "SalaryDescription")]
         public SalaryDescription SalaryDescription { get; set; }
 
+        [DefaultValue("")]
         [XmlElement(ElementName = "Benefits")]
         public string Benefits { get; set; }
     }
