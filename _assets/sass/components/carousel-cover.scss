@@ -15,6 +15,8 @@
 		bottom: 4rem;
 		left: 0;
 		margin: auto;
+
+
 	}
 
 }
@@ -24,8 +26,42 @@
 
 	.c-carousel--cover {
 
+		&:after {
+			content: "";
+			width: 50%;
+			height: 1px;
+			display: block;
+			background-color: $white;
+			position: absolute;
+			right: 0;
+			bottom: 10.6rem;
+		}
+
 		.c-carousel__dots {
 			text-align: left;
+			padding-top: 4rem;
+
+			&:before {
+				content: "";
+				width: .8rem;
+				height: .8rem;
+				background-color: $white;
+				display: block;
+				position: absolute;
+				top: -.4rem;
+				left: 4rem;
+				border-radius: 50%;
+			}
+
+			&:after {
+				content: "";
+				width: 100%;
+				height: 1px;
+				background-color: $white;
+				display: block;
+				position: absolute;
+				top: 0;
+			}
 		}
 
 	}
