@@ -93,6 +93,123 @@
 
 }
 
+/* dots */
+
+.c-carousel__dots {
+    position: relative;
+    bottom: -25px;
+    list-style: none;
+    display: block;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    li {
+        position: relative;
+        display: inline-block;
+        width: 2.1rem;
+		height: 2.1rem;
+        margin: 0 .5rem;
+        padding: 0;
+        cursor: pointer;
+
+		&:before {
+			content: "";
+			width: 1.7rem;
+			height: .2rem;
+			display: block;
+			position: absolute;
+			top: -.6rem;
+			left: .2rem;
+			transition: background $speed $ease;
+		}
+
+		&.slick-active:before {
+			background-color: $pri;
+		}
+
+
+		&:hover,
+		&:focus,
+		&.slick-active {
+
+			button:before {
+				background-color: $pri;
+			}
+
+		}
+
+
+	}
+
+    button {
+        border: .2rem solid $pri;
+        background: transparent;
+        display: block;
+        height: 2.1rem;
+        width: 2.1rem;
+        outline: none;
+        line-height: 0;
+        font-size: 0;
+        color: transparent;
+        padding: .5rem;
+        cursor: pointer;
+		border-radius: 50%;
+
+        &:hover,
+		&:focus {
+            outline: none;
+        }
+
+        &:before {
+			content: "";
+			width: .7rem;
+            height: .7rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+			margin: .7rem;
+			border-radius: 50%;
+            line-height: 2.1rem;
+            text-align: center;
+			transition: background $speed $ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+}
+
+.c-carousel--invert {
+
+	.c-carousel__dots {
+
+		button {
+			border-color: $white;
+		}
+
+		li {
+			&.slick-active:before {
+				background-color: $white;
+			}
+
+
+			&:hover,
+			&:focus,
+			&.slick-active {
+
+				button:before {
+					background-color: $white;
+				}
+
+			}
+		}
+
+	}
+
+}
+
 @include respond-min( $mq-medium ) {
 
 	.c-carousel--prev,

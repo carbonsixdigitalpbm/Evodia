@@ -47,7 +47,7 @@
 
 
 	<section class="c-carousel o-section o-wrap o-wrap--medium">
-		<div class="o-section__inner u-center-content @carouselClass" data-nav="true" data-loop="true" data-fade="true">
+		<div class="o-section__inner u-center-content @carouselClass" data-nav="true" data-loop="true" data-fade="true" data-dots="true">
 			@RenderQuote( quote, "Carl Jameson", "CEO" )
 			@RenderQuote( quote, "Another person", "Random" )
 			@RenderQuote( quote, "Just someone", "" )
@@ -62,7 +62,7 @@
     <blockquote class="c-quote">
 		<div class="c-quote__inner">
 	        <div class="c-quote__copy">
-	            @quote
+	            "@quote"
 	        </div>
 
 	        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
