@@ -1,12 +1,12 @@
 angular.module("umbraco.resources").service("voyagerFactory", function($http, notificationsService) {
     var url = "/umbraco/surface/voyager/";
-    var voyagerResult = [];
+    var voyagerStatistics = [];
 
     var successCallBack = function(data) {
         if (data.status === "OK") {
-            angular.copy(data.data, voyagerResult);
+            angular.copy(data.data, voyagerStatistics);
 
-            console.log(data.data);
+            notificationsService.success("Success", "Voyager listing has been updated.");
         } else {
             notificationsService.error("Error", data.status);
         }
@@ -16,8 +16,15 @@ angular.module("umbraco.resources").service("voyagerFactory", function($http, no
         notificationsService.error("Error", data.status);
     };
 
-    this.sync = function () {
+    this.sync = function() {
         $http.post(url + "sync/").success(successCallBack).error(errorCallback);
     };
 
+    this.clearStatistic = function() {
+        voyagerStatistics.length = 0;
+    };
+
+    this.getStatistics = function() {
+        return voyagerStatistics;
+    };
 });

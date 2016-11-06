@@ -16,7 +16,7 @@ namespace Evodia.Voyager.Controllers
 
                 return Json(new {
                     status = "OK",
-                    data = "",
+                    data = api.GetStatistics(),
                     message = "Sync has been succesful."
                 }, JsonRequestBehavior.AllowGet);
 

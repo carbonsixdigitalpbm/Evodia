@@ -36,7 +36,7 @@ namespace Evodia.Voyager.Domain
             {
                 foreach (var filePath in GetXmlFilePaths())
                 {
-                    File.Delete(filePath);
+                    //File.Delete(filePath);
                     LogHelper.Info(GetType(), "Deleted XML fle:" + filePath);
                 }
             }
