@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace Evodia.Voyager.Domain.VoyagerObjects

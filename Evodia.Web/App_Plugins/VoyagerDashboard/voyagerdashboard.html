@@ -17,7 +17,7 @@
             <p>Created: {{ Statistics.Created || "0" }}</p>
             <p>Updated: {{ Statistics.Updated || "0"}}</p>
             <p>Deleted: {{ Statistics.Deleted || "0"}}</p>
-            <p>Time elapsed: {{ Statistics.TimeElapsed + " ms" || "0 ms"}}</p>
+            <p>Time elapsed: {{ Statistics.ElapsedSeconds || "0"}} ms</p>
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Xml.Serialization;
 using Evodia.Voyager.Common;
@@ -227,6 +228,13 @@ namespace Evodia.Voyager.Domain
             {
                 newNode.Name = vacancyElement.JobTitle;
 
+                var attributes = vacancyElement.Attributes;
+
+                if (attributes != null)
+                {
+                    SetNestedContentAttributes(newNode, "attributes", attributes);
+                }
+
                 SetUmbracoProperty(newNode, "jobReference", vacancyElement.JobReference);
                 SetUmbracoProperty(newNode, "clientJobTitle", vacancyElement.ClientJobTitle);
                 SetUmbracoProperty(newNode, "jobType", vacancyElement.JobType);
@@ -280,40 +288,73 @@ namespace Evodia.Voyager.Domain
 
             if (consultants != null)
             {
-                var consultant = vacancy.VacancyPosting.Consultants.Consultant.FirstOrDefault();
+                SetNestedContentConsultants(newNode, "consultants", consultants);
+            }
+        }
 
-                if (consultant != null)
+        private static void SetNestedContentConsultants(IContent newNode, string propertyAlias, Consultants consultants)
+        {
+            var ncItems = new List<dynamic>();
+
+            foreach (var consultant in consultants.Consultant)
+            {
+                dynamic ncItem = new ExpandoObject();
+
+                ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "consultant");
+                ((IDictionary<string, object>)ncItem).Add("firstName", consultant.Name.First);
+                ((IDictionary<string, object>)ncItem).Add("lastName", consultant.Name.Last);
+                ((IDictionary<string, object>)ncItem).Add("emailAddress", consultant.EmailAddress);
+
+                var phoneNumbers = consultant.PhoneNumbers;
+
+                if (phoneNumbers != null)
                 {
-                    SetUmbracoProperty(newNode, "firstName", consultant.Name.First);
-                    SetUmbracoProperty(newNode, "lastName", consultant.Name.Last);
-                    SetUmbracoProperty(newNode, "emailAddress", consultant.EmailAddress);
+                    var voice = phoneNumbers.Voice;
+                    var fax = phoneNumbers.Fax;
+                    var mobile = phoneNumbers.ConsultantMobile;
 
-                    var phoneNumbers = consultant.PhoneNumbers;
-
-                    if (phoneNumbers != null)
+                    if (voice != null)
                     {
-                        var voice = phoneNumbers.Voice;
-                        var fax = phoneNumbers.Fax;
-                        var mobile = phoneNumbers.ConsultantMobile;
+                        ((IDictionary<string, object>)ncItem).Add("voice", consultant.PhoneNumbers.Voice.TelNumber);
+                    }
 
-                        if (voice != null)
-                        {
-                            SetUmbracoProperty(newNode, "voice", consultant.PhoneNumbers.Voice.TelNumber);
-                        }
+                    if (fax != null)
+                    {
+                        ((IDictionary<string, object>)ncItem).Add("fax", consultant.PhoneNumbers.Fax.TelNumber);
+                    }
 
-                        if (fax != null)
-                        {
-                            SetUmbracoProperty(newNode, "fax", consultant.PhoneNumbers.Fax.TelNumber);
-                        }
-
-                        if (mobile != null)
-                        {
-                            SetUmbracoProperty(newNode, "consultantMobile", consultant.PhoneNumbers.ConsultantMobile.TelNumber);
-                        }
-
+                    if (mobile != null)
+                    {
+                        ((IDictionary<string, object>)ncItem).Add("consultantMobile", consultant.PhoneNumbers.ConsultantMobile.TelNumber);
                     }
                 }
+
+                ncItems.Add(ncItem);
             }
+
+            var ncItemString = Newtonsoft.Json.JsonConvert.SerializeObject(ncItems);
+
+            newNode.SetValue(propertyAlias, ncItemString);
+        }
+
+        private static void SetNestedContentAttributes(IContent newNode, string propertyAlias, Attributes attributes)
+        {
+            var ncItems = new List<dynamic>();
+
+            foreach (var attribute in attributes.Attribute)
+            {
+                dynamic ncItem = new ExpandoObject();
+
+                ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "attribute");
+                ((IDictionary<string, object>)ncItem).Add("name", attribute.Name);
+                ((IDictionary<string, object>)ncItem).Add("essential", attribute.Essential);
+
+                ncItems.Add(ncItem);
+            }
+
+            var ncItemString = Newtonsoft.Json.JsonConvert.SerializeObject(ncItems);
+
+            newNode.SetValue(propertyAlias, ncItemString);
         }
 
         private static void SetUmbracoProperty(IContent node, string propertyAlias, string value)

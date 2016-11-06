@@ -6,6 +6,8 @@ angular.module("umbraco.resources").service("voyagerFactory", function($http, no
         if (data.status === "OK") {
             angular.copy(data.data, voyagerStatistics);
 
+            console.log(data);
+
             notificationsService.success("Success", "Voyager listing has been updated.");
         } else {
             notificationsService.error("Error", data.status);

@@ -120,6 +120,20 @@
                 </PhoneNumbers>
                 <ConsultantDepartment/>
             </Consultant>
+            <Consultant>
+                <Name>
+                    <First>Paulius</First>
+                    <Last>Putna</Last>
+                </Name>
+                <EmailAddress>paulius.putna@myport.ac.uk</EmailAddress>
+                <PhoneNumbers>
+                    <ConsultantMobile>
+                        <AreaCode/>
+                        <TelNumber>07779333561</TelNumber>
+                    </ConsultantMobile>
+                </PhoneNumbers>
+                <ConsultantDepartment/>
+            </Consultant>
         </Consultants>
     </VacancyPosting>
 </VacancyFeed>
