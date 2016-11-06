@@ -12,6 +12,11 @@ $line-height-half: $line-height / 2;
 }
 
 .o-input,
+.o-textarea {
+	background-color: $white;
+}
+
+.o-input,
 .o-select select,
 .o-textarea {
 	-webkit-appearance: none;
@@ -40,18 +45,94 @@ $line-height-half: $line-height / 2;
 
 //= LABEL ====================================================
 
-.o-label {
-	font-weight: $bold;
-	padding-bottom: $line-height / 4;
+.no-enhance {
+
+	.o-label {
+		font-weight: $bold;
+		padding-bottom: $line-height / 4;
+	}
+
+	.o-label__note {
+		color: $border-colour;
+		float: right;
+		font-size: .8em;
+		font-style: italic;
+	}
+
 }
 
-.o-label__note {
-	color: $border-colour;
-	float: right;
-	font-size: .8em;
-	font-style: italic;
-}
+.enhance {
 
+	.o-label {
+		color: $grey-1;
+		font-size: 1.6rem;
+		position: absolute;
+		top: 0;
+		transform: translate( 1rem, 50% );
+		transition: color $speed $ease,
+					transform $speed $ease,
+					font-size $speed $ease;
+		will-change:color,
+					transform,
+					font-size;
+	}
+
+	.o-form__field {
+		position: relative;
+
+		input,
+		textarea {
+
+			&:focus {
+
+				& + .o-label {
+					font-size: 1.2rem;
+					transform: translate( 0, -100% );
+				}
+
+			}
+
+		}
+
+		&.has-value {
+
+			.o-label {
+				font-size: 1.2rem;
+				transform: translate( 0, -100% );
+			}
+
+		}
+
+	}
+
+	.o-form--invert .o-form__field {
+
+		input,
+		textarea {
+			background-color: $white;
+
+			&:focus {
+
+				& + .o-label {
+					color: $white;
+				}
+
+			}
+
+		}
+
+		&.has-value {
+
+			.o-label {
+				color: $white;
+			}
+
+		}
+
+
+	}
+
+}
 
 
 //= SELECT ===================================================
@@ -171,7 +252,7 @@ $line-height-half: $line-height / 2;
 					border-color: $pri;
 				}
 
-				+ .o-radio__label:before {
+				+ .o-checkbox__label:after {
 					opacity: 1;
 				}
 
