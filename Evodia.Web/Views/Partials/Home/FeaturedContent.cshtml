@@ -1,0 +1,30 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+
+<section class="c-carousel c-carousel--invert c-carousel--cover js-carousel" data-dots="true" data-loop="true">
+	@RenderSlide( "Management" )
+	@RenderSlide( "Operations", 1222 )
+	@RenderSlide( "Systems engineer", 1218 )
+</section>
+
+@helper RenderSlide( string headline = "", int imageId = 1221 ) {
+	var image = Umbraco.TypedMedia( imageId );
+	var hasImage = image != null ? true : false;
+	var imageUrl = "";
+
+	if( hasImage ) {
+		imageUrl = Url.GetCropUrl(image, cropAlias: "16:9", width: 1600, quality: 95, htmlEncode: false).ToString();
+	}
+
+	<article class="c-cover" style="background-image: url( @imageUrl );">
+		<div class="c-cover__wrap o-wrap--large">
+			<div class="c-cover__content">
+				<h1 class="c-cover__headline">@headline</h1>
+				<div class="c-cover__copy">
+					<p>Donec sed odio dui. Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue.</p>
+				</div>
+			</div>
+		</div>
+	</article>
+
+}

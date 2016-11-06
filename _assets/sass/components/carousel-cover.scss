@@ -1,0 +1,33 @@
+/* ===========================================================
+
+	# Carousel
+
+=========================================================== */
+
+.c-carousel--cover {
+
+	.c-carousel__dots {
+		max-width: $wrap-large;
+		padding-left: 4rem;
+		padding-right: 4rem;
+		position: absolute;
+		right: 0;
+		bottom: 4rem;
+		left: 0;
+		margin: auto;
+	}
+
+}
+
+
+@include respond-min( $mq-medium ) {
+
+	.c-carousel--cover {
+
+		.c-carousel__dots {
+			text-align: left;
+		}
+
+	}
+
+}
