@@ -5,11 +5,13 @@
 =========================================================== */
 
 .t-mouse {
-	position: relative;
+	position: absolute;
+	right: 50%;
+	bottom: 4rem;
 	display: block;
 	width: 13px;
 	height: 24px;
-	margin: 0 auto;
+	margin-left: -7px;
 	border: 1px solid $white;
 	border-radius: 12px;
 
@@ -25,5 +27,17 @@
 		background: $white;
 		border-radius: 50%;
 		animation: mouseWheel 2.5s linear infinite;
+	}
+
+	&:after {
+		content: "";
+	    width: 1px;
+	    background: $white;
+	    height: 4rem;
+	    position: absolute;
+	    top: 100%;
+	    left: 50%;
+		margin-top: 1px;
+	    margin-left: -1px;
 	}
 }

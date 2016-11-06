@@ -7,8 +7,9 @@
 .c-hero {
 	color: $white;
 	background-color: $blue-2;
+	position: relative;
 }
 
 .c-hero__headline {
-	color: $white;
+	color: inherit;
 }
