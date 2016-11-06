@@ -229,7 +229,7 @@ $line-height-half: $line-height / 2;
 			content: "";
 			width: 2rem;
 			height: 2rem;
-			background: transparent;
+			background: $white;
 			border: $border-width solid $border-colour;
 			box-sizing: border-box;
 			content: '';
