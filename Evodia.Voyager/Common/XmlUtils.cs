@@ -23,5 +23,17 @@ namespace Evodia.Voyager.Common
 
             return result;
         }
+
+        public static string SerializeToString<T>(T toSerialize)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(toSerialize.GetType());
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(textWriter, toSerialize);
+
+                return textWriter.ToString();
+            }
+        }
     }
 }

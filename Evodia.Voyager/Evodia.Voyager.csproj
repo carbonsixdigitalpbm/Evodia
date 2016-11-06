@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Hash.cs" />
     <Compile Include="Common\XmlUtils.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\VoyagerController.cs" />

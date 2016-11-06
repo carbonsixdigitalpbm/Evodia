@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Xml.Serialization;
+using Evodia.Voyager.Common;
 using Evodia.Voyager.Domain.VoyagerObjects;
 using Evodia.Voyager.Exceptions;
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using Umbraco.Web;
 using File = System.IO.File;
 
 namespace Evodia.Voyager.Domain
@@ -31,25 +31,27 @@ namespace Evodia.Voyager.Domain
 
         public void Fetch()
         {
-            var fileNames = _api.GetXmlFileNames();
+            var xmlFilePaths = _api.GetXmlFilePaths();
 
-            foreach (var fileName in fileNames)
+            foreach (var filePath in xmlFilePaths)
             {
-                ReadAndDeserializeXmlFile(fileName);
+                ReadAndDeserializeXmlFile(filePath);
             }
         }
 
         public void SyncAll()
         {
-            var jobsRoot = GetPublishedJobsRoot();
-
-            CheckVoyagerProperties(jobsRoot);
+            CheckVoyagerProperties();
             Fetch();
             CheckAgaintUmbracoNodes(_jobs);
 
             foreach (var job in _jobs)
             {
-                if (job.New)
+                if (job.Delete)
+                {
+                    DeleteSingle(job);
+                }
+                else if (job.New)
                 {
                     CreateSingle(job);
                 }
@@ -57,61 +59,112 @@ namespace Evodia.Voyager.Domain
                 {
                     SyncSingle(job);
                 }
-                else if (job.Delete)
+            }
+
+            _api.DeleteXmlFiles();
+        }
+
+        private void DeleteSingle(VacancyFeed vacancy)
+        {
+            try
+            {
+                var jobsRoot = GetJobsRoot();
+                var allDecendants = jobsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
+                var nodeToDelete =
+                    allDecendants.SingleOrDefault(
+                        d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
+
+                if (nodeToDelete != null)
                 {
-                    DeleteSingle(job);
+                    _contentService.Delete(nodeToDelete);
                 }
+
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Info(GetType(),
+                    "Failed to DETELE vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
             }
         }
 
-        private void CreateSingle(VacancyFeed job)
+        private void SyncSingle(VacancyFeed vacancy)
         {
-            LogHelper.Info(GetType(), "Create job: " + job.VacancyPosting.Vacancy.JobReference);
+            try
+            {
+                var jobsRoot = GetJobsRoot();
+                var allDecendants = jobsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
+                var nodeToSync =
+                    allDecendants.SingleOrDefault(
+                        d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
+
+                if (nodeToSync == null) return;
+
+                SetVoyagerProperties(nodeToSync, vacancy);
+
+                _contentService.SaveAndPublishWithStatus(nodeToSync);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Info(GetType(),
+                    "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
+            }
         }
 
-        private void DeleteSingle(VacancyFeed job)
+        public void CreateSingle(VacancyFeed vacancy)
         {
-            LogHelper.Info(GetType(), "Delete job: " + job.VacancyPosting.Vacancy.JobReference);
-        }
+            try
+            {
+                var newNode = _contentService.CreateContent(vacancy.VacancyPosting.Vacancy.JobTitle.Trim(), Data.Constants.JobsFolderId, "vacancy");
 
-        private void SyncSingle(VacancyFeed job)
-        {
-            LogHelper.Info(GetType(), "Sync job: " + job.VacancyPosting.Vacancy.JobReference);
+                SetVoyagerProperties(newNode, vacancy);
+
+                _contentService.SaveAndPublishWithStatus(newNode);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Info(GetType(),
+                    "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
+            }
         }
 
         private void CheckAgaintUmbracoNodes(IEnumerable<VacancyFeed> vacancies)
         {
             try
             {
-                var eventsRoot = GetJobsRoot();
-                var allDecendants = eventsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
+                var jobsRoot = GetJobsRoot();
+                var allDecendants = jobsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
 
                 foreach (var vacancy in vacancies)
                 {
-                    var productionNode = allDecendants.SingleOrDefault(d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
-
-                    if (productionNode == null)
+                    if (vacancy.VacancyPosting.Vacancy.AdvertStatus.Equals("Delete", StringComparison.OrdinalIgnoreCase))
                     {
-                        vacancy.New = true;
+                        vacancy.Delete = true;
                     }
                     else
                     {
-                        vacancy.New = false;
-                        //vacancy.Published = productionNode.Published;
-                        //vacancy.UmbracoEventId = productionNode.Id;
-                        vacancy.Dirty = vacancy.FingerPrint != productionNode.GetValue<string>("fingerprint");
-                        vacancy.Delete = vacancy.VacancyPosting.Vacancy.AdvertStatus.Equals("Delete",
-                            StringComparison.OrdinalIgnoreCase);
+                        vacancy.Delete = false;
+
+                        var vacancyNode = allDecendants.SingleOrDefault(d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
+
+                        if (vacancyNode == null)
+                        {
+                            vacancy.New = true;
+                        }
+                        else
+                        {
+                            vacancy.New = false;
+                            vacancy.Dirty = vacancy.FingerPrint != vacancyNode.GetValue<string>("fingerprint");
+                        }
                     }
                 }
             }
             catch (Exception)
             {
-                throw new DuplicateNameException("Two productions have the same Voyager Job Reference. Please check your productions.");
+                throw new DuplicateNameException("Two vacancies have the same Voyager Job Reference. Please check your vacancies.");
             }
         }
 
-        private static void CheckVoyagerProperties(IPublishedContent jobsRoot)
+        private static void CheckVoyagerProperties()
         {
             var cs = ApplicationContext.Current.Services.ContentTypeService;
 
@@ -144,50 +197,12 @@ namespace Evodia.Voyager.Domain
             return content;
         }
 
-        //public IContent CreateSingle(VacancyFeed vacancy)
-        //{
-        //    var newNode = _contentService.CreateContent(vacancy.VacancyPosting.Vacancy.JobTitle.Trim(), Data.Constants.JobsRootId, "job");
-
-        //    SetVoyagerProperties(newNode, vacancy);
-
-        //   _contentService.SaveAndPublishWithStatus(newNode);
-
-        //    return newNode;
-        //}
-
         private static void SetVoyagerProperties(IContent newNode, VacancyFeed vacancy)
         {
-
             newNode.Name = vacancy.VacancyPosting.Vacancy.JobTitle.Trim();
-            newNode.SetValue("title", vacancy.VacancyPosting.Vacancy.JobTitle.Trim());
-            //newNode.SetValue("duration", production.Duration.ToString());
-            //newNode.SetValue("prices", production.Pricing.FormattedPrices);
-            //newNode.SetValue("venue", venues.Trim());
-            //newNode.SetValue("multidate", json);
-            //newNode.SetValue("patronBaseId", production.ProductionId);
-            //newNode.SetValue("fingerprint", production.FingerPrint);
-        }
 
-        private static IPublishedContent GetPublishedJobsRoot()
-        {
-            var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            IPublishedContent eventsRoot;
-
-            try
-            {
-                eventsRoot = umbracoHelper.TypedContent(Data.Constants.JobsRootId).Descendant("job");
-            }
-            catch (Exception)
-            {
-                throw new Exception("Could not find an Jobs node in root");
-            }
-
-            if (eventsRoot == null)
-            {
-                throw new Exception("Could not find an Jobs node in root");
-            }
-
-            return eventsRoot;
+            newNode.SetValue("jobReference", vacancy.VacancyPosting.Vacancy.JobReference);
+            newNode.SetValue("fingerprint", vacancy.FingerPrint);
         }
 
         public void ReadAndDeserializeXmlFile(string path)
@@ -202,14 +217,24 @@ namespace Evodia.Voyager.Domain
                     job = (VacancyFeed)serializer.Deserialize(file);
                 }
 
-                if (job != null)
+                if (job == null) return;
+
+                if (_jobs.SingleOrDefault(j => j.VacancyPosting.Vacancy.JobReference == job.VacancyPosting.Vacancy.JobReference) == null)
                 {
+                    job.FingerPrint = Hash.CreateMd5(XmlUtils.SerializeToString(job));
+
                     _jobs.Add(job);
                 }
+                else
+                {
+                    LogHelper.Info(GetType(), "Job with reference " + job.VacancyPosting.Vacancy.JobReference + " already exists.");
+                }
+
             }
             catch (Exception ex)
             {
                 LogHelper.Warn(GetType(), ex.Message);
+
                 throw;
             }
         }
