@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Xml.Serialization;
 using Evodia.Voyager.Common;
+using Evodia.Voyager.Domain.Models;
 using Evodia.Voyager.Domain.VoyagerObjects;
 using Evodia.Voyager.Exceptions;
 using Umbraco.Core;
@@ -22,11 +23,14 @@ namespace Evodia.Voyager.Domain
 
         private readonly VoyagerApi _api;
 
+        public Stats Statistics;
+
         public Voyager(IContentService contentService)
         {
             _contentService = contentService;
             _jobs = new List<VacancyFeed>();
             _api = VoyagerApi.Instance();
+            Statistics = new Stats();
         }
 
         public void Fetch()
@@ -39,8 +43,14 @@ namespace Evodia.Voyager.Domain
             }
         }
 
+        public Stats GetStatistics()
+        {
+            return Statistics;
+        }
+
         public void SyncAll()
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             CheckVoyagerProperties();
             Fetch();
             CheckAgaintUmbracoNodes(_jobs);
@@ -62,6 +72,9 @@ namespace Evodia.Voyager.Domain
             }
 
             _api.DeleteXmlFiles();
+            watch.Stop();
+
+            Statistics.ElapsedSeconds = watch.Elapsed.TotalSeconds;
         }
 
         private void DeleteSingle(VacancyFeed vacancy)
@@ -71,19 +84,19 @@ namespace Evodia.Voyager.Domain
                 var jobsRoot = GetJobsRoot();
                 var allDecendants = jobsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
                 var nodeToDelete =
-                    allDecendants.SingleOrDefault(
-                        d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
+                    allDecendants.SingleOrDefault(d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
 
                 if (nodeToDelete != null)
                 {
                     _contentService.Delete(nodeToDelete);
+
+                    Statistics.Deleted++;
                 }
 
             }
             catch (Exception ex)
             {
-                LogHelper.Info(GetType(),
-                    "Failed to DETELE vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
+                LogHelper.Info(GetType(), "Failed to DETELE vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
             }
         }
 
@@ -94,19 +107,19 @@ namespace Evodia.Voyager.Domain
                 var jobsRoot = GetJobsRoot();
                 var allDecendants = jobsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
                 var nodeToSync =
-                    allDecendants.SingleOrDefault(
-                        d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
+                    allDecendants.SingleOrDefault(d => d.GetValue<string>("jobReference") == vacancy.VacancyPosting.Vacancy.JobReference);
 
                 if (nodeToSync == null) return;
 
                 SetVoyagerProperties(nodeToSync, vacancy);
 
                 _contentService.SaveAndPublishWithStatus(nodeToSync);
+
+                Statistics.Updated++;
             }
             catch (Exception ex)
             {
-                LogHelper.Info(GetType(),
-                    "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
+                LogHelper.Info(GetType(), "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
             }
         }
 
@@ -114,16 +127,17 @@ namespace Evodia.Voyager.Domain
         {
             try
             {
-                var newNode = _contentService.CreateContent(vacancy.VacancyPosting.Vacancy.JobTitle.Trim(), Data.Constants.JobsFolderId, "vacancy");
+                var newNode = _contentService.CreateContent(vacancy.VacancyPosting.Vacancy.JobTitle.Trim(), Data.Constants.JobsFolderId, "job");
 
                 SetVoyagerProperties(newNode, vacancy);
 
                 _contentService.SaveAndPublishWithStatus(newNode);
+
+                Statistics.Created++;
             }
             catch (Exception ex)
             {
-                LogHelper.Info(GetType(),
-                    "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
+                LogHelper.Info(GetType(), "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
             }
         }
 
@@ -201,8 +215,36 @@ namespace Evodia.Voyager.Domain
         {
             newNode.Name = vacancy.VacancyPosting.Vacancy.JobTitle.Trim();
 
-            newNode.SetValue("jobReference", vacancy.VacancyPosting.Vacancy.JobReference);
-            newNode.SetValue("fingerprint", vacancy.FingerPrint);
+            SetUmbracoProperty(newNode, "fingerprint", vacancy.FingerPrint);
+
+            SetUmbracoProperty(newNode, "jobReference", vacancy.VacancyPosting.Vacancy.JobReference);
+            SetUmbracoProperty(newNode, "jobType", vacancy.VacancyPosting.Vacancy.JobType);
+            SetUmbracoProperty(newNode, "sector", vacancy.VacancyPosting.Vacancy.Sector);
+
+            SetUmbracoProperty(newNode, "location", vacancy.VacancyPosting.Vacancy.JobLocation.Location);
+            SetUmbracoProperty(newNode, "addressLine1", vacancy.VacancyPosting.Vacancy.JobLocation.AddressLine1);
+            SetUmbracoProperty(newNode, "addressLine2", vacancy.VacancyPosting.Vacancy.JobLocation.AddressLine2);
+            SetUmbracoProperty(newNode, "addressLine3", vacancy.VacancyPosting.Vacancy.JobLocation.AddressLine3);
+            SetUmbracoProperty(newNode, "town", vacancy.VacancyPosting.Vacancy.JobLocation.Town);
+            SetUmbracoProperty(newNode, "county", vacancy.VacancyPosting.Vacancy.JobLocation.County);
+            SetUmbracoProperty(newNode, "postcode", vacancy.VacancyPosting.Vacancy.JobLocation.Postcode);
+            SetUmbracoProperty(newNode, "country", vacancy.VacancyPosting.Vacancy.JobLocation.Country);
+            SetUmbracoProperty(newNode, "countryCode", vacancy.VacancyPosting.Vacancy.JobLocation.CountryCode);
+
+            SetUmbracoProperty(newNode, "from", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.From);
+            SetUmbracoProperty(newNode, "to", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.To);
+            SetUmbracoProperty(newNode, "packageMin", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.PackageMin);
+            SetUmbracoProperty(newNode, "packageMax", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.PackageMax);
+            SetUmbracoProperty(newNode, "isoCurrency", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.IsoCurrency);
+            SetUmbracoProperty(newNode, "period", vacancy.VacancyPosting.Vacancy.Compensation.SalaryDescription.SalaryRange.Period);
+        }
+
+        private static void SetUmbracoProperty(IContent node, string propertyAlias, string value)
+        {
+            if (node.HasProperty(propertyAlias) && !string.IsNullOrEmpty(value))
+            {
+                node.SetValue(propertyAlias, value);
+            }
         }
 
         public void ReadAndDeserializeXmlFile(string path)
@@ -234,8 +276,6 @@ namespace Evodia.Voyager.Domain
             catch (Exception ex)
             {
                 LogHelper.Warn(GetType(), ex.Message);
-
-                throw;
             }
         }
     }
