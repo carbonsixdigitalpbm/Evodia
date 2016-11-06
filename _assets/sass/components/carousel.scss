@@ -1,0 +1,112 @@
+/* ===========================================================
+
+	# Carousel
+
+=========================================================== */
+
+.js-carousel {
+
+	.c-carousel__item {
+		display: none;
+	}
+
+	.c-carousel__item--first {
+		display: block;
+	}
+
+	&.slick-initialized {
+
+		.c-carousel__item {
+			display: block;
+		}
+
+	}
+
+}
+
+.c-carousel {
+	position: relative;
+}
+
+.c-carousel--prev,
+.c-carousel--next {
+	font-size: 3.2rem;
+	position: absolute;
+	top: 50%;
+	z-index: 2;
+	line-height: 1;
+	transform: translateY( -50% );
+
+	&:before {
+		color: $pri;
+		transition: color $speed $ease;
+	}
+
+	i {
+		color: $white;
+		font-size: 1rem;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		left: 0;
+		text-align: center;
+		margin-top: -.8rem;
+	}
+
+	&:hover,
+	&:focus {
+
+		&:before {
+			color: darken( $pri, 10 );
+		}
+
+	}
+
+	&.slick-disabled {
+		&:before {
+			color: lighten( $pri, 20 );
+		}
+	}
+}
+
+.c-carousel--prev {
+	left: 0;
+}
+
+.c-carousel--next {
+	right: 0;
+}
+
+.c-carousel--invert {
+
+	.c-carousel--prev,
+	.c-carousel--next {
+		color: $white;
+		opacity: .5;
+		transition: opacity $speed $ease;
+
+		&:hover,
+		&:focus {
+			opacity: 1;
+		}
+	}
+
+}
+
+@include respond-min( $mq-medium ) {
+
+	.c-carousel--prev,
+	.c-carousel--next {
+		font-size: 4.8rem;
+	}
+
+	.c-carousel--prev {
+		left: -2.4rem;
+	}
+
+	.c-carousel--next {
+		right: -2.4rem;
+	}
+
+
+}

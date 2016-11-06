@@ -42,9 +42,16 @@
 @helper RenderQuotes() {
 	var quote = "Can't believe I've landed something so quickly! Thank you again for all your assistance and getting me the interview in the first place. Thanks again, you have been great!";
 
-	<section class="o-section o-wrap o-wrap--x-large">
-		<div class="o-section__inner u-center-content">
+	var isCarousel = true;
+	var carouselClass = isCarousel ? "js-carousel" : "";
+
+
+	<section class="c-carousel o-section o-wrap o-wrap--medium">
+		<div class="o-section__inner u-center-content @carouselClass" data-nav="true" data-loop="true" data-fade="true">
 			@RenderQuote( quote, "Carl Jameson", "CEO" )
+			@RenderQuote( quote, "Another person", "Random" )
+			@RenderQuote( quote, "Just someone", "" )
+
 		</div>
 	</section>
 
@@ -52,11 +59,13 @@
 
 @helper RenderQuote(string quote = "", string source = "", string role = "") {
 
-    <blockquote class="c-quote o-wrap--medium o-wrap--center">
-        <div class="c-quote__copy">
-            @quote
-        </div>
+    <blockquote class="c-quote">
+		<div class="c-quote__inner">
+	        <div class="c-quote__copy">
+	            @quote
+	        </div>
 
-        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
+	        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
+		</div>
     </blockquote>
 }

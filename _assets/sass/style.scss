@@ -39,6 +39,10 @@
 		'objects/aspect.scss',
 		'objects/icons.scss';
 
+@import 'lib/magnific-popup.scss',
+		'lib/slick.scss',
+		'lib/slick.theme.scss';
+
 @import 'components/header.scss',
 		'components/nav.scss',
 		'components/header-compact.scss',
@@ -46,6 +50,7 @@
 		'components/article.scss',
 		'components/meta-data.scss',
 		'components/hero.scss',
+		'components/carousel.scss',
 		'components/quote.scss',
 		'components/cover.scss',
 		'components/footer.scss',
