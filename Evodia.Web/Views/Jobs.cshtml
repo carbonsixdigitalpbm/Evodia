@@ -1,4 +1,14 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@using Evodia.Data.Data
+@inherits UmbracoViewPage<IPublishedContent>
 @{
-	Layout = null;
+	Layout = "Master.cshtml";
+
+    var jobs = JobsRepository.AllJobs(Umbraco);
 }
+
+<div class="o-section o-wrap o-wrap--large">
+    @foreach (var job in jobs)
+    {
+        <h2>@job.Name</h2>
+    }
+</div>

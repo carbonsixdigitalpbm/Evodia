@@ -2251,6 +2251,8 @@
     <Content Include="Views\Styleguide.cshtml" />
     <Content Include="Views\TextPage.cshtml" />
     <Content Include="Views\XMLSitemap.cshtml" />
+    <Content Include="Views\Job.cshtml" />
+    <Content Include="Views\Jobs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2284,6 +2286,20 @@
     <Folder Include="App_Data\NuGetBackup\20161103-211047\Umbraco_Client\" />
     <Folder Include="App_Data\packages\created\" />
     <Folder Include="App_Data\TEMP\Install\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Evodia.Core\Evodia.Core.csproj">
+      <Project>{1888aa2d-f0e6-40f7-8f4e-05c256f3eef0}</Project>
+      <Name>Evodia.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evodia.Data\Evodia.Data.csproj">
+      <Project>{c80cee07-4820-41da-a9ac-1a5d57dbe0d7}</Project>
+      <Name>Evodia.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evodia.Voyager\Evodia.Voyager.csproj">
+      <Project>{58c66098-e388-4cdd-8470-beee113d02d9}</Project>
+      <Name>Evodia.Voyager</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
