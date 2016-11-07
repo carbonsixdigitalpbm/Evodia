@@ -25,26 +25,19 @@
     if (!string.IsNullOrEmpty(Request.QueryString["search"]))
     {
 
-        //Fetching what eva searchterm some bloke is throwin' our way
         var q = Request.QueryString["search"].Trim();
+        var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
 
-        //Fetching our SearchProvider by giving it the name of our searchprovider
-        var Searcher = Examine.ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
-
-        var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
+        var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
         var query = searchCriteria.Field("nodeName", q.Boost(3)).Or().Field("jobDescription", q.Fuzzy());
+        var searchResults = searcher.Search(query.Compile()).OrderByDescending(x => x.Score).TakeWhile(x => x.Score > 0.05f);
 
-
-        //Searching and ordering the result by score, and we only want to get the results that has a minimum of 0.05(scale is up to 1.)
-        var searchResults = Searcher.Search(query.Compile()).OrderByDescending(x => x.Score).TakeWhile(x => x.Score > 0.05f);
-
-        //Printing the results
         <ul>
             @foreach (var item in searchResults)
             {
-                
+                var umbracoPage = Umbraco.TypedContent(item.Id);
                 <li>
-                    @item.Id
+                    @umbracoPage.Name @item.Score
                 </li>
             }
         </ul>
@@ -52,3 +45,56 @@
 }
 </div>
 
+<div class="o-section o-wrap o-wrap--large">
+    <h2>Another Examine search</h2>
+    @{
+        var term = Request["search"];
+        var criteria = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"].CreateSearchCriteria();
+        IBooleanOperation filter = null;
+        var fields = new string[] { "nodeName", "jobDescription" };
+
+        foreach (var t in term.Split(' '))
+        {
+            if (filter == null)
+            {
+                filter = criteria.GroupedOr(fields, t);
+            }
+            else
+            {
+                filter = filter.And().GroupedOr(fields, t);
+            }
+        }
+
+        if (filter == null)
+        {
+            filter = criteria.GroupedOr(fields, term);
+        }
+        else
+        {
+            filter = filter.And().GroupedOr(fields, term);
+        }
+
+
+        filter.Not().Field("umbracoNaviHide", "1");
+
+        var results = ExamineManager.Instance
+          .SearchProviderCollection["JobsSearchSearcher"]
+          .Search(filter.Compile())
+          .OrderByDescending(x => x.Score);
+    }
+
+    @if (results.Any())
+    {
+        <p>@results.Count() found for @term</p>
+        foreach (var item in results)
+        {
+            var umbracoPage = Umbraco.TypedContent(item.Id);
+
+            <p>@umbracoPage.Name @item.Score</p>
+        }
+    }
+    else
+    {
+        <p>No results found for @term</p>
+    }
+</div>
