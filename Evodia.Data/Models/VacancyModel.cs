@@ -1,4 +1,5 @@
-﻿using Umbraco.Core.Models;
+﻿using System.Globalization;
+using Umbraco.Core.Models;
 
 namespace Evodia.Data.Models
 {
@@ -10,10 +11,19 @@ namespace Evodia.Data.Models
         {
         }
 
+        public string JobType
+        {
+            get
+            {
+                return this.GetProperty<string>("jobType");
+                
+            }
+        }
+
         public string Location {
             get
             {
-                return "";
+                return this.GetProperty<string>("county");
                 
             }
         }
@@ -22,7 +32,7 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return "";
+                return this.GetProperty<string>("sector");
 
             }
         }
@@ -31,7 +41,17 @@ namespace Evodia.Data.Models
         {
             get
             {
+                var salaryString = this.GetProperty<string>("from");
+                double salary;
+                var isValidNumber = double.TryParse(salaryString, NumberStyles.Number, null, out salary);
+
+                if (isValidNumber)
+                {
+                    return salary;
+                }
+
                 return 0;
+                
                 
             }
         }

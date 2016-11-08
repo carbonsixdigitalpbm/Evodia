@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,10 @@ namespace Evodia.Data.Controllers
 {
     public class JobsSurfaceController : SurfaceController
     {
-        public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "")
+        public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "", string type = "")
         {
             List<VacancyModel> allJobs;
+
             if (titleOnly && !string.IsNullOrEmpty(keywords))
             {
                 allJobs = SearchJobsByTitleOnly(keywords);
@@ -37,10 +39,11 @@ namespace Evodia.Data.Controllers
 
                     allJobs = JobsRepository.AllJobs(umbracoHelper).ToList();
                 }
-                
-                SearchJobsByLocation(allJobs, location);
-                SearchJobsBySector(allJobs, sector);
-                SearchJobsBySalary(allJobs, salary);
+
+                allJobs = SearchJobsByType(allJobs, type);
+                allJobs = SearchJobsByLocation(allJobs, location);
+                allJobs = SearchJobsBySector(allJobs, sector);
+                allJobs = SearchJobsBySalary(allJobs, salary);
             }
 
             var pagedJobs = allJobs.Skip(offset * size).Take(size);
@@ -48,18 +51,46 @@ namespace Evodia.Data.Controllers
             return View(pagedJobs);
         }
 
-        private List<VacancyModel> SearchJobsBySalary(List<VacancyModel> jobs, string salary)
+        private static List<VacancyModel> SearchJobsByType(List<VacancyModel> jobs, string type)
         {
+            if (!string.IsNullOrEmpty(type))
+            {
+                jobs = jobs.Where(j => j.Sector.Equals(type, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
             return jobs;
         }
 
-        private List<VacancyModel> SearchJobsBySector(List<VacancyModel> jobs, string sector)
+        private static List<VacancyModel> SearchJobsBySalary(List<VacancyModel> jobs, string salaryString)
         {
+            double salary;
+            var isValidNumber = double.TryParse(salaryString, NumberStyles.Number, null, out salary);
+
+            if (isValidNumber)
+            {
+                jobs = jobs.Where(j => j.Salary > salary).ToList();
+            }
+
             return jobs;
         }
 
-        private List<VacancyModel> SearchJobsByLocation(List<VacancyModel> jobs, string location)
+        private static List<VacancyModel> SearchJobsBySector(List<VacancyModel> jobs, string sector)
         {
+            if (!string.IsNullOrEmpty(sector))
+            {
+                jobs = jobs.Where(j => j.Sector.Equals(sector, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            return jobs;
+        }
+
+        private static List<VacancyModel> SearchJobsByLocation(List<VacancyModel> jobs, string location)
+        {
+            if (!string.IsNullOrEmpty(location))
+            {
+                jobs = jobs.Where(j => j.Sector.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
             return jobs;
         }
 
