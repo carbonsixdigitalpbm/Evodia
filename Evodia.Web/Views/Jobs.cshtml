@@ -20,6 +20,33 @@
 </div>
 
 <div class="o-section o-wrap o-wrap--large">
+    <h2>Title only search</h2>
+    @{
+        if (!string.IsNullOrEmpty(Request.QueryString["search"]))
+        {
+            var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
+            var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
+            var terms = Request.QueryString["search"];
+            var luceneString = "nodeName:";
+            luceneString += "(+" + terms.Replace(" ", " +") + ")^5 ";
+            luceneString += "nodeName:" + terms;
+            var query = searchCriteria.RawQuery(luceneString);
+            var searchResults = searcher.Search(query).OrderByDescending(x => x.Score).TakeWhile(x => x.Score > 0.05f);
+
+            <ul>
+                @foreach (var item in searchResults)
+                {
+                    var umbracoPage = Umbraco.TypedContent(item.Id);
+                    <li>
+                        @umbracoPage.Name @item.Score
+                    </li>
+                }
+            </ul>
+        }
+    }
+</div>
+
+<div class="o-section o-wrap o-wrap--large">
     <h2>Examine search</h2>
 @{
     if (!string.IsNullOrEmpty(Request.QueryString["search"]))
@@ -48,53 +75,57 @@
 <div class="o-section o-wrap o-wrap--large">
     <h2>Another Examine search</h2>
     @{
-        var term = Request["search"];
-        var criteria = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"].CreateSearchCriteria();
-        IBooleanOperation filter = null;
-        var fields = new string[] { "nodeName", "jobDescription" };
-
-        foreach (var t in term.Split(' '))
+        if (!string.IsNullOrEmpty(Request.QueryString["search"]))
         {
+            var term = Request["search"];
+            var criteria = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"].CreateSearchCriteria();
+            IBooleanOperation filter = null;
+            var fields = new string[] { "nodeName", "jobDescription" };
+
+            foreach (var t in term.Split(' '))
+            {
+                if (filter == null)
+                {
+                    filter = criteria.GroupedOr(fields, t);
+                }
+                else
+                {
+                    filter = filter.And().GroupedOr(fields, t);
+                }
+            }
+
             if (filter == null)
             {
-                filter = criteria.GroupedOr(fields, t);
+                filter = criteria.GroupedOr(fields, term);
             }
             else
             {
-                filter = filter.And().GroupedOr(fields, t);
+                filter = filter.And().GroupedOr(fields, term);
+            }
+
+
+            filter.Not().Field("umbracoNaviHide", "1");
+
+            var results = ExamineManager.Instance
+              .SearchProviderCollection["JobsSearchSearcher"]
+              .Search(filter.Compile())
+              .OrderByDescending(x => x.Score);
+
+
+            if (results.Any())
+            {
+                <p>@results.Count() found for @term</p>
+                foreach (var item in results)
+                {
+                    var umbracoPage = Umbraco.TypedContent(item.Id);
+
+                    <p>@umbracoPage.Name @item.Score</p>
+                }
+            }
+            else
+            {
+                <p>No results found for @term</p>
             }
         }
-
-        if (filter == null)
-        {
-            filter = criteria.GroupedOr(fields, term);
-        }
-        else
-        {
-            filter = filter.And().GroupedOr(fields, term);
-        }
-
-
-        filter.Not().Field("umbracoNaviHide", "1");
-
-        var results = ExamineManager.Instance
-          .SearchProviderCollection["JobsSearchSearcher"]
-          .Search(filter.Compile())
-          .OrderByDescending(x => x.Score);
-    }
-
-    @if (results.Any())
-    {
-        <p>@results.Count() found for @term</p>
-        foreach (var item in results)
-        {
-            var umbracoPage = Umbraco.TypedContent(item.Id);
-
-            <p>@umbracoPage.Name @item.Score</p>
-        }
-    }
-    else
-    {
-        <p>No results found for @term</p>
     }
 </div>

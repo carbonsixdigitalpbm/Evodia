@@ -2253,9 +2253,9 @@
     <Content Include="Views\XMLSitemap.cshtml" />
     <Content Include="Views\Job.cshtml" />
     <Content Include="Views\Jobs.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Partials\JobsSurface\GetFilteredJobs.cshtml" />
+    <Content Include="Views\JobsSurface\GetFilteredJobs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,5 +9,31 @@ namespace Evodia.Data.Models
         public VacancyModel(IPublishedContent content) : base(content)
         {
         }
+
+        public string Location {
+            get
+            {
+                return "";
+                
+            }
+        }
+
+        public string Sector
+        {
+            get
+            {
+                return "";
+
+            }
+        }
+
+        public double Salary
+        {
+            get
+            {
+                return 0;
+                
+            }
+        }
     }
 }
