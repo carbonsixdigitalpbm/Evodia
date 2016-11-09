@@ -2,6 +2,8 @@
 @using System.Text.RegularExpressions
 @inherits UmbracoViewPage<IPublishedContent>
 @{
+	var wrapSize = ViewData["wrapSize"];
+
     var tabs = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("tabsList").ToList();
     var hasTabs = Model.HasValue("tabsList") && tabs.Any();
     const string pattern = @"[^0-9a-zA-Z]+";
@@ -10,7 +12,7 @@
 
 @if (hasTabs)
 {
-    <div class="c-tabs js-tabs o-page-component">
+    <div class="c-tabs js-tabs o-wrap o-wrap--@wrapSize o-page-component">
         <nav class="c-tabs__nav">
             <ul class="c-tabs__nav-list" role="tablist">
                 @foreach (var tab in tabs.ToContentSet())

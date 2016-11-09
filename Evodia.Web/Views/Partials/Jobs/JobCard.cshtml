@@ -1,0 +1,24 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+}
+
+<article class="c-listing">
+	<h2 class="c-listing__headline">@headline</h2>
+	<ul class="c-meta-data">
+		<li class="c-meta-data__item">
+			<strong>Location: </strong>
+			<span>Bristol</span>
+		</li>
+		<li class="c-meta-data__item">
+			<strong>Type: </strong>
+			<span>Contract/Interim</span>
+		</li>
+	</ul>
+	<div class="c-listing__copy">
+		<p>The primary role of the Hawk Type Airworthiness Authority (TAA) is to provide safe, airworthy and sustainable Hawk TMk1/1A...</p>
+	</div>
+	<a href="@Model.Url" class="c-button c-button--secondary">Read more ></a>
+	<a href="" class="c-button c-button--primary">Send CV ></a>
+</article>

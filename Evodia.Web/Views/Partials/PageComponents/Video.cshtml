@@ -1,6 +1,8 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
+	var wrapSize = ViewData["wrapSize"];
+
     // Add MvcHtmlString when OEmbed is added
     // var media = Model.GetPropertyValue<MvcHtmlString>("media");
     // var hasMedia = !MvcHtmlString.IsNullOrEmpty(media);
@@ -11,7 +13,7 @@
 
 @if (hasMedia)
 {
-    <div class="o-media o-media--video o-page-component o-align--@alignment">
-        @media
+    <div class="o-media o-media--video o-wrap o-wrap--@wrapSize o-page-component o-align--@alignment">
+        @Html.Raw( media )
     </div>
 }

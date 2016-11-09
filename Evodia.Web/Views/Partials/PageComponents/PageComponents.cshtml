@@ -2,6 +2,7 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var components = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("pageContent");
+	string wrapSize = "small";
 
     if (components == null)
     {
@@ -13,29 +14,30 @@
         switch (item.DocumentTypeAlias)
         {
             case "embed":
-                @Html.Partial("~/Views/Partials/PageComponents/Embed.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Embed.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "multipleImages":
-                @Html.Partial("~/Views/Partials/PageComponents/Gallery.cshtml", item)
+			case "gallery":
+                @Html.Partial("~/Views/Partials/PageComponents/Gallery.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "singleImage":
-                @Html.Partial("~/Views/Partials/PageComponents/Image.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Image.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "quotes":
-                @Html.Partial("~/Views/Partials/PageComponents/Quotes.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Quotes.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "text":
             case "sectionText":
-                @Html.Partial("~/Views/Partials/PageComponents/Textarea.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Textarea.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "video":
-                @Html.Partial("~/Views/Partials/PageComponents/Video.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Video.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "tabs":
-                @Html.Partial("~/Views/Partials/PageComponents/Tabs.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Tabs.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "downloads":
-                @Html.Partial("~/Views/Partials/PageComponents/Downloads.cshtml", item)
+                @Html.Partial("~/Views/Partials/PageComponents/Downloads.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             default:
                 <p>Elements with DocumentTypeAlias <strong>@item.DocumentTypeAlias</strong> has no @@helper</p>

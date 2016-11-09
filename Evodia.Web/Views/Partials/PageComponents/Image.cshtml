@@ -1,34 +1,54 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
+    var wrapSize = ViewData["wrapSize"];
     var imageId = Model.GetPropertyValue<string>("imageId");
-    var hasImage = !string.IsNullOrEmpty(imageId);
+    var hasImage = imageId != null;
 }
 
-@if (hasImage)
+@if( hasImage )
 {
+    var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
+
+    if( alignment == "full screen width" ) {
+        @renderImage( Model, imageId, "o-page-component" )
+    } else {
+        <div class="o-wrap o-wrap--@wrapSize o-page-component">
+            @renderImage( Model, imageId, "" )
+        </div>
+    }
+
+}
+
+
+@helper renderImage( IPublishedContent item, string imageId, string elementClasses ) {
     var image = Umbraco.TypedMedia(imageId);
     var caption = image.GetPropertyValue<string>("caption");
     var altText = image.GetPropertyValue<string>("altText");
 
-    var hasRatio = Model.HasValue("aspectRatio");
+    var hasRatio = Model.HasValue("aspectRatio") ? true : false;
     var aspectRatio = hasRatio ? Model.GetPropertyValue<string>("aspectRatio") : null;
     var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
-    var imageWidth = alignment != "default" ? 400 : 900;
-    var imageUrlLow = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, quality: 18, htmlEncode: false).ToString();
-    var imageUrlHigh = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, quality: 85, htmlEncode: false).ToString();
-    var aspectRatioClass = hasRatio ? "o-media--" + aspectRatio.Replace(":", "-") : "";
 
-    <figure class='o-media o-media--@alignment @aspectRatioClass @( alignment == "default" ? "o-page-component" : "" )'>
-        @if (Model.HasValue("imageLink"))
+    if( alignment == "full screen width" ) {
+        alignment = "full";
+    }
+
+    int imageWidth = alignment == "full" ? 1600 : alignment == "left" || alignment == "right" ? 500 : 800;
+
+    var imageUrlLow = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, quality: 18, htmlEncode: false).ToString();
+    var imageUrlHigh = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, quality: 95, htmlEncode: false).ToString();
+    var aspectRatioClass = hasRatio ? "o-aspect--" + aspectRatio.Replace(":", "-") : "";
+
+    <figure class="o-media o-align--@alignment @aspectRatioClass @elementClasses">
+        @if( Model.HasValue("imageLink") )
         {
             var imageLink = Model.GetPropertyValue<string>("imageLink");
-            var target = (Model.GetPropertyValue<string>("externalUrl") == "True" ? "_blank" : "_self");
+            var target = ( Model.GetPropertyValue("externalUrl").ToString() == "True" ? "target='_blank'" : "" );
 
-            <a href="@imageLink" class="o-media__image__anchor" target="@target">
-                <img class="o-media__image" src="@imageUrlLow" data-src="@imageUrlHigh" alt="@altText"/>
-
-                @if (caption != "")
+            <a href="@imageLink" class="o-media__image__anchor" @target>
+                <img class="o-media__image js-lazyload" src="@imageUrlLow" data-src="@imageUrlHigh" alt="@altText"/>
+                @if ( caption != "" )
                 {
                     <figcaption class="c-caption">@caption</figcaption>
                 }
@@ -36,12 +56,14 @@
         }
         else
         {
-            <img class="o-media__image" src="@imageUrlLow" data-src="@imageUrlHigh" alt="@altText"/>
-
-            if (caption != "")
+            <img class="o-media__image js-lazyload" src="@imageUrlLow" data-src="@imageUrlHigh" alt="@altText"/>
+            if ( caption != "" )
             {
                 <figcaption class="c-caption">@caption</figcaption>
             }
         }
+
     </figure>
+
+
 }

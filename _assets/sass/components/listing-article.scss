@@ -1,9 +1,11 @@
 /* ===========================================================
 
-	# Page components
+	# Listing - Article
 
 =========================================================== */
 
-.o-page-component + .o-page-component {
-	margin-top: $line-height * 2;
+.c-listing--article {
+	border-bottom: 1px solid $grey-1;
+
+
 }

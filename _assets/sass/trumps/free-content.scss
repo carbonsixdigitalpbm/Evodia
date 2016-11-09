@@ -5,7 +5,11 @@
 =========================================================== */
 
 .s-free-content {
-	
+
+	a {
+		font-weight: $bold;
+	}
+
 }
 
 @include respond-min( $mq-small ) {

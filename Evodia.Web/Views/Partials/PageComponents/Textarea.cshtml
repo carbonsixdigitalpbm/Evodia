@@ -1,11 +1,14 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
+    var wrapSize = ViewData["wrapSize"];
     var content = Model.GetPropertyValue<HtmlString>("mainContent");
-    var hasContent = Model.HasValue("mainContent");
+    bool hasContent = Model.HasValue("mainContent");
 }
 
-@if (hasContent)
+@if( hasContent )
 {
-    @content
+    <div class="o-wrap o-wrap--@wrapSize o-page-component o-page-component--text">
+        @content
+    </div>
 }

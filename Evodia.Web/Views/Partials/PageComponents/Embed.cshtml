@@ -1,6 +1,8 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
+	var wrapSize = ViewData["wrapSize"];
+
     var code = Model.GetPropertyValue<string>("code");
     var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
     var hasCode = !string.IsNullOrEmpty(code);
@@ -8,7 +10,16 @@
 
 @if( hasCode )
 {
-    <div class="o-media o-media--video o-page-component o-align--@alignment">
-        @Html.Raw(code)
-    </div>
+	if( alignment == "full" ) {
+		<div class="o-page-component o-align--@alignment o-media--video">
+	        @Html.Raw(code)
+	    </div>
+	} else {
+		<div class="o-wrap o-wrap--@wrapSize o-page-component">
+			<div class="o-align--@alignment o-media--video">
+				@Html.Raw(code)
+			</div>
+		</div>
+	}
+
 }

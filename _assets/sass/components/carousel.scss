@@ -209,6 +209,13 @@
 
 }
 
+.c-carousel--images {
+	.c-carousel__dots {
+		position: absolute;
+		bottom: $line-height;;
+	}
+}
+
 @include respond-min( $mq-medium ) {
 
 	.c-carousel--prev,

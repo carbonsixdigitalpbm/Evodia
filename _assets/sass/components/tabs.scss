@@ -38,7 +38,7 @@
 }
 
 .enhance {
-	
+
 	.js-tabs {
 		opacity: 0;
 		transition: opacity $speed $ease;
@@ -49,6 +49,11 @@
 	}
 
 	.c-tabs__nav {
+		width: calc( 100% + 6rem );
+		margin-left: -3rem;
+		padding-left: 3rem;
+		padding-right: 3rem;
+
 		position: relative;
 		overflow: hidden;
 	}
@@ -87,7 +92,7 @@
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		transition: color $speed $ease,	
+		transition: color $speed $ease,
 					opacity $speed $ease;
 
 		&.is-disabled {
@@ -104,7 +109,7 @@
 	}
 
 	.c-tabs__nav {
-		
+
 		&.is-start {
 			.c-tabs__page--prev {
 				opacity: .1;
@@ -141,51 +146,87 @@
 
 }
 
+@include respond-min( $mq-medium ) {
+
+	.enhance {
+
+		.c-tabs__nav {
+			width: calc( 100% + 8rem );
+			margin-left: -4rem;
+			padding-left: 4rem;
+			padding-right: 4rem;
+		}
+
+		.c-tabs__page {
+
+			&.is-disabled {
+				opacity: 0;
+			}
+
+		}
+
+	}
+
+}
+
 /* Theme */
 
 .enhance {
 
 	.c-tabs__nav {
-		padding-left: 5rem;
-		padding-right: 5rem;
+		padding-left: 4rem;
+		padding-right: 4rem;
+	}
+
+	.c-tabs__nav-list {
+		align-items: flex-end;
+		min-height: 4rem;
+		padding: 0 2rem;
+		background-color: $pri;
 	}
 
 	.c-tabs__nav-item {
 
-		+ .c-tabs__nav-item {
-			margin-left: $line-height;
-		}
-
 		.c-tabs__nav-tab {
-			color: $white;
-			background-color: $pri;
-			padding: 1.4rem 4rem;
+			color: $light-blue-2;
+			padding: 3.2rem 2rem 2.6rem;
+			will-change: background;
 			border-radius: $border-radius $border-radius 0 0;
+			transition: color $speed $ease,
+						background $speed $ease,
+						padding $speed $ease;
+
+			&:before {
+				content: "";
+				width: 100%;
+				height: .5rem;
+				margin-bottom: .5rem;
+				display: block;
+				opacity: 0;
+				background-color: $white;
+				transition: opacity $speed $ease;
+			}
 
 			&:hover,
 			&:focus {
-				background-color: darken( $pri, 5% );
+				background-color: $blue-2;
 			}
 		}
 
 		&.is-active .c-tabs__nav-tab {
-			color: $pri;
-			background-color: $light-1;
+			color: $white;
+			font-weight: 900;
+
+			&:before {
+				opacity: 1;
+			}
 		}
 
 	}
 
-	.c-tabs__page,
-	.c-tabs__content {
-		background-color: $light-1;
-	}
-
-	.c-tabs__page {
-		padding: 1rem;
-	}
-
 	.c-tabs__content-tab {
-		padding: $line-height * 2;
+		padding: 3rem 4rem;
+		background-color: $light-blue-1;
 	}
 
 
