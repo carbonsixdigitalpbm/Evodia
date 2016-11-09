@@ -149,9 +149,9 @@ namespace Evodia.Voyager.Domain
                 var jobsRoot = GetJobsRoot();
                 var allDecendants = jobsRoot.Descendants().Where(d => d.HasProperty("jobReference")).ToList();
 
-                foreach (var vacancy in vacancies)
+                foreach (var vacancy in vacancies.Where(v => v.VacancyPosting.Vacancy.JobReference != null))
                 {
-                    if (vacancy.VacancyPosting.Vacancy.AdvertStatus.Equals("Delete", StringComparison.OrdinalIgnoreCase))
+                    if (vacancy.VacancyPosting.Vacancy.AdvertStatus != null && vacancy.VacancyPosting.Vacancy.AdvertStatus.Equals("Delete", StringComparison.OrdinalIgnoreCase))
                     {
                         vacancy.Delete = true;
                     }

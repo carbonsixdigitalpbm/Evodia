@@ -13,6 +13,7 @@ using Examine.LuceneEngine.SearchCriteria;
 using Examine.SearchCriteria;
 using Umbraco.Web.Mvc;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Web;
 
 namespace Evodia.Data.Controllers
@@ -96,17 +97,46 @@ namespace Evodia.Data.Controllers
 
         private List<VacancyModel> SearchJobsByKeywords(string keywords)
         {
-            return new List<VacancyModel>();
+            var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
+            var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
+            var query = searchCriteria.Field("nodeName", keywords.Boost(4)).Or()
+                .Field("nodeName", keywords.Fuzzy()).Or()
+                .Field("jobDescription", keywords.Boost(3)).Or()
+                .Field("jobDescription", keywords.Fuzzy());
+
+            foreach (var keyword in keywords.Split(' '))
+            {
+                query.Or().Field("nodeName", keyword.Boost(3));
+                query.Or().Field("nodeName", keyword.Fuzzy());
+
+                query.Or().Field("jobDescription", keyword.Boost(2));
+                query.Or().Field("jobDescription", keyword.Fuzzy());
+            }
+
+            var searchResults = searcher.Search(query.Compile()).OrderByDescending(x => x.Score).TakeWhile(x => x.Score > 0.035f);
+            var foundJobs = new List<VacancyModel>();
+
+            foreach (var result in searchResults)
+            {
+                var vacancy = Umbraco.TypedContent(result.Id).As<VacancyModel>();
+
+                LogHelper.Info(GetType(), vacancy.Name + " has a score of " + result.Score);
+
+                foundJobs.Add(vacancy);
+            }
+
+            return foundJobs;
         }
 
         private List<VacancyModel> SearchJobsByTitleOnly(string keywords)
         {
             var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
             var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
-            var query = searchCriteria.Field("nodeName", keywords.Boost(2)).Or().Field("nodeName", keywords.Fuzzy());
+            var query = searchCriteria.Field("nodeName", keywords.Boost(3)).Or().Field("nodeName", keywords.Fuzzy());
 
             foreach (var keyword in keywords.Split(' '))
             {
+                query.Or().Field("nodeName", keyword.Boost(1));
                 query.Or().Field("nodeName", keyword.Fuzzy());
             }
 
@@ -117,6 +147,8 @@ namespace Evodia.Data.Controllers
             foreach (var result in searchResults)
             {
                 var vacancy = Umbraco.TypedContent(result.Id).As<VacancyModel>();
+
+                LogHelper.Info(GetType(), vacancy.Name + " has a score of " + result.Score);
 
                 foundJobs.Add(vacancy);
             }
