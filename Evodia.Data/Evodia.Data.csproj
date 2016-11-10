@@ -40,7 +40,7 @@
       <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\controls.dll</HintPath>
     </Reference>
     <Reference Include="Examine">
-      <HintPath>..\Evodia.Web\App_Data\NuGetBackup\20161103-211025\bin\Examine.dll</HintPath>
+      <HintPath>..\packages\Examine.0.1.70.0\lib\Examine.dll</HintPath>
     </Reference>
     <Reference Include="interfaces">
       <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\interfaces.dll</HintPath>
@@ -67,7 +67,7 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc">
-      <HintPath>..\Evodia.Web\App_Data\NuGetBackup\20161103-211025\bin\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\Evodia.Web\bin\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -118,7 +118,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)Evodia.Web\bin\" /R /H /Y /D</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
