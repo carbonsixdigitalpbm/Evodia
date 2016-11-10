@@ -24,6 +24,7 @@ node_modules
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Bb]in/
 x64/
 x86/
 bld/
@@ -302,3 +303,5 @@ __pycache__/
 # connectionStrings
 Evodia.Web/Config/connectionStrings.config
 **/Evodia.Web/Voyager/
+Evodia.Web/Views/Master.cshtml
+**/Evodia.Web/bin/
