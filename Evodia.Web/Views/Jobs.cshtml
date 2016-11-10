@@ -1,4 +1,5 @@
-﻿@inherits UmbracoViewPage<IPublishedContent>
+﻿@using System.Globalization
+@inherits UmbracoViewPage<IPublishedContent>
 @{
 	Layout = "Master.cshtml";
 
@@ -9,12 +10,14 @@
     System.Threading.Thread.CurrentThread.CurrentCulture = ci;
     System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
 
-    var fileName = "WebCruitXML_20161109150510_JO0000070114.xml";
+    var absoluteFileLink = "C:\\Users\\Pauliua\\Projects\\Work projects\\Evodia\\Evodia.Web\\Voyager\\WebCruitXML_20161109141448_JO0000070112.xml";
+    var splitUrl = absoluteFileLink.Split('\\');
+    var fileName = splitUrl[splitUrl.Length - 1];
     var splitFileName = fileName.Split('_');
     var dateString = splitFileName[1].Trim();
     var pattern = "yyyyMddHHmmss";
     var jobPostDate = DateTime.ParseExact(dateString, pattern, ci);
-    var jobRef = splitFileName[2];
+    var jobRef = splitFileName[2].Replace(".xml", "");
 
     <h1>@dateString</h1>
     <h1>@jobRef</h1>

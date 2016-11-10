@@ -94,6 +94,7 @@
     <Compile Include="Controllers\VoyagerController.cs" />
     <Compile Include="Domain\Configuration.cs" />
     <Compile Include="Domain\Models\Stats.cs" />
+    <Compile Include="Domain\Models\SyncFile.cs" />
     <Compile Include="Domain\Voyager.cs" />
     <Compile Include="Domain\VoyagerApi.cs" />
     <Compile Include="Domain\VoyagerObjects\Account.cs" />

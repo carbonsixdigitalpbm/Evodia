@@ -24,6 +24,8 @@ namespace Evodia.Voyager.Domain
 
         private readonly VoyagerApi _api;
 
+        private List<SyncFile> _syncFiles;
+         
         public Stats Statistics;
 
         public Voyager(IContentService contentService)
@@ -31,16 +33,23 @@ namespace Evodia.Voyager.Domain
             _contentService = contentService;
             _jobs = new List<VacancyFeed>();
             _api = VoyagerApi.Instance();
+            _syncFiles = new List<SyncFile>();
+
             Statistics = new Stats();
         }
 
         public void Fetch()
         {
-            var xmlFilePaths = _api.GetXmlFilePaths();
+            _syncFiles = _api.GetXmlSyncFiles();
 
-            foreach (var filePath in xmlFilePaths)
+            if (_syncFiles != null)
             {
-                ReadAndDeserializeXmlFile(filePath);
+                var mostRecentFiles = _syncFiles.GroupBy(f => f.JobReferenceNumber).Select(f => f.OrderByDescending(d => d.FileUpDateTime).First()).ToList();
+
+                foreach (var file in mostRecentFiles)
+                {
+                    ReadAndDeserializeXmlFile(file.FileLocation);
+                }
             }
         }
 
@@ -72,7 +81,7 @@ namespace Evodia.Voyager.Domain
                 }
             }
 
-            _api.DeleteXmlFiles();
+            _api.DeleteXmlFiles(_syncFiles);
             watch.Stop();
 
             Statistics.ElapsedSeconds = watch.Elapsed.TotalSeconds;
@@ -138,7 +147,7 @@ namespace Evodia.Voyager.Domain
             }
             catch (Exception ex)
             {
-                LogHelper.Info(GetType(), "Failed to SYNC vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
+                LogHelper.Info(GetType(), "Failed to CREATE vacancy " + vacancy.VacancyPosting.Vacancy.JobReference + " with message: " + ex.Message);
             }
         }
 
@@ -173,9 +182,9 @@ namespace Evodia.Voyager.Domain
                     }
                 }
             }
-            catch (Exception)
-            {
-                throw new DuplicateNameException("Two vacancies have the same Voyager Job Reference. Please check your vacancies.");
+            catch (Exception ex)
+            { 
+                throw new DuplicateNameException("Erro: " + ex.Message);
             }
         }
 
@@ -214,8 +223,6 @@ namespace Evodia.Voyager.Domain
 
         private static void SetVoyagerProperties(IContent newNode, VacancyFeed vacancy)
         {
-            
-
             SetUmbracoProperty(newNode, "fingerprint", vacancy.FingerPrint);
 
             var vacancyPosting = vacancy.VacancyPosting;
@@ -298,38 +305,44 @@ namespace Evodia.Voyager.Domain
 
             foreach (var consultant in consultants.Consultant)
             {
-                dynamic ncItem = new ExpandoObject();
-
-                ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "consultant");
-                ((IDictionary<string, object>)ncItem).Add("firstName", consultant.Name.First);
-                ((IDictionary<string, object>)ncItem).Add("lastName", consultant.Name.Last);
-                ((IDictionary<string, object>)ncItem).Add("emailAddress", consultant.EmailAddress);
-
-                var phoneNumbers = consultant.PhoneNumbers;
-
-                if (phoneNumbers != null)
+                if (consultant != null)
                 {
-                    var voice = phoneNumbers.Voice;
-                    var fax = phoneNumbers.Fax;
-                    var mobile = phoneNumbers.ConsultantMobile;
+                    dynamic ncItem = new ExpandoObject();
 
-                    if (voice != null)
+                    ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "consultant");
+                    if (consultant.Name != null)
                     {
-                        ((IDictionary<string, object>)ncItem).Add("voice", consultant.PhoneNumbers.Voice.TelNumber);
+                        ((IDictionary<string, object>)ncItem).Add("firstName", consultant.Name.First);
+                        ((IDictionary<string, object>)ncItem).Add("lastName", consultant.Name.Last);
+                    }
+                    ((IDictionary<string, object>)ncItem).Add("emailAddress", consultant.EmailAddress);
+
+                    var phoneNumbers = consultant.PhoneNumbers;
+
+                    if (phoneNumbers != null)
+                    {
+                        var voice = phoneNumbers.Voice;
+                        var fax = phoneNumbers.Fax;
+                        var mobile = phoneNumbers.ConsultantMobile;
+
+                        if (voice != null)
+                        {
+                            ((IDictionary<string, object>)ncItem).Add("voice", voice.TelNumber);
+                        }
+
+                        if (fax != null)
+                        {
+                            ((IDictionary<string, object>)ncItem).Add("fax", fax.TelNumber);
+                        }
+
+                        if (mobile != null)
+                        {
+                            ((IDictionary<string, object>)ncItem).Add("consultantMobile", mobile.TelNumber);
+                        }
                     }
 
-                    if (fax != null)
-                    {
-                        ((IDictionary<string, object>)ncItem).Add("fax", consultant.PhoneNumbers.Fax.TelNumber);
-                    }
-
-                    if (mobile != null)
-                    {
-                        ((IDictionary<string, object>)ncItem).Add("consultantMobile", consultant.PhoneNumbers.ConsultantMobile.TelNumber);
-                    }
+                    ncItems.Add(ncItem);
                 }
-
-                ncItems.Add(ncItem);
             }
 
             var ncItemString = Newtonsoft.Json.JsonConvert.SerializeObject(ncItems);
@@ -343,13 +356,16 @@ namespace Evodia.Voyager.Domain
 
             foreach (var attribute in attributes.Attribute)
             {
-                dynamic ncItem = new ExpandoObject();
+                if (attribute != null)
+                {
+                    dynamic ncItem = new ExpandoObject();
 
-                ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "attribute");
-                ((IDictionary<string, object>)ncItem).Add("name", attribute.Name);
-                ((IDictionary<string, object>)ncItem).Add("essential", attribute.Essential);
+                    ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "attribute");
+                    ((IDictionary<string, object>)ncItem).Add("name", attribute.Name);
+                    ((IDictionary<string, object>)ncItem).Add("essential", attribute.Essential);
 
-                ncItems.Add(ncItem);
+                    ncItems.Add(ncItem);
+                }
             }
 
             var ncItemString = Newtonsoft.Json.JsonConvert.SerializeObject(ncItems);
