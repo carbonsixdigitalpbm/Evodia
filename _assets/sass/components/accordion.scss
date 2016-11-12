@@ -1,0 +1,68 @@
+/* ===========================================================
+
+	# Accordion
+=========================================================== */
+
+.enhance {
+
+	.c-accordion__header,
+	.c-accordion__panel {
+		padding: 2rem 0;
+	}
+
+	.c-accordion__header {
+		font-size: 1.8rem;
+		border-top: 1px solid $grey-1;
+		border-bottom: 1px solid $grey-1;
+		display: block;
+		position: relative;
+		cursor: pointer;
+
+		&:first-of-type {
+			border-top: 0;
+		}
+
+		&:focus {
+			box-shadow: 0px 0px 2px 1px rgba(0, 146, 211, 0.9);
+		}
+
+		&:before,
+		&:after {
+			content: "";
+			display: block;
+			background-color: $grey-1;
+			position: absolute;
+			top: 50%;
+			transition: opacity $speed $ease,
+						background $speed $ease;
+		}
+
+		&:before {
+			width: 1.8rem;
+			height: .4rem;
+			right: 0;
+			margin-top: -.2rem;
+		}
+
+		&:after {
+			width: .4rem;
+			height: 1.8rem;
+			right: .7rem;
+			margin-top: -.9rem;
+			opacity: 0;
+		}
+
+		&:hover {
+
+			&:before,
+			&:after {
+				background-color: $grey-2;
+			}
+
+		}
+	}
+
+	.c-accordion__panel {
+	}
+
+}
