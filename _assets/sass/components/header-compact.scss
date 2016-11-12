@@ -6,6 +6,10 @@
 
 .enhance {
 
+	.c-header__logo-image path {
+		transition: fill $speed $ease;
+	}
+
 	.is-fixed {
 		position: fixed;
 		top: 0;
@@ -16,12 +20,17 @@
 	.c-header {
 		transition: color $speed $ease,
                     background $speed $ease,
-                    box-shadow $speed $ease;
+                    box-shadow $speed $ease,
+					transform $speed $ease;
 
         &.is-fixed.c-header--compact {
             color: $pri;
             background-color: $white;
 			box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+
+			.c-header__logo-image path {
+				fill: $pri;
+			}
 
             a {
 				color: $pri;
@@ -73,6 +82,7 @@
 		}
 
 		.c-header--compact {
+			transform: translateY(-1.4rem);
 
 			.c-header__logo-image {
 				transform: scale(.85);
