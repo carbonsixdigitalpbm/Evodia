@@ -24,7 +24,7 @@
 			box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
 
             a {
-                color: $pri;
+				color: $pri;
 
                 &:hover,
                 &:focus {
@@ -32,7 +32,22 @@
                 }
             }
 
+			.c-nav__link {
+				color: $pri;
+
+				&.is-active {
+					color: $white;
+				}
+			}
+
+			.c-nav__list--sub {
+				.c-nav__link {
+					color: $white;
+				}
+			}
+
             .c-button {
+				color: $pri;
                 border-color: $pri;
 
                 &:hover,
