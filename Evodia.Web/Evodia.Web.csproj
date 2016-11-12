@@ -340,6 +340,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\EmailTemplate.html" />
     <Content Include="App_Data\Logs\UmbracoTraceLog.DESKTOP-5BHHJ25.txt" />
     <Content Include="App_Data\NuGetBackup\20161103-211025\bin\AutoMapper.dll" />
     <Content Include="App_Data\NuGetBackup\20161103-211025\bin\AutoMapper.Net4.dll" />
@@ -526,6 +527,7 @@
     <Content Include="App_Plugins\NestedContent\package.manifest" />
     <Content Include="App_Plugins\VoyagerDashboard\package.manifest" />
     <Content Include="Config\appSettings.config" />
+    <Content Include="App_Code\PagingTemplate.cshtml" />
     <None Include="Config\connectionStrings.config" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
@@ -2261,6 +2263,7 @@
     <Content Include="Views\Partials\Home\FeaturedContent.cshtml" />
     <Content Include="Views\Partials\Jobs\JobCard.cshtml" />
     <Content Include="Views\Partials\Forms\BasicSearchFormView.cshtml" />
+    <Content Include="Views\JobsSurface\GetFilteredJobsNavigation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2282,6 +2285,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

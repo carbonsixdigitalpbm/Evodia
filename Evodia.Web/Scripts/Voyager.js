@@ -2,6 +2,7 @@ var Voyager = (function() {
     "use strict";
 
     var $jobsTarget,
+        $navTarget,
         $keywords = $(".js-keywords"),
         $keywordsOnly = $(".js-keywords-only"),
         $jobTypeCheckboxes = $(".js-jobtype"),
@@ -78,6 +79,7 @@ var Voyager = (function() {
         $.ajax({
             type: "POST",
             url: settings.controllerUrl,
+            dataType: "json",
             data: "offset=" + settings.pageNumber +
                     "&size=" + settings.pageSize +
                     "&keywords=" + keywords +
@@ -88,9 +90,13 @@ var Voyager = (function() {
                     "&salary=" + salary,
             cache: false,
             success: function (result) {
-                var $moreBlocks = $(result);
+                console.log(result.jobs);
+                console.log(result.navigation);
+                var $jobs = $(result.jobs),
+                    $nav = $(result.navigation);
 
-                $jobsTarget.append($moreBlocks);
+                $jobsTarget.append($jobs);
+                $navTarget.html($nav);
             },
             complete: function () {
                 busyLoading = false;
@@ -103,9 +109,10 @@ var Voyager = (function() {
         settings.pageNumber++;
     }
 
-    var _init = function(jobControllerUrl, target) {
+    var _init = function(jobControllerUrl, jobTarget, navTarget) {
         settings.controllerUrl = jobControllerUrl;
-        $jobsTarget = $(target);
+        $jobsTarget = $(jobTarget);
+        $navTarget = $(navTarget);
 
         _bindUIActions();
         _getJobs($keywords.val(), $keywordsOnly.prop("checked"), "", "", "", "");

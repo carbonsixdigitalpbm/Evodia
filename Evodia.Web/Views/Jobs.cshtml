@@ -19,14 +19,18 @@
     <div id="jobs-target" class="" style="float: right; width: 65%">
 
     </div>
+    <div id="pagination-target" class="" style="float: right; width: 65%">
+
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="~/Scripts/Voyager.js"></script>
 <script>
 	jQuery(document).ready( function() {
-		var target = '#jobs-target';
+	    var jobsTarget = '#jobs-target',
+	        navTarget = "#pagination-target";
 
-		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', target);
+		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', jobsTarget, navTarget);
 	});
 </script>
