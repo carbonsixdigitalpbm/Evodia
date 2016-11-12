@@ -23,7 +23,8 @@ var headScripts = [
 var mainScripts = [
     paths.assetsFolder + '/js/components/*.js',
     paths.assetsFolder + '/_components/slick-carousel/slick/slick.js',
-    paths.assetsFolder + '/_components/magnific-popup/jquery.magnific-popup.js',
+    paths.assetsFolder + '/_components/magnific-popup/dist/jquery.magnific-popup.js',
+    paths.assetsFolder + '/_components/jquery.cssAnimateAuto/dist/jquery.cssAnimateAuto.js',
     paths.assetsFolder + '/js/main.js'
 ];
 
