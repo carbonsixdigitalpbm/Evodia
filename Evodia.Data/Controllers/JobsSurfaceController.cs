@@ -9,6 +9,7 @@ using Evodia.Data.Models;
 using Examine;
 using Examine.LuceneEngine.SearchCriteria;
 using Examine.SearchCriteria;
+using Umbraco.Core;
 using Umbraco.Web.Mvc;
 using Umbraco.Core.Logging;
 using Umbraco.Web;
@@ -53,7 +54,10 @@ namespace Evodia.Data.Controllers
         {
             if (!string.IsNullOrEmpty(type))
             {
-                jobs = jobs.Where(j => j.Sector.Equals(type, StringComparison.OrdinalIgnoreCase)).ToList();
+                var types = type.Split(',');
+
+
+                jobs = jobs.Where(j => j.JobType.ContainsAny(types, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;
