@@ -14,14 +14,20 @@
 
 <div>
     <div class="" style="float: left; width: 30%">
-        @Html.Action("RenderFullSearchForm", "SearchForm", new { keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"] })
+        @Html.Action("RenderFullSearchForm", "SearchForm", new {keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"]})
     </div>
-    <div id="jobs-target" class="" style="float: right; width: 65%">
+    <div style="float: right; width: 65%">
+        <div style="background-color: #0093D0; color: white; padding: 10px; margin-bottom: 10px;">
+            <h2 style="margin: 0;">Results: <strong class="js-count"></strong></h2>
+        </div>
+        <div id="jobs-target" class="">
 
-    </div>
-    <div id="pagination-target" class="" style="float: right; width: 65%">
+        </div>
+        <div id="pagination-target" class="">
 
+        </div>
     </div>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>

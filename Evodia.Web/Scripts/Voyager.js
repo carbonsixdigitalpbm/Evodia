@@ -3,6 +3,7 @@ var Voyager = (function() {
 
     var $jobsTarget,
         $navTarget,
+        $countTarget = $(".js-count"),
         $keywords = $(".js-keywords"),
         $keywordsOnly = $(".js-keywords-only"),
         $jobTypeCheckboxes = $(".js-jobtype"),
@@ -92,11 +93,16 @@ var Voyager = (function() {
             success: function (result) {
                 console.log(result.jobs);
                 console.log(result.navigation);
+                console.log(result.count);
+
                 var $jobs = $(result.jobs),
                     $nav = $(result.navigation);
 
                 $jobsTarget.append($jobs);
                 $navTarget.html($nav);
+                var label = result.count === 1 ? " job" : " jobs";
+
+                $countTarget.html(result.count + label);
             },
             complete: function () {
                 busyLoading = false;
