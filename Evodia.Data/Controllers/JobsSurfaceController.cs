@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Evodia.Data.Data;
 using Evodia.Data.ExtensionMethods;
@@ -12,7 +10,6 @@ using Examine;
 using Examine.LuceneEngine.SearchCriteria;
 using Examine.SearchCriteria;
 using Umbraco.Web.Mvc;
-using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Web;
 

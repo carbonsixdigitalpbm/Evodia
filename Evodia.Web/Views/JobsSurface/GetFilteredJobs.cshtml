@@ -1,15 +1,9 @@
 ﻿@using Evodia.Data.Models;
 @inherits UmbracoViewPage<IEnumerable<VacancyModel>>
 
-<h1>@Model.Count()</h1>
-
 @foreach (var item in Model)
 {
     <h2>@item.PublishedContent.Name</h2>
-    <p>@item.Sector</p>
-    <p>@item.Location</p>
-    <p>@item.JobType</p>
-    <p>@item.Salary</p>
 }
 
 

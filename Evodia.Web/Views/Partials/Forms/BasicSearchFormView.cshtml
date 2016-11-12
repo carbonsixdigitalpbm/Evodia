@@ -1,11 +1,11 @@
 ﻿@using Umbraco.Web
-@using Evodia.Core.Models
-@inherits UmbracoViewPage<SearchForm>
+@using Evodia.Voyager.Domain.Models
+@inherits UmbracoViewPage<BasicSearchForm>
 @{
 
 }
 
-@using (Html.BeginUmbracoForm("ProcessFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form js-form" }))
+@using (Html.BeginUmbracoForm("ProcessBasicFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form js-form" }))
 {
     @Html.AntiForgeryToken()
     <fieldset class="o-form__fieldset">
@@ -16,7 +16,7 @@
             @Html.ValidationMessageFor(x => x.Keywords)
         </div>
         <div class="o-form__field">
-            @Html.CheckBoxFor(x => x.TitleOnly, new { @class = "o-label" })
+            @Html.LabelFor(x => x.TitleOnly, new { @class = "o-label" })
             @Html.CheckBoxFor(x => x.TitleOnly, new { @class = "o-checkbox__input" })
             @Html.ValidationMessageFor(x => x.TitleOnly)
         </div>

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Web.Mvc;
 
-namespace Evodia.Core.Models
+namespace Evodia.Voyager.Domain.Models
 {
-    public class SearchForm
+    public class BasicSearchForm
     {
         [DisplayName("Job title")]
         public string Keywords { get; set; }

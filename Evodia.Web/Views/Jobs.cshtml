@@ -1,21 +1,32 @@
 ﻿@using System.Globalization
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    Layout = "Master.cshtml";
+    Layout = null;
 
     var ci = new CultureInfo("en-GB");
 
     System.Threading.Thread.CurrentThread.CurrentCulture = ci;
     System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
 
-    var keywords = TempData["Keywords"];
+    var formKeywords = TempData["Keywords"];
     var titleOnly = TempData["TitleOnly"];
 }
 
-<div class="o-section o-wrap o-wrap--large">
-    <h3>keywords: @keywords</h3>
-    <p>titleOnly: @titleOnly</p>
+<div>
+    <div class="" style="float: left; width: 30%">
+        @Html.Action("RenderFullSearchForm", "SearchForm", new { keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"] })
+    </div>
+    <div id="jobs-target" class="" style="float: right; width: 65%">
+
+    </div>
 </div>
-<div id="jobsTarget" class="o-section o-wrap o-wrap--large">
-    
-</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="~/Scripts/Voyager.js"></script>
+<script>
+	jQuery(document).ready( function() {
+		var target = '#jobs-target';
+
+		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', target);
+	});
+</script>

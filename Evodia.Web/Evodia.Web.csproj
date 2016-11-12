@@ -2257,9 +2257,10 @@
     <Content Include="Views\Jobs.cshtml" />
     <Content Include="Views\Partials\JobsSurface\GetFilteredJobs.cshtml" />
     <Content Include="Views\JobsSurface\GetFilteredJobs.cshtml" />
-    <Content Include="Views\Partials\Forms\SearchFormView.cshtml" />
+    <Content Include="Views\Partials\Forms\FullSearchFormVIew.cshtml" />
     <Content Include="Views\Partials\Home\FeaturedContent.cshtml" />
     <Content Include="Views\Partials\Jobs\JobCard.cshtml" />
+    <Content Include="Views\Partials\Forms\BasicSearchFormView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

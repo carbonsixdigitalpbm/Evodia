@@ -89,14 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="ExtensionMethods\DateExtentions.cs" />
     <Compile Include="ExtensionMethods\IntExtentions.cs" />
     <Compile Include="ExtensionMethods\PublishedContentExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtentions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
-    <Compile Include="Models\SearchForm.cs" />
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\LinkPickerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
