@@ -1,24 +1,36 @@
-@using Umbraco.Web
-@inherits UmbracoViewPage<IPublishedContent>
+@using Evodia.Data.Models;
+@inherits UmbracoViewPage<VacancyModel>
 @{
-	var headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+	var headline = Model.PublishedContent.Name;
+	var jobType = Model.JobType;
+	var location = Model.Location;
+	var sector = Model.Sector;
+
+	var itemUrl = Model.Url;
 }
 
-<article class="c-listing">
+<article class="c-listing--article">
 	<h2 class="c-listing__headline">@headline</h2>
 	<ul class="c-meta-data">
 		<li class="c-meta-data__item">
 			<strong>Location: </strong>
-			<span>Bristol</span>
+			<span>@location</span>
 		</li>
 		<li class="c-meta-data__item">
 			<strong>Type: </strong>
-			<span>Contract/Interim</span>
+			<span>@jobType</span>
+		</li>
+		<li class="c-meta-data__item">
+			<strong>Sector: </strong>
+			<span>@sector</span>
 		</li>
 	</ul>
 	<div class="c-listing__copy">
 		<p>The primary role of the Hawk Type Airworthiness Authority (TAA) is to provide safe, airworthy and sustainable Hawk TMk1/1A...</p>
 	</div>
-	<a href="@Model.Url" class="c-button c-button--secondary">Read more ></a>
-	<a href="" class="c-button c-button--primary">Send CV ></a>
+	<div class="c-listing__cta">
+		<a href="@itemUrl" class="c-button c-button--secondary">Read more ></a>
+		<a href="" class="c-button c-button--primary">Send CV ></a>
+	</div>
+	<a href="@itemUrl" class="c-listing__block-link"><span class="u-hide-text">Find out more</span></a>
 </article>

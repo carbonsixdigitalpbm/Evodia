@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    Layout = null;
+    Layout = "Master.cshtml";
 
     var ci = new CultureInfo("en-GB");
 
@@ -12,14 +12,15 @@
     var titleOnly = TempData["TitleOnly"];
 }
 
-<div>
-    <div class="" style="float: left; width: 30%">
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+    <aside class="o-page__sidebar c-nav c-nav--sub" role="navigation">
         @Html.Action("RenderFullSearchForm", "SearchForm", new { keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"] })
-    </div>
-    <div id="jobs-target" class="" style="float: right; width: 65%">
-
-    </div>
+    </aside>
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content">
+        <div id="jobs-target"></div>
+    </main>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="~/Scripts/Voyager.js"></script>

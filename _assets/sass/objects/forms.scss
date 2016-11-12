@@ -63,22 +63,22 @@ $line-height-half: $line-height / 2;
 
 .enhance {
 
-	.o-label {
-		color: $grey-1;
-		font-size: 1.6rem;
-		position: absolute;
-		top: 0;
-		transform: translate( 1rem, 50% );
-		transition: color $speed $ease,
-					transform $speed $ease,
-					font-size $speed $ease;
-		will-change:color,
-					transform,
-					font-size;
-	}
-
-	.o-form__field {
+	.o-form__field--compact {
 		position: relative;
+
+		.o-label {
+			color: $grey-1;
+			font-size: 1.6rem;
+			position: absolute;
+			top: 0;
+			transform: translate( 1rem, 50% );
+			transition: color $speed $ease,
+						transform $speed $ease,
+						font-size $speed $ease;
+			will-change:color,
+						transform,
+						font-size;
+		}
 
 		input,
 		textarea {
