@@ -42,7 +42,6 @@ $line-height-half: $line-height / 2;
 }
 
 
-
 //= LABEL ====================================================
 
 .no-enhance {
@@ -71,6 +70,7 @@ $line-height-half: $line-height / 2;
 			font-size: 1.6rem;
 			position: absolute;
 			top: 0;
+			padding: 0;
 			transform: translate( 1rem, 50% );
 			transition: color $speed $ease,
 						transform $speed $ease,
@@ -190,6 +190,8 @@ $line-height-half: $line-height / 2;
 	font-weight: $bold;
 	padding-bottom: $line-height / 4;
 	width: 100%;
+	float: left;
+	clear: both;
 
 	.o-label__note {
 		float: none;
@@ -246,14 +248,18 @@ $line-height-half: $line-height / 2;
 
 			&:checked {
 
-				+ .o-checkbox__label:before,
-				+ .o-radio__label:before {
-					background-color: $pri;
-					border-color: $pri;
-				}
+				+ input[type="hidden"] {
 
-				+ .o-checkbox__label:after {
-					opacity: 1;
+					+ .o-checkbox__label:before,
+					+ .o-radio__label:before {
+						background-color: $pri;
+						border-color: $pri;
+					}
+
+					+ .o-checkbox__label:after {
+						opacity: 1;
+					}
+
 				}
 
 			}
@@ -273,7 +279,7 @@ $line-height-half: $line-height / 2;
 		    border-top: none;
 		    border-right: none;
 		    transform: rotate(-45deg);
-			top: 1.5rem;
+			top: 1.6rem;
 			transition: opacity $speed $ease;
 		}
 

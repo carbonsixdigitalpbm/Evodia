@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    Layout = null;
+    Layout = "Master.cshtml";
 
     var ci = new CultureInfo("en-GB");
 
@@ -9,22 +9,21 @@
     System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
 }
 
-
-<div class="" style="float: left; width: 30%">
-    @Html.Action("RenderFullSearchForm", "SearchForm", new {keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"]})
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+    <aside class="o-page__sidebar c-nav c-nav--sub" role="navigation">
+        @Html.Action("RenderFullSearchForm", "SearchForm", new {keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"]})
+    </aside>
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content">
+        <div style="background-color: #0093D0; color: white; padding: 10px; margin-bottom: 10px;">
+            <h2 style="margin: 0; color: white;">Results: <strong class="js-count"></strong></h2>
+        </div>
+        <div id="jobs-target"></div>
+        <div id="pagination-target" class=""></div>
+    </main>
 </div>
-<div style="float: right; width: 65%">
-    <div style="background-color: #0093D0; color: white; padding: 10px; margin-bottom: 10px;">
-        <h2 style="margin: 0;">Results: <strong class="js-count"></strong></h2>
-    </div>
-    <div id="jobs-target" class="">
 
-    </div>
-    <div id="pagination-target" class="">
 
-    </div>
-</div>
- 
+
 @*<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
     <aside class="o-page__sidebar c-nav c-nav--sub" role="navigation">
         @Html.Action("RenderFullSearchForm", "SearchForm", new { keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"] })

@@ -25,11 +25,11 @@ html {
 	.s-layout-sidebar {
 
 		.o-page__sidebar {
-			@include column(1.5/5, $gutter: 8);
+			@include column( 1.5/5, $gutter: 5 );
 		}
 
 		.o-page__content {
-			@include column( 3.5/5, $gutter: 8 );
+			@include column( 3.5/5, $gutter: 5 );
 		}
 
 	}

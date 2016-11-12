@@ -1,0 +1,77 @@
+/* ===========================================================
+
+	# Pod
+
+=========================================================== */
+
+.c-pod {
+	padding: 2rem;
+
+	& + .c-pod {
+		margin-top: 3rem;
+	}
+
+	.o-form__field + .o-form__field {
+		padding-top: 0;
+
+		&:before {
+			content: "";
+			height: 1px;
+			display: block;
+			background-color: $grey-1;
+			margin: $line-height 0;
+		}
+	}
+}
+
+.c-pod__headline {
+	color: $blue-2;
+	font-size: 1.8rem;
+	font-weight: $bold;
+	font-family: $font-family-sec;
+}
+
+.c-pod--light {
+	background-color: $light-1;
+	border: 1px solid $grey-1;
+}
+
+.c-pod--blue {
+	color: $white;
+	background-color: $blue-1;
+}
+
+.c-pod--outline {
+	color: $pri;
+	border-color: 1px solid $pri;
+}
+
+.c-pod__legend {
+	color: $grey-3;
+	margin: -1.4rem 0 1.4rem;
+
+	&:after {
+		content: "";
+		width: calc( 100% + 4rem );
+		height: 1px;
+		margin-top: 1.4rem;
+		margin-left: -2rem;
+		background-color: $grey-1;
+		display: block;
+	}
+
+}
+
+@include respond-min( $mq-medium ) {
+
+	.c-pod {
+		padding: 3.4rem;
+	}
+
+	.c-pod__legend:after {
+		content: "";
+		width: calc( 100% + 6.8rem );
+		margin-left: -3.4rem;
+	}
+
+}
