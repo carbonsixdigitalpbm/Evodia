@@ -49,6 +49,13 @@
 	}
 }
 
+.c-pod__break {
+	height: 1px;
+	display: block;
+	background-color: $grey-1;
+	margin: $line-height 0;
+}
+
 .c-pod__headline {
 	color: $blue-2;
 	font-size: 1.8rem;

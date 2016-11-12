@@ -90,11 +90,12 @@
 </div>
 
 @section Sidebar {
-   @Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
-    @if( allPosts.Any() )
-    {
-        @Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
-    }
+    <div class="c-pod c-pod--light">
+        @if( allPosts.Any() ) {
+            @Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
+        }
+       @Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
+    </div>
 }
 
 @helper RenderSiteArticle( IPublishedContent item ) {
@@ -105,8 +106,7 @@
     string category = item.DocumentTypeAlias == "pressRelease" ? "Press release" : "General news";
 
     <article class="c-listing--article" itemscope itemtype="http://schema.org/Article">
-        <a href="@url" class="c-listing__link" itemprop="url">
-            @if( item.HasValue("coverImage") )
+        @if( item.HasValue("coverImage") )
             {
                 var image = Umbraco.Media( item.GetPropertyValue<int>("coverImage") );
                 string imageUrl = image.Url + "?width=800&height=343&mode=crop";
@@ -115,23 +115,23 @@
                     <img src="@imageUrl" class="c-listing__image" alt="@postheadline"/>
                 </div>
             }
-            <div class="c-listing__content">
-                <h2 class="c-listing__headline" itemprop="name">@postheadline</h2>
-                <ul class="c-meta-data__item">
-                    <li class="c-meta-data__item__item">
-                        <time datetime="{{metaDate}}" pubdate="pubdate">
-                        @releaseDate.ToString("%d")<sup>@Helpers.GetDaySuffix(releaseDate.ToString("%d"))</sup> @releaseDate.ToString("MMMM yyyy")
-                        </time>
-                        <meta itemprop="dateCreated" content="@releaseDate.ToString("yyyy-MM-dd")">
-                    </li>
-                    <li class="c-meta-data__item__item" itemprop="keywords">@category</li>
-                </ul>
+        <div class="c-listing__content">
+            <h2 class="c-listing__headline" itemprop="name">@postheadline</h2>
+            <ul class="c-meta-data">
+                <li class="c-meta-data__item">
+                    <time datetime="{{metaDate}}" pubdate="pubdate">
+                    @releaseDate.ToString("%d")<sup>@Helpers.GetDaySuffix(releaseDate.ToString("%d"))</sup> @releaseDate.ToString("MMMM yyyy")
+                    </time>
+                    <meta itemprop="dateCreated" content="@releaseDate.ToString("yyyy-MM-dd")">
+                </li>
+                <li class="c-meta-data__item" itemprop="keywords">@category</li>
+            </ul>
 
-                <div class="c-listing__description">
-                    <p>@excerpt</p>
-                </div>
+            <div class="c-listing__description">
+                <p>@excerpt</p>
             </div>
-        </a>
+        </div>
+        <a href="@url" class="c-listing__block-link" itemprop="url"></a>
     </article>
 }
 
@@ -143,34 +143,23 @@
     string category = "In the media";
 
     <article class="c-listing--article is-external" itemscope itemtype="http://schema.org/Article">
-        <a href="@url" class="c-listing__link" itemprop="url" target="_blank">
-            @if( item.HasValue("coverImage") )
-            {
-                var image = Umbraco.Media( item.GetPropertyValue<int>("coverImage") );
-                string imageUrl = image.Url + "?width=800&height=343&mode=crop";
+        <div class="c-listing__content">
+            <h2 class="c-listing__headline" itemprop="name">@postheadline</h2>
+            <ul class="c-meta-data">
+                <li class="c-meta-data__item">
+                    <time datetime="{{metaDate}}" pubdate="pubdate">
+                    @releaseDate.ToString("%d")<sup>@Helpers.GetDaySuffix(releaseDate.ToString("%d"))</sup> @releaseDate.ToString("MMMM yyyy")
+                    </time>
+                    <meta itemprop="dateCreated" content="@releaseDate.ToString("yyyy-MM-dd")">
+                </li>
+                <li class="c-meta-data__item" itemprop="keywords">@category</li>
+            </ul>
 
-                <div class="c-listing__image-wrap">
-                    <img src="@imageUrl" class="c-listing__image" alt="@postheadline"/>
-                </div>
-            }
-            <div class="c-listing__content">
-                <h2 class="c-listing__headline" itemprop="name">@postheadline</h2>
-                <ul class="c-meta-data__item">
-                    <li class="c-meta-data__item__item">
-                        <time datetime="{{metaDate}}" pubdate="pubdate">
-                        @releaseDate.ToString("%d")<sup>@Helpers.GetDaySuffix(releaseDate.ToString("%d"))</sup> @releaseDate.ToString("MMMM yyyy")
-                        </time>
-                        <meta itemprop="dateCreated" content="@releaseDate.ToString("yyyy-MM-dd")">
-                    </li>
-                    <li class="c-meta-data__item__item" itemprop="keywords">@category</li>
-                </ul>
-
-                <div class="c-listing__description">
-                    <p>@excerpt</p>
-                </div>
+            <div class="c-listing__description">
+                <p>@excerpt</p>
             </div>
-        </a>
+        </div>
+        <a href="@url" class="c-listing__block-link" itemprop="url" target="_blank"></a>
     </article>
 
 }
-

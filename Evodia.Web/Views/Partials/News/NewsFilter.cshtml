@@ -14,25 +14,25 @@
 
 }
 
-
 @if( hasGeneral || hasInTheMedia || hasPress )
 {
-    <h3 class="u-zeta">Categories</h3>
-    <ul class="c-link-list">
-        @if( hasGeneral ) {
-            <li class="c-link-list__item">
-                <a href="/news?category=general-news" class="c-link-list__link @(qCat == "general-news" ? "is-active" : null)">General news</a>
-            </li>
-        }
-        @if( hasInTheMedia ) {
-            <li class="c-link-list__item">
-                <a href="/news?category=in-the-media" class="c-link-list__link @(qCat == "in-the-media" ? "is-active" : null)">In the media</a>
-            </li>
-        }
-        @if( hasPress ) {
-            <li class="c-link-list__item">
-                <a href="/news?category=press-release" class="c-link-list__link @(qCat == "press-release" ? "is-active" : null)">Press release</a>
-            </li>
-        }
-    </ul>
+		<span class="c-pod__break" role="decoration"></span>
+	    <h3 class="c-pod__headline u-zeta">Categories</h3>
+	    <ul class="c-link-list">
+	        @if( hasGeneral ) {
+	            <li class="c-link-list__item">
+	                <a href="/news?category=general-news" class="c-link-list__link @(qCat == "general-news" ? "is-active" : null)">General news</a>
+	            </li>
+	        }
+	        @if( hasInTheMedia ) {
+	            <li class="c-link-list__item">
+	                <a href="/news?category=in-the-media" class="c-link-list__link @(qCat == "in-the-media" ? "is-active" : null)">In the media</a>
+	            </li>
+	        }
+	        @if( hasPress ) {
+	            <li class="c-link-list__item">
+	                <a href="/news?category=press-release" class="c-link-list__link @(qCat == "press-release" ? "is-active" : null)">Press release</a>
+	            </li>
+	        }
+	    </ul>
 }

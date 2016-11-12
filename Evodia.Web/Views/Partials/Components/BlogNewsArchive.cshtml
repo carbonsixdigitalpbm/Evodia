@@ -15,22 +15,23 @@
     }
 }
 
-<h3>Archive</h3>
-<select id="dateFilter" onchange="location = this.options[this.selectedIndex].value;">
-    <option value="">Choose date</option>
-    @foreach(var date in dateList)
-    {
-        var current = date;
+<h3 class="c-pod__headline">Archive</h3>
+<div class="o-select">
+	<select id="dateFilter" onchange="location = this.options[this.selectedIndex].value;">
+	    <option value="">Choose date</option>
+	    @foreach(var date in dateList)
+	    {
+	        var current = date;
 
-        if( current != previous && date != null )
-        {
-            foreach( var part in date.Split(',') )
-            {
-                <option value="@url?year=@date.Split(' ')[1].ToLower()&month=@date.Split(' ')[0].ToLower()">@date</option>
-            }
-        }
+	        if( current != previous && date != null )
+	        {
+	            foreach( var part in date.Split(',') )
+	            {
+	                <option value="@url?year=@date.Split(' ')[1].ToLower()&month=@date.Split(' ')[0].ToLower()">@date</option>
+	            }
+	        }
 
-        previous = date;
-    }
-</select>
-
+	        previous = date;
+	    }
+	</select>
+</div>

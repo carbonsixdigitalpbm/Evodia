@@ -56,6 +56,8 @@
 </article>
 
 @section Sidebar {
-   @Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
-   @Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
+	<div class="c-pod c-pod--light">
+		@Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
+		@Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
+   </div>
 }

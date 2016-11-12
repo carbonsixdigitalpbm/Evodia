@@ -4,12 +4,12 @@
     Layout = "Master.cshtml";
 }
 
-<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix">
-    <main class="o-page__content o-page__content--sidebar-layout">
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content">
         @RenderBody()
     </main>
-    <aside class="o-page__sidebar" role="complementary">
-        @RenderSection("Sidebar", required: false)
+	<aside class="o-page__sidebar" role="complementary">
+		@RenderSection("Sidebar", required: false)
     </aside>
 </div>
 
