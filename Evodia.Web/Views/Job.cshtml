@@ -1,4 +1,44 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
 @{
-	Layout = null;
+    Layout = "Layout.cshtml";
+    var headline = Model.HasValue("clientJobTitle") ? Model.GetPropertyValue<string>("clientJobTitle") : Model.Name;
 }
+
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar">
+	<main class="o-page__content o-page__content--sidebar-layout s-free-content">
+		<h1>@headline</h1>
+		<ul>
+			<li>
+				<strong>Salary: </strong>
+			</li>
+			<li>
+				<strong>Location: </strong>
+				<span></span>
+			</li>
+			<li>
+				<strong>Type: </strong>
+				<span></span>
+			</li>
+			<li>
+				<strong>Duration: </strong>
+				<span></span>
+			</li>
+		</ul>
+
+		<a href="" class="c-button c-button--primary">Send CV ></a>
+	</main>
+	<aside class="o-page__sidebar">
+		@Html.Partial("~/Views/Partials/Jobs/SimilarJobs.cshtml")
+
+		<div class="c-pod c-pod--highlight u-center-content">
+			<h2 class="u-zeta">Help us to find you the best job applying today</h2>
+			<a href="#" class="c-button c-button--secondary-invert u-space-top">Upload CV ></a>
+		</div>
+		<div class="c-pod c-pod--outline u-center-content">
+			<h2 class="u-zeta">Need to submit a vacancy?</h2>
+			<a href="#" class="c-button c-button--tertiary u-space-top">Upload CV ></a>
+		</div>
+
+	</aside>
+</div>

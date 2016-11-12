@@ -51,15 +51,19 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6,
 .u-tera,
 .u-giga,
 .u-mega,
 .u-alpha,
-.u-beta,
-.u-gamma {
+.u-beta{
 	line-height: 1.1;
+}
+
+.u-gamma,
+.u-delta,
+.u-epsilon,
+.u-zeta {
+	line-height: 1.4;
 }
 
 .u-tera {

@@ -84,11 +84,28 @@
 	}
 }
 
+.c-listing--compact-article {
+
+	&:before {
+		width: 1rem;
+		left: 0;
+	}
+
+	.c-meta-data {
+		margin-bottom: 0;
+	}
+
+}
+
 
 @include respond-min( $mq-medium ) {
 
 	.c-listing--article {
 		padding: 4rem;
+	}
+
+	.c-listing--compact-article {
+		padding: 2.4rem;
 	}
 
 }

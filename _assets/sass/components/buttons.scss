@@ -60,6 +60,17 @@
 
 }
 
+.c-button--tertiary {
+	color: $pri;
+	border-color: $pri;
+
+	&:hover,
+	&:focus {
+		background: $pri;
+	}
+
+}
+
 .c-button--secondary-invert {
 	color: $white;
 	border-color: $white;

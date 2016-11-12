@@ -1,0 +1,29 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+
+<section class="c-pod--listing">
+	<h2 class="c-pod__headline u-zeta">Similar jobs</h2>
+	@RenderJob()
+	@RenderJob()
+	@RenderJob()
+</section>
+@helper RenderJob() {
+	var headline = "Safety Engineer - Aerospace";
+	var location = "London";
+	var jobType = "Permanent";
+
+	<article class="c-listing--article c-listing--compact-article">
+		<h2 class="c-listing__headline u-zeta">@headline</h2>
+		<ul class="c-meta-data">
+			<li class="c-meta-data__item">
+				<span>@location</span>
+			</li>
+			<li class="c-meta-data__item">
+				<strong>@jobType</strong>
+			</li>
+		</ul>
+		<a href="" class="c-listing__block-link"><span class="u-hide-text">Find out more</span></a>
+	</article>
+
+
+}

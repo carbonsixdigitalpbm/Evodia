@@ -10,7 +10,7 @@
 }
 
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
-    <aside class="o-page__sidebar c-nav c-nav--sub" role="navigation">
+    <aside class="o-page__sidebar">
         @Html.Action("RenderFullSearchForm", "SearchForm", new {keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"]})
     </aside>
     <main class="o-page__content o-page__content--sidebar-layout s-free-content">

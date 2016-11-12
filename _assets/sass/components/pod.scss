@@ -4,6 +4,31 @@
 
 =========================================================== */
 
+.c-pod--listing {
+	border: 1px solid $grey-1;
+	border-top: .6rem solid $pri;
+	margin-bottom: $line-height;
+
+	.c-pod__headline {
+		padding: 1.4rem 2.4rem 0;
+
+		&:after {
+			content: "";
+			width: calc( 100% + 4.8rem );
+			height: 1px;
+			display: block;
+			margin-top: 1.4rem;
+			transform: translateX( -2.4rem );
+			background-color: $grey-1;
+		}
+	}
+
+	.c-listing--article:last-child {
+		border-bottom-color: transparent;
+	}
+}
+
+
 .c-pod {
 	padding: 2rem;
 
@@ -36,14 +61,18 @@
 	border: 1px solid $grey-1;
 }
 
-.c-pod--blue {
+.c-pod--highlight {
 	color: $white;
-	background-color: $blue-1;
+	background-color: $pri;
+
+	h2 {
+		color: inherit;
+	}
 }
 
 .c-pod--outline {
 	color: $pri;
-	border-color: 1px solid $pri;
+	border: 1px solid $pri;
 }
 
 .c-pod__legend {
