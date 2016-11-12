@@ -190,7 +190,7 @@ namespace Evodia.Voyager.Controllers
                     });
                 }
             }
-            
+
             return locations;
         }
     }

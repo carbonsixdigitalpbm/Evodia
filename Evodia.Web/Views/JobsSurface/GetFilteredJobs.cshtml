@@ -3,15 +3,5 @@
 
 @foreach (var item in Model)
 {
-    <div style="border: 1px solid #708090; background-color: #f2f2f2; margin-bottom: 20px; padding: 10px;">
-        <h2 style="margin: 0;">@item.PublishedContent.Name</h2>
-        <small>
-            <span><strong>Job type:</strong> @item.JobType</span><br/>
-            <span><strong>Location:</strong> @item.Location</span><br />
-            <span><strong>Sector:</strong> @item.Sector</span><br />
-            <span><strong>Salary:</strong> @item.Salary</span>
-        </small>
-    </div>
+	@Html.Partial("~/Views/Partials/Jobs/JobCard.cshtml", item)
 }
-
-

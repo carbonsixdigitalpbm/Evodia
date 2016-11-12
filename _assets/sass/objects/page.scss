@@ -19,3 +19,19 @@ html {
 	flex: 1 1 auto;
 	width: 100%;
 }
+
+@include respond-min( $mq-medium ) {
+
+	.s-layout-sidebar {
+
+		.o-page__sidebar {
+			@include column(1.5/5, $gutter: 8);
+		}
+
+		.o-page__content {
+			@include column( 3.5/5, $gutter: 8 );
+		}
+
+	}
+
+}
