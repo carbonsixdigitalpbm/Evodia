@@ -26,8 +26,9 @@
 <script src="~/Scripts/Voyager.js"></script>
 <script>
 	jQuery(document).ready( function() {
-		var target = '#jobs-target';
+	    var jobsTarget = '#jobs-target',
+	        navTarget = "#pagination-target";
 
-		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', target);
+		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', jobsTarget, navTarget);
 	});
 </script>

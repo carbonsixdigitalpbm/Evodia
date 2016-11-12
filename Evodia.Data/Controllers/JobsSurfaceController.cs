@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Evodia.Data.Data;
@@ -47,8 +48,21 @@ namespace Evodia.Data.Controllers
 
             var pagedJobs = allJobs.Skip(offset * size).Take(size);
 
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new
+                {
+                    status = "OK",
+                    count = allJobs.Count,
+                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs),
+                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", pagedJobs),
+                });
+            }
+
             return View(pagedJobs);
         }
+
+
 
         private static List<VacancyModel> SearchJobsByType(List<VacancyModel> jobs, string type)
         {
@@ -150,34 +164,26 @@ namespace Evodia.Data.Controllers
             {
                 var vacancy = Umbraco.TypedContent(result.Id).As<VacancyModel>();
 
-                LogHelper.Info(GetType(), vacancy.Name + " has a score of " + result.Score);
-
                 foundJobs.Add(vacancy);
             }
 
             return foundJobs;
+        }
 
-            // METHOD 1
-            //var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
-            //var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
-            //var term = keywords;
-            //var luceneString = "nodeName:";
-            //luceneString += "(+" + term.Replace(" ", " +") + ")^5 ";
-            //luceneString += "nodeName:" + term;
-            //var query = searchCriteria.RawQuery(luceneString);
-            //var searchResults = searcher.Search(query).OrderByDescending(x => x.Score);
+        public string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
 
-            // METHOD 2
-            //var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
-            //var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
-            //var query = searchCriteria.Field("nodeName", keywords.Boost(3)).Or().Field("nodeName", keywords.Fuzzy());
-            //var searchResults = searcher.Search(query.Compile()).OrderByDescending(x => x.Score).TakeWhile(x => x.Score > 0.05f);
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
 
-            // METHOD 3
-            //var searcher = ExamineManager.Instance.SearchProviderCollection["JobsSearchSearcher"];
-            //var searchCriteria = searcher.CreateSearchCriteria(BooleanOperation.Or);
-            //var query = searchCriteria.Field("nodeName", keywords.Boost(5)).Or().Field("nodeName", keywords.Fuzzy());
-            //var searchResults = searcher.Search(query.Compile()).OrderByDescending(x => x.Score).TakeWhile(x => x.Score > 0.05f);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+
+                return sw.GetStringBuilder().ToString();
+            }
         }
     }
 }

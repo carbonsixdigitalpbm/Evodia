@@ -1,40 +1,58 @@
-//using System;
-//using System.Web;
+using System;
+using System.Web;
 
-//namespace UmbracoStarterKit.Utility
-//{
-//    public class Paging
-//    {
+namespace Evodia.Core.Utility
+{
+    public class Paging
+    {
+        public int TotalItems { get; set; }
+        public int CurrentPage { get; set; }
+        public int PageSize { get; set; }
+        public int TotalPages { get; set; }
+        public int StartPage { get; set; }
+        public int EndPage { get; set; }
+        public int Skip { get; set; }
+        public int Take { get; set; }
 
-//        public int ItemsPerPage { get; set; }
-//        public int CurrentPage { get; set; }
-//        public int PreviousPage { get; set; }
-//        public int NextPage { get; set; }
-//        public double TotalPages { get; set; }
-//        public int Skip { get; set; }
-//        public int Take { get; set; }
+        public static Paging GetPages(int totalItems, int pageSize = 10)
+        {
+            int page;
+            int.TryParse(HttpContext.Current.Request.QueryString["page"], out page);
+            if (page == 0) page = 1;
 
-//        public static Paging GetPages(int itemCount, int itemsPerPage)
-//        {
+            var totalPages = (int)Math.Ceiling(totalItems / (decimal)pageSize);
+            var currentPage = page;
+            var startPage = currentPage - 3;
+            var endPage = currentPage + 2;
 
-//            int page;
-//            int.TryParse(HttpContext.Current.Request.QueryString["page"], out page);
-//            if (page == 0) page = 1;
+            if (startPage <= 0)
+            {
+                endPage -= startPage - 1;
+                startPage = 1;
+            }
 
-//            var pages = new Paging
-//            {
-//                ItemsPerPage = itemsPerPage,
-//                CurrentPage = page,
-//                PreviousPage = page - 1,
-//                NextPage = page + 1,
-//                TotalPages = Math.Ceiling(itemCount / (Double)itemsPerPage),
-//                Skip = page * itemsPerPage - itemsPerPage,
-//                Take = itemsPerPage
-//            };
+            if (endPage > totalPages)
+            {
+                endPage = totalPages;
 
-//            return pages;
+                if (endPage > 10)
+                {
+                    startPage = endPage - 9;
+                }
+            }
 
-//        }
-//    }
+            return new Paging()
+            {
+                TotalItems = totalItems,
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                StartPage = startPage,
+                EndPage = endPage,
+                Take = pageSize,
+                Skip = page * pageSize - pageSize
+            };
+        }
 
-//}
+    }
+}

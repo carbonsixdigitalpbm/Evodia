@@ -5,7 +5,7 @@
 
 }
 
-@using (Html.BeginUmbracoForm("ProcessFullFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form js-form" }))
+@using (Html.BeginUmbracoForm("ProcessFullFormSubmission", "SearchForm", FormMethod.Get, new { id = "search-form", @class = "c-form js-form" }))
 {
     @Html.AntiForgeryToken()
     <fieldset class="o-form__fieldset">

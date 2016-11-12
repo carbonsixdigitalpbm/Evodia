@@ -1,6 +1,10 @@
 ﻿@using Evodia.Data.Models;
 @inherits UmbracoViewPage<IEnumerable<VacancyModel>>
 
+@*<div style="background-color: #0093D0; color: white; padding: 10px; margin-bottom: 10px;">
+    <h2 style="margin: 0;">Results: <strong>@Model.Count()</strong></h2>
+</div>*@
+
 @foreach (var item in Model)
 {
 	@Html.Partial("~/Views/Partials/Jobs/JobCard.cshtml", item)
