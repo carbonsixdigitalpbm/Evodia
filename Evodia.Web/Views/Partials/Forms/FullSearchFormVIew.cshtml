@@ -69,7 +69,7 @@
 
         <div class="o-form__field">
             @Html.LabelFor(x => x.MinimumSalary, new {@class = "o-label"})
-            @Html.DropDownListFor(x => x.MinimumSalary, Model.MinimumSalary, "Minimum salary", new {@class = "js-select"})
+            @Html.DropDownListFor(x => x.MinimumSalary, Model.MinimumSalary, "Minimum salary", new {@class = "js-select js-filter-select js-salary" })
             @Html.ValidationMessageFor(x => x.MinimumSalary)
         </div>
     </fieldset>

@@ -7,25 +7,26 @@ var Voyager = (function() {
         $jobTypeCheckboxes = $(".js-jobtype"),
         $filterSelects = $(".js-filter-select"),
         $locationSelect = $(".js-location"),
+        $salarySelect = $(".js-salary"),
         $sectorTypeCheckboxes = $(".js-sector"),
         $searchButton = $(".js-search");
 
     var settings = {
-        pageSize: 20,
+        pageSize: 5,
         pageNumber: 0,
         controllerUrl: "",
         jobTypes: [],
         sectors: []
     };
 
-    var busyLoading = false;
+    var busyLoading;
 
     var _loadJobs = function () {
         busyLoading = true;
         $jobsTarget.html("");
         settings.pageNumber = 0;
 
-        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors);
+        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
     };
 
     var _bindUIActions = function () {
@@ -61,7 +62,7 @@ var Voyager = (function() {
         });
     };
 
-    var _getJobs = function (keywords, keywordsOnly, jobTypes, location, sectors) {
+    var _getJobs = function (keywords, keywordsOnly, jobTypes, location, sectors, salary) {
         console.log("#####################");
         console.log("## SEARCH SETTINGS ##");
         console.log("#####################");
@@ -70,6 +71,7 @@ var Voyager = (function() {
         console.log("Job types: " + jobTypes);
         console.log("Location: " + location);
         console.log("Sectors: " + sectors);
+        console.log("Salary: " + salary);
         console.log("");
         console.log("");
 
@@ -82,7 +84,8 @@ var Voyager = (function() {
                     "&titleOnly=" + keywordsOnly +
                     "&type=" + settings.jobTypes +
                     "&location=" + location + 
-                    "&sector=" + sectors,
+                    "&sector=" + sectors +
+                    "&salary=" + salary,
             cache: false,
             success: function (result) {
                 var $moreBlocks = $(result);
@@ -105,7 +108,7 @@ var Voyager = (function() {
         $jobsTarget = $(target);
 
         _bindUIActions();
-        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), "", "", "");
+        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), "", "", "", "");
     }
 
     return {
