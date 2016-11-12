@@ -7,7 +7,7 @@
 .c-alert {
 	color: $white;
 	padding: 1rem 2rem;
-	border-radius: $border-radius;
+	font-family: $font-family-sec;
 	transition: opacity $speed $ease,
 				color $speed $ease,
 				background $speed $ease,
@@ -22,6 +22,10 @@
 		visibility: visible;
 		opacity: 1;
 	}
+
+	p {
+		padding: 0;
+	}
 }
 
 .c-alert--success {
@@ -35,4 +39,3 @@
 .c-alert--info {
 	background-color: $pri;
 }
-

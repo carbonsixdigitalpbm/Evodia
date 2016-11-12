@@ -14,8 +14,8 @@
         @Html.Action("RenderFullSearchForm", "SearchForm", new {keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"]})
     </aside>
     <main class="o-page__content o-page__content--sidebar-layout s-free-content">
-        <div style="background-color: #0093D0; color: white; padding: 10px; margin-bottom: 10px;">
-            <h2 style="margin: 0; color: white;">Results: <strong class="js-count"></strong></h2>
+        <div class="c-alert c-alert--info">
+            <p class="u-delta">Results: <strong class="js-count"></strong></p>
         </div>
         <div id="jobs-target"></div>
         <div id="pagination-target" class=""></div>
