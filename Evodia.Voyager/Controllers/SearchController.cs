@@ -157,7 +157,7 @@ namespace Evodia.Voyager.Controllers
 
             locations.Add(new SelectListItem
             {
-                Text = "Up to £10,000",
+                Text = "£10,000",
                 Value = "10000",
                 Selected = false
             });
