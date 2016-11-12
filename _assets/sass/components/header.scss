@@ -78,8 +78,12 @@
 
 @include respond-min( $mq-large ) {
 
+	.c-header__logo-link {
+		margin-top: 3.5rem;
+	}
+
 	.c-header__logo-image {
-		width: 15rem;
+		width: 12.8rem;
 	}
 
 	.c-header__group {
