@@ -48,7 +48,7 @@
 
         <div class="o-form__field">
             @Html.LabelFor(x => x.Locations, new {@class = "o-label"})
-            @Html.DropDownListFor(x => x.Locations, Model.Locations, "County", new {@class = "js-select"})
+            @Html.DropDownListFor(x => x.Locations, Model.Locations, "County", new {@class = "js-select js-filter-select js-location" })
             @Html.ValidationMessageFor(x => x.Locations)
         </div>
 
@@ -59,7 +59,7 @@
                 {
                     <li class="o-fieldset__item">
                         <label class="o-label" for="@Model.Sectors[i].Name">
-                            @Html.CheckBoxFor(x => x.Sectors[i].IsSelected, new {@id = Model.Sectors[i].Name, @class = "o-radio__checkbox"})
+                            @Html.CheckBoxFor(x => x.Sectors[i].IsSelected, new {@id = Model.Sectors[i].Name, @class = "o-radio__checkbox js-sector" })
                             <span class="">@Model.Sectors[i].Name</span>
                         </label>
                     </li>

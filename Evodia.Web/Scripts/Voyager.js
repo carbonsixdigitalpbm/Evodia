@@ -5,13 +5,17 @@ var Voyager = (function() {
         $keywords = $(".js-keywords"),
         $keywordsOnly = $(".js-keywords-only"),
         $jobTypeCheckboxes = $(".js-jobtype"),
+        $filterSelects = $(".js-filter-select"),
+        $locationSelect = $(".js-location"),
+        $sectorTypeCheckboxes = $(".js-sector"),
         $searchButton = $(".js-search");
 
     var settings = {
         pageSize: 20,
         pageNumber: 0,
         controllerUrl: "",
-        jobTypes: []
+        jobTypes: [],
+        sectors: []
     };
 
     var busyLoading = false;
@@ -21,10 +25,14 @@ var Voyager = (function() {
         $jobsTarget.html("");
         settings.pageNumber = 0;
 
-        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes);
+        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors);
     };
 
     var _bindUIActions = function () {
+
+        $filterSelects.on('change', function () {
+            _loadJobs();
+        });
 
         $searchButton.click(function (e) {
             _loadJobs();
@@ -41,12 +49,30 @@ var Voyager = (function() {
 
             _loadJobs();
         });
+
+        $sectorTypeCheckboxes.click(function () {
+            settings.sectors = [];
+
+            $(".js-sector:checkbox:checked").each(function (i) {
+                settings.sectors[i] = $(this).attr("id");
+            });
+
+            _loadJobs();
+        });
     };
 
-    var _getJobs = function(keywords, keywordsOnly, jobTypes) {
+    var _getJobs = function (keywords, keywordsOnly, jobTypes, location, sectors) {
+        console.log("#####################");
+        console.log("## SEARCH SETTINGS ##");
+        console.log("#####################");
         console.log("Keywords: " + keywords);
         console.log("Keywords only: " + keywordsOnly);
         console.log("Job types: " + jobTypes);
+        console.log("Location: " + location);
+        console.log("Sectors: " + sectors);
+        console.log("");
+        console.log("");
+
         $.ajax({
             type: "POST",
             url: settings.controllerUrl,
@@ -54,7 +80,9 @@ var Voyager = (function() {
                     "&size=" + settings.pageSize +
                     "&keywords=" + keywords +
                     "&titleOnly=" + keywordsOnly +
-                    "&type=" + settings.jobTypes,
+                    "&type=" + settings.jobTypes +
+                    "&location=" + location + 
+                    "&sector=" + sectors,
             cache: false,
             success: function (result) {
                 var $moreBlocks = $(result);
@@ -77,7 +105,7 @@ var Voyager = (function() {
         $jobsTarget = $(target);
 
         _bindUIActions();
-        _getJobs($keywords.val(), $keywordsOnly.prop("checked"));
+        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), "", "", "");
     }
 
     return {

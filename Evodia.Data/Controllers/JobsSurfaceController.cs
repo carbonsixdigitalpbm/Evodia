@@ -55,8 +55,7 @@ namespace Evodia.Data.Controllers
             if (!string.IsNullOrEmpty(type))
             {
                 var types = type.Split(',');
-
-
+                
                 jobs = jobs.Where(j => j.JobType.ContainsAny(types, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
@@ -78,9 +77,11 @@ namespace Evodia.Data.Controllers
 
         private static List<VacancyModel> SearchJobsBySector(List<VacancyModel> jobs, string sector)
         {
-            if (!string.IsNullOrEmpty(sector))
+            if (!string.IsNullOrEmpty(sector) && !sector.Contains("All"))
             {
-                jobs = jobs.Where(j => j.Sector.Equals(sector, StringComparison.OrdinalIgnoreCase)).ToList();
+                var sectors = sector.Split(',');
+
+                jobs = jobs.Where(j => j.Sector.ContainsAny(sectors, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;
@@ -90,7 +91,7 @@ namespace Evodia.Data.Controllers
         {
             if (!string.IsNullOrEmpty(location))
             {
-                jobs = jobs.Where(j => j.Sector.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+                jobs = jobs.Where(j => j.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;

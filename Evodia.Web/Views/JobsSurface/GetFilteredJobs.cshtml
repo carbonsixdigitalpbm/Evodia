@@ -3,7 +3,14 @@
 
 @foreach (var item in Model)
 {
-    <h2>@item.PublishedContent.Name</h2>
+    <div style="border: 1px solid #708090; background-color: #f2f2f2; margin-bottom: 20px; padding: 10px;">
+        <h2>@item.PublishedContent.Name</h2>
+        <small>
+            <p>Job type: @item.JobType</p>
+            <p>Location: @item.Location</p>
+            <p>Sector: @item.Sector</p>
+        </small>
+    </div>
 }
 
 

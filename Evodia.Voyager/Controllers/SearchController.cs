@@ -80,7 +80,7 @@ namespace Evodia.Voyager.Controllers
             sectors.Add(new Sector
             {
                 Name = "All",
-                IsSelected = true
+                IsSelected = false
             });
 
             sectors.Add(new Sector
