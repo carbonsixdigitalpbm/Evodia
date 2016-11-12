@@ -1,12 +1,13 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    Layout = "Layout.cshtml";
+    Layout = "Master.cshtml";
     var headline = Model.HasValue("clientJobTitle") ? Model.GetPropertyValue<string>("clientJobTitle") : Model.Name;
 }
 
-<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar">
-	<main class="o-page__content o-page__content--sidebar-layout s-free-content">
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+	<main class="o-page__content o-page__content--sidebar-layout">
+		<p><a href="#">< Back to results</a></p>
 		<h1>@headline</h1>
 		<ul>
 			<li>
