@@ -3,37 +3,58 @@ var Voyager = (function() {
 
     var $jobsTarget,
         $keywords = $(".js-keywords"),
-        $keywordsOnly = $(".js-keywords-only");
+        $keywordsOnly = $(".js-keywords-only"),
+        $jobTypeCheckboxes = $(".js-jobtype"),
+        $searchButton = $(".js-search");
 
     var settings = {
         pageSize: 20,
         pageNumber: 0,
-        controllerUrl: ""
+        controllerUrl: "",
+        jobTypes: []
     };
 
     var busyLoading = false;
 
-    //var _bindUIActions = function () {
+    var _loadJobs = function () {
+        busyLoading = true;
+        $jobsTarget.html("");
+        settings.pageNumber = 0;
 
-    //    $selects.on('change', function () {
-    //        $eventsTarget.html("");
-    //        settings.pageNumber = 0;
-    //        _loadMore();
-    //    });
+        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes);
+    };
 
-    //    $loadMoreButton.on('click', function () {
-    //        _loadMore();
-    //    });
-    //};
+    var _bindUIActions = function () {
 
-    var _getJobs = function(keywords, keywordsOnly) {
-        console.log("Title: " + keywords);
-        console.log("Title: " + keywordsOnly);
+        $searchButton.click(function (e) {
+            _loadJobs();
 
+            e.preventDefault();
+        });
+
+        $jobTypeCheckboxes.click(function () {
+            settings.jobTypes = [];
+
+            $(".js-jobtype:checkbox:checked").each(function (i) {
+                settings.jobTypes[i] = $(this).attr("id");
+            });
+
+            _loadJobs();
+        });
+    };
+
+    var _getJobs = function(keywords, keywordsOnly, jobTypes) {
+        console.log("Keywords: " + keywords);
+        console.log("Keywords only: " + keywordsOnly);
+        console.log("Job types: " + jobTypes);
         $.ajax({
             type: "POST",
             url: settings.controllerUrl,
-            data: "offset=" + settings.pageNumber + "&size=" + settings.pageSize + "&keywords=" + keywords + "&titleOnly=" + keywordsOnly,
+            data: "offset=" + settings.pageNumber +
+                    "&size=" + settings.pageSize +
+                    "&keywords=" + keywords +
+                    "&titleOnly=" + keywordsOnly +
+                    "&type=" + settings.jobTypes,
             cache: false,
             success: function (result) {
                 var $moreBlocks = $(result);
@@ -41,7 +62,7 @@ var Voyager = (function() {
                 $jobsTarget.append($moreBlocks);
             },
             complete: function () {
-                busyloading = false;
+                busyLoading = false;
             },
             error: function (result) {
                 console.log('Jobs failed to load: ');
@@ -55,6 +76,7 @@ var Voyager = (function() {
         settings.controllerUrl = jobControllerUrl;
         $jobsTarget = $(target);
 
+        _bindUIActions();
         _getJobs($keywords.val(), $keywordsOnly.prop("checked"));
     }
 
