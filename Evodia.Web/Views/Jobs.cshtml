@@ -1,37 +1,21 @@
 ﻿@using System.Globalization
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-	Layout = "Master.cshtml";
-
-    var searchQueryString = Request.QueryString["search"];
+    Layout = "Master.cshtml";
 
     var ci = new CultureInfo("en-GB");
 
     System.Threading.Thread.CurrentThread.CurrentCulture = ci;
     System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
 
-    var absoluteFileLink = "C:\\Users\\Pauliua\\Projects\\Work projects\\Evodia\\Evodia.Web\\Voyager\\WebCruitXML_20161109141448_JO0000070112.xml";
-    var splitUrl = absoluteFileLink.Split('\\');
-    var fileName = splitUrl[splitUrl.Length - 1];
-    var splitFileName = fileName.Split('_');
-    var dateString = splitFileName[1].Trim();
-    var pattern = "yyyyMddHHmmss";
-    var jobPostDate = DateTime.ParseExact(dateString, pattern, ci);
-    var jobRef = splitFileName[2].Replace(".xml", "");
-
-    <h1>@dateString</h1>
-    <h1>@jobRef</h1>
-    <h1>@jobPostDate</h1>
+    var keywords = TempData["Keywords"];
+    var titleOnly = TempData["TitleOnly"];
 }
 
 <div class="o-section o-wrap o-wrap--large">
-    <h1>Jobs</h1>
-    @using (Html.BeginForm("GetFilteredJobs","JobsSurface"))
-    {
-        <div>
-            <label for="keywords">Job title</label>
-            <input type="text" placeholder="Search anything here.." name="keywords" value="@searchQueryString" />
-        </div>
-        <input class="c-button c-button--primary" id="submit" type="submit" value="Submit" />
-    }
+    <h3>keywords: @keywords</h3>
+    <p>titleOnly: @titleOnly</p>
+</div>
+<div id="jobsTarget" class="o-section o-wrap o-wrap--large">
+    
 </div>

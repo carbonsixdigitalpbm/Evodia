@@ -251,7 +251,7 @@ namespace Evodia.Voyager.Domain
                 SetUmbracoProperty(newNode, "class1", vacancyElement.Class1);
                 SetUmbracoProperty(newNode, "class2", vacancyElement.Class2);
                 SetUmbracoProperty(newNode, "class3", vacancyElement.Class3);
-                SetUmbracoProperty(newNode, "jobDescription", vacancyElement.JobDescription);
+                //SetUmbracoProperty(newNode, "jobDescription", vacancyElement.JobDescription);
 
                 var jobLocation = vacancyElement.JobLocation;
 
@@ -305,44 +305,44 @@ namespace Evodia.Voyager.Domain
 
             foreach (var consultant in consultants.Consultant)
             {
-                if (consultant != null)
+                if (consultant == null) continue;
+
+                dynamic ncItem = new ExpandoObject();
+
+                ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "consultant");
+                ((IDictionary<string, object>)ncItem).Add("emailAddress", consultant.EmailAddress);
+
+                if (consultant.Name != null)
                 {
-                    dynamic ncItem = new ExpandoObject();
-
-                    ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "consultant");
-                    if (consultant.Name != null)
-                    {
-                        ((IDictionary<string, object>)ncItem).Add("firstName", consultant.Name.First);
-                        ((IDictionary<string, object>)ncItem).Add("lastName", consultant.Name.Last);
-                    }
-                    ((IDictionary<string, object>)ncItem).Add("emailAddress", consultant.EmailAddress);
-
-                    var phoneNumbers = consultant.PhoneNumbers;
-
-                    if (phoneNumbers != null)
-                    {
-                        var voice = phoneNumbers.Voice;
-                        var fax = phoneNumbers.Fax;
-                        var mobile = phoneNumbers.ConsultantMobile;
-
-                        if (voice != null)
-                        {
-                            ((IDictionary<string, object>)ncItem).Add("voice", voice.TelNumber);
-                        }
-
-                        if (fax != null)
-                        {
-                            ((IDictionary<string, object>)ncItem).Add("fax", fax.TelNumber);
-                        }
-
-                        if (mobile != null)
-                        {
-                            ((IDictionary<string, object>)ncItem).Add("consultantMobile", mobile.TelNumber);
-                        }
-                    }
-
-                    ncItems.Add(ncItem);
+                    ((IDictionary<string, object>)ncItem).Add("firstName", consultant.Name.First);
+                    ((IDictionary<string, object>)ncItem).Add("lastName", consultant.Name.Last);
                 }
+
+                var phoneNumbers = consultant.PhoneNumbers;
+
+                if (phoneNumbers != null)
+                {
+                    var voice = phoneNumbers.Voice;
+                    var fax = phoneNumbers.Fax;
+                    var mobile = phoneNumbers.ConsultantMobile;
+
+                    if (voice != null)
+                    {
+                        ((IDictionary<string, object>)ncItem).Add("voice", voice.TelNumber);
+                    }
+
+                    if (fax != null)
+                    {
+                        ((IDictionary<string, object>)ncItem).Add("fax", fax.TelNumber);
+                    }
+
+                    if (mobile != null)
+                    {
+                        ((IDictionary<string, object>)ncItem).Add("consultantMobile", mobile.TelNumber);
+                    }
+                }
+
+                ncItems.Add(ncItem);
             }
 
             var ncItemString = Newtonsoft.Json.JsonConvert.SerializeObject(ncItems);
@@ -356,16 +356,15 @@ namespace Evodia.Voyager.Domain
 
             foreach (var attribute in attributes.Attribute)
             {
-                if (attribute != null)
-                {
-                    dynamic ncItem = new ExpandoObject();
+                if (attribute == null) continue;
 
-                    ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "attribute");
-                    ((IDictionary<string, object>)ncItem).Add("name", attribute.Name);
-                    ((IDictionary<string, object>)ncItem).Add("essential", attribute.Essential);
+                dynamic ncItem = new ExpandoObject();
 
-                    ncItems.Add(ncItem);
-                }
+                ((IDictionary<string, object>)ncItem).Add("ncContentTypeAlias", "attribute");
+                ((IDictionary<string, object>)ncItem).Add("name", attribute.Name);
+                ((IDictionary<string, object>)ncItem).Add("essential", attribute.Essential);
+
+                ncItems.Add(ncItem);
             }
 
             var ncItemString = Newtonsoft.Json.JsonConvert.SerializeObject(ncItems);

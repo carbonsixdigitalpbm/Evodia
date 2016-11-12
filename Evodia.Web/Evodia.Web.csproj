@@ -531,6 +531,8 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
+    <Content Include="Scripts\Voyager.js" />
+    <Content Include="Scripts\validate.js" />
     <Content Include="Umbraco\Actions\delete.aspx" />
     <Content Include="Umbraco\Actions\editContent.aspx" />
     <Content Include="Umbraco\Actions\preview.aspx" />
@@ -2253,9 +2255,11 @@
     <Content Include="Views\XMLSitemap.cshtml" />
     <Content Include="Views\Job.cshtml" />
     <Content Include="Views\Jobs.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Partials\JobsSurface\GetFilteredJobs.cshtml" />
     <Content Include="Views\JobsSurface\GetFilteredJobs.cshtml" />
+    <Content Include="Views\Partials\Forms\SearchFormView.cshtml" />
+    <Content Include="Views\Partials\Home\FeaturedContent.cshtml" />
+    <Content Include="Views\Partials\Jobs\JobCard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2290,6 +2294,7 @@
     <Folder Include="App_Data\NuGetBackup\20161103-211047\Umbraco_Client\" />
     <Folder Include="App_Data\packages\created\" />
     <Folder Include="App_Data\TEMP\Install\" />
+    <Folder Include="Umbraco_Client\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Evodia.Core\Evodia.Core.csproj">
