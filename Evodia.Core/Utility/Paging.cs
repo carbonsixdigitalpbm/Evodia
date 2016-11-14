@@ -14,14 +14,15 @@ namespace Evodia.Core.Utility
         public int Skip { get; set; }
         public int Take { get; set; }
 
-        public static Paging GetPages(int totalItems, int pageSize = 10)
+        public static Paging GetPages(int totalItems, int pageSize, int activePage)
         {
-            int page;
-            int.TryParse(HttpContext.Current.Request.QueryString["page"], out page);
-            if (page == 0) page = 1;
+            if (activePage == 0)
+            {
+                activePage = 1;
+            }
 
             var totalPages = (int)Math.Ceiling(totalItems / (decimal)pageSize);
-            var currentPage = page;
+            var currentPage = activePage;
             var startPage = currentPage - 3;
             var endPage = currentPage + 2;
 
@@ -50,7 +51,7 @@ namespace Evodia.Core.Utility
                 StartPage = startPage,
                 EndPage = endPage,
                 Take = pageSize,
-                Skip = page * pageSize - pageSize
+                Skip = activePage * pageSize - pageSize
             };
         }
 

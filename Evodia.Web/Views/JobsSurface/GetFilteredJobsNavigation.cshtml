@@ -1,11 +1,43 @@
-﻿@using Evodia.Data.Models;
+﻿@using Evodia.Core.Utility
+@using Evodia.Data.Models;
 @inherits UmbracoViewPage<IEnumerable<VacancyModel>>
 @{
-    var paging = Paging.GetPages(Model.Count(), 20);
+    var activePage = ViewData["page"] as int? ?? 0;
+    var paging = Paging.GetPages(Model.Count(), 5, activePage);
 }
+<style>
+    .active {
+        background: red;
+    }
+</style>
+@if (paging.EndPage > 1)
+{
+    <ul class="c-pagination">
+        @if (paging.CurrentPage > 1)
+        {
+            <li>
+                <a href="#" class="js-page" data-page="0">First</a>
+            </li>
+            <li>
+                <a href="#" class="js-page" data-page="@(paging.CurrentPage - 2)">Previous</a>
+            </li>
+        }
 
-<nav class="c-pagination">
-    <a href="#">Page 1</a>
-    <a href="#">Page 2</a>
-    <a href="#">Page 3</a>
-</nav>
+        @for (var page = paging.StartPage; page <= paging.EndPage; page++)
+        {
+            <li class="@(activePage == page ? "active" : "")">
+                <a href="#" class="js-page" data-page="@(page -1)">@page</a>
+            </li>    
+        }
+
+        @if (paging.CurrentPage < paging.TotalPages)
+        {
+            <li>
+                <a href="#@(paging.CurrentPage + 1)" class="js-page" data-page="@(paging.CurrentPage)">Next</a>
+            </li>
+            <li>
+                <a href="#@(paging.TotalPages)" class="js-page" data-page="@(paging.TotalPages - 1)">Last</a>
+            </li>
+        }
+    </ul>
+}	

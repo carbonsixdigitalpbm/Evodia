@@ -54,8 +54,8 @@ namespace Evodia.Data.Controllers
                 {
                     status = "OK",
                     count = allJobs.Count,
-                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs),
-                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", pagedJobs),
+                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0),
+                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, offset),
                 });
             }
 
@@ -170,9 +170,10 @@ namespace Evodia.Data.Controllers
             return foundJobs;
         }
 
-        public string RenderRazorViewToString(string viewName, object model)
+        public string RenderRazorViewToString(string viewName, object model, int activePage)
         {
             ViewData.Model = model;
+            ViewData["page"] = activePage;
 
             using (var sw = new StringWriter())
             {

@@ -11,7 +11,8 @@ var Voyager = (function() {
         $locationSelect = $(".js-location"),
         $salarySelect = $(".js-salary"),
         $sectorTypeCheckboxes = $(".js-sector"),
-        $searchButton = $(".js-search");
+        $searchButton = $(".js-search"),
+        $pagingButtons = $(".js-page");
 
     var settings = {
         pageSize: 5,
@@ -23,48 +24,67 @@ var Voyager = (function() {
 
     var busyLoading;
 
-    var _loadJobs = function () {
+    var _loadJobs = function() {
         busyLoading = true;
         $jobsTarget.html("");
-        settings.pageNumber = 0;
 
         _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
     };
 
-    var _bindUIActions = function () {
+    var _getPrevalues = function() {
+        settings.jobTypes = [];
 
-        $filterSelects.on('change', function () {
+        $(".js-jobtype:checkbox:checked").each(function(i) {
+            settings.jobTypes[i] = $(this).attr("id");
+        });
+
+        settings.sectors = [];
+
+        $(".js-sector:checkbox:checked").each(function(i) {
+            settings.sectors[i] = $(this).attr("id");
+        });
+    };
+
+    var _resetPageNumber = function() {
+        settings.pageNumber = 0;
+    };
+
+    var _bindUIActions = function() {
+
+        $filterSelects.on('change', function() {
+            _resetPageNumber();
             _loadJobs();
         });
 
-        $searchButton.click(function (e) {
+        $searchButton.click(function(e) {
+            _resetPageNumber();
             _loadJobs();
 
             e.preventDefault();
         });
 
-        $jobTypeCheckboxes.click(function () {
-            settings.jobTypes = [];
-
-            $(".js-jobtype:checkbox:checked").each(function (i) {
-                settings.jobTypes[i] = $(this).attr("id");
-            });
-
+        $jobTypeCheckboxes.click(function() {
+            _resetPageNumber();
+            _getPrevalues();
             _loadJobs();
         });
 
-        $sectorTypeCheckboxes.click(function () {
-            settings.sectors = [];
-
-            $(".js-sector:checkbox:checked").each(function (i) {
-                settings.sectors[i] = $(this).attr("id");
-            });
-
+        $sectorTypeCheckboxes.click(function() {
+            _resetPageNumber();
+            _getPrevalues();
             _loadJobs();
+        });
+
+        $navTarget.on("click", ".js-page", function(e) {
+            var pageNumber = $(this).data("page");
+
+            settings.pageNumber = pageNumber;
+            _loadJobs();
+            e.preventDefault();
         });
     };
 
-    var _getJobs = function (keywords, keywordsOnly, jobTypes, location, sectors, salary) {
+    var _getJobs = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
         console.log("#####################");
         console.log("## SEARCH SETTINGS ##");
         console.log("#####################");
@@ -74,7 +94,7 @@ var Voyager = (function() {
         console.log("Location: " + location);
         console.log("Sectors: " + sectors);
         console.log("Salary: " + salary);
-        console.log("");
+        console.log("Page: " + settings.pageNumber);
         console.log("");
 
         $.ajax({
@@ -82,19 +102,15 @@ var Voyager = (function() {
             url: settings.controllerUrl,
             dataType: "json",
             data: "offset=" + settings.pageNumber +
-                    "&size=" + settings.pageSize +
-                    "&keywords=" + keywords +
-                    "&titleOnly=" + keywordsOnly +
-                    "&type=" + settings.jobTypes +
-                    "&location=" + location + 
-                    "&sector=" + sectors +
-                    "&salary=" + salary,
+                "&size=" + settings.pageSize +
+                "&keywords=" + keywords +
+                "&titleOnly=" + keywordsOnly +
+                "&type=" + settings.jobTypes +
+                "&location=" + location +
+                "&sector=" + sectors +
+                "&salary=" + salary,
             cache: false,
-            success: function (result) {
-                console.log(result.jobs);
-                console.log(result.navigation);
-                console.log(result.count);
-
+            success: function(result) {
                 var $jobs = $(result.jobs),
                     $nav = $(result.navigation);
 
@@ -104,14 +120,15 @@ var Voyager = (function() {
 
                 $countTarget.html(result.count + label);
             },
-            complete: function () {
+            complete: function() {
                 busyLoading = false;
             },
-            error: function (result) {
+            error: function(result) {
                 console.log('Jobs failed to load: ');
                 console.log(result);
             }
         });
+
         settings.pageNumber++;
     }
 
@@ -120,8 +137,9 @@ var Voyager = (function() {
         $jobsTarget = $(jobTarget);
         $navTarget = $(navTarget);
 
+        _getPrevalues();
         _bindUIActions();
-        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), "", "", "", "");
+        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
     }
 
     return {
