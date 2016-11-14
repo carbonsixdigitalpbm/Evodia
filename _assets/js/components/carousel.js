@@ -1,43 +1,6 @@
 var Carousel = (function ($) {
 	'use strict';
 
-	var responsiveSettings = [
-		{
-			breakpoint: 1500,
-			settings: {
-				centerPadding: '25%'
-			}
-		},
-		{
-			breakpoint: 1280,
-			settings: {
-				centerPadding: '20%'
-			}
-		},
-		{
-			breakpoint: 1000,
-			settings: {
-				centerPadding: '8rem'
-			}
-		},
-		{
-			breakpoint: 800,
-			settings: {
-				slidesToShow: 1,
-				centerPadding: '4rem',
-				arrows: false
-			}
-		},
-		{
-			breakpoint: 600,
-			settings: {
-				slidesToShow: 1,
-				centerPadding: '2rem',
-				arrows: false
-			}
-		}
-	];
-
 	var _init = function( $carousel ) {
 
 		$carousel.each(function() {
@@ -73,8 +36,7 @@ var Carousel = (function ($) {
 					appendArrows: $this.parent(),
 					prevArrow: "<button class='c-carousel--prev'><i class='ico-arrow-left'></i></button>",
                 	nextArrow: "<button class='c-carousel--next'><i class='ico-arrow-right'></i></button>",
-				    fade: settings.fade,
-					responsive: settings.padded ? responsiveSettings : null
+				    fade: settings.fade
 				});
 
 			}

@@ -93,6 +93,7 @@
 
 		$window.Carousel.init( $('.js-carousel') );
 		$window.Modal.init( $('.js-modal') );
+		$window.Accordion.init();
 
 		//MQ.init(breakpoints);
 	}
