@@ -90,8 +90,6 @@ var Accordion = (function ($) {
 
 	var _setPanelHeight = function(panel) {
 		//	get panel height
-		console.log('-');
-		console.log( panel );
 		var panelHeight = _getPanelHeight(panel);
 		//	recalc style and layout
 //		panel.getBoundingClientRect();
@@ -192,7 +190,7 @@ var Accordion = (function ($) {
 	var _giveHeaderFocus = function( headerSet, i ) {
 		// remove focusability from inactives
 		headerSet.each( function(header) {
-			$(this).setAttribute('tabindex', -1);
+			$(this).attr('tabindex', -1);
 		});
 		// set active focus
 		$( headerSet[i] ).attr('tabindex', 0);
@@ -205,14 +203,15 @@ var Accordion = (function ($) {
 	};
 
 	var _eventHeaderKeydown = function (e) {
-		console.log( e );
+
 		// collect header targets, and their prev/next
 		var currentHeader = $(e.currentTarget);
 		var isModifierKey = e.metaKey || e.altKey;
 		// get context of accordion container and its children
 		var thisContainer = currentHeader.parent();
 		var theseHeaders = $(headerSelector, thisContainer);
-		var currentHeaderIndex = [].indexOf.call(theseHeaders, currentHeader);
+//		var currentHeaderIndex = [].indexOf.call(theseHeaders, currentHeader);
+		var currentHeaderIndex = theseHeaders.index( currentHeader );
 
 		// don't catch key events when ⌘ or Alt modifier is present
 		if (isModifierKey) return;

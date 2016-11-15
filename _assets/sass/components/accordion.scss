@@ -84,6 +84,16 @@
 
 		}
 
+
+		&:focus {
+
+			&:before,
+			&:after {
+				background-color: $pri
+			}
+
+		}
+
 		&[aria-selected="false"],
 		&[aria-selected="true"] {
 
