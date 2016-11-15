@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Evodia.Data.Data;
 using Evodia.Voyager.Domain.Models;
 using Umbraco.Web.Mvc;
 
@@ -56,99 +57,54 @@ namespace Evodia.Voyager.Controllers
 
         private static List<JobType> GetJobTypesFromAvailableJobs()
         {
-            var jobTypes = new List<JobType>();
+            var jobTypesList = new List<JobType>();
+            var jobTypes = JobsRepository.GetTypes();
 
-            jobTypes.Add(new JobType
+            foreach (var jobType in jobTypes)
             {
-                Name = "Contract",
-                IsSelected = false
-            });
+                jobTypesList.Add(new JobType
+                {
+                    Name = jobType,
+                    IsSelected = false
+                });
+            }
 
-            jobTypes.Add(new JobType
-            {
-                Name = "Permanent",
-                IsSelected = false
-            });
-
-            return jobTypes;
+            return jobTypesList;
         }
 
         private List<Sector> GetJobSectorsFromAvailableJobs()
         {
-            var sectors = new List<Sector>();
+            var sectorsList = new List<Sector>();
+            var sectors = JobsRepository.GetSectors();
 
-            sectors.Add(new Sector
+            foreach (var sector in sectors)
             {
-                Name = "All",
-                IsSelected = false
-            });
-
-            sectors.Add(new Sector
-            {
-                Name = "Defence and space",
-                IsSelected = false
-            });
-
-            sectors.Add(new Sector
-            {
-                Name = "Technology",
-                IsSelected = false
-            });
-
-            sectors.Add(new Sector
-            {
-                Name = "Communication",
-                IsSelected = false
-            });
-
-            sectors.Add(new Sector
-            {
-                Name = "Management",
-                IsSelected = false
-            });
-
-            sectors.Add(new Sector
-            {
-                Name = "Government",
-                IsSelected = false
-            });
-
-            return sectors;
+                sectorsList.Add(new Sector
+                {
+                    Name = sector,
+                    IsSelected = false
+                });
+            }
+           
+            return sectorsList;
         }
 
         private static List<SelectListItem> GetJobLocationsFromAvailableJobs()
         {
-            var locations = new List<SelectListItem>();
+            var locationsList = new List<SelectListItem>();
+            var locations = JobsRepository.GetLocations();
 
-            locations.Add(new SelectListItem
+            foreach (var location in locations)
             {
-                Text = "Hampshire",
-                Value = "Hampshire",
-                Selected = false
-            });
+                locationsList.Add(new SelectListItem
+                {
+                    Text = location,
+                    Value = location,
+                    Selected = false
+                });
+            }
 
-            locations.Add(new SelectListItem
-            {
-                Text = "Essex",
-                Value = "Essex",
-                Selected = false
-            });
-
-            locations.Add(new SelectListItem
-            {
-                Text = "Surrey",
-                Value = "Surrey",
-                Selected = false
-            });
-
-            locations.Add(new SelectListItem
-            {
-                Text = "Kent",
-                Value = "Kent",
-                Selected = false
-            });
-
-            return locations;
+            return locationsList;
         }
 
         private static List<SelectListItem> GetMinimumSalaryList()

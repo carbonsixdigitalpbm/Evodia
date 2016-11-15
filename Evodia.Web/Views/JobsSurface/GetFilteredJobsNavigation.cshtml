@@ -2,14 +2,23 @@
 @using Evodia.Data.Models;
 @inherits UmbracoViewPage<IEnumerable<VacancyModel>>
 @{
-    var activePage = ViewData["page"] as int? ?? 0;
+    var activePage = ViewData["page"] as int? ?? 1;
     var paging = Paging.GetPages(Model.Count(), 5, activePage);
 }
+
 <style>
     .active {
-        background: red;
+        background: #f2f2f2;
+        padding: 10px;
+    }
+
+    .c-pagination li {
+        list-style: none;
+        display: inline-block;
+        padding: 10px;
     }
 </style>
+
 @if (paging.EndPage > 1)
 {
     <ul class="c-pagination">
@@ -19,24 +28,33 @@
                 <a href="#" class="js-page" data-page="0">First</a>
             </li>
             <li>
-                <a href="#" class="js-page" data-page="@(paging.CurrentPage - 2)">Previous</a>
+                <a href="#" class="js-page" data-page="@paging.CurrentPage">Previous</a>
             </li>
         }
 
         @for (var page = paging.StartPage; page <= paging.EndPage; page++)
         {
-            <li class="@(activePage == page ? "active" : "")">
-                <a href="#" class="js-page" data-page="@(page -1)">@page</a>
-            </li>    
+            if (activePage == page)
+            {
+                <li class="active">
+                    <span>@page</span>
+                </li>
+            }
+            else
+            {
+                <li class="">
+                    <a href="#" class="js-page" data-page="@page">@page</a>
+                </li>
+            } 
         }
 
         @if (paging.CurrentPage < paging.TotalPages)
         {
             <li>
-                <a href="#@(paging.CurrentPage + 1)" class="js-page" data-page="@(paging.CurrentPage)">Next</a>
+                <a href="#@paging.CurrentPage" class="js-page" data-page="@(paging.CurrentPage + 1)">Next</a>
             </li>
             <li>
-                <a href="#@(paging.TotalPages)" class="js-page" data-page="@(paging.TotalPages - 1)">Last</a>
+                <a href="#@paging.TotalPages" class="js-page" data-page="@paging.TotalPages">Last</a>
             </li>
         }
     </ul>

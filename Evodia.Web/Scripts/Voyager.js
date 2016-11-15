@@ -119,6 +119,7 @@ var Voyager = (function() {
                 var label = result.count === 1 ? " job" : " jobs";
 
                 $countTarget.html(result.count + label);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             },
             complete: function() {
                 busyLoading = false;
@@ -128,8 +129,6 @@ var Voyager = (function() {
                 console.log(result);
             }
         });
-
-        settings.pageNumber++;
     }
 
     var _init = function(jobControllerUrl, jobTarget, navTarget) {

@@ -46,6 +46,13 @@ namespace Evodia.Data.Controllers
                 allJobs = SearchJobsBySalary(allJobs, salary);
             }
 
+            if (offset > 0)
+            {
+                offset = offset - 1;
+            }
+
+            var activePage = offset + 1;
+
             var pagedJobs = allJobs.Skip(offset * size).Take(size);
 
             if (Request.IsAjaxRequest())
@@ -55,7 +62,7 @@ namespace Evodia.Data.Controllers
                     status = "OK",
                     count = allJobs.Count,
                     jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0),
-                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, offset),
+                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage),
                 });
             }
 
