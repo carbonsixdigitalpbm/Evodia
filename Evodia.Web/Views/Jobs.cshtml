@@ -57,7 +57,10 @@
             }
         </div>
         <div id="pagination-target" class="">
-            @PagingTemplate.RenderPaging(paging, Model.Id)
+            @if (paging.EndPage > 1)
+            {
+                @PagingTemplate.RenderPaging(paging, Model.Id)
+            }
         </div>
     </main>
 </div>

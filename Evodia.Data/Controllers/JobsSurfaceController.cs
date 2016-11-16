@@ -27,6 +27,38 @@ namespace Evodia.Data.Controllers
         {
             List<VacancyModel> allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, salary, type);
 
+            var queryString = "?";
+
+            if(!string.IsNullOrWhiteSpace(keywords))
+            {
+                queryString = queryString + "keywords=" + keywords + "&";
+            }
+
+            if (titleOnly)
+            {
+                queryString = queryString + "titleonly=true&";
+            }
+
+            if (!string.IsNullOrWhiteSpace(location))
+            {
+                queryString = queryString + "location=" + location + "&";
+            }
+
+            if (!string.IsNullOrWhiteSpace(sector))
+            {
+                queryString = queryString + "sector=" + sector + "&";
+            }
+
+            if (!string.IsNullOrWhiteSpace(salary))
+            {
+                queryString = queryString + "salary=" + salary + "&";
+            }
+
+            if (!string.IsNullOrWhiteSpace(type))
+            {
+                queryString = queryString + "type=" + type;
+            }
+
             if (offset > 0)
             {
                 offset = offset - 1;
@@ -42,8 +74,8 @@ namespace Evodia.Data.Controllers
                 {
                     status = "OK",
                     count = allJobs.Count,
-                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0),
-                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage),
+                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0, ""),
+                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage, queryString),
                 });
             }
 
@@ -184,10 +216,11 @@ namespace Evodia.Data.Controllers
             return foundJobs;
         }
 
-        public string RenderRazorViewToString(string viewName, object model, int activePage)
+        public string RenderRazorViewToString(string viewName, object model, int activePage, string query)
         {
             ViewData.Model = model;
             ViewData["page"] = activePage;
+            ViewData["request"] = query;
 
             using (var sw = new StringWriter())
             {

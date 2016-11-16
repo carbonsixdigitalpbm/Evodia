@@ -1,17 +1,32 @@
 @using Evodia.Core.Utility
 
-@helper RenderPaging(Paging paging, int currentId)
+@helper RenderPaging(Paging paging, int currentId, string request = "")
 {
     var umbracoHelper = new Umbraco.Web.UmbracoHelper(Umbraco.Web.UmbracoContext.Current);
     var queryString = string.Empty;
 
-    foreach (var key in Request.QueryString)
+    if (!string.IsNullOrWhiteSpace(request))
     {
-        if (key != null && (string)key != "page")
+        foreach (var key in HttpUtility.ParseQueryString(request))
         {
-            queryString = queryString + "&" + key + "=" + Request.QueryString[(string)key];
+            if (key != null && (string) key != "page")
+            {
+                queryString = queryString + "&" + key + "=" + Request.QueryString[(string) key];
+            }
         }
     }
+    else
+    {
+        foreach (var key in Request.QueryString)
+        {
+            if (key != null && (string)key != "page")
+            {
+                queryString = queryString + "&" + key + "=" + Request.QueryString[(string)key];
+            }
+        }
+    }
+
+
 
     if (paging.CurrentPage > 1)
     {

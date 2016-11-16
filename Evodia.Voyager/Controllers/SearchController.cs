@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Evodia.Data.Data;
 using Evodia.Voyager.Domain.Models;
+using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace Evodia.Voyager.Controllers
@@ -33,7 +34,7 @@ namespace Evodia.Voyager.Controllers
 
             if (!string.IsNullOrWhiteSpace(keywords))
             {
-                model.Keywords = keywords.Replace("+", " ");
+                model.Keywords = keywords;
             }
 
             if (!string.IsNullOrWhiteSpace(titleOnly))
@@ -52,7 +53,7 @@ namespace Evodia.Voyager.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Keywords))
             {
-                queryString["keywords"] = model.Keywords;
+                queryString["keywords"] = HttpUtility.HtmlEncode(model.Keywords);
             }
 
             if (model.TitleOnly)
@@ -71,7 +72,7 @@ namespace Evodia.Voyager.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Keywords))
             {
-                queryString["keywords"] = model.Keywords;
+                queryString["keywords"] = HttpUtility.HtmlEncode(model.Keywords);
             }
 
             if (model.TitleOnly)
