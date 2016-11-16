@@ -5,22 +5,22 @@
 
 }
 
-@using (Html.BeginUmbracoForm("ProcessFullFormSubmission", "SearchForm", FormMethod.Get, new { id = "search-form", @class = "c-form js-form" }))
+@using (Html.BeginUmbracoForm("ProcessFullFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form" }))
 {
     @Html.AntiForgeryToken()
     <fieldset class="o-form__fieldset c-pod c-pod--light">
         <legend class="u-hide-text">Search job</legend>
 
         <div class="o-form__field">
-			@Html.LabelFor(x => x.Keywords, new {@class = "c-pod__headline"})
-			@Html.TextBoxFor(x => x.Keywords, new {@class = "o-input js-keywords", placeholder = "Enter keywords to search"})
-            @Html.ValidationMessageFor(x => x.Keywords)
+            @Html.LabelFor(x => x.Keywords, new { @class = "c-pod__headline" })
+            @Html.TextBoxFor(x => x.Keywords, new { @class = "o-input js-keywords", placeholder = "Enter keywords to search" })
+            @*@Html.ValidationMessageFor(x => x.Keywords)*@
         </div>
 
         <div class="o-checkbox o-checkbox--small">
-            @Html.CheckBoxFor(x => x.TitleOnly, new { id = "TitleOnly", @class = "o-checkbox__input js-keywords-only"})
-			@Html.LabelFor(x => x.TitleOnly, new {@class = "o-checkbox__label"})
-            @Html.ValidationMessageFor(x => x.TitleOnly)
+            @Html.CheckBoxFor(x => x.TitleOnly, new { id = "TitleOnly", @class = "o-checkbox__input js-keywords-only" })
+            @Html.LabelFor(x => x.TitleOnly, new { @class = "o-checkbox__label" })
+            @*@Html.ValidationMessageFor(x => x.TitleOnly)*@
         </div>
 
         <div class="o-form__field o-form__field--submit">
@@ -37,32 +37,34 @@
                 @for (var i = 0; i < Model.JobTypes.Count; i++)
                 {
                     <li class="o-fieldset__item">
-						<div class="o-checkbox">
-							@Html.CheckBoxFor(x => x.JobTypes[i].IsSelected, new {@id = Model.JobTypes[i].Name, @class = "o-checkbox__input js-jobtype"})
-	                        <label class="o-checkbox__label" for="@Model.JobTypes[i].Name">
-	                            @Model.JobTypes[i].Name
-	                        </label>
-						</div>
+                        @Html.HiddenFor(x => x.JobTypes[i].Name)
+                        <div class="o-checkbox">
+                            @Html.CheckBoxFor(x => x.JobTypes[i].IsSelected, new { @id = Model.JobTypes[i].Name, @class = "o-checkbox__input js-jobtype" })
+                            <label class="o-checkbox__label" for="@Model.JobTypes[i].Name">
+                                @Model.JobTypes[i].Name
+                            </label>
+                        </div>
                     </li>
                 }
             </ul>
         </div>
 
         <div class="o-form__field">
-            @Html.LabelFor(x => x.Locations, new {@class = "o-label c-pod__headline"})
-			<div class="o-select">
-            	@Html.DropDownListFor(x => x.Locations, Model.Locations, "County", new {@class = "js-select js-filter-select js-location" })
-			</div>
-            @Html.ValidationMessageFor(x => x.Locations)
+            @Html.LabelFor(x => x.Locations, new { @class = "o-label c-pod__headline" })
+            <div class="o-select">
+                @Html.DropDownListFor(x => x.SelectedLocation, Model.Locations, "County", new { @class = "js-select js-filter-select js-location" })
+            </div>
+            @*@Html.ValidationMessageFor(x => x.Locations)*@
         </div>
 
         <div class="o-form__field">
-            @Html.LabelFor(x => x.Sectors, new {@class = "o-label c-pod__headline"})
+            @Html.LabelFor(x => x.Sectors, new { @class = "o-label c-pod__headline" })
             <ul class="o-fieldset__list u-clearfix">
                 @for (var i = 0; i < Model.Sectors.Count; i++)
                 {
                     <li class="o-fieldset__item o-checkbox">
-						@Html.CheckBoxFor(x => x.Sectors[i].IsSelected, new {@id = Model.Sectors[i].Name, @class = "o-checkbox__input js-sector" })
+                        @Html.HiddenFor(x => x.Sectors[i].Name)
+                        @Html.CheckBoxFor(x => x.Sectors[i].IsSelected, new { @id = Model.Sectors[i].Name, @class = "o-checkbox__input js-sector" })
                         <label class="o-checkbox__label" for="@Model.Sectors[i].Name">
                             @Model.Sectors[i].Name
                         </label>
@@ -72,11 +74,11 @@
         </div>
 
         <div class="o-form__field">
-            @Html.LabelFor(x => x.MinimumSalary, new {@class = "o-label c-pod__headline"})
-			<div class="o-select">
-            	@Html.DropDownListFor(x => x.MinimumSalary, Model.MinimumSalary, "Minimum salary", new {@class = "js-select js-filter-select js-salary" })
-			</div>
-            @Html.ValidationMessageFor(x => x.MinimumSalary)
+            @Html.LabelFor(x => x.MinimumSalary, new { @class = "o-label c-pod__headline" })
+            <div class="o-select">
+                @Html.DropDownListFor(x => x.SelectedSalary, Model.MinimumSalary, "Minimum salary", new { @class = "js-select js-filter-select js-salary" })
+            </div>
+            @*@Html.ValidationMessageFor(x => x.MinimumSalary)*@
         </div>
     </fieldset>
 }

@@ -22,12 +22,17 @@ namespace Evodia.Voyager.Domain.Models
         [DisplayName("Location")]
         public List<SelectListItem> Locations { get; set; }
 
+        public string SelectedLocation { get; set; }
+
         [DisplayName("Sectors")]
         public List<Sector> Sectors { get; set; }
 
         [DisplayName("Salary")]
         public List<SelectListItem> MinimumSalary { get; set; }
+
+        public string SelectedSalary { get; set; }
     }
+
 
     public class JobType
     {

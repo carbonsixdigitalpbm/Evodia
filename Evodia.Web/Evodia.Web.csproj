@@ -2272,7 +2272,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Master.tpl.html" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />

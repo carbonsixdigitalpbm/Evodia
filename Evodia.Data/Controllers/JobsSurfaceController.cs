@@ -19,7 +19,38 @@ namespace Evodia.Data.Controllers
 {
     public class JobsSurfaceController : SurfaceController
     {
+        public JobsSurfaceController()
+        {
+        }
+
         public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "", string type = "")
+        {
+            List<VacancyModel> allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, salary, type);
+
+            if (offset > 0)
+            {
+                offset = offset - 1;
+            }
+
+            var activePage = offset + 1;
+
+            var pagedJobs = allJobs.Skip(offset * size).Take(size);
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new
+                {
+                    status = "OK",
+                    count = allJobs.Count,
+                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0),
+                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage),
+                });
+            }
+
+            return View(pagedJobs);
+        }
+
+        public List<VacancyModel> GetJobsBySearch(string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "", string type = "")
         {
             List<VacancyModel> allJobs;
 
@@ -46,38 +77,16 @@ namespace Evodia.Data.Controllers
                 allJobs = SearchJobsBySalary(allJobs, salary);
             }
 
-            if (offset > 0)
-            {
-                offset = offset - 1;
-            }
-
-            var activePage = offset + 1;
-
-            var pagedJobs = allJobs.Skip(offset * size).Take(size);
-
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new
-                {
-                    status = "OK",
-                    count = allJobs.Count,
-                    jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0),
-                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage),
-                });
-            }
-
-            return View(pagedJobs);
+            return allJobs;
         }
-
-
 
         private static List<VacancyModel> SearchJobsByType(List<VacancyModel> jobs, string type)
         {
             if (!string.IsNullOrEmpty(type))
             {
-                var types = type.Split(',');
+                var types = type.ToLower().Split(',');
                 
-                jobs = jobs.Where(j => j.JobType.ContainsAny(types, StringComparison.OrdinalIgnoreCase)).ToList();
+                jobs = jobs.Where(j => j.JobType.ToLower().ContainsAny(types, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;
@@ -100,9 +109,9 @@ namespace Evodia.Data.Controllers
         {
             if (!string.IsNullOrEmpty(sector) && !sector.Contains("All"))
             {
-                var sectors = sector.Split(',');
+                var sectors = sector.ToLower().Split(',');
 
-                jobs = jobs.Where(j => j.Sector.ContainsAny(sectors, StringComparison.OrdinalIgnoreCase)).ToList();
+                jobs = jobs.Where(j => j.Sector.ToLower().ContainsAny(sectors, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;
@@ -112,7 +121,7 @@ namespace Evodia.Data.Controllers
         {
             if (!string.IsNullOrEmpty(location))
             {
-                jobs = jobs.Where(j => j.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+                jobs = jobs.Where(j => j.Location.ToLower().Equals(location.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;
@@ -142,8 +151,6 @@ namespace Evodia.Data.Controllers
             foreach (var result in searchResults)
             {
                 var vacancy = Umbraco.TypedContent(result.Id).As<VacancyModel>();
-
-                LogHelper.Info(GetType(), vacancy.Name + " has a score of " + result.Score);
 
                 foundJobs.Add(vacancy);
             }

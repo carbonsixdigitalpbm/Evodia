@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Evodia.Data.Data;
 using Evodia.Voyager.Domain.Models;
@@ -12,6 +17,7 @@ namespace Evodia.Voyager.Controllers
         {
             return PartialView("~/Views/Partials/Forms/BasicSearchFormView.cshtml", new BasicSearchForm());
         }
+
         public ActionResult RenderFullSearchForm()
         {
             var model = new FullSearchForm
@@ -22,17 +28,17 @@ namespace Evodia.Voyager.Controllers
                 MinimumSalary = GetMinimumSalaryList()
             };
 
-            var keywords = TempData["Keywords"];
-            var titleOnly = TempData["TitleOnly"];
+            var keywords = Request.QueryString["keywords"];
+            var titleOnly = Request.QueryString["titleonly"];
 
-            if (keywords != null)
+            if (!string.IsNullOrWhiteSpace(keywords))
             {
-                model.Keywords = (string) keywords;
+                model.Keywords = keywords.Replace("+", " ");
             }
 
-            if (titleOnly != null)
+            if (!string.IsNullOrWhiteSpace(titleOnly))
             {
-                model.TitleOnly = (bool) titleOnly;
+                model.TitleOnly = Convert.ToBoolean(titleOnly);
             }
 
             return PartialView("~/Views/Partials/Forms/FullSearchFormView.cshtml", model);
@@ -42,30 +48,80 @@ namespace Evodia.Voyager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProcessBasicFormSubmission(BasicSearchForm model)
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["ValidationFailed"] = "The form validation could not pass. Please check your input.";
+            var queryString = new NameValueCollection();
 
-                return CurrentUmbracoPage();
+            if (!string.IsNullOrWhiteSpace(model.Keywords))
+            {
+                queryString["keywords"] = model.Keywords;
             }
 
-            TempData["Keywords"] = model.Keywords;
-            TempData["TitleOnly"] = model.TitleOnly;
+            if (model.TitleOnly)
+            {
+                queryString["titleonly"] = model.TitleOnly.ToString().ToLower();
+            }
 
-            return RedirectToUmbracoPage(1186);
+            return RedirectToUmbracoPage(1186, queryString);
         }
 
-        private static List<JobType> GetJobTypesFromAvailableJobs()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProcessFullFormSubmission(FullSearchForm model)
+        {
+            var queryString = new NameValueCollection();
+
+            if (!string.IsNullOrWhiteSpace(model.Keywords))
+            {
+                queryString["keywords"] = model.Keywords;
+            }
+
+            if (model.TitleOnly)
+            {
+                queryString["titleonly"] = model.TitleOnly.ToString().ToLower();
+            }
+
+            if (model.JobTypes.Any(t => t.IsSelected))
+            {
+                queryString["type"] = string.Join(",", model.JobTypes.Where(t => t.IsSelected).Select(i => i.Name.ToLower()));
+            }
+
+            if (model.Sectors.Any(t => t.IsSelected))
+            {
+                queryString["sector"] = string.Join(",", model.Sectors.Where(t => t.IsSelected).Select(i => i.Name.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.SelectedSalary))
+            {
+                queryString["salary"] = model.SelectedSalary;
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.SelectedLocation))
+            {
+                queryString["location"] = model.SelectedLocation.ToLower();
+            }
+
+            return RedirectToUmbracoPage(1186, queryString);
+        }
+
+        private List<JobType> GetJobTypesFromAvailableJobs()
         {
             var jobTypesList = new List<JobType>();
             var jobTypes = JobsRepository.GetTypes();
 
             foreach (var jobType in jobTypes)
             {
+                var isSelected = false;
+
+                var queryStringTypes = Request.QueryString["type"];
+
+                if (!string.IsNullOrWhiteSpace(queryStringTypes))
+                {
+                    isSelected = queryStringTypes.Contains(jobType.ToLower());
+                }
+
                 jobTypesList.Add(new JobType
                 {
                     Name = jobType,
-                    IsSelected = false
+                    IsSelected = isSelected
                 });
             }
 
@@ -79,46 +135,72 @@ namespace Evodia.Voyager.Controllers
 
             foreach (var sector in sectors)
             {
+                var isSelected = false;
+
+                var queryStringSectors = Request.QueryString["sector"];
+
+                if (!string.IsNullOrWhiteSpace(queryStringSectors))
+                {
+                    isSelected = queryStringSectors.ToLower().Contains(sector.ToLower());
+                }
+
                 sectorsList.Add(new Sector
                 {
                     Name = sector,
-                    IsSelected = false
+                    IsSelected = isSelected
                 });
             }
            
             return sectorsList;
         }
 
-        private static List<SelectListItem> GetJobLocationsFromAvailableJobs()
+        private List<SelectListItem> GetJobLocationsFromAvailableJobs()
         {
             var locationsList = new List<SelectListItem>();
             var locations = JobsRepository.GetLocations();
 
             foreach (var location in locations)
             {
+                var isSelected = false;
+
+                var queryStringLocation = Request.QueryString["location"];
+
+                if (!string.IsNullOrWhiteSpace(queryStringLocation))
+                {
+                    isSelected = queryStringLocation.ToLower().Contains(location.ToLower());
+                }
+
                 locationsList.Add(new SelectListItem
                 {
                     Text = location,
                     Value = location,
-                    Selected = false
+                    Selected = isSelected
                 });
             }
 
             return locationsList;
         }
 
-        private static List<SelectListItem> GetMinimumSalaryList()
+        private List<SelectListItem> GetMinimumSalaryList()
         {
             var locations = new List<SelectListItem>();
+            const int salarySteps = 50;
+
+            var isDefaultSelected = false;
+
+            var queryStringSalary = Request.QueryString["salary"];
+
+            if (!string.IsNullOrWhiteSpace(queryStringSalary))
+            {
+                isDefaultSelected = queryStringSalary.Equals("10000");
+            }
 
             locations.Add(new SelectListItem
             {
                 Text = "£10,000",
                 Value = "10000",
-                Selected = false
+                Selected = isDefaultSelected
             });
-
-            var salarySteps = 50;
 
             for (var i = 11; i <= salarySteps; i+=2)
             {
@@ -129,11 +211,18 @@ namespace Evodia.Voyager.Controllers
                     increaseRange = 1;
                 }
 
+                var isSelected = false;
+
+                if (!string.IsNullOrWhiteSpace(queryStringSalary))
+                {
+                    isSelected = queryStringSalary.Equals(i + increaseRange + "000");
+                }
+
                 locations.Add(new SelectListItem
                 {
                     Text = "£" + (i + increaseRange) + ",000",
-                    Value = (i + increaseRange) + "000",
-                    Selected = false
+                    Value = i + increaseRange + "000",
+                    Selected = isSelected
                 });
 
                 if (i >= salarySteps - 1)
@@ -141,8 +230,8 @@ namespace Evodia.Voyager.Controllers
                     locations.Add(new SelectListItem
                     {
                         Text = "£" + (i + increaseRange * 2) + ",000+",
-                        Value = (i + increaseRange * 2) + "000",
-                        Selected = false
+                        Value = i + increaseRange * 2 + "000",
+                        Selected = isSelected
                     });
                 }
             }

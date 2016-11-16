@@ -1,4 +1,6 @@
 ﻿@using System.Globalization
+@using Evodia.Core.Utility
+@using Evodia.Data.Controllers
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
@@ -7,18 +9,56 @@
 
     System.Threading.Thread.CurrentThread.CurrentCulture = ci;
     System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+
+    var keywords = Request.QueryString["keywords"];
+    var titleOnly = Request.QueryString["titleonly"];
+    var type = Request.QueryString["type"];
+    var location = Request.QueryString["location"];
+    var sector = Request.QueryString["sector"];
+    var salary = Request.QueryString["salary"];
+    var page = Request.QueryString["page"];
+    var titleOnlySearch = false;
+    var pageNumber = 1;
+
+    if (!string.IsNullOrWhiteSpace(titleOnly) && titleOnly.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+    {
+        titleOnlySearch = Convert.ToBoolean(titleOnly);
+    }
+
+    if (!string.IsNullOrWhiteSpace(page))
+    {
+        int.TryParse(page, out pageNumber);
+    }
+
+    var jobsSurface = new JobsSurfaceController();
+    var filteredJobs = jobsSurface.GetJobsBySearch(keywords, titleOnlySearch, location, sector, salary, type);
+    var paging = Paging.GetPages(filteredJobs.Count, 5, pageNumber);
+    var pagedJobs = filteredJobs.Skip(paging.Skip).Take(paging.Take);
 }
 
+@*<p>keywords: @keywords</p>
+<p>titleonly: @titleOnly</p>
+<p>type: @type</p>
+<p>location: @location</p>
+<p>sector: @sector</p>
+<p>salary: @salary</p>*@
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
     <aside class="o-page__sidebar">
-        @Html.Action("RenderFullSearchForm", "SearchForm", new {keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"]})
+        @Html.Action("RenderFullSearchForm", "SearchForm")
     </aside>
     <main class="o-page__content o-page__content--sidebar-layout s-free-content">
         <div class="c-alert c-alert--info">
-            <p class="u-delta">Results: <strong class="js-count"></strong></p>
+            <p class="u-delta">Results: <strong class="js-count">@filteredJobs.Count</strong></p>
         </div>
-        <div id="jobs-target"></div>
-        <div id="pagination-target" class=""></div>
+        <div id="jobs-target">
+            @foreach (var job in pagedJobs)
+            {
+                @Html.Partial("~/Views/Partials/Jobs/JobCard.cshtml", job)
+            }
+        </div>
+        <div id="pagination-target" class="">
+            @PagingTemplate.RenderPaging(paging, Model.Id)
+        </div>
     </main>
 </div>
 
