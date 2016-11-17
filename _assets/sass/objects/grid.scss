@@ -31,4 +31,19 @@
 		}
 
 	}
+
+	.flexwrap {
+
+		.o-grid--two,
+		.o-grid--three {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.o-grid__item {
+			display: flex;
+		}
+
+	}
+
 }

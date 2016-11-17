@@ -10,26 +10,29 @@
 
 .c-tile__content {
 	color: $text-colour;
-	background-color: $light-1;
-	padding: 1.4rem;
-	text-align: center;
+	padding: 1.8rem 3rem;
 	position: relative;
 	z-index: 1;
-	border-radius: 0 0 $border-radius $border-radius;
-	transition: background $speed $ease;
+	font-size: 1.4rem;
+	line-height: 1.5;
 }
 
 .c-tile__link {
+	width: 100%;
+	display: block;
+	background-color: $light-1;
+	border-radius: 0 0 $border-radius $border-radius;
+	transition: background $speed $ease;
 
 	&:hover,
 	&:focus {
-
-		.c-tile__content {
-			background-color: $light-2;
-		}
-
+		background-color: $light-2;
 	}
 
+}
+
+.c-tile__name {
+	padding-bottom: .7rem;
 }
 
 .c-tile--no-description {
