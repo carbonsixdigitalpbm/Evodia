@@ -16,12 +16,12 @@
     var hasDescription = item.HasValue("description");
     var tileClasses = hasDescription ? null : "c-tile--no-description";
 
-    var imageId = item.HasValue("thumbnail") ? item.GetPropertyValue<string>("thumbnail") : defaultImageId;
+    var imageId = item.HasValue("socialMediaImage") ? item.GetPropertyValue<string>("socialMediaImage") : defaultImageId;
     var image = Umbraco.TypedMedia( imageId );
     var altText = "";
     var imageUrl = "";
-    var aspectRatio = "3:2";
-    var imageWidth = 400;
+    var aspectRatio = "21:9";
+    var imageWidth = 600;
 
     if(image != null)
     {

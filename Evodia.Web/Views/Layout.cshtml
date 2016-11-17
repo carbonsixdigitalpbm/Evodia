@@ -16,14 +16,15 @@
 }
 else
 {
-    <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-subnav o-section">
-        <main class="o-page__content o-page__content--sidebar-layout s-free-content">
-            @RenderBody()
-        </main>
-        <nav class="o-page__sidebar c-nav c-nav--sub" role="navigation">
-            @Html.Partial("Page/SubNavigation")
-        </nav>
-    </div>
+	<main class="o-page__inner" role="main">
+		@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
+        @RenderBody()
+    </main>
+	@*
+	<nav class="o-page__sidebar c-nav c-nav--sub" role="navigation">
+		@Html.Partial("Page/SubNavigation")
+	</nav>
+	*@
 }
 
 @section OpenGraph {

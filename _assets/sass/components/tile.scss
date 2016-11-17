@@ -4,6 +4,10 @@
 
 =========================================================== */
 
+.c-tile {
+	border-radius: $border-radius;
+}
+
 .c-tile__content {
 	color: $text-colour;
 	background-color: $light-1;
@@ -11,6 +15,7 @@
 	text-align: center;
 	position: relative;
 	z-index: 1;
+	border-radius: 0 0 $border-radius $border-radius;
 	transition: background $speed $ease;
 }
 
@@ -38,10 +43,11 @@
 .c-tile__image-wrap {
 	position: relative;
 	background-position: center;
-	background-position: cover;
+	background-size: cover;
 	background-color: $placeholder-colour;
 	overflow: hidden;
-	@include pad-top(300,200);
+	border-radius: $border-radius $border-radius 0 0;
+	@include pad-top(210,90);
 }
 
 .c-tile__image {

@@ -5,24 +5,20 @@
 
 }
 
-@using (Html.BeginUmbracoForm("ProcessBasicFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form js-form" }))
+@using (Html.BeginUmbracoForm("ProcessBasicFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form js-form u-space-top" }))
 {
     @Html.AntiForgeryToken()
-    <fieldset class="o-form__fieldset">
-        <legend class="o-legend">Search form</legend>
-        <div class="o-form__field">
-            @Html.LabelFor(x => x.Keywords, new { @class = "o-label" })
-            @Html.TextBoxFor(x => x.Keywords, new { @class = "o-input", placeholder = "Enter keywords to search" })
+        <div class="o-form__field o-form__field--compact">
+            @Html.TextBoxFor(x => x.Keywords, new { @class = "o-input" })
+			@Html.LabelFor(x => x.Keywords, new { @class = "o-label" })
             @Html.ValidationMessageFor(x => x.Keywords)
         </div>
-        <div class="o-form__field">
-            @Html.LabelFor(x => x.TitleOnly, new { @class = "o-label" })
+        <div class="o-checkbox">
             @Html.CheckBoxFor(x => x.TitleOnly, new { @class = "o-checkbox__input" })
+			@Html.LabelFor(x => x.TitleOnly, new { @class = "o-checkbox__label" })
             @Html.ValidationMessageFor(x => x.TitleOnly)
         </div>
-        <div class="o-form__field o-form__field--submit">
-            <button type="submit" class="c-button c-button--primary">Search</button>
-        </div>
-    </fieldset>
+		<div class="o-form__field o-form__field--submit u-center-content">
+			<button type="submit" class="c-button c-button--secondary-invert">Search ></button>
+		</div>
 }
-

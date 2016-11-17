@@ -284,21 +284,10 @@ $line-height-half: $line-height / 2;
 			transition: opacity $speed $ease;
 		}
 
-		.o-checkbox__label:before {
-			border-radius: $border-radius;
-		}
-
 		.o-radio__label:before {
 			border-radius: 50%;
 		}
 
-	}
-
-
-	.o-label--checkbox {
-		&:after {
-			border-radius: $border-radius;
-		}
 	}
 
 	.o-label--radio {

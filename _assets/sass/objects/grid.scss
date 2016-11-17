@@ -14,13 +14,21 @@
 
 @include respond-min( $mq-small ) {
 
-	.o-grid--three {
+	.o-grid--two {
 
 		.o-grid__item {
-			@include column( 1/3, $cycle: 3 );
-			margin-bottom: 2%;
+			@include column( 1/2, $cycle: 2, $gutter: 5 );
+			margin-bottom: $line-height * 2;
 		}
 
 	}
 
+	.o-grid--three {
+
+		.o-grid__item {
+			@include column( 1/3, $cycle: 3 );
+			margin-bottom: $line-height * 2;
+		}
+
+	}
 }

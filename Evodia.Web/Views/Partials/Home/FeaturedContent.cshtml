@@ -2,7 +2,7 @@
 @inherits UmbracoViewPage<IPublishedContent>
 
 <section class="c-carousel c-carousel--invert c-carousel--cover js-carousel" data-dots="true" data-loop="true">
-	@RenderSlide( "Management" )
+	@RenderSlide( "Management", 1306 )
 	@RenderSlide( "Operations", 1222 )
 	@RenderSlide( "Systems engineer", 1218 )
 </section>
@@ -13,7 +13,7 @@
 	var imageUrl = "";
 
 	if( hasImage ) {
-		imageUrl = Url.GetCropUrl(image, cropAlias: "16:9", width: 1600, quality: 95, htmlEncode: false).ToString();
+		imageUrl = Url.GetCropUrl(image, cropAlias: "16:9", width: 2000, quality: 95, htmlEncode: false).ToString();
 	}
 
 	<article class="c-cover" style="background-image: url( @imageUrl );">
