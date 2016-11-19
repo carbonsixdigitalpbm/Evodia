@@ -22,4 +22,16 @@
 
 	}
 
+	.o-col--two-one {
+
+		.o-col--first {
+			@include column( 2/3, $gutter: 5 );
+		}
+
+		.o-col--last {
+			@include column( 1/3, $gutter: 5 );
+		}
+
+	}
+
 }

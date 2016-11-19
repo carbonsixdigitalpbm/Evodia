@@ -14,10 +14,9 @@
 
 		Object json = JObject.FromObject( new {
 			suppliers = from p in locations select new {
-				name = p.Name,
-				supplierId = p.Id,
-				phoneNumber = p.GetPropertyValue("officeTel"),
-				address = p.GetPropertyValue<string>("officeAddress").Replace("\t","<br>").Replace("\n","<br>").Replace("\r",""),
+				name = p.GetPropertyValue<string>("officeName"),
+				phoneNumber = p.GetPropertyValue("phoneNumber"),
+				address = p.GetPropertyValue<string>("address").Replace("\t","<br>").Replace("\n","<br>").Replace("\r",""),
 				map = p.GetPropertyValue<AngularGoogleMaps.Model>("mapLocation")
 			}
 		});

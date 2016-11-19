@@ -7,7 +7,7 @@ $line-height-half: $line-height / 2;
 
 .o-form__field {
 	& + & {
-		padding-top: $padding-small;
+		margin-top: $padding-small;
 	}
 }
 
@@ -28,7 +28,9 @@ $line-height-half: $line-height / 2;
 
 .o-validation {
 	display: none;
-	margin-top: $line-height / 4;
+	font-size: 1.2rem;
+	position: absolute;
+	right: 0;
 
 	.is-valid & {
 		display: block;
