@@ -27,7 +27,9 @@ var Voyager = (function() {
     var _loadJobs = function () {
         if (!busyLoading) {
             busyLoading = true;
+
             _toggleLoadingClass();
+            _logRequestParemeters($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
             _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
         }
     };
@@ -123,7 +125,7 @@ var Voyager = (function() {
         });
     };
 
-    var _getJobs = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
+    var _logRequestParemeters = function (keywords, keywordsOnly, jobTypes, location, sectors, salary) {
         console.log("## Search settings ##");
         console.log("Keywords: " + keywords + ", keywords only: " + keywordsOnly);
         console.log("Job types: " + jobTypes);
@@ -132,6 +134,9 @@ var Voyager = (function() {
         console.log("Salary: " + salary);
         console.log("Page: " + settings.pageNumber);
         console.log("## End of settings ##");
+    };
+
+    var _getJobs = function (keywords, keywordsOnly, jobTypes, location, sectors, salary) {
 
         $.ajax({
             type: "POST",
