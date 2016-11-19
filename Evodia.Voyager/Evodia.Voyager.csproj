@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngularGoogleMaps, Version=2.0.2.45, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngularGoogleMaps.2.0.3\lib\net45\AngularGoogleMaps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -191,29 +195,49 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="umbraco">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.dll</HintPath>
+    <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\TidyNet.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.Core">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\Umbraco.Core.dll</HintPath>
+    <Reference Include="umbraco, Version=1.0.5073.23298, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\umbraco.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.DataLayer">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.DataLayer.dll</HintPath>
+    <Reference Include="Umbraco.Core, Version=1.0.5073.23294, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\Umbraco.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.editorControls">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.editorControls.dll</HintPath>
+    <Reference Include="umbraco.DataLayer, Version=1.0.5073.23295, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\umbraco.DataLayer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.MacroEngines">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.MacroEngines.dll</HintPath>
+    <Reference Include="umbraco.editorControls, Version=1.0.5073.23300, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\umbraco.editorControls.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="umbraco.providers">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\umbraco.providers.dll</HintPath>
+    <Reference Include="umbraco.MacroEngines, Version=1.0.5073.23301, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\umbraco.MacroEngines.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Umbraco.Web.UI">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\Umbraco.Web.UI.dll</HintPath>
+    <Reference Include="umbraco.providers, Version=1.0.5073.23297, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\umbraco.providers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="UmbracoExamine">
-      <HintPath>..\packages\UmbracoCms.Core.7.5.4\lib\UmbracoExamine.dll</HintPath>
+    <Reference Include="Umbraco.Web.UI, Version=1.0.5073.23301, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\Umbraco.Web.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="umbraco.XmlSerializers, Version=1.0.5073.23298, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\umbraco.XmlSerializers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UmbracoExamine, Version=0.6.0.23296, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\UmbracoExamine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UrlRewritingNet.UrlRewriter, Version=2.0.60829.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.7.0.0\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -267,7 +291,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\agm.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.1.0.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.1.0.min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.3.3.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.3.3.min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-simple-logger.min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.coordinatesbehavour.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.defaultlocation.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.definition.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.format.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.icon.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\iconanchorpoint.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\iconsize.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\iconurl.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\map-example.png" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\underscore-min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\view.css" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\view.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

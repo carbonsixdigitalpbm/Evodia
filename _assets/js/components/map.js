@@ -48,10 +48,7 @@ var GMaps = (function($) {
 		var marker = new google.maps.Marker({
 			map: map,
 			position: latlng,
-			title: markerData.name,
-			supplierId: markerData.supplierId,
-			type: markerData.type,
-			services: markerData.services,
+			title: markerData.officeName,
 			icon: {
 				anchor: new google.maps.Point(16, 32),
 				url: "/assets/img/marker.png"
@@ -67,7 +64,7 @@ var GMaps = (function($) {
 
 	      // Creating the content to be inserted in the infowindow
 	      var iwContent = '<div id="iw_container">' +
-	            '<h4 class="iw_title">' + markerData.name + '</h4>' +
+	            '<h4 class="iw_title">' + markerData.officeName + '</h4>' +
 	         '<div class="iw_content">' + markerData.address + '<br />' +
 	         markerData.phoneNumber + '</div></div>';
 
@@ -106,7 +103,7 @@ var GMaps = (function($) {
 
 		jQuery.getJSON( dataSrc, function( data ) {
 			// add json result to global var
-			markerData = data.suppliers;
+			markerData = data.offices;
 		})
 		.done(function() {
 			// Finally displayMarkers() function is called to begin the markers creation

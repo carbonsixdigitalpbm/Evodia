@@ -14,6 +14,7 @@
 		</div>
 		<div class="o-col o-col--last u-space-top--large">
 			@Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
+			@Model.GetPropertyValue("additionalContent")
 		</div>
 	</section>
 </main>

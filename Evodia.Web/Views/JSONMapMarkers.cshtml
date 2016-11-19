@@ -10,14 +10,14 @@
     var contactPage = homePage.Descendants("contact").FirstOrDefault();
 
 	if( contactPage != null ) {
-		var locations = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
+		var locations = contactPage.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
 
 		Object json = JObject.FromObject( new {
-			suppliers = from p in locations select new {
+			offices = from p in locations select new {
 				name = p.GetPropertyValue<string>("officeName"),
 				phoneNumber = p.GetPropertyValue("phoneNumber"),
 				address = p.GetPropertyValue<string>("address").Replace("\t","<br>").Replace("\n","<br>").Replace("\r",""),
-				map = p.GetPropertyValue<AngularGoogleMaps.Model>("mapLocation")
+				@*map = p.GetPropertyValue<AngularGoogleMaps.Model>("mapLocation")*@
 			}
 		});
 
