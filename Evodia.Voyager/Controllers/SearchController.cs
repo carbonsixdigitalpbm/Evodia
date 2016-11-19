@@ -116,7 +116,7 @@ namespace Evodia.Voyager.Controllers
 
                 if (!string.IsNullOrWhiteSpace(queryStringTypes))
                 {
-                    isSelected = queryStringTypes.Contains(jobType.ToLower());
+                    isSelected = queryStringTypes.ToLower().Contains(jobType.ToLower());
                 }
 
                 jobTypesList.Add(new JobType

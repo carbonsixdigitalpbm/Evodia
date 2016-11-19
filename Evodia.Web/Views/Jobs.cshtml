@@ -18,7 +18,9 @@
     var salary = Request.QueryString["salary"];
     var page = Request.QueryString["page"];
     var titleOnlySearch = false;
-    var pageNumber = 1;
+    int pageNumber;
+    var result = int.TryParse(page, out pageNumber);
+
 
     if (!string.IsNullOrWhiteSpace(titleOnly) && titleOnly.Equals("true", StringComparison.InvariantCultureIgnoreCase))
     {
@@ -46,7 +48,7 @@
     <aside class="o-page__sidebar">
         @Html.Action("RenderFullSearchForm", "SearchForm")
     </aside>
-    <main class="o-page__content o-page__content--sidebar-layout s-free-content">
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content rename-me">
         <div class="c-alert c-alert--info">
             <p class="u-delta">Results: <strong class="js-count">@filteredJobs.Count</strong></p>
         </div>

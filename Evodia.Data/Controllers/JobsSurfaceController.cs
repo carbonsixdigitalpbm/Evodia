@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Evodia.Data.Data;
 using Evodia.Data.ExtensionMethods;
@@ -25,38 +27,37 @@ namespace Evodia.Data.Controllers
 
         public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "", string type = "")
         {
-            List<VacancyModel> allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, salary, type);
+            var allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, salary, type);
+            var queryStringValues = new NameValueCollection();
 
-            var queryString = "?";
-
-            if(!string.IsNullOrWhiteSpace(keywords))
+            if (!string.IsNullOrWhiteSpace(keywords))
             {
-                queryString = queryString + "keywords=" + keywords + "&";
+                queryStringValues.Add("keywords", keywords);
             }
 
             if (titleOnly)
             {
-                queryString = queryString + "titleonly=true&";
+                queryStringValues.Add("titleonly", "true");
             }
 
             if (!string.IsNullOrWhiteSpace(location))
             {
-                queryString = queryString + "location=" + location + "&";
+                queryStringValues.Add("location", location);
             }
-
+            
             if (!string.IsNullOrWhiteSpace(sector))
             {
-                queryString = queryString + "sector=" + sector + "&";
+                queryStringValues.Add("sector", sector);
             }
 
             if (!string.IsNullOrWhiteSpace(salary))
             {
-                queryString = queryString + "salary=" + salary + "&";
+                queryStringValues.Add("salary", salary);
             }
 
             if (!string.IsNullOrWhiteSpace(type))
             {
-                queryString = queryString + "type=" + type;
+                queryStringValues.Add("type", type);
             }
 
             if (offset > 0)
@@ -75,7 +76,7 @@ namespace Evodia.Data.Controllers
                     status = "OK",
                     count = allJobs.Count,
                     jobs = RenderRazorViewToString("GetFilteredJobs", pagedJobs, 0, ""),
-                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage, queryString),
+                    navigation = RenderRazorViewToString("GetFilteredJobsNavigation", allJobs, activePage, ToQueryString(queryStringValues))
                 });
             }
 
@@ -102,14 +103,23 @@ namespace Evodia.Data.Controllers
 
                     allJobs = JobsRepository.AllJobs(umbracoHelper).ToList();
                 }
-
-                allJobs = SearchJobsByType(allJobs, type);
-                allJobs = SearchJobsByLocation(allJobs, location);
-                allJobs = SearchJobsBySector(allJobs, sector);
-                allJobs = SearchJobsBySalary(allJobs, salary);
             }
 
+            allJobs = SearchJobsByType(allJobs, type);
+            allJobs = SearchJobsByLocation(allJobs, location);
+            allJobs = SearchJobsBySector(allJobs, sector);
+            allJobs = SearchJobsBySalary(allJobs, salary);
+
             return allJobs;
+        }
+
+        private static string ToQueryString(NameValueCollection nvc)
+        {
+            var array = (from key in nvc.AllKeys
+                         from value in nvc.GetValues(key)
+                         select string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(value)))
+                .ToArray();
+            return "?" + string.Join("&", array).ToLower();
         }
 
         private static List<VacancyModel> SearchJobsByType(List<VacancyModel> jobs, string type)
@@ -220,7 +230,7 @@ namespace Evodia.Data.Controllers
         {
             ViewData.Model = model;
             ViewData["page"] = activePage;
-            ViewData["request"] = query;
+            ViewData["query"] = query;
 
             using (var sw = new StringWriter())
             {

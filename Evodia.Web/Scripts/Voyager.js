@@ -12,7 +12,7 @@ var Voyager = (function() {
         $salarySelect = $(".js-salary"),
         $sectorTypeCheckboxes = $(".js-sector"),
         $searchButton = $(".js-search"),
-        $pagingButtons = $(".js-page");
+        $page = $('html');
 
     var settings = {
         pageSize: 5,
@@ -24,10 +24,16 @@ var Voyager = (function() {
 
     var busyLoading;
 
-    var _loadJobs = function() {
-        busyLoading = true;
+    var _loadJobs = function () {
+        if (!busyLoading) {
+            busyLoading = true;
+            _toggleLoadingClass();
+            _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
+        }
+    };
 
-        _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
+    var _toggleLoadingClass = function() {
+        $page.toggleClass("is-loading");
     };
 
     var _getPrevalues = function() {
@@ -46,6 +52,38 @@ var Voyager = (function() {
 
     var _resetPageNumber = function() {
         settings.pageNumber = 0;
+    };
+
+    var _pushHistoryState = function () {
+        var queryString = {},
+            item;
+
+        var queryStringParams = {
+            page: settings.pageNumber,
+            titleonly: $keywordsOnly.prop("checked"),
+            type: settings.jobTypes.join(),
+            location: $locationSelect.val(),
+            sector: settings.sectors.join(),
+            salary: $salarySelect.val()
+        };
+        
+        for (item in queryStringParams) {
+            if (queryStringParams.hasOwnProperty(item)) {
+                var isNotZero = queryStringParams[item] !== 0;
+                var isNotEmptyString = queryStringParams[item] !== "";
+                var isNotFalse = queryStringParams[item] !== false;
+
+                if (isNotZero && isNotEmptyString && isNotFalse) {
+                    queryString[item] = queryStringParams[item].toLowerCase();
+                }
+            }
+        }
+
+        history.pushState(null, "Jobs | Evodia", "?" + $.param(queryString));
+    };
+
+    var _animateBackToTop = function () {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     };
 
     var _bindUIActions = function() {
@@ -84,17 +122,14 @@ var Voyager = (function() {
     };
 
     var _getJobs = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
-        console.log("#####################");
-        console.log("## SEARCH SETTINGS ##");
-        console.log("#####################");
-        console.log("Keywords: " + keywords);
-        console.log("Keywords only: " + keywordsOnly);
+        console.log("## Search settings ##");
+        console.log("Keywords: " + keywords + ", keywords only: " + keywordsOnly);
         console.log("Job types: " + jobTypes);
         console.log("Location: " + location);
         console.log("Sectors: " + sectors);
         console.log("Salary: " + salary);
         console.log("Page: " + settings.pageNumber);
-        console.log("");
+        console.log("## End of settings ##");
 
         $.ajax({
             type: "POST",
@@ -111,17 +146,19 @@ var Voyager = (function() {
             cache: false,
             success: function(result) {
                 var $jobs = $(result.jobs),
-                    $nav = $(result.navigation);
+                    $nav = $(result.navigation),
+                    label = result.count === 1 ? " job" : " jobs";
 
                 $jobsTarget.html($jobs);
                 $navTarget.html($nav);
-                var label = result.count === 1 ? " job" : " jobs";
-
                 $countTarget.html(result.count + label);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+                _animateBackToTop();
             },
             complete: function() {
                 busyLoading = false;
+                _pushHistoryState();
+                _toggleLoadingClass();
             },
             error: function(result) {
                 console.log('Jobs failed to load: ');
