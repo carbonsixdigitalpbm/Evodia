@@ -6,12 +6,16 @@
 
     var hasPhone = settings.HasValue("phoneNumber") ? true : false;
     var hasEmail = settings.HasValue("emailAddress") ? true : false;
+	var hasOfficeName = settings.HasValue("officeName");
     var hasAddress = settings.HasValue("postalAddress") ? true : false;
 }
 
 @if( hasPhone || hasEmail || hasAddress )
 {
-    <div class="vcard">
+    <article class="vcard">
+		@if( hasOfficeName ) {
+			<h2 class="vcard__headline u-zeta">@settings.GetPropertyValue("officeName")</h2>
+		}
         @if( hasAddress )
         {
             <p class="adr">
@@ -28,5 +32,5 @@
             string emailAddress = settings.GetPropertyValue<string>("emailAddress");
             @:Email: <a href="mailto:@emailAddress">@emailAddress</a>
         }
-    </div>
+    </article>
 }

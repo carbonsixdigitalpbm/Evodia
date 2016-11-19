@@ -8,17 +8,51 @@
 	color: $white;
 	background-color: $sec;
 
+	a {
+		&:hover,
+		&:focus {
+			color: lighten( $pri, 15 );
+		}
+	}
+
 	h1,
 	h2,
 	h3 {
 		color: inherit;
 	}
-	
+
+	.tel {
+		display: inline-block;
+		margin-right: 1rem;
+	}
+
+	.c-social {
+		margin-top: $line-height;
+	}
+
+	.vcard__headline {
+		padding-bottom: 0;
+	}
+
 }
 
 .c-footer__sub {
+	margin-top: $line-height;
 	border-top: 1px solid $dark-2;
 	padding-top: 2rem;
+}
+
+@include respond-min( $mq-medium ) {
+
+	.c-footer__copyright,
+	.c-nav--footer {
+		display: inline-block;
+	}
+
+	.c-footer__copyright {
+		margin-right: 1rem;
+	}
+
 }
 
 @include respond-min( $mq-large ) {

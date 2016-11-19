@@ -1,0 +1,54 @@
+/* ===========================================================
+
+	# Link list
+
+=========================================================== */
+
+.o-link-list {
+    list-style: none;
+}
+
+.o-link-list__item {
+    margin: 0;
+}
+
+.o-link-list__link {
+    display: block;
+    padding: 1rem;
+}
+
+@include respond-min( $mq-small ) {
+
+    .no-flexbox,
+	.no-flexwrap {
+
+		.o-link-list--grid {
+
+			.o-link-list__item {
+				display: inline-block;
+				position: relative;
+				margin: 0;
+				width: 49%;
+				margin-bottom: 1rem;
+			}
+
+        }
+
+    }
+
+    .flexwrap {
+
+		.o-link-list--grid {
+			display: flex;
+			flex-wrap: wrap;
+
+			.o-link-list__item {
+				width: calc( 50% - 3rem );
+			}
+
+		}
+
+	}
+
+
+}

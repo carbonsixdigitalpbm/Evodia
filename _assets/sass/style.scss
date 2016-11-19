@@ -9,71 +9,75 @@
 =========================================================== */
 
 
-@import 'settings/global.scss';
+@import 'settings/global';
 
-@import 'tools/mixins.scss',
+@import 'tools/mixins',
 		'tools/jeet/_functions',
 		'tools/jeet/_grid';
 
 
-@import 'generic/reset.scss',
-		'generic/js-breakpoints.scss';
+@import 'generic/reset',
+		'generic/js-breakpoints';
 
-@import 'base/text.scss',
-		'base/headings.scss',
-		'base/anchor.scss',
-		'base/button.scss',
-		'base/lists.scss',
-		'base/table.scss',
-		'base/forms.scss';
+@import 'base/text',
+		'base/headings',
+		'base/anchor',
+		'base/button',
+		'base/lists',
+		'base/table',
+		'base/forms',
+		'base/icons';
 
-@import 'objects/page.scss',
-		'objects/wrap.scss',
-		'objects/section.scss',
-		'objects/columns.scss',
-		'objects/grid.scss',
-		'objects/table.scss',
-		'objects/forms.scss',
-		'objects/media.scss',
-		'objects/align.scss',
-		'objects/aspect.scss',
-		'objects/page-components.scss',
-		'objects/list.scss',
-		'objects/icons.scss';
+@import 'objects/page',
+		'objects/wrap',
+		'objects/section',
+		'objects/columns',
+		'objects/grid',
+		'objects/table',
+		'objects/forms',
+		'objects/media',
+		'objects/align',
+		'objects/aspect',
+		'objects/page-components',
+		'objects/list',
+		'objects/link-list',
+		'objects/icons';
 
-@import 'lib/magnific-popup.scss',
-		'lib/slick.scss',
-		'lib/slick.theme.scss';
+@import 'lib/magnific-popup',
+		'lib/slick',
+		'lib/slick.theme';
 
-@import 'animations/animations.scss';
+@import 'animations/animations';
 
-@import 'components/header.scss',
-		'components/nav.scss',
-		'components/header-compact.scss',
-		'components/buttons.scss',
-		'components/article.scss',
-		'components/meta-data.scss',
-		'components/hero.scss',
-		'components/carousel.scss',
-		'components/carousel-cover.scss',
-		'components/quote.scss',
-		'components/link-list.scss',
-		'components/cover.scss',
-		'components/accordion.scss',
-		'components/footer.scss',
-		'components/pagination.scss',
-		'components/listing-article.scss',
-		'components/link-list-grid.scss',
-		'components/caption.scss',
-		'components/pod.scss',
-		'components/breadcrumb.scss',
-		'components/alert.scss',
-		'components/tabs.scss',
-		'components/sitemap.scss',
-		'components/tile.scss';
+@import 'components/header',
+		'components/nav',
+		'components/header-compact',
+		'components/buttons',
+		'components/article',
+		'components/meta-data',
+		'components/hero',
+		'components/carousel',
+		'components/carousel-cover',
+		'components/quote',
+		'components/link-list',
+		'components/cover',
+		'components/accordion',
+		'components/footer',
+		'components/pagination',
+		'components/listing-article',
+		'components/link-list-grid',
+		'components/caption',
+		'components/pod',
+		'components/breadcrumb',
+		'components/nav-footer',
+		'components/alert',
+		'components/tabs',
+		'components/sitemap',
+		'components/tile',
+		'components/social';
 
-@import 'trumps/overrides.scss',
-		'trumps/free-content.scss',
-		'trumps/colours.scss',
-		'trumps/decoration.scss',
-		'trumps/mouse.scss';
+@import 'trumps/overrides',
+		'trumps/free-content',
+		'trumps/colours',
+		'trumps/decoration',
+		'trumps/mouse';

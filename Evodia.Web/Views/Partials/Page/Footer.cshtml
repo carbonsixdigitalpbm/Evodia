@@ -9,17 +9,40 @@
 	<div class="c-footer__inner o-section o-wrap o-wrap--x-large">
 		<div class="u-clearfix">
 			<div class="c-footer__col c-footer__col--first">
-				<h2>Contact us</h2>
+				<h2 class="u-beta">Contact us</h2>
 				@Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
 	        	@Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
 			</div>
 			<div class="c-footer__col c-footer__col--last">
-				<h2>Explore</h2>
-				@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
+				<h2 class="u-beta">Explore</h2>
+				<ul class="o-link-list o-link-list--grid">
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">View our vacancies</a>
+					</li>
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">Consultancy services</a>
+					</li>
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">Candidate applications</a>
+					</li>
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">About us</a>
+					</li>
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">Employment support</a>
+					</li>
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">FAQ's</a>
+					</li>
+					<li class="o-link-list__item">
+						<a href="#" class="o-link-list__link">Resourcing</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="c-footer__sub">
 			<p class="c-footer__copyright">@(settings.GetPropertyValue<string>("copyrightDisclaimer"))</p>
+			@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
 		</div>
 	</div>
 </footer>

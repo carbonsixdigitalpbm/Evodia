@@ -10,8 +10,8 @@
 
 @if( hasSocialLinks )
 {
-    <div class="c-social u-clearfix">
-
+    <article class="c-social u-clearfix">
+		<h2 class="c-social__headline u-zeta">Follow us: </h2>
         @foreach( IPublishedContent socialChannel in socialChannels )
         {
             string channelName = socialChannel.GetPropertyValue<string>("socialChannelName");
@@ -21,6 +21,9 @@
             if( cssClass == "google+" ) {
                 cssClass = "google";
             }
+			if( cssClass == "linkedin") {
+				cssClass = "linkedIn";
+			}
 
             if( !string.IsNullOrEmpty(url) )
             {
@@ -29,5 +32,5 @@
                 </a>
             }
         }
-    </div>
+    </article>
 }

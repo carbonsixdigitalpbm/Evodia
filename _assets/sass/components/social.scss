@@ -4,29 +4,35 @@
 
 =========================================================== */
 
+.c-social__headline {
+	font-weight: 500;
+	display: inline-block;
+	margin-right: 1rem;
+}
+
 .c-social__link {
 	color: $white;
 	font-size: 1.6rem;
 	display: inline-block;
-	background-color: $pri;
-	padding: .7rem 1rem;
-	float: left;
+	padding: .7rem 1.1rem;
+	margin-right: 1rem;
+	border-radius: 50%;
+	border: 1px solid $white;
 	transition: background $speed $ease,
-				color $speed $ease;
+				color $speed $ease,
+				border-color $speed $ease;
 
-	i {
-		vertical-align: middle;
-	}
 
 	&:hover,
 	&:focus {
 		color: $dark-1;
-		background-color: $light-1;
+		background-color: $white;
 	}
 
 }
+
+/*
 .c-social__link--facebook {
-	background-color: $facebook;
 
 	&:hover,
 	&:focus {
@@ -35,7 +41,6 @@
 }
 
 .c-social__link--twitter {
-	background-color: $twitter;
 
 	&:hover,
 	&:focus {
@@ -44,7 +49,6 @@
 }
 
 .c-social__link--google {
-	background-color: $google;
 
 	&:hover,
 	&:focus {
@@ -53,7 +57,6 @@
 }
 
 .c-social__link--instagram {
-	background-color: $instagram;
 
 	&:hover,
 	&:focus {
@@ -62,7 +65,6 @@
 }
 
 .c-social__link--linkedin {
-	background-color: $linkedin;
 
 	&:hover,
 	&:focus {
@@ -71,7 +73,6 @@
 }
 
 .c-social__link--pinterest {
-	background-color: $pinterest;
 
 	&:hover,
 	&:focus {
@@ -80,7 +81,6 @@
 }
 
 .c-social__link--youtube {
-	background-color: $youtube;
 
 	&:hover,
 	&:focus {
@@ -89,7 +89,6 @@
 }
 
 .c-social__link--vimeo {
-	background-color: $vimeo;
 
 	&:hover,
 	&:focus {
@@ -98,7 +97,6 @@
 }
 
 .c-social__link--flcikr {
-	background-color: $flcikr;
 
 	&:hover,
 	&:focus {
@@ -106,6 +104,7 @@
 	}
 }
 
+*/
 
 @include respond-max( $mq-large ) {
 
@@ -124,4 +123,3 @@
 	}
 
 }
-

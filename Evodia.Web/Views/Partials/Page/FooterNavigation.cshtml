@@ -4,11 +4,12 @@
     var homePage = Umbraco.TypedContentAtRoot().First();
     var settings = homePage.Descendants("globalSettings").First();
     var idList = settings.GetPropertyValue<string>("footerNavigation").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-    var navigationLinks = Umbraco.TypedContent(idList).Where("UmbracoNaviHide == false && TemplateId > 0");
+    var navigationLinks = Umbraco.TypedContent(idList).Where("TemplateId > 0");
 }
 
 @if( navigationLinks.Any() )
 {
+
     <nav class="c-nav--footer">
         <ul class="c-nav__list">
             @foreach( IPublishedContent link in navigationLinks )
@@ -22,6 +23,3 @@
         </ul>
     </nav>
 }
-
-
-
