@@ -94,6 +94,7 @@
 		$window.Carousel.init( $('.js-carousel') );
 		$window.Modal.init( $('.js-modal') );
 		$window.Accordion.init();
+		$window.GMaps.init();
 
 		//MQ.init(breakpoints);
 	}

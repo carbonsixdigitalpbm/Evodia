@@ -123,7 +123,7 @@ var GMaps = (function($) {
 		// loads google maps. After loading the assets it will call
 	=========================================================== */
 	var _loadMapScript = function() {
-		dataSrc = "?altTemplate=JSONMapMarkers";
+		dataSrc = "/?altTemplate=JSONMapMarkers";
 
 		// Asynchronously Load the map API
 		var script = document.createElement('script');

@@ -1,0 +1,28 @@
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	Layout = null;
+	Response.ContentType = "application/json";
+
+	var homePage = Umbraco.TypedContentAtRoot().First();
+    var contactPage = homePage.Descendants("contact").FirstOrDefault();
+
+	if( contactPage != null ) {
+		var locations = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
+
+		Object json = JObject.FromObject( new {
+			suppliers = from p in locations select new {
+				name = p.Name,
+				supplierId = p.Id,
+				phoneNumber = p.GetPropertyValue("officeTel"),
+				address = p.GetPropertyValue<string>("officeAddress").Replace("\t","<br>").Replace("\n","<br>").Replace("\r",""),
+				map = p.GetPropertyValue<AngularGoogleMaps.Model>("mapLocation")
+			}
+		});
+
+		@Html.Raw( @json )
+
+	}
+}

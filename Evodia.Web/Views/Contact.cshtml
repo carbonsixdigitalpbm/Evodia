@@ -5,13 +5,15 @@
     var headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
 
-<div class="o-section o-wrap o-wrap--large">
-    <h1>@headline</h1>
-    @Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
-    @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+<main class="o-page__inner" role="main">
+	<section id="mapCanvas" class="c-map c-map--21-9"></section>
+	<section class="o-section o-wrap o-wrap--large">
+	    <h1>@headline</h1>
+	    @Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
+	    @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
 
-    @Html.Action("RenderContactForm", "ContactForm")
+	    @Html.Action("RenderContactForm", "ContactForm")
 
-    @Html.Action("RenderAjaxContactForm", "ContactForm")
-</div>
-
+	    @Html.Action("RenderAjaxContactForm", "ContactForm")
+	</section>
+</main>
