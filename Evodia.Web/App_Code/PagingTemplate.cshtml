@@ -27,18 +27,22 @@
             }
         }
     }
-    
-    if (paging.CurrentPage > 1)
-    {
+
         var first = 0;
         var previous = paging.CurrentPage - 1;
+		var isFirst = paging.CurrentPage > 1 ? false : true;
+		var firstModifierClass = isFirst ? "is-disabled" : "";
+		<div class="c-pagination__nav--first">
+	        <a href="@umbracoHelper.TypedContent(currentId).Url" class="c-pagination__link c-pagination__link--first @firstModifierClass js-page" data-page="@first">
+				<span>&lt;&lt;</span>
+				<span class="u-hide-text">First</span>
+			</a>
+	        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@previous@queryString" class="c-pagination__link c-pagination__link--prev @firstModifierClass" rel="prev" data-page="@previous">
+				<span>&lt;</span>
+	            <span class="u-hide-text">Previous</span>
+	        </a>
+		</div>
 
-        <a href="@umbracoHelper.TypedContent(currentId).Url" class="c-pagination__link c-pagination__link--first js-page" data-page="@first">First</a>
-        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@previous@queryString" class="c-pagination__link c-pagination__link--prev" rel="prev" data-page="@previous">
-            <i class="ico-arrow-left-compact" role="presentation"></i> 
-            <span class="">Previous</span>
-        </a>
-}
 
     for (var page = paging.StartPage; page <= paging.EndPage; page++)
     {
@@ -60,15 +64,20 @@
 
     }
 
-    if (paging.CurrentPage < paging.TotalPages)
-    {
     var next = paging.CurrentPage + 1;
     var last = paging.TotalPages;
+	var isLast = paging.CurrentPage < paging.TotalPages ? false : true;
+	var lastModifierClass = isLast ? "is-disabled" : "";
 
-        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@next@queryString" class="c-pagination__link c-pagination__link--next js-page" rel="next" data-page="@next">
-            <span class="">Next</span>
-            <i class="ico-arrow-right-compact" role="presentation"></i>
+	<div class="c-pagination__nav--next @lastModifierClass">
+        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@next@queryString" class="c-pagination__link c-pagination__link--next @lastModifierClass js-page" rel="next" data-page="@next">
+            <span class="u-hide-text">Next</span>
+			<span>&gt;</span>
         </a>
-        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@last@queryString" class="c-pagination__link c-pagination__link--last js-page" data-page="@last">Last</a>
-    }
+        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@last@queryString" class="c-pagination__link c-pagination__link--last @lastModifierClass js-page" data-page="@last">
+			<span class="u-hide-text">Last</span>
+			<span>&gt;&gt;</span>
+		</a>
+	</div>
+
 }

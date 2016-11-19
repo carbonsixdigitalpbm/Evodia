@@ -58,7 +58,7 @@
                 @Html.Partial("~/Views/Partials/Jobs/JobCard.cshtml", job)
             }
         </div>
-        <div id="pagination-target" class="">
+        <div id="pagination-target" class="c-pagination">
             @if (paging.EndPage > 1)
             {
                 @PagingTemplate.RenderPaging(paging, Model.Id)

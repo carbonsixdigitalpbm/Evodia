@@ -5,6 +5,7 @@
 =========================================================== */
 
 .c-pagination {
+	display: block;
 	text-align: center;
 	margin-top: $line-height;
 }
@@ -12,7 +13,9 @@
 .c-pagination__link {
 	width: 4rem;
 	height: 4rem;
-	color: $grey-1;
+	text-align: center;
+	color: $grey-3;
+	font-weight: 500;
 	font-size: 1.8rem;
 	line-height: 1;
 	display: inline-block;
@@ -38,41 +41,60 @@
 }
 
 .c-pagination__link--prev,
-.c-pagination__link--next {
-	font-size: 1.6rem;
+.c-pagination__link--next,
+.c-pagination__link--first,
+.c-pagination__link--last {
+	width: 4rem;
+	height: 4rem;
+	font-size: 1.4rem;
 	position: relative;
 	line-height: 1;
-	transform: translateY(1.3rem);
-
-	&:before {
-		color: $pri;
-		transition: color $speed $ease;
-	}
-
-	i {
-		color: $white;
-		font-size: 1rem;
-		position: absolute;
-		top: 50%;
-		right: 0;
-		left: 0;
-		text-align: center;
-		margin-top: -.8rem;
-	}
+	border: 1px solid $grey-3;
+	padding: 1.2rem 0;
+	text-align: center;
+	transition: color $speed $ease,
+				border-color $speed $ease;
 
 	&:hover,
 	&:focus {
-
-		&:before {
-			color: coral;
-		}
-
+		border-color: $sec;
 	}
 
 	&.is-disabled {
-		&:before {
-			color: $light-2;
+		opacity: .4;
+		cursor: default;
+
+		&:hover,
+		&:focus {
+			color: $grey-3;
+			border-color: $grey-3;
 		}
+	}
+
+}
+
+.c-pagination__link--first {
+	margin-right: 1rem;
+}
+
+.c-pagination__link--last {
+	margin-left: 1rem;
+}
+
+.c-pagination__nav--first {
+	float: left;
+}
+
+.c-pagination__nav--next {
+	float: right;
+}
+
+
+@include respond-max( $mq-small ) {
+
+	.c-pagination__link--first,
+	.c-pagination__link--last {
+		display: none;
 	}
 
 }
