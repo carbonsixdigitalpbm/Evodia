@@ -79,7 +79,9 @@ var Voyager = (function() {
             }
         }
 
-        history.pushState(null, "Jobs | Evodia", "?" + $.param(queryString));
+        var link = $.param(queryString) !== "" ? "?" + $.param(queryString) : "/jobs/";
+
+        history.pushState(null, "Jobs | Evodia", link);
     };
 
     var _animateBackToTop = function () {
