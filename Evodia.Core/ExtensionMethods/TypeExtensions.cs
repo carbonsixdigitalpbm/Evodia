@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UmbracoStarterKit.ExtensionMethods
+namespace Evodia.Core.ExtensionMethods
 {
     public static class TypeExtensions
     {

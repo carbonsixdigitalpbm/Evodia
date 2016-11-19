@@ -4,7 +4,7 @@ using System.Reflection;
 using Umbraco.Core.Models;
 using Umbraco.Web.Models;
 
-namespace UmbracoStarterKit.ExtensionMethods
+namespace Evodia.Core.ExtensionMethods
 {
     public static class PublishedContentExtensions
     {
