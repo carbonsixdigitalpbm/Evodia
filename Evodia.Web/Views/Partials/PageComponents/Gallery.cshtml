@@ -28,7 +28,7 @@
 
 
     <figure class="c-gallery c-carousel--invert c-carousel--images o-media @aspectRatioClass o-align--@alignment @elementClasses">
-        <div class="c-gallery__inner js-carousel js-modal" data-modal-type="gallery" data-nav="true" data-loop="false" data-dots="true">
+        <div class="c-gallery__inner js-carousel js-modal" data-modal-type="gallery" data-nav="true" data-loop="true" data-auto-play="true" data-dots="true">
             @foreach( string mediaId in mediaIds.ToString().Split(',') )
             {
                 var media = Umbraco.TypedMedia(mediaId);

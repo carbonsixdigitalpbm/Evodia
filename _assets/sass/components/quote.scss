@@ -11,6 +11,15 @@
 	padding: $line-height 0;
 }
 
+.s-free-content {
+
+	.c-quote {
+		border-top: 1px solid $grey-1;
+		border-bottom: 1px solid $grey-1;
+	}
+
+}
+
 .c-quote__copy {
 	font-weight: $bold;
 	display: block;

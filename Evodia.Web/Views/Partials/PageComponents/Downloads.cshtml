@@ -18,7 +18,7 @@
 			@Model.GetPropertyValue("intro")
 		}
 
-	    <ul class="c-link-list">
+	    <ul class="o-link-list">
 	        @foreach (var media in mediaIds.Split(',').Select(mediaId => Umbraco.TypedMedia(mediaId)))
 	        {
 	            @RenderFile(media)
@@ -38,11 +38,11 @@
     var fileSize = item.GetPropertyValue<int>("umbracoBytes");
     var altText = item.GetPropertyValue<string>("altText");
 
-    <li class="c-link-list__item">
-        <a href="@url" title="@altText" class="c-link-list__link u-clearfix" target="_blank">
-            <i class="ico-file c-link-list__icon"></i>
-            <span class="c-link-list__name">@fileName</span>
-            <span class="c-link-list__meta">@fileSize.ToFileSize()</span>
+    <li class="o-link-list__item">
+        <a href="@url" title="@altText" class="o-link-list__link u-clearfix" target="_blank">
+            <i class="ico-file o-link-list__icon"></i>
+            <span class="o-link-list__name">@fileName</span>
+            <span class="o-link-list__meta">@fileSize.ToFileSize()</span>
         </a>
     </li>
 }

@@ -4,6 +4,10 @@
 
 =========================================================== */
 
+/* ===========================================================
+	# Link list
+=========================================================== */
+
 .o-link-list {
     list-style: none;
 }
@@ -15,6 +19,11 @@
 .o-link-list__link {
     display: block;
     padding: 1rem;
+}
+
+.o-link-list__meta {
+	color: $grey-3;
+	margin-left: 1rem;
 }
 
 @include respond-min( $mq-small ) {
