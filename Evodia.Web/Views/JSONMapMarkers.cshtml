@@ -17,7 +17,7 @@
 				name = p.GetPropertyValue<string>("officeName"),
 				phoneNumber = p.GetPropertyValue("phoneNumber"),
 				address = p.GetPropertyValue<string>("address").Replace("\t","<br>").Replace("\n","<br>").Replace("\r",""),
-				@*map = p.GetPropertyValue<AngularGoogleMaps.Model>("mapLocation")*@
+				map = p.GetPropertyValue<AngularGoogleMaps.Model>("mapLocation")
 			}
 		});
 

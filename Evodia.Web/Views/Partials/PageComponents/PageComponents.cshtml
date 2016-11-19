@@ -2,7 +2,7 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var components = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("pageContent");
-	string wrapSize = "small";
+	string wrapSize = ViewData["wrapSize"] != null && ViewData["wrapSize"].ToString() != "" ? ViewData["wrapSize"].ToString() : "small";
 
     if (components == null)
     {

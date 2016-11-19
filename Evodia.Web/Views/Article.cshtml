@@ -47,11 +47,11 @@
         </ul>
     </header>
     <div class="s-free-content" itemprop="articleBody">
-        <div class="c-article__description u-intro" itemprop="description">
+        <div class="c-article__description u-intro u-space-bottom" itemprop="description">
             <p>@excerpt</p>
         </div>
 
-        @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+        @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml", Model, new ViewDataDictionary {{"wrapSize", "large"}})
     </div>
 </article>
 
