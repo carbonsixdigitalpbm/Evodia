@@ -76,7 +76,7 @@ var Voyager = (function() {
                 var isNotFalse = queryStringParams[item] !== false;
 
                 if (isNotZero && isNotEmptyString && isNotFalse) {
-                    queryString[item] = queryStringParams[item].toLowerCase();
+                    queryString[item] = queryStringParams[item];
                 }
             }
         }
@@ -136,7 +136,7 @@ var Voyager = (function() {
         console.log("## End of settings ##");
     };
 
-    var _getJobs = function (keywords, keywordsOnly, jobTypes, location, sectors, salary) {
+    var _getJobs = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
 
         $.ajax({
             type: "POST",
@@ -172,7 +172,7 @@ var Voyager = (function() {
                 console.log(result);
             }
         });
-    }
+    };
 
     var _init = function(jobControllerUrl, jobTarget, navTarget) {
         settings.controllerUrl = jobControllerUrl;
@@ -182,11 +182,11 @@ var Voyager = (function() {
         _getPrevalues();
         _bindUIActions();
         //_getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
-    }
+    };
 
     return {
         init: _init,
         getJobs: _getJobs
-    }
+    };
 
 })();

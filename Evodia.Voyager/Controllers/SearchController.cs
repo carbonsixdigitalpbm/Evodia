@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Evodia.Data.Data;
 using Evodia.Voyager.Domain.Models;
-using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace Evodia.Voyager.Controllers
