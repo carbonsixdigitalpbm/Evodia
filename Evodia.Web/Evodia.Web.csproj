@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngularGoogleMaps, Version=2.0.2.45, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngularGoogleMaps.2.0.3\lib\net45\AngularGoogleMaps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -434,6 +438,24 @@
     <Content Include="App_Data\TEMP\SEOChecker\SEOChecker.Logging.dll" />
     <Content Include="App_Data\TEMP\SEOChecker\SEOChecker.MVC.dll" />
     <Content Include="App_Data\TEMP\SEOChecker\SEOChecker.PropertyEditorConverters.dll" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\agm.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.1.0.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.1.0.min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.3.3.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.3.3.min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-simple-logger.min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.coordinatesbehavour.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.defaultlocation.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.definition.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.format.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\config.icon.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\iconanchorpoint.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\iconsize.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\iconurl.html" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\map-example.png" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\underscore-min.js" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\view.css" />
+    <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\view.html" />
     <Content Include="App_Plugins\GibeLinkPicker\dialogs\linkpicker.controller.js" />
     <Content Include="App_Plugins\GibeLinkPicker\dialogs\linkpicker.html" />
     <Content Include="App_Plugins\GibeLinkPicker\picker.controller.js" />
