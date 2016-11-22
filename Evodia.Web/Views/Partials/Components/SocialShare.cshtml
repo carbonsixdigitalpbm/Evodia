@@ -23,9 +23,12 @@
 	var linkedInShareUrl = "http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F" + @pageUrl + "&title=" + @pageName + "&summary=" + @pageMeta + "&source=http%3A%2F%2F" + @pageUrl;
 }
 
-<ul class="o-share">
-	<li class="o-share__item"><a href="@facebookShareUrl" target="_blank" title="Share on Facebook" class="o-share__link o-share__link--facebook"><i class="ico-facebook"></i><span class="t-hide-text">Facebook</span></a></li>
-	<li class="o-share__item"><a href="@twitterShareUrl" target="_blank" title="Share on Twitter" class="o-share__link o-share__link--twitter"><i class="ico-twitter"></i><span class="t-hide-text">Twitter</span></a></li>
-	<li class="o-share__item"><a href="@googleShareUrl" target="_blank" title="Share on Google Plus" class="o-share__link o-share__link--google"><i class="ico-google"></i><span class="t-hide-text">Google Plus</span></a></li>
-	<li class="o-share__item"><a href="@linkedInShareUrl" target="_blank" title="Share on LinkedIn" class="o-share__link o-share__link--linkedin"><i class="ico-linkedin"></i><span class="t-hide-text">LinkedIn</span></a></li>
-</ul>
+<div class="c-share">
+	<p class="c-share__label">Share:</p>
+	<ul class="c-share__list">
+		<li class="c-share__item"><a href="@facebookShareUrl" target="_blank" title="Share on Facebook" class="c-share__link c-share__link--facebook"><i class="ico-facebook"></i><span class="u-hide-text">Facebook</span></a></li>
+		<li class="c-share__item"><a href="@twitterShareUrl" target="_blank" title="Share on Twitter" class="c-share__link c-share__link--twitter"><i class="ico-twitter"></i><span class="u-hide-text">Twitter</span></a></li>
+		<li class="c-share__item"><a href="@googleShareUrl" target="_blank" title="Share on Google Plus" class="c-share__link c-share__link--google"><i class="ico-googleplus"></i><span class="u-hide-text">Google Plus</span></a></li>
+		<li class="c-share__item"><a href="@linkedInShareUrl" target="_blank" title="Share on LinkedIn" class="c-share__link c-share__link--linkedin"><i class="ico-linkedIn"></i><span class="u-hide-text">LinkedIn</span></a></li>
+	</ul>
+</div>

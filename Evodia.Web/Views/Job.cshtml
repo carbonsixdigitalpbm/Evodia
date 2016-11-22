@@ -15,8 +15,8 @@
 
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
 	<main class="o-page__content o-page__content--sidebar-layout">
-		<p><a href="#">< Back to results</a></p>
-		<header class="s-job__header u-clearfix">
+		<p class="u-space-bottom"><a href="#">< Back to results</a></p>
+		<header class="s-job__header u-clearfix u-space-bottom--large">
 			<div class="o-col o-col--first">
 				<h1>@headline</h1>
 				<ul class="o-list--simple">
@@ -53,19 +53,21 @@
 				</ul>
 			</div>
 			<div class="o-col o-col--last">
-				<div class="o-button-list">
+				<div class="o-button-list u-space-bottom">
 					<a href="" class="c-button c-button--primary">Send CV ></a>
-					<a href="@emailPageLink" class="c-button c-button--secondary">Email job <i class="ico-mail"></i></a>
-					<button href="" class="c-button c-button--secondary" onclick="window.print();">Print job <i class="ico-print"></i></button>
+					<a href="@emailPageLink" class="c-button c-button--secondary c-button--icon">Email job <i class="ico-mail"></i></a>
+					<button href="" class="c-button c-button--secondary c-button--icon" onclick="window.print();">Print job <i class="ico-print"></i></button>
 				</div>
 
 				@Html.Partial("~/Views/Partials/components/SocialShare.cshtml")
 			</div>
 		</header>
 
-		<hr>
-		@Model.GetPropertyValue("jobDescription")
-		<a href="" class="c-button c-button--primary u-space-top--large">Send CV ></a>
+		@if( Model.HasValue("jobDescription") ) {
+			<hr class="u-space-bottom--large">
+			@Model.GetPropertyValue("jobDescription")
+			<a href="" class="c-button c-button--primary u-space-top--large">Send CV ></a>
+		}
 
 	</main>
 	<aside class="o-page__sidebar">
