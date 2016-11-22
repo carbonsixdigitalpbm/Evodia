@@ -22,11 +22,14 @@
 	display: block;
 	background-color: $light-1;
 	border-radius: 0 0 $border-radius $border-radius;
-	transition: background $speed $ease;
+	will-change: background, transform;
+	transition: background $speed $ease,
+				transform $speed $ease;
 
 	&:hover,
 	&:focus {
 		background-color: $light-2;
+		transform: scale( 1.03 );
 	}
 
 }
