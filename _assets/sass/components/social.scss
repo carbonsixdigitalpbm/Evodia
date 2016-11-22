@@ -16,7 +16,7 @@
 	display: inline-block;
 	padding: .7rem 1.1rem;
 	margin-right: 1rem;
-	border-radius: 50%;
+	border-radius: 2rem;
 	border: 1px solid $white;
 	transition: background $speed $ease,
 				color $speed $ease,
@@ -105,21 +105,3 @@
 }
 
 */
-
-@include respond-max( $mq-large ) {
-
-	.enhance {
-
-		.c-social {
-			display: flex;
-		}
-
-		.c-social__link {
-			flex-grow: 1;
-			text-align: center;
-			padding: 2rem;
-		}
-
-	}
-
-}

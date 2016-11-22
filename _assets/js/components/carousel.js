@@ -18,6 +18,7 @@ var Carousel = (function ($) {
 					autoPlay: $this.data("auto-play") ? $this.data("auto-play") : false,
 					fade: $this.data("fade") ? $this.data("fade") : false,
 					padded: $this.data("padded") ? $this.data("padded") : false,
+					speed: $this.data("speed") ? $this.data("speed") : 4000
 				};
 
 			if( count > 1 ) {
@@ -29,6 +30,7 @@ var Carousel = (function ($) {
 					adaptiveHeight: settings.autoHeight,
 					variableWidth: settings.autoWidth,
 				    autoplay: settings.autoPlay,
+					autoplaySpeed: settings.speed,
 					centerMode: settings.center,
 					centerPadding: settings.centerPadding,
 					dots: settings.dots,
