@@ -1,0 +1,24 @@
+Hi Liam,
+
+Thanks for your answers.
+
+Everything makes sense, however this situation raises some concerns over the search functionality.
+
+Search
+These are the mapped fields which search depends on. If the fields is empty the job won't get filtered on that criteria resulting an inaccurate results.
+Job title -> JobTitle
+Job type -> JobType
+Location -> County
+Sectors -> Sector
+Salary -> Currently uses field From (However, this only works when the job salary period is set to Year.)
+
+Those fields were available in the example XML files that Voyager send us, whole I can see some information in your job description, but not as actual attributes.
+
+Is it not possible to always have these attributes
+
+
+
+
+Thanks,
+
+Paulius

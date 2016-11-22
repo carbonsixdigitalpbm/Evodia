@@ -2286,6 +2286,7 @@
     <Content Include="Views\Partials\Jobs\JobCard.cshtml" />
     <Content Include="Views\Partials\Forms\BasicSearchFormView.cshtml" />
     <Content Include="Views\JobsSurface\GetFilteredJobsNavigation.cshtml" />
+    <Content Include="Views\Partials\Forms\GenericCvForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
