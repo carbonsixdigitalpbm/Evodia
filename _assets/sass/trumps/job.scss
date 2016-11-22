@@ -1,0 +1,21 @@
+/* ===========================================================
+
+	# Job
+
+=========================================================== */
+
+@include respond-min( $mq-small ) {
+
+	.s-job__header {
+
+		.o-col--first {
+			@include column( 6/9, $gutter: 5 );
+		}
+
+		.o-col--last {
+			@include column( 3/9, $gutter: 5 );
+		}
+
+	}
+
+}

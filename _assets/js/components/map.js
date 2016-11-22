@@ -48,7 +48,7 @@ var GMaps = (function($) {
 		var marker = new google.maps.Marker({
 			map: map,
 			position: latlng,
-			title: markerData.officeName,
+			title: markerData.name,
 			icon: {
 				anchor: new google.maps.Point(16, 32),
 				url: "/assets/img/marker.png"
@@ -64,7 +64,7 @@ var GMaps = (function($) {
 
 	      // Creating the content to be inserted in the infowindow
 	      var iwContent = '<div id="iw_container">' +
-	            '<h4 class="iw_title">' + markerData.officeName + '</h4>' +
+	            '<h4 class="iw_title">' + markerData.name + '</h4>' +
 	         '<div class="iw_content">' + markerData.address + '<br />' +
 	         markerData.phoneNumber + '</div></div>';
 

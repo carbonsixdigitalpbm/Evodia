@@ -16,46 +16,57 @@
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
 	<main class="o-page__content o-page__content--sidebar-layout">
 		<p><a href="#">< Back to results</a></p>
-		<h1>@headline</h1>
-		<ul class="o-list--simple">
-			@if( !string.IsNullOrEmpty( salary ) ) {
-				<li class="o-list__item">
-					<strong>Salary: </strong>
-					@salary
-				</li>
-			}
-			@if( !string.IsNullOrEmpty( location ) ) {
-				<li class="o-list__item">
-					<strong>Location: </strong>
-					<span>@location</span>
-				</li>
-			}
-			@if( !string.IsNullOrEmpty( jobType ) ) {
-				<li class="o-list__item">
-					<strong>Type: </strong>
-					<span>@jobType</span>
-				</li>
-			}
-			@if( !string.IsNullOrEmpty( duration ) ) {
-				<li class="o-list__item">
-					<strong>Duration: </strong>
-					<span>@duration</span>
-				</li>
-			}
-			@if( !string.IsNullOrEmpty( sector ) ) {
-				<li class="o-list__item">
-					<strong>Sector: </strong>
-					<span>@sector</span>
-				</li>
-			}
-		</ul>
+		<header class="s-job__header u-clearfix">
+			<div class="o-col o-col--first">
+				<h1>@headline</h1>
+				<ul class="o-list--simple">
+					@if( !string.IsNullOrEmpty( salary ) ) {
+						<li class="o-list__item">
+							<strong>Salary: </strong>
+							@salary
+						</li>
+					}
+					@if( !string.IsNullOrEmpty( location ) ) {
+						<li class="o-list__item">
+							<strong>Location: </strong>
+							<span>@location</span>
+						</li>
+					}
+					@if( !string.IsNullOrEmpty( jobType ) ) {
+						<li class="o-list__item">
+							<strong>Type: </strong>
+							<span>@jobType</span>
+						</li>
+					}
+					@if( !string.IsNullOrEmpty( duration ) ) {
+						<li class="o-list__item">
+							<strong>Duration: </strong>
+							<span>@duration</span>
+						</li>
+					}
+					@if( !string.IsNullOrEmpty( sector ) ) {
+						<li class="o-list__item">
+							<strong>Sector: </strong>
+							<span>@sector</span>
+						</li>
+					}
+				</ul>
+			</div>
+			<div class="o-col o-col--last">
+				<div class="o-button-list">
+					<a href="" class="c-button c-button--primary">Send CV ></a>
+					<a href="@emailPageLink" class="c-button c-button--secondary">Email job <i class="ico-mail"></i></a>
+					<button href="" class="c-button c-button--secondary" onclick="window.print();">Print job <i class="ico-print"></i></button>
+				</div>
 
-		<a href="" class="c-button c-button--primary">Send CV ></a>
+				@Html.Partial("~/Views/Partials/components/SocialShare.cshtml")
+			</div>
+		</header>
 
-		<a href="@emailPageLink" class="c-button c-button--secondary">Email job <i class="ico-email"></i></a>
-		<button href="" class="c-button c-button--secondary" onclick="window.print();">Print job <i class="ico-print"></i></button>
+		<hr>
+		@Model.GetPropertyValue("jobDescription")
+		<a href="" class="c-button c-button--primary u-space-top--large">Send CV ></a>
 
-		@Html.Partial("~/Views/Partials/components/SocialShare.cshtml")
 	</main>
 	<aside class="o-page__sidebar">
 		@Html.Partial("~/Views/Partials/Jobs/SimilarJobs.cshtml")
