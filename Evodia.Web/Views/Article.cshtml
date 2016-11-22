@@ -11,7 +11,7 @@
     string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
     DateTime releaseDate = Model.GetPropertyValue<DateTime>("releaseDate");
     string excerpt = Model.GetPropertyValue<string>("excerpt");
-
+@*
     string docType = Model.DocumentTypeAlias;
     string category = "";
 
@@ -29,6 +29,7 @@
     }
 
     string categoryUrl = Model.Ancestor().Url + "?category=" + category.ToLower().Replace(" ", "-");
+*@
 }
 
 <article class="c-article" itemscope itemtype="http://schema.org/Article">
@@ -41,9 +42,11 @@
                 </time>
                 <meta itemprop="datePublished" content="@releaseDate.ToString("yyyy-MM-dd")">
             </li>
+			@*
             <li class="c-meta-data__item" itemprop="keywords">
                 <a href="@categoryUrl" rel="category">@category</a>
             </li>
+			*@
         </ul>
     </header>
     <div class="s-free-content" itemprop="articleBody">
@@ -58,6 +61,8 @@
 @section Sidebar {
 	<div class="c-pod c-pod--light">
 		@Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
+		@*
 		@Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
+		*@
    </div>
 }

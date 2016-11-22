@@ -67,34 +67,34 @@
     string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
 
-<div>
-    <h1>@headline</h1>
-    <section>
-        @if( selectedArticles.Any() )
+<h1>@headline</h1>
+<section>
+    @if( selectedArticles.Any() )
+    {
+        foreach( var article in selectedArticles )
         {
-            foreach( var article in selectedArticles )
-            {
-                string category = article.DocumentTypeAlias;
+            string category = article.DocumentTypeAlias;
 
-                @(category == "inTheMedia" ? RenderExternalArticle(article) : RenderSiteArticle(article))
-            }
-            <nav class="c-pagination">
-                @PagingTemplate.RenderPaging(paging, Model.Id)
-            </nav>
+            @(category == "inTheMedia" ? RenderExternalArticle(article) : RenderSiteArticle(article))
         }
-        else
-        {
-
-        }
-    </section>
-</div>
+        <nav class="c-pagination">
+            @PagingTemplate.RenderPaging(paging, Model.Id)
+        </nav>
+    }
+    else
+    {
+        <p>Sorry, there currently isn't any news available.</p>
+    }
+</section>
 
 @section Sidebar {
     <div class="c-pod c-pod--light">
         @if( allPosts.Any() ) {
             @Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
         }
+        @*
        @Html.Partial("~/Views/Partials/News/NewsFilter.cshtml")
+       *@
     </div>
 }
 
@@ -124,7 +124,9 @@
                     </time>
                     <meta itemprop="dateCreated" content="@releaseDate.ToString("yyyy-MM-dd")">
                 </li>
+                @*
                 <li class="c-meta-data__item" itemprop="keywords">@category</li>
+                *@
             </ul>
 
             <div class="c-listing__description">
