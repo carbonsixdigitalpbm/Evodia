@@ -4,6 +4,24 @@
 
 =========================================================== */
 
+@include respond-max( $mq-small ) {
+
+	.s-jobs {
+
+		.c-alert--info {
+			color: $pri;
+			background-color: transparent;
+			border-bottom: 1px solid $border-colour;
+
+			p {
+				font-size: 1.6rem;
+			}
+		}
+
+	}
+
+}
+
 @include respond-min( $mq-small ) {
 
 	.s-job__header {

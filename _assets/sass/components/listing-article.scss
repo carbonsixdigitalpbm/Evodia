@@ -12,12 +12,12 @@
 
 	&:before {
 		content: "";
-		width: 1.6rem;
+		width: .6rem;
 		height: 100%;
 		height: calc( 100% + 2px );
 		position: absolute;
 		top: -1px;
-		left: -1.6rem;
+		left: -.6rem;
 		background-color: $blue-2;
 		opacity: 0;
 		transition: opacity $speed $ease;
@@ -98,10 +98,36 @@
 }
 
 
+@include respond-max( $mq-medium ) {
+
+	.c-listing--article {
+
+		.c-listing__cta {
+			margin-top: 0;
+		}
+
+		.c-button {
+			font-size: 1.4rem;
+			margin-right: 1rem;
+		}
+
+		.c-button--primary {
+			margin-right: 0;
+		}
+
+	}
+
+}
+
 @include respond-min( $mq-medium ) {
 
 	.c-listing--article {
 		padding: 4rem;
+
+		&:before {
+			width: 1.6rem;
+			left: -1.6rem;
+		}
 	}
 
 	.c-listing--compact-article {

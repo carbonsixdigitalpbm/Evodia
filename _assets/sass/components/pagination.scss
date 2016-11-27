@@ -73,25 +73,15 @@
 
 }
 
-.c-pagination__link--first {
-	margin-right: 1rem;
-}
-
-.c-pagination__link--last {
-	margin-left: 1rem;
-}
-
-.c-pagination__nav--first {
-	float: left;
-}
-
-.c-pagination__nav--next {
-	float: right;
-}
 
 
 @include respond-max( $mq-small ) {
 
+	.c-pagination {
+		text-align: center;
+	}
+
+	.c-pagination__link--index,
 	.c-pagination__link--first,
 	.c-pagination__link--last {
 		display: none;
@@ -99,7 +89,33 @@
 
 	.c-pagination__link--prev,
 	.c-pagination__link--next {
-		margin: 0;
+		margin: 0 2rem;
+	}
+
+	.c-pagination__nav--first,
+	.c-pagination__nav--next {
+		display: inline-block;
+	}
+
+}
+
+@include respond-min( $mq-small ) {
+
+
+	.c-pagination__link--first {
+		margin-right: 1rem;
+	}
+
+	.c-pagination__link--last {
+		margin-left: 1rem;
+	}
+
+	.c-pagination__nav--first {
+		float: left;
+	}
+
+	.c-pagination__nav--next {
+		float: right;
 	}
 
 }

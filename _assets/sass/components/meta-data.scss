@@ -6,7 +6,15 @@
 
 .c-meta-data__item {
 	list-style: none;
-	margin: .5rem 0;
+	margin: 0;
+}
+
+@include respond-max( $mq-small ) {
+
+	.c-meta-data__item {
+		font-size: 1.4rem;
+	}
+
 }
 
 @include respond-min( $mq-small ) {
