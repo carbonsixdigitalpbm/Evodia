@@ -20,6 +20,22 @@
 
 	}
 
+	.s-job {
+
+		.o-button-list {
+			@include clearfix();
+
+			.c-button {
+				@include column( 1/2, $cycle: 2 );
+				font-size: 1.4rem;
+				text-align: center;
+				margin-top: 0;
+			}
+
+		}
+
+	}
+
 }
 
 @include respond-min( $mq-small ) {
