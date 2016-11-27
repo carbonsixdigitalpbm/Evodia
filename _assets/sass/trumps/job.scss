@@ -4,6 +4,28 @@
 
 =========================================================== */
 
+.s-job__content {
+
+	h2,
+	h3,
+	h4 {
+		color: $text-colour;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+	}
+
+	h3 {
+		font-size: 1.6rem;
+	}
+
+	h4 {
+		font-size: 1.3rem;
+	}
+
+}
+
 @include respond-max( $mq-small ) {
 
 	.s-jobs {
@@ -48,6 +70,22 @@
 
 		.o-col--last {
 			@include column( 3/10, $gutter: 5 );
+		}
+
+	}
+
+}
+
+@include respond-min-max( $mq-small, $mq-large ) {
+
+	.s-job {
+
+		.o-button-list {
+
+			.c-button {
+				font-size: 1.4rem;
+			}
+
 		}
 
 	}

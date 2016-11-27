@@ -62,13 +62,19 @@
 				@Html.Partial("~/Views/Partials/components/SocialShare.cshtml")
 			</div>
 		</header>
+		<section class="s-job__content">
+			@if( Model.HasValue("overview") ) {
+				<hr class="u-space-bottom--large">
+				<h2>Overview</h2>
+				<p class="u-space-bottom--large">@Model.GetPropertyValue("overview")</p>
+			}
 
-		@if( Model.HasValue("jobDescription") ) {
-			<hr class="u-space-bottom--large">
-			@Model.GetPropertyValue("jobDescription")
-			<a href="" class="c-button c-button--primary u-space-top--large">Send CV ></a>
-		}
-
+			@if( Model.HasValue("jobDescription") ) {
+				<hr class="u-space-bottom--large">
+				@Model.GetPropertyValue("jobDescription")
+				<a href="" class="c-button c-button--primary u-space-top--large">Send CV ></a>
+			}
+		</section>
 	</main>
 	<aside class="o-page__sidebar">
 		@Html.Partial("~/Views/Partials/Jobs/SimilarJobs.cshtml")
