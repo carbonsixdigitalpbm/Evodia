@@ -6,19 +6,7 @@
 }
 
 <main class="o-page__inner" role="main">
-
-<section class="c-hero o-section">
-	<div class="o-section__inner o-wrap">
-		<h1 class="c-hero__headline u-center-content">Creating opportunities. Shaping futures.</h1>
-		<div class="o-wrap--center o-wrap--small">
-			<div class="u-hide-small u-hide-medium u-hide-large u-center-content">
-				<p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.</p>
-			</div>
-			@Html.Action("RenderBasicSearchForm", "SearchForm")
-		</div>
-	</div>
-	<div class="t-mouse"></div>
-</section>
+	@RenderCover()
 	@RenderSpecials()
 
 	<section class="o-section u-background--dark">
@@ -83,4 +71,27 @@
 	        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
 		</div>
     </blockquote>
+}
+
+
+@helper RenderCover() {
+	var headline = Model.GetPropertyValue<string>("coverHeadline");
+
+	<section class="c-hero o-section">
+		<div class="o-section__inner o-wrap">
+			@if( !String.IsNullOrEmpty( headline ) ) {
+				<h1 class="c-hero__headline u-center-content">@headline</h1>
+			}
+			<div class="o-wrap--center o-wrap--small">
+				@if( Model.HasValue("coverCopy") ) {
+					<div class="u-hide-small u-hide-medium u-hide-large u-center-content">
+						<p>@Model.GetPropertyValue("coverCopy")</p>
+					</div>
+				}
+				@Html.Action("RenderBasicSearchForm", "SearchForm")
+			</div>
+		</div>
+		<div class="t-mouse"></div>
+	</section>
+
 }
