@@ -7,6 +7,7 @@
 	var sector = Model.Sector;
 
 	var itemUrl = Model.Url;
+	var description = "The primary role of the Hawk Type Airworthiness Authority (TAA) is to provide safe, airworthy and sustainable Hawk TMk1/1A and something";
 }
 
 <article class="c-listing--article">
@@ -26,7 +27,7 @@
 		</li>
 	</ul>
 	<div class="c-listing__copy u-hide-small u-hide-medium">
-		<p>The primary role of the Hawk Type Airworthiness Authority (TAA) is to provide safe, airworthy and sustainable Hawk TMk1/1A...</p>
+		<p>@Umbraco.Truncate( description, 125 )</p>
 	</div>
 	<div class="c-listing__cta">
 		<a href="@itemUrl" class="c-button c-button--secondary">Read more ></a>
