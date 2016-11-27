@@ -8,6 +8,10 @@
 	color: $white;
 	background-color: $blue-2;
 	position: relative;
+
+	.c-button {
+		margin: $line-height auto 0;
+	}
 }
 
 .c-hero__headline {

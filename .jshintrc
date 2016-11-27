@@ -11,6 +11,7 @@
         "define": false,
         "jQuery": false,
         "require": false,
-        "google": false
+        "google": false,
+        "MQ": false
     }
 }

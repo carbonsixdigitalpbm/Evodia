@@ -16,7 +16,8 @@
 }
 
 [class^="ico-"],
-[class*=" ico-"] {
+[class*=" ico-"],
+.c-tabs__page:before {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'evodia-iconfont' !important;
   speak: none;
@@ -61,9 +62,11 @@
 .ico-arrow-down:before {
   content: "\e909";
 }
+.c-tabs__page--prev:before,
 .ico-arrow-left:before {
   content: "\e90a";
 }
+.c-tabs__page--next:before,
 .ico-arrow-right:before {
   content: "\e90b";
 }

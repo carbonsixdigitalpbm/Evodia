@@ -46,13 +46,13 @@
 /* ===========================================================
 		# breakpoints
 =========================================================== */
-/*
+
 	var breakpoints = [{
 		context: ['small-max', 'small', 'medium'],
 		call_for_each_context: false,
 		match: function() {
 			//console.log('small');
-			mobileNavigation( $('.js-nav') );
+			//mobileNavigation( $('.js-nav') );
 		},
 		unmatch: function() {
 			// unbind and scripts if possible
@@ -63,7 +63,7 @@
 		call_for_each_context: false,
 		match: function() {
 			//console.log('medium - xxl');
-			compactHeader();
+			$window.CompactHeader.init( true );
 		},
 		unmatch: function() {
 			// unbind and scripts if possible
@@ -71,7 +71,6 @@
 		}
 	}];
 
-*/
 
 /* ===========================================================
 
@@ -84,7 +83,6 @@
 		enhanceEdgeCaseBrowsers();
 
 		$window.ToggleClass.init();
-		$window.CompactHeader.init( true );
 		$window.ValidateForms.init( $('.js-form') );
 		$('.js-tabs').tabs();
 //		$('select').selectric();
@@ -97,7 +95,7 @@
 		$window.Accordion.init();
 		$window.GMaps.init();
 
-		//MQ.init(breakpoints);
+		MQ.init(breakpoints);
 	}
 
 	$(window).load(function() {

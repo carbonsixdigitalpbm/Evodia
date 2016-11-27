@@ -49,11 +49,6 @@
 	}
 
 	.c-tabs__nav {
-		width: calc( 100% + 6rem );
-		margin-left: -3rem;
-		padding-left: 3rem;
-		padding-right: 3rem;
-
 		position: relative;
 		overflow: hidden;
 	}
@@ -89,6 +84,7 @@
 	}
 
 	.c-tabs__page {
+		padding: 1.2rem;
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -229,6 +225,56 @@
 	.c-tabs__content-tab {
 		padding: 3rem 4rem;
 		background-color: $light-blue-1;
+	}
+
+
+}
+
+@include respond-max( $mq-medium ) {
+
+	.enhance {
+
+		.c-tabs__nav {
+			background-color: $pri;
+		}
+
+		.c-tabs__page {
+			color: $white;
+			opacity: 1;
+		}
+
+		.c-tabs__nav-list {
+			padding: 0;
+		}
+
+		.c-tabs__nav-item {
+
+			.c-tabs__nav-tab {
+				padding-left: 0;
+				padding-right: 0;
+			}
+
+			& + .c-tabs__nav-item {
+				margin-left: 2rem;
+			}
+
+		}
+
+	}
+
+}
+
+@include respond-min( $mq-medium ) {
+
+	.enhance {
+
+		.c-tabs__nav {
+			width: calc( 100% + 6rem );
+			margin-left: -3rem;
+			padding-left: 3rem;
+			padding-right: 3rem;
+		}
+
 	}
 
 

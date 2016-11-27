@@ -21,6 +21,10 @@
     padding: 1rem;
 }
 
+.o-link-list__name {
+	word-wrap: break-word;
+}
+
 .o-link-list__meta {
 	color: $grey-3;
 	margin-left: 1rem;

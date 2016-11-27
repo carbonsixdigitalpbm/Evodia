@@ -10,6 +10,8 @@ textarea {
 	background: none;
 	border: $border-width solid $border-colour;
 	padding: 1rem 1.5rem;
+	border-radius: 0;
+	margin: 0;
 	transition: border $speed $ease;
 	width: 100%;
 
@@ -32,6 +34,7 @@ textarea {
 }
 
 textarea {
+	display: block;
 	overflow: auto; // Hide scrollbar IE
 	resize: vertical;
 

@@ -97,4 +97,9 @@
 		display: none;
 	}
 
+	.c-pagination__link--prev,
+	.c-pagination__link--next {
+		margin: 0;
+	}
+
 }

@@ -33,6 +33,24 @@ html {
 	width: 100%;
 }
 
+@include respond-max( $mq-medium ) {
+
+	.o-page__sidebar {
+
+		& + .o-page__content {
+			margin-top: $line-height * 2;
+		}
+	}
+
+	.o-page__content {
+
+		& + .o-page__sidebar {
+			margin-top: $line-height * 2;
+		}
+	}
+
+}
+
 @include respond-min( $mq-medium ) {
 
 	.s-layout-sidebar {

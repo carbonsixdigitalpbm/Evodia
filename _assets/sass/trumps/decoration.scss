@@ -20,7 +20,7 @@
 
 	&:before {
 		width: 1px;
-		height: 6rem;
+		height: 3rem;
 		left: 50%;
 		bottom: 0;
 	}
@@ -30,9 +30,25 @@
 		height: .6rem;
 		margin-left: -.2rem;
 		left: 50%;
-		bottom: 6rem;
+		bottom: 3rem;
 		border-radius: 50%;
 	}
 
+
+}
+
+@include respond-min( $mq-medium ) {
+
+	.t-line-vertical {
+
+		&:before {
+			height: 6rem;
+		}
+
+		&:after {
+			bottom: 6rem;
+		}
+
+	}
 
 }

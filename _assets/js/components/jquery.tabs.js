@@ -113,12 +113,10 @@
 				var delta = 40,
 					$self = this,
 					$prevButton = $('<button>', {
-						'class': 'c-tabs__page c-tabs__page--prev js-tabs-page-prev',
-						'text': 'prev'
+						'class': 'c-tabs__page c-tabs__page--prev js-tabs-page-prev'
 					}),
 					$nextButton = $('<button>', {
-						'class': 'c-tabs__page c-tabs__page--next js-tabs-page-next',
-						'text': 'next'
+						'class': 'c-tabs__page c-tabs__page--next js-tabs-page-next'
 					});
 
 				this.$nav.prepend( $prevButton );

@@ -31,7 +31,7 @@
 		}
 	}
 
-	.c-nav__item--parent .c-nav__list-sub {
+	.c-nav__list--sub {
 		display: none;
 	}
 
@@ -44,7 +44,7 @@
 		.c-nav--main {
 
 			.c-nav__link {
-				padding: 1rem 1.5rem;
+				padding: 2rem 1.5rem;
 			}
 
 		}
@@ -60,7 +60,7 @@
 		.c-nav--main {
 
 			.c-nav__link {
-				padding: 1rem 2rem;
+				padding: 2rem;
 			}
 
 		}
@@ -76,7 +76,7 @@
 		.c-nav--main {
 
 			.c-nav__link {
-				padding: 1rem 4rem;
+				padding: 2rem 4rem;
 			}
 
 		}
@@ -96,6 +96,7 @@
 			visibility: hidden;
 			opacity: 0;
 			text-align: center;
+			padding: 2rem 0;
 			background-color: $dark-1;
 			transform: translateY(-1rem);
 			transition: opacity $speed $ease,
@@ -111,6 +112,10 @@
 				transform: translateY(0rem);
 			}
 
+		}
+
+		.c-nav__link {
+			font-size: 1.8rem;
 		}
 
 	}
@@ -152,6 +157,7 @@
 		.c-nav__list--sub {
 			min-width: 20rem;
 			color: $white;
+			display: block !important;
 			background-color: $pri;
 			position: absolute;
 			left: 0;

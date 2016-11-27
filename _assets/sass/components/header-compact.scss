@@ -89,3 +89,18 @@
 	}
 
 }
+
+@include respond-max( $mq-large) {
+
+	.enhance {
+
+		.c-header--compact {
+
+			.c-header__toggle-menu-button {
+				margin-bottom: -1px;
+			}
+
+		}
+
+	}
+}

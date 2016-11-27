@@ -9,7 +9,7 @@ var Carousel = (function ($) {
 				settings = {
 					items: $this.data("items") ? $this.data("items") : 1,
 					loop: $this.data("loop") ? $this.data("loop") : false,
-					nav: $this.data("nav") ? $this.data("nav") : true,
+					nav: $this.data("nav") ? $this.data("nav") : false,
 					dots: $this.data("dots") ? $this.data("dots") : false,
 					center: $this.data("center") ? $this.data("center") : false,
 					centerPadding: $this.data("center-padding") ? $this.data("center-padding") : "0px",

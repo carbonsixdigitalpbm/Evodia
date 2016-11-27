@@ -21,11 +21,6 @@
 		color: inherit;
 	}
 
-	.tel {
-		display: inline-block;
-		margin-right: 1rem;
-	}
-
 	.c-social {
 		margin-top: $line-height;
 	}
@@ -51,6 +46,21 @@
 
 	.c-footer__copyright {
 		margin-right: 1rem;
+	}
+
+	.tel {
+		display: inline-block;
+		margin-right: 1rem;
+	}
+
+}
+
+@include respond-max( $mq-large ) {
+
+	.c-footer__col--last {
+		border-top: 1px solid $dark-2;
+		margin-top: $line-height;
+		padding-top: $line-height;
 	}
 
 }
