@@ -33,7 +33,7 @@ html {
 	width: 100%;
 }
 
-@include respond-max( $mq-medium ) {
+@include respond-max( $mq-large ) {
 
 	.o-page__sidebar {
 
@@ -51,7 +51,7 @@ html {
 
 }
 
-@include respond-min( $mq-medium ) {
+@include respond-min( $mq-large ) {
 
 	.s-layout-sidebar {
 
