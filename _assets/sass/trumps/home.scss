@@ -11,3 +11,16 @@
 	}
 
 }
+
+@include respond-max( $mq-large ) {
+
+	.s-home {
+
+		.c-carousel--prev,
+		.c-carousel--next {
+			display: none;
+		}
+
+	}
+
+}

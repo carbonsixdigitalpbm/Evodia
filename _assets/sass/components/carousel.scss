@@ -30,41 +30,24 @@
 
 .c-carousel--prev,
 .c-carousel--next {
-	font-size: 3.2rem;
+	color: $grey-3;
 	position: absolute;
 	top: 50%;
 	z-index: 2;
 	line-height: 1;
+	font-size: 3.2rem;
+	text-align: center;
 	transform: translateY( -50% );
-
-	&:before {
-		color: $pri;
-		transition: color $speed $ease;
-	}
-
-	i {
-		color: $white;
-		font-size: 1rem;
-		position: absolute;
-		top: 50%;
-		right: 0;
-		left: 0;
-		text-align: center;
-		margin-top: -.8rem;
-	}
+	transition: color $speed $ease;
 
 	&:hover,
 	&:focus {
-
-		&:before {
-			color: darken( $pri, 10 );
-		}
-
+		color: $pri;
 	}
 
 	&.slick-disabled {
 		&:before {
-			color: lighten( $pri, 20 );
+			color: $grey-2;
 		}
 	}
 }
@@ -216,7 +199,7 @@
 	}
 }
 
-@include respond-min( $mq-medium ) {
+@include respond-min( $mq-large ) {
 
 	.c-carousel--prev,
 	.c-carousel--next {

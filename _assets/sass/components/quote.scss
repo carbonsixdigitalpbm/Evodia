@@ -39,3 +39,16 @@
 	}
 
 }
+
+@include respond-max( $mq-large ) {
+
+	.c-carousel {
+
+		.c-quote {
+			padding-left: 2rem;
+			padding-right: 2rem;
+		}
+
+	}
+
+}
