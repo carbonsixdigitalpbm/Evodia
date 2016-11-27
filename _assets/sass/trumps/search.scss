@@ -1,0 +1,48 @@
+/* ===========================================================
+
+	# Search
+
+=========================================================== */
+
+.s-search {
+
+	.o-input-wrap--search {
+
+		i {
+			font-size: 2.2rem;
+			color: $border-colour;
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 1.3rem;
+		}
+	}
+
+}
+
+.s-search__keyword {
+
+	& + .o-checkbox {
+		margin-top: $line-height / 2;
+	}
+
+}
+
+.enhance {
+
+	.c-pod--light {
+
+		.s-search__keyword {
+
+			& + .o-checkbox {
+
+				.o-checkbox__label {
+					color: $text-colour;
+				}
+
+			}
+		}
+
+	}
+
+}

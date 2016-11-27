@@ -3,7 +3,7 @@
 	# Form
 
 =========================================================== */
-$line-height-half: $line-height / 2;
+$line-height-half: $line-height / 4;
 
 .o-form__field {
 	& + & {
@@ -24,6 +24,10 @@ $line-height-half: $line-height / 2;
 	-ms-appearance: none;
 	-o-appearance: none;
 	appearance: none;
+}
+
+.o-input-wrap {
+	position: relative;
 }
 
 .o-validation {
@@ -229,6 +233,11 @@ $line-height-half: $line-height / 2;
 		padding: $line-height-half $line-height-half $line-height-half 3rem;
 		position: relative;
 
+		.o-checkbox__label,
+		.o-radio__label {
+			color: $pri;
+		}
+
 		.o-checkbox__label:before,
 		.o-radio__label:before {
 			content: "";
@@ -282,7 +291,7 @@ $line-height-half: $line-height / 2;
 		    border-top: none;
 		    border-right: none;
 		    transform: rotate(-45deg);
-			top: 1.6rem;
+			top: 1.1rem;
 			transition: opacity $speed $ease;
 		}
 

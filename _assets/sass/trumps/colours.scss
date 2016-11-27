@@ -33,6 +33,20 @@
 	}
 }
 
+.enhance {
+
+	.u-background--dark,
+	.u-background--blue,
+	.u-background--blue-2 {
+
+		.o-checkbox__label,
+		.o-radio__label {
+			color: inherit;
+		}
+
+	}
+}
+
 .u-background--dark {
 	background-color: $dark-1;
 }

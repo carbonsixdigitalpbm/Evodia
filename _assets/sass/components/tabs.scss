@@ -209,7 +209,9 @@
 
 			&:hover,
 			&:focus {
-				background-color: $blue-2;
+				&:before {
+					opacity: .5;
+				}
 			}
 		}
 

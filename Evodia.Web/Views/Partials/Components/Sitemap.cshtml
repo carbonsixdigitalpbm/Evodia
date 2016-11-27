@@ -10,7 +10,11 @@
 
 @helper Traverse(IPublishedContent node) {
     const int maxLevelForSitemap = 4;
-    var selection = node.Children.Where( x => x.IsVisible() && x.Level <= maxLevelForSitemap && x.TemplateId > 0 && x.DocumentTypeAlias != "notFound" ).ToList();
+    var selection = node.Children.Where( x => x.IsVisible() && x.Level <= maxLevelForSitemap &&
+		x.TemplateId > 0 &&
+		x.DocumentTypeAlias != "notFound" &&
+		x.DocumentTypeAlias != "job"
+	).ToList();
 
     if ( selection.Any() )
     {

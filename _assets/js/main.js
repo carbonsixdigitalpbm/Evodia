@@ -90,6 +90,7 @@
 //		$('select').selectric();
 		scrollTo($('a[href^="#"]:not(".js-no-scroll")'));
 		responsiveTables();
+		$('select').selectric();
 
 		$window.Carousel.init( $('.js-carousel') );
 		$window.Modal.init( $('.js-modal') );

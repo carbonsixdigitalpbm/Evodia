@@ -13,3 +13,14 @@
 .c-hero__headline {
 	color: inherit;
 }
+
+.enhance {
+
+	.c-hero {
+		.o-checkbox__label,
+		.o-radio__label {
+			color: inherit;
+		}
+	}
+
+}
