@@ -67,7 +67,6 @@
     string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
 
-<h1>@headline</h1>
 <section>
     @if( selectedArticles.Any() )
     {
