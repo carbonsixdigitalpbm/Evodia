@@ -16,14 +16,14 @@ html {
 	overflow-x: hidden;
 }
 
-.rename-me {
+.js-loading-target {
 	transition: opacity $speed $ease;
 }
 
 .is-loading {
 	cursor: wait;
 
-	.rename-me {
+	.js-loading-target {
 		opacity: .4;
 	}
 }
