@@ -174,3 +174,12 @@
 
 
 }
+
+@include respond-min( $mq-xx-large ) {
+
+	.c-header__supplementary,
+	.c-header__logo-link {
+		min-width: 27rem;
+	}
+
+}
