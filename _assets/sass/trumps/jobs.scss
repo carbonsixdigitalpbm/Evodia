@@ -1,0 +1,114 @@
+/* ===========================================================
+
+	# Jobs
+
+=========================================================== */
+
+@include respond-max( $mq-small ) {
+
+	.enhance {
+
+		.s-jobs__sidebar {
+			width: calc( 100% + 3rem );
+			margin-top: -4rem;
+			margin-left: -1.5rem;
+		}
+	}
+
+}
+
+@include respond-min-max( $mq-small, $mq-medium ) {
+
+	.enhance {
+
+		.s-jobs__sidebar {
+			width: calc( 100% + 4rem );
+			margin-top: -6rem;
+			margin-left: -2rem;
+		}
+	}
+
+}
+
+@include respond-min-max( $mq-medium, $mq-large ) {
+
+	.enhance {
+
+		.s-jobs__sidebar {
+			width: calc( 100% + 8rem );
+			margin-top: -8rem;
+			margin-left: -4rem;
+		}
+	}
+
+}
+
+@include respond-max( $mq-large ) {
+
+	.s-jobs__sidebar {
+		background-color: $light-1;
+
+		.s-search__refine {
+			font-weight: $bold;
+			font-size: 1.3rem;
+			text-align: right;
+			padding: 1rem 0;
+			display: block;
+		}
+
+		.s-search {
+			padding: 3rem 2rem 1rem;
+
+			.c-button--primary {
+				display: none;
+			}
+		}
+
+		.s-search__keyword .c-pod__headline,
+		.s-search__title-only {
+			display: none;
+		}
+	}
+
+	.enhance {
+
+		&.s-jobs {
+
+			.mfp-container {
+				padding: 0 !important;
+			}
+
+		}
+
+		.s-jobs__sidebar {
+			width: calc( 100% + 4rem );
+			margin-left: -2rem;
+		}
+
+		.o-page__content--sidebar-layout {
+			margin-top: 0;
+		}
+
+	}
+
+	.c-pod--light {
+		border: none;
+	}
+
+}
+
+@include respond-min( $mq-large ) {
+
+	.s-search__refine {
+		display: none;
+	}
+
+	.enhance .s-jobs__filters.s-jobs__filters {
+		display: block !important;
+
+		.o-form__field--submit {
+			display: none;
+		}
+	}
+
+}

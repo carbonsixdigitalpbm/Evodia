@@ -53,6 +53,7 @@
 		match: function() {
 			//console.log('small');
 			//mobileNavigation( $('.js-nav') );
+			$window.Modal.init( $('.js-modal-search') );
 		},
 		unmatch: function() {
 			// unbind and scripts if possible
@@ -94,6 +95,7 @@
 		$window.Modal.init( $('.js-modal') );
 		$window.Accordion.init();
 		$window.GMaps.init();
+		$window.Voyager.init();
 
 		MQ.init(breakpoints);
 	}

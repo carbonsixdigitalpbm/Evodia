@@ -45,7 +45,7 @@
 <p>sector: @sector</p>
 <p>salary: @salary</p>*@
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
-    <aside class="o-page__sidebar">
+    <aside class="o-page__sidebar s-jobs__sidebar">
         @Html.Action("RenderFullSearchForm", "SearchForm")
     </aside>
     <main class="o-page__content o-page__content--sidebar-layout s-free-content rename-me">
@@ -78,6 +78,7 @@
     </main>
 </div>*@
 
+@*
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="~/Scripts/Voyager.js"></script>
 <script>
@@ -88,3 +89,4 @@
 		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', jobsTarget, navTarget);
 	});
 </script>
+*@

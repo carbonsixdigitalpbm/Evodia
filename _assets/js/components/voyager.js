@@ -1,8 +1,8 @@
-var Voyager = (function() {
+var Voyager = (function($) {
     "use strict";
 
-    var $jobsTarget,
-        $navTarget,
+	var $jobsTarget = $("#jobs-target"),
+        $navTarget = $("#pagination-target"),
         $countTarget = $(".js-count"),
         $keywords = $(".js-keywords"),
         $keywordsOnly = $(".js-keywords-only"),
@@ -29,7 +29,7 @@ var Voyager = (function() {
             busyLoading = true;
 
             _toggleLoadingClass();
-            _logRequestParemeters($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
+            //_logRequestParemeters($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
             _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
         }
     };
@@ -90,16 +90,22 @@ var Voyager = (function() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
     };
 
-    var _bindUIActions = function() {
+    var _bindUIActions = function( isLarge ) {
 
         $filterSelects.on('change', function() {
             _resetPageNumber();
-            _loadJobs();
+			if( isLarge ) {
+				_loadJobs();
+			}
         });
 
         $searchButton.click(function(e) {
             _resetPageNumber();
-            _loadJobs();
+			_loadJobs();
+			if( !isLarge ) {
+				$.magnificPopup.instance.close();
+				$("html, body").animate({ scrollTop: 0 }, 500);
+			}
 
             e.preventDefault();
         });
@@ -107,13 +113,17 @@ var Voyager = (function() {
         $jobTypeCheckboxes.click(function() {
             _resetPageNumber();
             _getPrevalues();
-            _loadJobs();
+			if( isLarge ) {
+				_loadJobs();
+			}
         });
 
         $sectorTypeCheckboxes.click(function() {
             _resetPageNumber();
             _getPrevalues();
-            _loadJobs();
+			if( isLarge ) {
+				_loadJobs();
+			}
         });
 
         $navTarget.on("click", ".js-page", function(e) {
@@ -121,6 +131,7 @@ var Voyager = (function() {
 
             settings.pageNumber = pageNumber;
             _loadJobs();
+			$("html, body").animate({ scrollTop: 0 }, 500);
             e.preventDefault();
         });
     };
@@ -160,7 +171,7 @@ var Voyager = (function() {
                 $navTarget.html($nav);
                 $countTarget.html(result.count + label);
 
-                _animateBackToTop();
+//                _animateBackToTop();
             },
             complete: function() {
                 busyLoading = false;
@@ -174,13 +185,24 @@ var Voyager = (function() {
         });
     };
 
-    var _init = function(jobControllerUrl, jobTarget, navTarget) {
-        settings.controllerUrl = jobControllerUrl;
-        $jobsTarget = $(jobTarget);
-        $navTarget = $(navTarget);
+	var breakpoints = [{
+		context: ['small-max', 'small', 'medium'],
+		call_for_each_context: false,
+		match: function() {
+			_bindUIActions( false );
+		},
+	}, {
+		context: ['large', 'x-large', 'xx-large'],
+		call_for_each_context: false,
+		match: function() {
+			_bindUIActions( true );
+		}
+	}];
 
+    var _init = function() {
+        settings.controllerUrl = "/umbraco/Surface/JobsSurface/GetFilteredJobs";
         _getPrevalues();
-        _bindUIActions();
+		MQ.init(breakpoints);
         //_getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
     };
 
@@ -189,4 +211,4 @@ var Voyager = (function() {
         getJobs: _getJobs
     };
 
-})();
+})(jQuery);

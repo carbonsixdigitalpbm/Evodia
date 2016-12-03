@@ -20,18 +20,21 @@
             @*@Html.ValidationMessageFor(x => x.Keywords)*@
         </div>
 
-        <div class="o-checkbox o-checkbox--small">
+        <div class="o-checkbox o-checkbox--small s-search__title-only">
             @Html.CheckBoxFor(x => x.TitleOnly, new { id = "TitleOnly", @class = "o-checkbox__input js-keywords-only" })
             @Html.LabelFor(x => x.TitleOnly, new { @class = "o-checkbox__label" })
             @*@Html.ValidationMessageFor(x => x.TitleOnly)*@
         </div>
 
         <div class="o-form__field o-form__field--submit">
+		@*
             <button type="submit" class="c-button c-button--primary js-search">Search</button>
+			*@
+			<a href="#refineSearch" class="s-search__refine js-modal-search">Refine search ></a>
         </div>
     </fieldset>
 
-    <fieldset class="o-fieldset c-pod c-pod--light">
+    <fieldset id="refineSearch" class="o-fieldset c-pod c-pod--light s-jobs__filters mfp-with-anim mfp-hide">
         <legend class="o-fieldset__legend c-pod__legend">Refine search</legend>
 
         <div class="o-form__field">
@@ -83,5 +86,9 @@
             </div>
             @*@Html.ValidationMessageFor(x => x.MinimumSalary)*@
         </div>
+
+		<div class="o-form__field o-form__field--submit">
+			<button type="submit" class="c-button c-button--primary js-search">Search</button>
+		</div>
     </fieldset>
 }
