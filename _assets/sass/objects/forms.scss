@@ -224,6 +224,20 @@ $line-height-half: $line-height / 4;
 
 }
 
+.no-enhance {
+
+	.o-checkbox__input {
+		width: auto;
+	}
+
+	.o-checkbox__input,
+	.o-checkbox__label,
+	.o-radio__label {
+		display: inline-block;
+	}
+
+}
+
 .enhance {
 
 	.o-checkbox,

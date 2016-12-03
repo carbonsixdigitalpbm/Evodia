@@ -4,6 +4,21 @@
 
 =========================================================== */
 
+.no-enhance {
+
+	.s-jobs__sidebar {
+
+		.s-search {
+
+			.c-button--primary {
+				display: none;
+			}
+		}
+
+	}
+
+}
+
 @include respond-max( $mq-small ) {
 
 	.enhance {
@@ -45,6 +60,20 @@
 
 @include respond-max( $mq-large ) {
 
+	.s-jobs {
+
+		.c-alert--info {
+			color: $pri;
+			background-color: transparent;
+			border-bottom: 1px solid $border-colour;
+
+			p {
+				font-size: 1.6rem;
+			}
+		}
+
+	}
+
 	.s-jobs__sidebar {
 		background-color: $light-1;
 
@@ -78,11 +107,6 @@
 				padding: 0 !important;
 			}
 
-		}
-
-		.s-jobs__sidebar {
-			width: calc( 100% + 4rem );
-			margin-left: -2rem;
 		}
 
 		.o-page__content--sidebar-layout {
