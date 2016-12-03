@@ -12,10 +12,10 @@
         <legend class="u-hide-text">Search job</legend>
 
         <div class="o-form__field s-search__keyword">
-            @Html.LabelFor(x => x.Keywords, new { @class = "c-pod__headline" })
+			@Html.LabelFor(x => x.Keywords, new { @class = "c-pod__headline" })
 			<div class="o-input-wrap o-input-wrap--search">
-	            @Html.TextBoxFor(x => x.Keywords, new { @class = "o-input js-keywords", placeholder = "Enter keywords to search" })
 				<i class="ico-search" role="decoration"></i>
+				@Html.TextBoxFor(x => x.Keywords, new { @class = "o-input js-keywords", placeholder = "Enter keywords to search" })
 			</div>
             @*@Html.ValidationMessageFor(x => x.Keywords)*@
         </div>

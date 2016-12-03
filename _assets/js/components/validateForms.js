@@ -38,6 +38,7 @@ var ValidateForms = (function ($) {
 	            },
 	            onfocusout: function(element) {
 					var $el = $(element);
+					console.log( $el );
 					_hasVal( $el, 'has-value' );
 					$el.valid();
 	            },
