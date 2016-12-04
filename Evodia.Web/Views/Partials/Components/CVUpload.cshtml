@@ -1,0 +1,31 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var wrapSize = ViewData["wrapSize"] != null ? ViewData["wrapSize"].ToString() : "";
+	var isModal = ViewData != null && ViewData["isModal"].ToString() == "true" ? true : false;
+
+    var formSettings = Umbraco.TypedContent(1246);
+
+	var submissionMessage = formSettings.HasValue("submissionMessage") ? formSettings.GetPropertyValue("submissionMessage") : "Thank you";
+    var success = TempData["ValidationPasses"] != null;
+}
+
+@if( success ) {
+	<div class="c-alert c-alert--success c-alert--fixed o-wrap--small">
+		@submissionMessage
+	</div>
+}
+
+@if( isModal ) {
+	<section id="apply" class="c-cv-form white-popup mfp-with-anim mfp-hide">
+		@*
+			@Html.Action("RenderUploadCVForm", "UploadCV")
+		*@
+	</section>
+} else {
+	<section id="apply" class="c-cv-form">
+		@*
+			@Html.Action("RenderUploadCVForm", "UploadCV")
+		*@
+	</section>
+}

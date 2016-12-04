@@ -54,7 +54,7 @@
 			</div>
 			<div class="o-col o-col--last">
 				<div class="o-button-list u-space-bottom">
-					<a href="" class="c-button c-button--primary">Send CV ></a>
+					@RenderCVButton()
 					<a href="@emailPageLink" class="c-button c-button--secondary c-button--icon">Email job <i class="ico-mail"></i></a>
 					<button href="" class="c-button c-button--secondary c-button--icon u-hide-small u-hide-medium u-hide-large" onclick="window.print();">Print job <i class="ico-print"></i></button>
 				</div>
@@ -72,8 +72,13 @@
 			@if( Model.HasValue("jobDescription") ) {
 				<hr class="u-space-bottom--large">
 				@Model.GetPropertyValue("jobDescription")
-				<a href="" class="c-button c-button--primary u-space-top--large">Send CV ></a>
+
+				@RenderCVButton( "u-space-top--large" )
 			}
+
+			@Html.Partial("~/Views/Partials/Components/CVUpload.cshtml", Model, new ViewDataDictionary {
+			{"isModal", "true"}
+		})
 		</section>
 	</main>
 	<aside class="o-page__sidebar">
@@ -90,3 +95,7 @@
 
 	</aside>
 </div>
+
+@helper RenderCVButton( string modifierClass = "" ) {
+	<a href="#apply" class="c-button c-button--primary @modifierClass js-modal js-no-scroll">Send CV ></a>
+}
