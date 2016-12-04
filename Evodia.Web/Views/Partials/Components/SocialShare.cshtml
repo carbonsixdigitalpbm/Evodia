@@ -15,7 +15,7 @@
 	var pageMeta = (Model.HasValue("description") ? Model.GetPropertyValue("description") : "");
 
 	string twitterUrl = settings.GetPropertyValue<string>("twitter");
-	var twitterCreator = settings.HasValue("twitter") ? twitterUrl.Split('/').Last() : "EMPTY";
+	var twitterCreator = settings.HasValue("twitter") ? twitterUrl.Split('/').Last() : "EvodiaIT";
 
 	var facebookShareUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F" + @pageUrl + "&t=" + @pageName;
 	var twitterShareUrl = "https://twitter.com/intent/tweet?source=http%3A%2F%2F" + @pageUrl + "&text=" + @pageName + ":%20http%3A%2F%2F" + @pageUrl + "&via=" + @twitterCreator;
