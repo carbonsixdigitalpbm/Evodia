@@ -1,0 +1,117 @@
+/* ===========================================================
+
+	# CV upload
+
+=========================================================== */
+
+.c-cv-upload {
+
+    .c-button {
+        position: static;
+    }
+
+    .c-cv-upload__cloud {
+        display: block;
+        margin: $line-height / 2 auto;
+    }
+
+	.o-validation {
+		position: relative;
+	}
+
+    .o-form__field--file {
+        margin-top: $line-height * 2;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        color: $dark-1;
+        padding: 4rem 4rem!important;
+        margin-bottom: .8rem;
+        cursor: pointer;
+        transition: all .3s ease;
+
+        &.is-invalid {
+
+            .c-cv-upload__upload-field:after {
+                border-color: $error !important;
+            }
+
+        }
+
+        &.is-valid {
+
+            .c-cv-upload__upload-field:after {
+                border-color: $success !important;
+            }
+
+        }
+
+        .c-cv-upload__upload-field {
+
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                border: .3rem dashed darken( $light-2, 5 );
+                transition: border $speed $ease;
+            }
+
+            &:hover {
+
+                &:after {
+                    border-color: $grey-1;
+                }
+
+            }
+
+        }
+
+    }
+
+	.o-label {
+		text-transform: uppercase;
+	}
+
+    .c-cv-upload__text {
+        display: block;
+        line-height: 4rem;
+    }
+
+	.c-cv-upload__label {
+		text-transform: uppercase;
+	}
+
+	.c-cv-upload__or {
+		color: $grey-1;
+	}
+
+    .o-input--file {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        opacity: 0;
+        visibility: visible;
+        background-color: transparent;
+        z-index: 5;
+        cursor: pointer;
+        display: block;
+        height: 100%;
+    }
+}
+
+
+@include respond-min($mq-small) {
+
+    .o-form__field--split {
+        @include column(1 / 2, $gutter: 2, $cycle: 2);
+        padding-top: 0 !important;
+    }
+
+}
