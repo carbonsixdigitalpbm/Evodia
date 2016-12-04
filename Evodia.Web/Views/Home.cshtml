@@ -1,4 +1,5 @@
 ﻿@using Umbraco.Web
+@using Evodia.Core.Models
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
@@ -9,18 +10,42 @@
 	@RenderCover()
 	@RenderSpecials()
 
-	<section class="o-section u-background--dark">
-		<div class="o-section__inner o-wrap o-wrap--small u-center-content">
-			<h2 class="u-alpha">Need to submit a vacancy?</h2>
-			<a href="" class="c-button c-button--secondary-invert u-space-top">Get in touch ></a>
-		</div>
-	</section>
+	@RenderVacancyPanel()
 
 	@Html.Partial("~/Views/Partials/Home/FeaturedContent.cshtml")
 
 	@RenderQuotes()
 
 </main>
+
+@helper RenderVacancyPanel() {
+	var headline = Model.GetPropertyValue<string>("submitVacancyHeadline");
+
+	<section class="o-section u-background--dark">
+		<div class="o-section__inner o-wrap o-wrap--small u-center-content">
+			@if( !string.IsNullOrEmpty(headline) ) {
+				<h2 class="u-alpha">@headline</h2>
+			}
+			@{
+				var link = new LinkPickerModel( Model.GetPropertyValue<string>("vacancyLink") );
+				if(!string.IsNullOrEmpty(link.Url))
+				{
+					<a href="@link.Url" class="c-button c-button--secondary-invert u-space-top" target="@link.Target">@link.Name</a>
+				}
+			}
+		</div>
+	</section>
+}
+
+@helper RenderButton(string buttonJson)
+{
+	var link = new LinkPickerModel(buttonJson);
+
+	if(!string.IsNullOrEmpty(link.Url))
+	{
+		<p><a href="@link.Url" title="@link.Name" target="@link.Target" class="u-strong u-block-link u-space-top">Find out more ></a></p>
+	}
+}
 
 
 @helper RenderSpecials() {
