@@ -25,6 +25,15 @@
 	display: block;
 	font-size: 2rem;
 	font-family: $font-family-sec;
+
+	p:first-child:before {
+		content: "\201C";
+	}
+
+	p:last-child:after {
+		content: "\201D"
+	}
+
 }
 
 .c-quote__src {
