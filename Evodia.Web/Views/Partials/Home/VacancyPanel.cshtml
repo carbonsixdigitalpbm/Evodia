@@ -1,0 +1,21 @@
+@using Umbraco.Web
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var headline = Model.GetPropertyValue<string>("submitVacancyHeadline");
+}
+
+<section class="o-section u-background--dark">
+	<div class="o-section__inner o-wrap o-wrap--small u-center-content">
+		@if( !string.IsNullOrEmpty(headline) ) {
+			<h2 class="u-alpha">@headline</h2>
+		}
+		@{
+			var link = new LinkPickerModel( Model.GetPropertyValue<string>("vacancyLink") );
+			if(!string.IsNullOrEmpty(link.Url))
+			{
+				<a href="@link.Url" class="c-button c-button--secondary-invert u-space-top" target="@link.Target">@link.Name</a>
+			}
+		}
+	</div>
+</section>

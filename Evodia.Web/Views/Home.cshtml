@@ -1,52 +1,16 @@
 ﻿@using Umbraco.Web
-@using Evodia.Core.Models
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
-    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
 
 <main class="o-page__inner" role="main">
-	@RenderCover()
+	@Html.Partial("~/Views/Partials/Home/Cover.cshtml")
 	@RenderSpecials()
-
-	@RenderVacancyPanel()
-
+	@Html.Partial("~/Views/Partials/Home/VacancyPanel.cshtml")
 	@Html.Partial("~/Views/Partials/Home/FeaturedContent.cshtml")
-
-	@RenderQuotes()
-
+	@Html.Partial("~/Views/Partials/Home/Quotes.cshtml")
 </main>
-
-@helper RenderVacancyPanel() {
-	var headline = Model.GetPropertyValue<string>("submitVacancyHeadline");
-
-	<section class="o-section u-background--dark">
-		<div class="o-section__inner o-wrap o-wrap--small u-center-content">
-			@if( !string.IsNullOrEmpty(headline) ) {
-				<h2 class="u-alpha">@headline</h2>
-			}
-			@{
-				var link = new LinkPickerModel( Model.GetPropertyValue<string>("vacancyLink") );
-				if(!string.IsNullOrEmpty(link.Url))
-				{
-					<a href="@link.Url" class="c-button c-button--secondary-invert u-space-top" target="@link.Target">@link.Name</a>
-				}
-			}
-		</div>
-	</section>
-}
-
-@helper RenderButton(string buttonJson)
-{
-	var link = new LinkPickerModel(buttonJson);
-
-	if(!string.IsNullOrEmpty(link.Url))
-	{
-		<p><a href="@link.Url" title="@link.Name" target="@link.Target" class="u-strong u-block-link u-space-top">Find out more ></a></p>
-	}
-}
-
 
 @helper RenderSpecials() {
 	string links = "Support engineering,Investment appraisal,Information assurance,Consulting and support,Systems engineering & software,Defence and space,Operational research & modelling, Autonomous systems,Public sector";
@@ -62,70 +26,6 @@
 				}
 			</ul>
 		</div>
-	</section>
-
-}
-
-@helper RenderQuotes() {
-	var quotes = Model.GetPropertyValue<List<IPublishedContent>>("quotes");
-    var hasQuotes = quotes.Any(x => x.HasValue("quoteMessage"));
-    var isCarousel = hasQuotes && quotes.Count() > 1;
-	var carouselClass = isCarousel ? "js-carousel" : "";
-
-	if( hasQuotes ) {
-		<section class="c-carousel o-section o-wrap o-wrap--medium">
-			<div class="o-section__inner u-center-content @carouselClass" data-nav="true" data-loop="true" data-fade="true">
-				@foreach( var item in quotes ) {
-					@RenderQuote( item )
-				}
-			</div>
-			<span class="t-line-vertical" aria-role="presentation"></span>
-		</section>
-	}
-
-}
-
-@helper RenderQuote( IPublishedContent item ) {
-	var quote = item.GetPropertyValue("quoteMessage");
-    var source = item.GetPropertyValue<string>("source");
-	var role = item.GetPropertyValue<string>("role");
-    var renderQuote = quote != null && quote.ToString() != "";
-
-    if (!renderQuote)
-    {
-        return;
-    }
-
-    <blockquote class="c-quote">
-		<div class="c-quote__inner">
-	        <div class="c-quote__copy">
-	            @quote
-	        </div>
-
-	        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
-		</div>
-    </blockquote>
-}
-
-
-@helper RenderCover() {
-	var headline = Model.GetPropertyValue<string>("coverHeadline");
-
-	<section class="c-hero o-section">
-		<div class="o-section__inner o-wrap">
-			@if( !String.IsNullOrEmpty( headline ) ) {
-				<h1 class="c-hero__headline u-center-content">@headline</h1>
-			}
-			<div class="o-wrap--center o-wrap--small">
-				@if( Model.HasValue("coverCopy") ) {
-					<div class="u-hide-small u-hide-medium u-hide-large u-center-content">
-						@Model.GetPropertyValue("coverCopy")
-					</div>
-				}
-				@Html.Action("RenderBasicSearchForm", "SearchForm")
-			</div>
-		</div>
-		<div class="t-mouse"></div>
 	</section>
 
 }
