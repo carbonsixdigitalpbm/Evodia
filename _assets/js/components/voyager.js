@@ -1,7 +1,7 @@
 var Voyager = (function($) {
     "use strict";
 
-	var $jobsTarget = $("#jobs-target"),
+    var $jobsTarget = $("#jobs-target"),
         $navTarget = $("#pagination-target"),
         $countTarget = $(".js-count"),
         $keywords = $(".js-keywords"),
@@ -24,7 +24,7 @@ var Voyager = (function($) {
 
     var busyLoading;
 
-    var _loadJobs = function () {
+    var _loadJobs = function() {
         if (!busyLoading) {
             busyLoading = true;
 
@@ -56,7 +56,7 @@ var Voyager = (function($) {
         settings.pageNumber = 0;
     };
 
-    var _pushHistoryState = function () {
+    var _pushHistoryState = function() {
         var queryString = {},
             item;
 
@@ -86,26 +86,29 @@ var Voyager = (function($) {
         history.pushState(null, "Jobs | Evodia", link);
     };
 
-    var _animateBackToTop = function () {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+    var _animateBackToTop = function() {
+        $("html, body").animate({
+            scrollTop: 0
+        }, 500);
+
     };
 
-    var _bindUIActions = function( isLarge ) {
+    var _bindUIActions = function(isLarge) {
 
         $filterSelects.on('change', function() {
             _resetPageNumber();
-			if( isLarge ) {
-				_loadJobs();
-			}
+            if (isLarge) {
+                _loadJobs();
+            }
         });
 
         $searchButton.click(function(e) {
             _resetPageNumber();
-			_loadJobs();
-			if( !isLarge ) {
-				$.magnificPopup.instance.close();
-				$("html, body").animate({ scrollTop: 0 }, 500);
-			}
+            _loadJobs();
+            if (!isLarge) {
+                $.magnificPopup.instance.close();
+                _animateBackToTop();
+            }
 
             e.preventDefault();
         });
@@ -113,17 +116,17 @@ var Voyager = (function($) {
         $jobTypeCheckboxes.click(function() {
             _resetPageNumber();
             _getPrevalues();
-			if( isLarge ) {
-				_loadJobs();
-			}
+            if (isLarge) {
+                _loadJobs();
+            }
         });
 
         $sectorTypeCheckboxes.click(function() {
             _resetPageNumber();
             _getPrevalues();
-			if( isLarge ) {
-				_loadJobs();
-			}
+            if (isLarge) {
+                _loadJobs();
+            }
         });
 
         $navTarget.on("click", ".js-page", function(e) {
@@ -131,12 +134,12 @@ var Voyager = (function($) {
 
             settings.pageNumber = pageNumber;
             _loadJobs();
-			$("html, body").animate({ scrollTop: 0 }, 500);
+            _animateBackToTop();
             e.preventDefault();
         });
     };
 
-    var _logRequestParemeters = function (keywords, keywordsOnly, jobTypes, location, sectors, salary) {
+    var _logRequestParemeters = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
         console.log("## Search settings ##");
         console.log("Keywords: " + keywords + ", keywords only: " + keywordsOnly);
         console.log("Job types: " + jobTypes);
@@ -170,8 +173,6 @@ var Voyager = (function($) {
                 $jobsTarget.html($jobs);
                 $navTarget.html($nav);
                 $countTarget.html(result.count + label);
-
-//                _animateBackToTop();
             },
             complete: function() {
                 busyLoading = false;
@@ -185,24 +186,24 @@ var Voyager = (function($) {
         });
     };
 
-	var breakpoints = [{
-		context: ['small-max', 'small', 'medium'],
-		call_for_each_context: false,
-		match: function() {
-			_bindUIActions( false );
-		},
-	}, {
-		context: ['large', 'x-large', 'xx-large'],
-		call_for_each_context: false,
-		match: function() {
-			_bindUIActions( true );
-		}
-	}];
+    var breakpoints = [{
+        context: ['small-max', 'small', 'medium'],
+        call_for_each_context: false,
+        match: function() {
+            _bindUIActions(false);
+        },
+    }, {
+        context: ['large', 'x-large', 'xx-large'],
+        call_for_each_context: false,
+        match: function() {
+            _bindUIActions(true);
+        }
+    }];
 
     var _init = function() {
         settings.controllerUrl = "/umbraco/Surface/JobsSurface/GetFilteredJobs";
         _getPrevalues();
-		MQ.init(breakpoints);
+        MQ.init(breakpoints);
         //_getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
     };
 
