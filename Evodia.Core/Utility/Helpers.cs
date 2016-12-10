@@ -1,5 +1,8 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.IO;
+using System.Web;
 
 namespace Evodia.Core.Utility
 {
@@ -15,6 +18,14 @@ namespace Evodia.Core.Utility
             {
                 return 0;
             }
+        }
+
+        public static string MakeValidFileName(this string name)
+        {
+            var invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            var invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+
+            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
         }
 
         public static string GetDaySuffix(string day)

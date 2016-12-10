@@ -1,12 +1,10 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-using System.Web.Mvc;
 
 namespace Evodia.Core.Models
 {
-    public class JobCVForm
+    public class JobCvForm
     {
         [DisplayName("First name")]
         [Required(ErrorMessage = "Please enter your first name")]
@@ -19,15 +17,11 @@ namespace Evodia.Core.Models
         [DisplayName("Email address")]
         [Required(ErrorMessage = "Please enter your email address")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
-        [DisplayName("Job role")]
-        [Required(ErrorMessage = "Please enter job role your interested")]
-        public string JobRole { get; set; }
-
-        [DisplayName("Your CV (Pdf or Word file)")]
-        [Required(ErrorMessage = "Please attache your CV")]
-        [Evodia.Core.Controllers.Attachment]
-        public HttpPostedFileBase Attachment { get; set; }
+        [DisplayName("CV attachment")]
+        [Required(ErrorMessage = "Please attach your CV")]
+        [Utility.Attachment]
+        public HttpPostedFileBase CvAttachment { get; set; }
     }
 }

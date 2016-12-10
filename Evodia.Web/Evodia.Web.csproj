@@ -487,6 +487,10 @@
     <Content Include="App_Plugins\VoyagerDashboard\VoyagerDashboard.Controller.js" />
     <Content Include="App_Plugins\VoyagerDashboard\voyagerdashboard.html" />
     <Content Include="App_Plugins\VoyagerDashboard\VoyagerDashboard.Services.js" />
+    <Content Include="assets\img\evodia-logo.png" />
+    <Content Include="assets\img\evodia-logo.svg" />
+    <Content Include="assets\img\marker.png" />
+    <Content Include="assets\img\upload.png" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -550,6 +554,7 @@
     <Content Include="App_Plugins\VoyagerDashboard\package.manifest" />
     <Content Include="Config\appSettings.config" />
     <Content Include="App_Code\PagingTemplate.cshtml" />
+    <Content Include="assets\img\readme.md" />
     <None Include="Config\connectionStrings.config" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
@@ -2286,7 +2291,12 @@
     <Content Include="Views\Partials\Jobs\JobCard.cshtml" />
     <Content Include="Views\Partials\Forms\BasicSearchFormView.cshtml" />
     <Content Include="Views\JobsSurface\GetFilteredJobsNavigation.cshtml" />
-    <Content Include="Views\Partials\Forms\GenericCvForm.cshtml" />
+    <Content Include="Views\Partials\Forms\GenericCvFormView.cshtml" />
+    <Content Include="Views\Partials\PageComponents\Form.cshtml" />
+    <Content Include="Views\Partials\Forms\VacancyFormView.cshtml" />
+    <Content Include="Views\Partials\PageComponents\Accordion.cshtml" />
+    <Content Include="Views\Partials\Forms\JobCvFormView.cshtml" />
+    <Content Include="Views\JSONMapMarkers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

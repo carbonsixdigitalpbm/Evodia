@@ -3,31 +3,20 @@ using System.Web.Mvc;
 using Umbraco.Core.Logging;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
-using Umbraco.Core;
 using Evodia.Core.Models;
 using Evodia.Core.Utility;
-using Umbraco.Core.Services;
 
 namespace Evodia.Core.Controllers
 {
     public class ContactFormController : SurfaceController
     {
         private readonly MailHelper _mailHelper = new MailHelper();
-        private readonly IContentService _contentService = ApplicationContext.Current.Services.ContentService;
-        private readonly UmbracoHelper _umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-        private const int FormFolderId = 1155;
 
         public ActionResult RenderContactForm()
         {
             return PartialView("~/Views/Partials/Forms/ContactFormView.cshtml", new ContactForm());
         }
 
-        public ActionResult RenderAjaxContactForm()
-        {
-            TempData["FormFolderId"] = FormFolderId;
-
-            return PartialView("~/Views/Partials/Forms/AjaxContactFormView.cshtml", new ContactForm());
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -41,44 +30,31 @@ namespace Evodia.Core.Controllers
             }
 
             TempData["ValidationPasses"] = "The form has been validated successfully.";
-            TempData["FormFolderId"] = FormFolderId;
+            TempData["FormFolderId"] = Constants.ContactFormForlderId;
 
             SaveContactFormSubmission(model);
             SendEmailNotifications(model);
 
-            if (_umbracoHelper.TypedContent(FormFolderId).HasValue("redirectPage"))
+            if (Umbraco.TypedContent(Constants.ContactFormForlderId).HasValue("redirectPage"))
             {
-                return RedirectToUmbracoPage(_umbracoHelper.TypedContent(FormFolderId).GetPropertyValue<int>("redirectPage"));
+                return RedirectToUmbracoPage(Umbraco.TypedContent(Constants.ContactFormForlderId).GetPropertyValue<int>("redirectPage"));
             }
 
             return RedirectToCurrentUmbracoPage();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult ProcessAjaxFormSubmission(ContactForm model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Json(new { success = false });
-            }
-
-            SaveContactFormSubmission(model);
-            SendEmailNotifications(model);
-
-            return Json(new { success = true });
         }
 
         private void SaveContactFormSubmission(ContactForm model)
         {
             try
             {
-                var formSubmission = _contentService.CreateContent(model.Name + ", " + model.Email + " - " + DateTime.Now.ToShortDateString(), FormFolderId, "contactForm");
+                var contentService = Services.ContentService;
+                var formSubmission = contentService.CreateContent(model.Name + ", " + model.Email + " - " + DateTime.Now.ToShortDateString(), Constants.ContactFormForlderId, Constants.ContactFormAlias);
 
                 formSubmission.SetValue("name", model.Name);
                 formSubmission.SetValue("emailAddress", model.Email);
                 formSubmission.SetValue("message", model.Message);
-                _contentService.SaveAndPublishWithStatus(formSubmission);
+
+                contentService.SaveAndPublishWithStatus(formSubmission);
             }
             catch (Exception ex)
             {
@@ -87,9 +63,9 @@ namespace Evodia.Core.Controllers
 
         }
 
-        private void SendEmailNotifications(ContactForm model)
+        private void SendEmailNotifications(object model)
         {
-            var formFolder = _umbracoHelper.TypedContent(FormFolderId);
+            var formFolder = Umbraco.TypedContent(Constants.ContactFormForlderId);
 
             if (!string.IsNullOrEmpty(formFolder.Name))
             {
@@ -97,7 +73,7 @@ namespace Evodia.Core.Controllers
             }
             else
             {
-                LogHelper.Warn(GetType(), "Couldn't get the form folder with the id: " + FormFolderId);
+                LogHelper.Warn(GetType(), "Couldn't get the form folder with the id: " + Constants.ContactFormForlderId);
             }
         }
     }

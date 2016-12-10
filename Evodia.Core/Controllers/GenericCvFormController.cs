@@ -1,81 +1,104 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using Umbraco.Core.Logging;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
-using Umbraco.Core;
 using Evodia.Core.Models;
 using Evodia.Core.Utility;
-using Umbraco.Core.Services;
+using Umbraco.Core.Logging;
 
 namespace Evodia.Core.Controllers
 {
     public class GenericCvFormController : SurfaceController
     {
         private readonly MailHelper _mailHelper = new MailHelper();
-        private readonly IContentService _contentService = ApplicationContext.Current.Services.ContentService;
-        private readonly UmbracoHelper _umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-        private const int FormFolderId = 1155;
 
         public ActionResult RenderGenericCvForm()
         {
-            return PartialView("~/Views/Partials/Forms/GenericCvForm.cshtml", new GenericCvForm());
+            var genericCvForm = new GenericCvForm
+            {
+                FirstName = "Paulius",
+                SecondName = "Putna",
+                Email = "paulius@tgdh.co.uk",
+                SecurityClearanceLevel = "Not sure what goes here",
+                Availability = "Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+                JobPreference = new List<SelectListItem>
+                {
+                    new SelectListItem
+                    {
+                        Text = "Contract",
+                        Value = "Contrac"
+                    },
+                    new SelectListItem
+                    {
+                        Text = "Permanent",
+                        Value = "Permanent",
+                        Selected = true
+                    }
+                }
+            };
+
+            return PartialView("~/Views/Partials/Forms/GenericCvFormView.cshtml", genericCvForm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ProcessFormSubmission(GenericCvForm model)
+        public ActionResult ProcessGenericCvFormSubmission(GenericCvForm model)
         {
             if (!ModelState.IsValid)
             {
-                TempData["ValidationFailed"] = "The form validation could not pass. Please check your input.";
+                TempData["GenericCvFormValidationFailed"] = "The form validation could not pass. Please check your input.";
 
                 return CurrentUmbracoPage();
             }
 
-            TempData["ValidationPasses"] = "The form has been validated successfully.";
-            TempData["FormFolderId"] = FormFolderId;
+            TempData["GenericCvFormValidationPasses"] = "The form has been validated successfully.";
+            TempData["GenericCvFormFolderId"] = Constants.GenericCvFormFolderId;
 
-            //SaveContactFormSubmission(model);
-            //SendEmailNotifications(model);
+            SaveGenericCvFormSubmission(model);
+            SendEmailNotifications(model);
 
-            if (_umbracoHelper.TypedContent(FormFolderId).HasValue("redirectPage"))
+            if (Umbraco.TypedContent(Constants.GenericCvFormFolderId).HasValue("redirectPage"))
             {
-                return RedirectToUmbracoPage(_umbracoHelper.TypedContent(FormFolderId).GetPropertyValue<int>("redirectPage"));
+                return RedirectToUmbracoPage(Umbraco.TypedContent(Constants.GenericCvFormFolderId).GetPropertyValue<int>("redirectPage"));
             }
 
             return RedirectToCurrentUmbracoPage();
         }
 
-        //private void SaveContactFormSubmission(GenericCvForm model)
-        //{
-        //    try
-        //    {
-        //        var formSubmission = _contentService.CreateContent(model.Name + ", " + model.Email + " - " + DateTime.Now.ToShortDateString(), FormFolderId, "contactForm");
-
-        //        formSubmission.SetValue("name", model.Name);
-        //        formSubmission.SetValue("emailAddress", model.Email);
-        //        formSubmission.SetValue("message", model.Message);
-        //        _contentService.SaveAndPublishWithStatus(formSubmission);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogHelper.Warn(GetType(), "Contact form saving failed with the exception: " + ex.Message);
-        //    }
-
-        //}
-
-        private void SendEmailNotifications(ContactForm model)
+        private void SaveGenericCvFormSubmission(GenericCvForm model)
         {
-            var formFolder = _umbracoHelper.TypedContent(FormFolderId);
+            try
+            {
+                var contentService = Services.ContentService;
+                var genericCvForm = contentService.CreateContent(model.FirstName + " " + model.SecondName + ", " + model.Email + " - " + DateTime.Now.ToString("d"), Constants.GenericCvFormFolderId, Constants.GenericCvFormAlias);
 
-            if (!string.IsNullOrEmpty(formFolder.Name))
+                genericCvForm.SetValue("firstName", model.FirstName);
+                genericCvForm.SetValue("secondName", model.SecondName);
+                genericCvForm.SetValue("emailAddress", model.Email);
+                genericCvForm.SetValue("securityClearanceLevel", model.SecurityClearanceLevel);
+                genericCvForm.SetValue("jobPreference", model.SelectedJobPreference);
+                genericCvForm.SetValue("availability", model.Availability);
+
+                contentService.SaveAndPublishWithStatus(genericCvForm);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Warn(GetType(), "Generic CV form saving failed with the exception: " + ex.Message);
+            }
+        }
+
+        private void SendEmailNotifications(object model)
+        {
+            var formFolder = Umbraco.TypedContent(Constants.GenericCvFormFolderId);
+
+            if (formFolder != null)
             {
                 _mailHelper.CreateAndSendNotifications(model, formFolder);
             }
             else
             {
-                LogHelper.Warn(GetType(), "Couldn't get the form folder with the id: " + FormFolderId);
+                LogHelper.Warn(GetType(), "Couldn't get the form folder with the id: " + Constants.ContactFormForlderId);
             }
         }
     }

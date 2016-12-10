@@ -1,83 +1,67 @@
+@using Evodia.Core.Controllers
 @using Umbraco.Web
 @using Evodia.Core.Models
-@using System.Web.Mvc.Html
-@using System.Web.UI.WebControls
-@inherits UmbracoViewPage<UploadCV>
+@inherits UmbracoViewPage<JobCvForm>
 @{
-    var success = TempData["ValidationPasses"] != null;
-    var error = TempData["ValidationFail"] != null;
-
-    var saveError = TempData["ExceptionSave"] != null;
-    var smtpError = TempData["ExceptionEmail"] != null;
+    var success = TempData["JobCvFormValidationPasses"] != null;
+    var error = TempData["JobCvFormValidationFailed"] != null;
+    var folderId = TempData["JobCvFormFolderId"];
 }
 
-@if( error )
+@if (success)
 {
-    <h2>Something went wrong, please try again.</h2>
-
-    <p>
-        @TempData["ValidationFail"]
-    </p>
-
-    <p>
-        @TempData["ExceptionSave"]
-        @TempData["ExceptionEmail"]
-    </p>
-
-}
-
-@if( !success )
-{
-	using (Html.BeginUmbracoForm("SaveSubmittedCV", "JobCVForm", FormMethod.Post, new { enctype = "multipart/form-data", @id = "upload-form", @class = "o-form c-cv-upload" }))
+    if (folderId != null)
     {
-        @Html.AntiForgeryToken()
-        <div class="o-form__field u-clearfix">
-            <div class="o-form__field o-form__field--split">
-                @Html.LabelFor(x => x.FirstName, new { @class = "o-label" })
-                @Html.TextBoxFor(x => x.FirstName, new { @required = "required", @class = "o-input", @placeholder = "First name" })
-                @Html.ValidationMessageFor(x => x.FirstName)
-            </div>
-            <div class="o-form__field o-form__field--split">
-                @Html.LabelFor(x => x.SecondName, new { @class = "o-label" })
-                @Html.TextBoxFor(x => x.SecondName, new { @required = "required", @class = "o-input", @placeholder = "Last name" })
-                @Html.ValidationMessageFor(x => x.SecondName)
-            </div>
-        </div>
-        <div class="o-form__field u-clearfix">
-            <div class="o-form__field o-form__field--split">
-                @Html.LabelFor(x => x.EmailAddress, new { @class = "o-label" })
-                @Html.TextBoxFor(x => x.EmailAddress, new { @required = "required", @class = "o-input", @placeholder = "Email address" })
-                @Html.ValidationMessageFor(x => x.EmailAddress)
-            </div>
+        var folder = Umbraco.TypedContent(folderId);
+        var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
 
-            <div class="o-form__field o-form__field--split" style="display: none;">
-                @Html.LabelFor(x => x.JobRole, new { @class = "o-label" })
-                @Html.TextBoxFor(x => x.JobRole, new { @required = "required", @class = "o-input", @placeholder = "Job role" })
-                @Html.ValidationMessageFor(x => x.JobRole)
-            </div>
-
-        </div>
-        <div class="o-form__field o-form__field--file">
-            @Html.LabelFor(x => x.Attachment, new { @class = "o-label" })
-            <img class="c-cv-upload__cloud" src="/assets/img/upload.png" alt="">
-            <span class="u-delta c-cv-upload__text">
-				<span class="c-cv-upload__label">Drag and drop CV here</span><br>
-            	<span class="c-cv-upload__or">or</span>
-			</span>
-            <div class="c-button c-button--secondary c-cv-upload__upload-field">BROWSE
-                @Html.TextBoxFor(x => x.Attachment, new { type = "file", @required = "required", @class = "o-input--file", @accepts = "application/pdf, application/msword" })
-            </div>
-            @Html.ValidationMessageFor(x => x.Attachment)
-        </div>
-        <div class="o-form__field o-form__field--submit u-text-right">
-             <button id="upload-button" type="submit" class="c-button c-button--primary">Submit your CV</button>
-        </div>
+        @message
     }
 }
 else
 {
-    if (saveError)
+    if (error)
     {
-        <h2>Something went wrong, please try again.</h2>
+        @Html.ValidationSummary()
+    }
+
+    using (Html.BeginUmbracoForm<JobCvController>("ProcessJobCvFormSubmission", FormMethod.Post, new { id = "vacancy-form", @class = "c-form js-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset class="o-form__fieldset c-cv-upload">
+            <legend class="o-legend u-hide-text">CV upload form</legend>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.FirstName, new { @class = "o-input", required = "required" })
+                @Html.LabelFor(x => x.FirstName, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.FirstName)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.SecondName, new { @class = "o-input", required = "required" })
+                @Html.LabelFor(x => x.SecondName, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.SecondName)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.Email, new { @class = "o-input", required = "required", type = "email" })
+                @Html.LabelFor(x => x.Email, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+            <div class="o-form__field o-form__field--file">
+                @Html.LabelFor(x => x.CvAttachment, new { @class = "o-label" })
+                <img class="c-cv-upload__cloud" src="/assets/img/upload.png" alt="">
+                <span class="u-delta c-cv-upload__text">
+                    <span class="c-cv-upload__label">Drag and drop CV here</span><br>
+                    <span class="c-cv-upload__or">or</span>
+                </span>
+                <div class="c-button c-button--secondary c-cv-upload__upload-field">
+                    BROWSE
+                    @Html.TextBoxFor(x => x.CvAttachment, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
+                </div>
+                @Html.ValidationMessageFor(x => x.CvAttachment)
+            </div>
+            <div class="o-form__field o-form__field--submit u-content--right">
+                <button type="submit" class="c-button c-button--primary">Submit</button>
+            </div>
+        </fieldset>
     }
 }
+

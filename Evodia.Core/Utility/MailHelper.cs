@@ -58,7 +58,7 @@ namespace Evodia.Core.Utility
                 ? formFolder.GetPropertyValue<string>("fromAddress")
                 : "noreply@" + HttpContext.Current.Request.Url.Host;
             var senderName = formFolder.GetPropertyValue<string>("senderName");
-            var emailSubject = formFolder.Name + " has been submitted by " + contactAddress;
+            var emailSubject = formFolder.Name + " has been submitted";
             var emailCcAddresses = formFolder.GetPropertyValue<string>("internalNotificationCc");
 
             var mailMessage = new MailMessage
@@ -99,7 +99,7 @@ namespace Evodia.Core.Utility
             {
                 if (propertyInfo.CanRead)
                 {
-                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(Boolean) || propertyInfo.PropertyType == typeof(Int32))
+                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(int))
                     {
                         if (propertyInfo.GetValue(model, null) != null)
                         {
@@ -112,10 +112,10 @@ namespace Evodia.Core.Utility
             return emailBody.ToString();
         }
 
-        private string LoadEmailTemplate(string emailtemplateName)
+        private static string LoadEmailTemplate(string emailtemplateName)
         {
             string emailTemplate;
-            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/App_Code/" + emailtemplateName + ".html")))
+            using (var reader = new StreamReader(HttpContext.Current.Server.MapPath("~/App_Code/" + emailtemplateName + ".html")))
             {
                 emailTemplate = reader.ReadToEnd();
             }
@@ -129,15 +129,24 @@ namespace Evodia.Core.Utility
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var valuesToReplace = new Dictionary<string, string>();
 
-            foreach (var property in properties)
+            foreach (var propertyInfo in properties)
             {
-                valuesToReplace.Add("{{" + property.Name + "}}", (string)type.GetProperty(property.Name).GetValue(model, null));
+                if (propertyInfo.CanRead)
+                {
+                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(int))
+                    {
+                        if (propertyInfo.GetValue(model, null) != null)
+                        {
+                            valuesToReplace.Add("{{" + propertyInfo.Name + "}}", propertyInfo.GetValue(model, null).ToString());
+                        }
+                    }
+                }
             }
 
             return valuesToReplace;
         }
 
-        private string ReplacePlaceholders(string emailBody, Dictionary<string, string> valuesToReplace)
+        private static string ReplacePlaceholders(string emailBody, Dictionary<string, string> valuesToReplace)
         {
             foreach (var value in valuesToReplace)
             {

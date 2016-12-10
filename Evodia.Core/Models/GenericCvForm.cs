@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Evodia.Core.Models
@@ -27,6 +26,7 @@ namespace Evodia.Core.Models
         [DisplayName("Job preference")]
         public List<SelectListItem> JobPreference { get; set; }
 
+        [DisplayName("Job preference")]
         public string SelectedJobPreference { get; set; }
 
         [DisplayName("Availability")]

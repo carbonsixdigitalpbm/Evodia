@@ -5,6 +5,10 @@
 =========================================================== */
 $line-height-half: $line-height / 4;
 
+.o-form__fieldset {
+	position: relative;
+}
+
 .o-form__field {
 	& + & {
 		margin-top: $padding-small;

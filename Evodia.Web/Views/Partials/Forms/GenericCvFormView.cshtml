@@ -1,0 +1,72 @@
+﻿@using Evodia.Core.Controllers
+@using Umbraco.Web
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<GenericCvForm>
+@{
+    var success = TempData["GenericCvFormValidationPasses"] != null;
+    var error = TempData["GenericCvFormValidationFailed"] != null;
+    var folderId = TempData["GenericCvFormFolderId"];
+}
+
+@if (success)
+{
+    if (folderId != null)
+    {
+        var folder = Umbraco.TypedContent(folderId);
+        var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
+
+        @message
+    }
+}
+else
+{
+    if (error)
+    {
+        @Html.ValidationSummary()
+    }
+
+
+    using (Html.BeginUmbracoForm<GenericCvFormController>("ProcessGenericCvFormSubmission", FormMethod.Post, new {id = "generic-cv-form", @class = "c-form js-form"}))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset class="o-form__fieldset">
+            <legend class="o-legend u-hide-text">Generic CV upload form</legend>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.FirstName, new {@class = "o-input", required = "required"})
+                @Html.LabelFor(x => x.FirstName, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.FirstName)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.SecondName, new {@class = "o-input", required = "required"})
+                @Html.LabelFor(x => x.SecondName, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.SecondName)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.Email, new {@class = "o-input", required = "required", type = "email"})
+                @Html.LabelFor(x => x.Email, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.SecurityClearanceLevel, new {@class = "o-input"})
+                @Html.LabelFor(x => x.SecurityClearanceLevel, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.SecurityClearanceLevel)
+            </div>
+            <div class="o-form__field">
+                @Html.LabelFor(x => x.JobPreference, new {@class = "o-label"})
+                <div class="o-select">
+                    @Html.DropDownListFor(x => x.SelectedJobPreference, Model.JobPreference, "Job preference", new {@class = "js-select"})
+                </div>
+                @Html.ValidationMessageFor(x => x.JobPreference)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextAreaFor(x => x.Availability, new {@class = "o-input", rows = "4"})
+                @Html.LabelFor(x => x.Availability, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Availability)
+            </div>
+            <div class="o-form__field o-form__field--submit u-content--right">
+                <button type="submit" class="c-button c-button--primary">Submit</button>
+            </div>
+        </fieldset>
+    }
+}
+

@@ -1,0 +1,33 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var wrapSize = ViewData["wrapSize"];
+    var formName = Model.GetPropertyValue<string>("form");
+
+}
+
+@if (!string.IsNullOrWhiteSpace(formName))
+{
+    <div class="o-wrap o-wrap--@wrapSize o-page-component">
+        @switch (formName)
+        {
+            case "Contact form":
+                @Html.Action("RenderContactForm", "ContactForm")
+                break;
+            case "Generic CV":
+                @Html.Action("RenderGenericCvForm", "GenericCvForm")
+                break;
+            case "Vacancy form":
+                @Html.Action("RenderVacancyForm", "VacancyForm")
+                break;
+            case "Job CV upload":
+                @Html.Action("RenderJobCvForm", "JobCv")
+                break;
+        }
+    </div>
+}
+
+
+
+
+
