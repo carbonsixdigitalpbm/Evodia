@@ -5,7 +5,7 @@ var paths = {
     templates: '_templates',
     siteFolder: 'Evodia.Web',
     assetsBuildFolder: 'Evodia.Web/assets'
-}
+};
 
 /* ===========================================================
 	# Scripts
@@ -21,12 +21,13 @@ var headScripts = [
 ];
 
 var mainScripts = [
-    paths.assetsFolder + '/js/components/*.js',
     paths.assetsFolder + '/_components/slick-carousel/slick/slick.js',
+	paths.assetsFolder + '/_components/Snap.svg/dist/snap.svg.js',
     paths.assetsFolder + '/_components/magnific-popup/dist/jquery.magnific-popup.js',
     paths.assetsFolder + '/_components/onMediaQuery/js/onmediaquery.js',
     paths.assetsFolder + '/_components/jquery.cssAnimateAuto/dist/jquery.cssAnimateAuto.js',
     paths.assetsFolder + '/_components/jquery-selectric/public/jquery.selectric.js',
+	paths.assetsFolder + '/js/components/*.js',
     paths.assetsFolder + '/js/main.js'
 ];
 
@@ -155,7 +156,7 @@ gulp.task('images', function() {
             interlaced: true
         })))
         .pipe( gulp.dest( paths.assetsBuildFolder + '/img') )
-        .pipe( $.size({title: 'images'}) )
+        .pipe( $.size({title: 'images'}) );
 //        .pipe( $.notify({ message: 'images task complete' }) );
 });
 

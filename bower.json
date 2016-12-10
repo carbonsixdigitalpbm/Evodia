@@ -9,7 +9,7 @@
     "onMediaQuery": "https://github.com/JoshBarr/on-media-query.git#^0.2.0",
     "magnific-popup": "^1.1.0",
     "slick-carousel": "^1.6.0",
-	"jquery.cssAnimateAuto": "^0.4.0",
-	"jquery-selectric": "https://github.com/lcdsantos/jQuery-Selectric.git#^1.10.1"
+    "jquery.cssAnimateAuto": "^0.4.0",
+    "jquery-selectric": "https://github.com/lcdsantos/jQuery-Selectric.git#^1.10.1"
   }
 }

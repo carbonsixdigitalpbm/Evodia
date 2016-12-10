@@ -12,6 +12,8 @@
         "jQuery": false,
         "require": false,
         "google": false,
-        "MQ": false
+        "MQ": false,
+        "Snap": false,
+        "mina": false
     }
 }

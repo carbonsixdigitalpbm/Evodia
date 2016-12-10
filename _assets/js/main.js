@@ -65,6 +65,7 @@
 		match: function() {
 			//console.log('medium - xxl');
 			$window.CompactHeader.init( true );
+			$window.Atoms.init();
 		},
 		unmatch: function() {
 			// unbind and scripts if possible

@@ -1,0 +1,22 @@
+/* ===========================================================
+
+	# Atoms canvas
+
+=========================================================== */
+
+.c-atoms-canvas {
+	display: none;
+}
+
+@include respond-min( $mq-medium ) {
+
+
+	.c-atoms-canvas {
+		display: block;
+		width: calc( 100% + 50rem);
+		position: absolute;
+		left: -30rem;
+		top: -15rem;
+	}
+
+}

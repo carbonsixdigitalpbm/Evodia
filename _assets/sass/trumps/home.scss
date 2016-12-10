@@ -4,7 +4,15 @@
 
 =========================================================== */
 
-.s-home {
+.enhance.s-home {
+
+	.o-page {
+		padding-top: 0 !important;
+	}
+
+	.c-header {
+		background-color: transparent;
+	}
 
 	.c-quote {
 		color: $sec;

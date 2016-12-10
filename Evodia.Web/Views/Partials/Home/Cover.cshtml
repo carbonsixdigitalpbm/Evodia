@@ -3,10 +3,10 @@
 @{
 	var headline = Model.GetPropertyValue<string>("coverHeadline");
 }
-<section class="c-hero o-section">
-	<div class="o-section__inner o-wrap">
+<section class="c-hero">
+	<div class="c-hero__inner o-section__inner o-wrap">
 		@if( !String.IsNullOrEmpty( headline ) ) {
-			<h1 class="c-hero__headline u-center-content">@headline</h1>
+			<h1 class="c-hero__headline u-center-content u-mega">@headline</h1>
 		}
 		<div class="o-wrap--center o-wrap--small">
 			@if( Model.HasValue("coverCopy") ) {
@@ -18,4 +18,127 @@
 		</div>
 	</div>
 	<div class="t-mouse"></div>
+
+	@**
+	<div class="c-atoms-canvas">
+		<svg id="atomsSvg" class="c-atoms-canvas__svg" viewBox="0 0 1373 776" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		    <defs>
+		        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+		            <feGaussianBlur stdDeviation="10" in="SourceGraphic"></feGaussianBlur>
+		        </filter>
+		        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+		            <feGaussianBlur stdDeviation="10" in="SourceGraphic"></feGaussianBlur>
+		        </filter>
+		        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+		            <feGaussianBlur stdDeviation="10" in="SourceGraphic"></feGaussianBlur>
+		        </filter>
+		    </defs>
+		    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		        <g id="Atoms" transform="translate(0.000000, 8.000000)">
+		            <g id="Lines" stroke-opacity="0.2" stroke="#FFFFFF">
+		                <g id="Group">
+		                    <path d="M2,484.6 C-5.4,415 26.4,350.7 111.1,348 C664.1,330 360.5,532.6 183.8,630.4 C182.7,631 181.7,631.6 180.6,632.1 C172.8,636.4 165.5,641 158.1,644.4 C52.6,692.7 15.9,615.4 2,484.6 Z" id="line8" class="js-atoms-line8"></path>
+		                    <path d="M36.7,359 C40.2,361.5 53.8,362.5 53.8,362.5 C53.8,362.5 456.6,374.9 331.1,58 C318,24.8 285.5,17.8 271,17.8 C97,17.8 13.6,342.5 36.7,359 Z" id="line7" class="js-atoms-line7"></path>
+		                    <path d="M196,614.8 C107.4,559.9 64.1,372 152.1,378.3 C398.3,395.7 759.9,500.6 939.3,556.7 C979.1,569.1 1081.6,598 1098,614.8 C1167,685.8 312,686.7 196,614.8 Z" id="line6" class="js-atoms-line6"></path>
+		                    <path d="M132,135.8 C86,185.4 3.8,387.8 87,385.1 C133.7,383.6 161.5,382.8 164.3,382.6 C478,361.2 712.7,233.8 830.3,155 C857.7,136.6 878.9,121.1 892.9,109.8 C927.5,82 970.2,48.1 938,17.8 C921,1.8 299,-44.2 132,135.8 Z" id="line5" class="js-atoms-line5"></path>
+		                </g>
+		                <g id="Group" transform="translate(95.000000, 30.000000)">
+		                    <path d="M964.5,555.4 C1035.5,245.7 1124.1,220.1 1197.9,298.9 C1458.3,577.2 944.8,641.1 964.5,555.4 Z" id="line4" class="js-atoms-line-4"></path>
+		                    <path d="M1007.1,633.8 C1009.8,376.1 900.3,-26.2 182.5,1.4 C72.6,5.6 33.6,72.1 25.9,104.2 C-11.5,259.7 131.2,434.2 316.2,580.4 C321.6,584.7 327,588.9 332.5,593.1 C602.9,801.7 1005.9,753.4 1007.1,633.8 Z" id="line3" class="js-atoms-line-3"></path>
+		                    <path d="M1197.5,646.6 C1149.6,652.2 1099.3,651.1 1060.7,641 C1014.4,628.8 985,604.9 997.2,570.6 C1037.9,456.4 1108.4,323.3 1184.6,196.3 C1188.6,189.6 1191.9,182.5 1196.7,176.3 C1267,84.7 1267,638.4 1197.5,646.6 Z" id="line2" class="js-atoms-line-2"></path>
+		                    <path d="M137,638.4 C156.3,663.1 986.3,719.1 1015.7,575.8 C1076.6,278.1 1017,97.5 989,30.5 C974.6,-3.9 142.2,39.8 99,69.2 C-32.2,158.3 -44.4,406.3 137,638.4 Z" id="line1" class="js-atoms-line1"></path>
+		                </g>
+		            </g>
+		            <g id="Moving_Atoms" transform="translate(317.000000, 199.000000)" fill-opacity="0.2" fill="#FFFFFF">
+		                <circle id="atom10-line3" class="js-atoms-atom10-line3" cx="12.8" cy="341.5" r="12.2"></circle>
+		                <circle id="atom9-line6" class="js-atoms-atom9-line6" cx="527.8" cy="329.3" r="20"></circle>
+		                <circle id="atom8-line2" class="js-atoms-atom8-line2" cx="815.3" cy="306.8" r="14.1"></circle>
+		                <circle id="atom7-line3" class="js-atoms-atom7-line3" cx="722.3" cy="164" r="7.1"></circle>
+		                <circle id="atom6-line1" class="js-atoms-atom6-line1" cx="820.1" cy="116" r="7.1"></circle>
+		                <circle id="atom5-line6" class="js-atoms-atom5-line6" cx="151" cy="230.3" r="4.9"></circle>
+		                <circle id="atom4-line5" class="js-atoms-atom4-line5" cx="435.5" cy="5.3" r="4.9"></circle>
+		                <circle id="atom3-line7" class="js-atoms-atom3-line7" cx="24.9" cy="36.7" r="8.4"></circle>
+		                <circle id="atom2-line8" class="js-atoms-atom2-line8" cx="24.9" cy="159" r="12.1"></circle>
+		                <circle id="atom1-line-2" class="js-atoms-atom1-line2" cx="921" cy="92" r="15.4"></circle>
+		            </g>
+		            <g id="Blurred_Atmos" transform="translate(121.000000, 13.000000)" fill="#FFFFFF" fill-opacity="0.18">
+		                <circle id="blue3" filter="url(#filter-1)" cx="63.1" cy="371.9" r="62.8"></circle>
+		                <circle id="blur2" filter="url(#filter-2)" cx="355.1" cy="66.1" r="66"></circle>
+		                <circle id="blur1" filter="url(#filter-3)" cx="1161.3" cy="430.4" r="69.4"></circle>
+		            </g>
+		        </g>
+		    </g>
+		</svg>
+	</div>
+	*@
+	@RenderSVG()
+	@**@
 </section>
+
+
+@helper RenderSVG() {
+<div class="c-atoms-canvas">
+	<svg id="atomsSvg" class="c-atoms-canvas__svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+		 viewBox="0 0 1365.8 766" xml:space="preserve">
+	<style type="text/css">
+		.st0{opacity:0.2;}
+		.st1{fill:none;stroke:#FFFFFF;stroke-width:0.5;stroke-miterlimit:10;}
+		.st2{opacity:0.2;fill:#FFFFFF;}
+	</style>
+	<g id="Lines">
+		<g class="st0">
+			<path id="line8" class="js-atoms-line8 st1" d="M-0.6,483.1C-8,413.5,23.8,349.2,108.5,346.5c553-18,249.4,184.6,72.7,282.4c-1.1,0.6-2.1,1.2-3.2,1.7
+				c-7.8,4.3-15.1,8.9-22.5,12.3C50,691.2,13.3,613.9-0.6,483.1z"/>
+			<path id="line7" class="js-atoms-line7 st1" d="M34.1,357.5c3.5,2.5,17.1,3.5,17.1,3.5S454,373.4,328.5,56.5c-13.1-33.1-45.6-40.1-60.1-40.1
+				C94.4,16.3,11,341,34.1,357.5z"/>
+			<path id="line6" class="js-atoms-line6 st1" d="M193.4,613.3c-88.6-54.9-131.9-242.8-43.9-236.6c246.2,17.4,607.8,122.3,787.2,178.4
+				c39.8,12.4,142.3,41.3,158.7,58.1C1164.4,684.3,309.4,685.2,193.4,613.3z"/>
+			<path id="line5" class="js-atoms-line5 st1" d="M129.4,134.3c-46,49.6-128.2,252-45,249.3c46.7-1.5,74.5-2.3,77.3-2.5c313.7-21.4,548.4-148.8,666-227.6
+				c27.4-18.4,48.6-33.9,62.6-45.2c34.6-27.8,77.3-61.7,45.1-92C918.4,0.3,296.4-45.7,129.4,134.3z"/>
+		</g>
+		<g class="st0">
+			<path id="line4" class="js-atoms-line4 st1" d="M1056.9,583.9c71-309.7,159.6-335.3,233.4-256.5C1550.7,605.7,1037.2,669.6,1056.9,583.9z"/>
+			<path id="line3" class="js-atoms-line3 st1" d="M1099.5,662.3c2.7-257.7-106.8-660-824.6-632.4c-109.9,4.2-148.9,70.7-156.6,102.8
+				c-37.4,155.5,105.3,330,290.3,476.2c5.4,4.3,10.8,8.5,16.3,12.7C695.3,830.2,1098.3,781.9,1099.5,662.3z"/>
+			<path id="line2" class="js-atoms-line2 st1" d="M1289.9,675.1c-47.9,5.6-98.2,4.5-136.8-5.6c-46.3-12.2-75.7-36.1-63.5-70.4
+				c40.7-114.2,111.2-247.3,187.4-374.3c4-6.7,7.3-13.8,12.1-20C1359.4,113.2,1359.4,666.9,1289.9,675.1z"/>
+			<path id="line1" class="js-atoms-line1 st1" d="M229.4,666.9c19.3,24.7,849.3,80.7,878.7-62.6c60.9-297.7,1.3-478.3-26.7-545.3
+				c-14.4-34.4-846.8,9.3-890,38.7C60.2,186.8,48,434.8,229.4,666.9z"/>
+		</g>
+	</g>
+	<g id="Moving_Atoms">
+		<circle id="atom10-line3" class="js-atoms-atom10-line3 st2" cx="327.2" cy="539" r="12.2"/>
+		<circle id="atom9-line6" class="js-atoms-atom9-line6 st2" cx="842.2" cy="526.8" r="20"/>
+@*		<circle id="atom8-line2" class="js-atoms-atom8-line2 st2" cx="1129.7" cy="504.3" r="14.1"/>
+*@
+		<circle id="atom7-line3" class="js-atoms-atom7-line3 st2" cx="1036.7" cy="361.5" r="7.1"/>
+		<circle id="atom6-line1" class="js-atoms-atom6-line1 st2" cx="1134.5" cy="313.5" r="7.1"/>
+		<circle id="atom5-line6" class="js-atoms-atom5-line6 st2" cx="465.4" cy="427.8" r="4.9"/>
+		<circle id="atom4-line5" class="js-atoms-atom4-line5 st2" cx="749.9" cy="202.8" r="4.9"/>
+		<circle id="atom3-line7" class="js-atoms-atom3-line7 st2" cx="339.3" cy="234.2" r="8.4"/>
+		<circle id="atom2-line8" class="js-atoms-atom2-line8 st2" cx="339.3" cy="356.5" r="12.1"/>
+		<circle id="atom1-line-2" class="js-atoms-atom1-line2 st2" cx="1235.4" cy="289.5" r="15.4"/>
+	</g>
+	@*
+	<g id="Blurred_Atmos">
+		<g class="st0">
+
+				<image style="overflow:visible;" width="824" height="824" xlink:href="3362AA20D619B12E.png"  transform="matrix(0.24 0 0 0.24 82.7163 284.5607)">
+			</image>
+		</g>
+		<g class="st0">
+
+				<image style="overflow:visible;" width="851" height="851" xlink:href="3362AA20D619B132.png"  transform="matrix(0.24 0 0 0.24 371.443 -24.3848)">
+			</image>
+		</g>
+		<g class="st0">
+
+				<image style="overflow:visible;" width="879" height="879" xlink:href="3362AA20D619B135.png"  transform="matrix(0.24 0 0 0.24 1174.2249 336.5172)">
+			</image>
+		</g>
+	</g>
+*@
+	</svg>
+</div>
+
+}
