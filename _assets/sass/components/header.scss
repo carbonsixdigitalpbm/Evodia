@@ -11,6 +11,10 @@
 	z-index: 10;
 	transition: background $speed $ease,
 				border-color $speed $ease;
+
+	&.is-transparent {
+		background-color: transparent;
+	}
 }
 
 .c-header__inner {
@@ -121,6 +125,16 @@
 }
 
 @include respond-min( $mq-large ) {
+
+	.enhance {
+
+		.c-header {
+			position: absolute;
+			left: 0;
+			right: 0;
+		}
+
+	}
 
 	.c-header__logo-link {
 		margin-top: 3.5rem;

@@ -12,9 +12,12 @@ var CompactHeader = (function ($) {
 		scrollDelta = 10,
 		scrollOffset = 50;
 
+	var hasCover = $('.c-hero,.c-cover').length > 0 ? true : false;
 
 	var _setElOffsets = function() {
-		$page.css('paddingTop', headerHeight );
+		if( !hasCover ) {
+			$page.css('paddingTop', headerHeight );
+		}
 	};
 
 	var _checkSimpleNavigation = function(currentTop) {
@@ -43,6 +46,9 @@ var CompactHeader = (function ($) {
 
 		$header.addClass('is-fixed');
 		_setElOffsets();
+		if( hasCover ) {
+			$header.addClass('is-transparent');
+		}
 
 		if( isCompact ) {
 

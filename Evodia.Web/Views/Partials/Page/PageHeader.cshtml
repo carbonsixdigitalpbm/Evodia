@@ -5,8 +5,11 @@
 }
 
 <header class="c-hero o-section u-center-text o-wrap">
-	<h1 class="c-hero__headline">@headline</h1>
-	<div class="c-hero__description o-wrap--center o-wrap--small">
-		@Model.GetPropertyValue("introduction")
+	<div class="c-hero__inner">
+		<h1 class="c-hero__headline">@headline</h1>
+		<div class="c-hero__description o-wrap--center o-wrap--small">
+			@Model.GetPropertyValue("introduction")
+		</div>
 	</div>
+	@Html.Partial("~/Views/Partials/Components/Atoms.cshtml")
 </header>
