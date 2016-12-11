@@ -6,14 +6,15 @@
 
 .c-header {
 	color: $white;
-	background-color: $pri;
+	background-color: $blue-2;
+	background: linear-gradient(to bottom, #036e9e 0%, #0180B7 100%);
 	position: relative;
 	z-index: 10;
 	transition: background $speed $ease,
 				border-color $speed $ease;
 
 	&.is-transparent {
-		background-color: transparent;
+		background: none;
 	}
 }
 
