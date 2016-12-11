@@ -1,17 +1,17 @@
-(function($){
-	'use strict';
-	var $window = window,
-		$html	= $('html');
+(function($) {
+    'use strict';
+    var $window = window,
+        $html = $('html');
 
-	var enhanceEdgeCaseBrowsers = function() {
+    var enhanceEdgeCaseBrowsers = function() {
 
-		if( !Modernizr.classlist ) {
-			$html.removeClass('no-enhance').addClass('enhance');
-		}
+        if (!Modernizr.classlist) {
+            $html.removeClass('no-enhance').addClass('enhance');
+        }
 
-	};
+    };
 
-	var scrollTo = function(el) {
+    var scrollTo = function(el) {
 
         el.on('click', function(event) {
             var $this = $(this),
@@ -31,7 +31,7 @@
         });
     };
 
-	var responsiveTables = function() {
+    var responsiveTables = function() {
         var $tables = $('.s-free-content').find('table'),
             $tableWrap = $('<div>', {
                 class: 'o-table o-table--scroll'
@@ -43,65 +43,65 @@
 
     };
 
-/* ===========================================================
+    /* ===========================================================
 		# breakpoints
 =========================================================== */
 
-	var breakpoints = [{
-		context: ['small-max', 'small', 'medium'],
-		call_for_each_context: false,
-		match: function() {
-			//console.log('small');
-			//mobileNavigation( $('.js-nav') );
-			$window.Modal.init( $('.js-modal-search') );
-		},
-		unmatch: function() {
-			// unbind and scripts if possible
-			location.reload();
-		}
-	}, {
-		context: ['large', 'x-large', 'xx-large'],
-		call_for_each_context: false,
-		match: function() {
-			//console.log('medium - xxl');
-			$window.CompactHeader.init( true );
-			$window.Atoms.init();
-		},
-		unmatch: function() {
-			// unbind and scripts if possible
-			location.reload();
-		}
-	}];
+    var breakpoints = [{
+        context: ['small-max', 'small', 'medium'],
+        call_for_each_context: false,
+        match: function() {
+            //console.log('small');
+            //mobileNavigation( $('.js-nav') );
+            $window.Modal.init($('.js-modal-search'));
+        },
+        unmatch: function() {
+            // unbind and scripts if possible
+            location.reload();
+        }
+    }, {
+        context: ['large', 'x-large', 'xx-large'],
+        call_for_each_context: false,
+        match: function() {
+            //console.log('medium - xxl');
+            $window.CompactHeader.init(true);
+            $window.Atoms.init();
+        },
+        unmatch: function() {
+            // unbind and scripts if possible
+            location.reload();
+        }
+    }];
 
 
-/* ===========================================================
+    /* ===========================================================
 
 	# Init
 
 =========================================================== */
 
-	if( $window.IsModern ){
+    if ($window.IsModern) {
 
-		enhanceEdgeCaseBrowsers();
+        enhanceEdgeCaseBrowsers();
 
-		$window.ToggleClass.init();
-		$window.ValidateForms.init( $('.js-form') );
-		$('.js-tabs').tabs();
-//		$('select').selectric();
-		scrollTo($('a[href^="#"]:not(".js-no-scroll")'));
-		responsiveTables();
-		$('select').selectric();
+        $window.ToggleClass.init();
+        $window.ValidateForms.init($('.js-form'));
+        $('.js-tabs').tabs();
+        //		$('select').selectric();
+        scrollTo($('a[href^="#"]:not(".js-no-scroll")'));
+        responsiveTables();
+        $('select').selectric();
 
-		$window.Carousel.init( $('.js-carousel') );
-		$window.Modal.init( $('.js-modal') );
-		$window.Accordion.init();
-		$window.GMaps.init();
-		$window.Voyager.init();
+        $window.Carousel.init($('.js-carousel'));
+        $window.Modal.init($('.js-modal'));
+        $window.Accordion.init();
+        $window.GMaps.init();
+        $window.Voyager.init();
 
-		MQ.init(breakpoints);
-	}
+        MQ.init(breakpoints);
+    }
 
-	$(window).load(function() {
+    $(window).load(function() {
 
         if (!Modernizr.svg) {
             $('img[src*="svg"]').attr('src', function() {

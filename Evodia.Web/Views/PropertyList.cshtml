@@ -3,7 +3,6 @@
 @{
 	Layout = null;
 
-    var contentTypeService = ApplicationContext.Current.Services.ContentTypeService;
     var homePage = Umbraco.TypedContentAtRoot().FirstOrDefault();
     var hasHomePage = homePage != null;
 
@@ -132,11 +131,13 @@
     {
         var images = Umbraco.TypedMedia(page.GetPropertyValue(pt.Alias));
 
-        foreach( var image in images )
+        if (images != null)
         {
-            <img src="@image.Url" alt="">
+            foreach( var image in images )
+            {
+                @:<img src="@image.Url" alt="">
+            }
         }
-
     }
 
 }
