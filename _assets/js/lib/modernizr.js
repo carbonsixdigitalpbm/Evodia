@@ -1,6 +1,6 @@
 /*!
  * modernizr v3.3.1
- * Build http://modernizr.com/download?-classlist-contains-csstransforms-flexbox-flexwrap-history-rgba-svg-setclasses-dontmin
+ * Build http://modernizr.com/download?-classlist-contains-csstransforms-flexbox-flexwrap-history-inlinesvg-rgba-svg-setclasses-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
@@ -350,6 +350,33 @@ Check if browser implements ECMAScript 6 `String.prototype.contains` per specifi
   }
 
   ;
+/*!
+{
+  "name": "Inline SVG",
+  "property": "inlinesvg",
+  "caniuse": "svg-html5",
+  "tags": ["svg"],
+  "notes": [{
+    "name": "Test page",
+    "href": "https://paulirish.com/demo/inline-svg"
+  }, {
+    "name": "Test page and results",
+    "href": "https://codepen.io/eltonmesquita/full/GgXbvo/"
+  }],
+  "polyfills": ["inline-svg-polyfill"],
+  "knownBugs": ["False negative on some Chromia browsers."]
+}
+!*/
+/* DOC
+Detects support for inline SVG in HTML (not within XHTML).
+*/
+
+  Modernizr.addTest('inlinesvg', function() {
+    var div = createElement('div');
+    div.innerHTML = '<svg/>';
+    return (typeof SVGRect != 'undefined' && div.firstChild && div.firstChild.namespaceURI) == 'http://www.w3.org/2000/svg';
+  });
+
 /*!
 {
   "name": "CSS rgba",
