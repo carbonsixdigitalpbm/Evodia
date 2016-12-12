@@ -26,6 +26,13 @@
 	.c-button {
 		margin: $line-height auto 0;
 	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		color: inherit;
+	}
 }
 
 .c-hero__inner {

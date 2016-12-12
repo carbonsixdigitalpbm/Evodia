@@ -16,6 +16,7 @@
 	&.is-transparent {
 		background: none;
 	}
+
 }
 
 .c-header__inner {
@@ -190,11 +191,37 @@
 
 }
 
+@include respond-max( $mq-xx-large ) {
+
+	.c-header {
+
+		.c-social {
+			display: none;
+		}
+
+	}
+
+
+}
+
 @include respond-min( $mq-xx-large ) {
 
 	.c-header__supplementary,
 	.c-header__logo-link {
-		min-width: 27rem;
+		min-width: 39rem;
+	}
+
+	.c-header {
+
+		.c-social__headline {
+			@include hide-text();
+		}
+
+		.c-social {
+			display: inline-block;
+			margin-left: 1rem;
+		}
+
 	}
 
 }

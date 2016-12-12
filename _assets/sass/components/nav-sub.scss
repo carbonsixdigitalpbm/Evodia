@@ -5,11 +5,7 @@
 =========================================================== */
 
 .c-nav--sub {
-	background-color: $light-1;
-
-	.c-nav__list {
-
-	}
+	margin-bottom: 2rem;
 
 	.c-nav__item {
 		margin: 0;
@@ -20,13 +16,13 @@
 		color: $heading-colour;
 		padding: $line-height / 2 1em;
 		display: block;
-		background-color: $light-1;
+		background-color: $light-blue-1;
 		transition: color $speed $ease,
 					background $speed $ease;
 
 		&:hover,
 		&:focus {
-			background-color: $light-3;
+			background-color: $light-blue-2;
 		}
 
 		&.is-active {
@@ -42,21 +38,6 @@
 	.c-nav__list--sub {
 		margin: 0;
 		padding-left: $line-height;
-		background-color: $l-blue;
-
-		.c-nav__link {
-			background-color: $l-blue;
-
-			&:hover,
-			&:focus {
-				background-color: darken( $l-blue, 5 );
-			}
-
-			&.is-active {
-				color: $pri;
-				font-weight: 700;
-			}
-		}
 	}
 
 }

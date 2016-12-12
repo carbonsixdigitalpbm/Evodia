@@ -38,6 +38,11 @@
 	max-width: $wrap-x-large;
 }
 
+
+.o-wrap--xx-large {
+	max-width: $wrap-xx-large;
+}
+
 @include respond-min-max( $mq-small, $mq-medium ) {
 
 	.o-wrap {

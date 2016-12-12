@@ -83,16 +83,7 @@
 	</main>
 	<aside class="o-page__sidebar">
 		@Html.Partial("~/Views/Partials/Jobs/SimilarJobs.cshtml")
-
-		<div class="c-pod c-pod--highlight u-center-content">
-			<h2 class="u-zeta">Help us to find you the best job applying today</h2>
-			<a href="#" class="c-button c-button--secondary-invert u-space-top">Upload CV ></a>
-		</div>
-		<div class="c-pod c-pod--outline u-center-content">
-			<h2 class="u-zeta">Need to submit a vacancy?</h2>
-			<a href="#" class="c-button c-button--tertiary u-space-top">Upload CV ></a>
-		</div>
-
+		@Html.Partial("~/Views/Partials/Components/Pods.cshtml", Model.Ancestor() )
 	</aside>
 </div>
 
