@@ -70,13 +70,31 @@ $line-height-half: $line-height / 4;
 
 }
 
+.o-form--basic {
+
+	.o-label {
+		font-weight: $bold;
+		padding-bottom: $line-height / 4;
+		font-size: 1.4rem;
+	}
+
+}
+
 .enhance {
+
+	.o-label--compact-select {
+		color: $grey-3;
+		font-size: 1.2rem;
+		position: absolute;
+		transform: translate( 0, -100% );
+		padding-bottom: 0;
+	}
 
 	.o-form__field--compact {
 		position: relative;
 
 		.o-label {
-			color: $grey-1;
+			color: $grey-3;
 			font-size: 1.6rem;
 			position: absolute;
 			top: 0;

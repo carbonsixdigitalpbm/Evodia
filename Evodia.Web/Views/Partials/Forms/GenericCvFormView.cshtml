@@ -52,7 +52,7 @@ else
                 @Html.ValidationMessageFor(x => x.SecurityClearanceLevel)
             </div>
             <div class="o-form__field">
-                @Html.LabelFor(x => x.JobPreference, new {@class = "o-label"})
+                @Html.LabelFor(x => x.JobPreference, new {@class = "o-label o-label--compact-select"})
                 <div class="o-select">
                     @Html.DropDownListFor(x => x.SelectedJobPreference, Model.JobPreference, "Job preference", new {@class = "js-select"})
                 </div>
@@ -69,4 +69,3 @@ else
         </fieldset>
     }
 }
-

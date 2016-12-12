@@ -51,6 +51,30 @@
 		.o-radio__label {
 			color: inherit;
 		}
+
+		.o-form__field--compact {
+
+			input,
+			textarea {
+
+				&:focus {
+
+					& + .o-label {
+						color: #fff;
+					}
+
+				}
+
+			}
+
+			&.has-value {
+
+				.o-label {
+					color: $white;
+				}
+
+			}
+		}
 	}
 
 }
