@@ -65,7 +65,9 @@
         match: function() {
             //console.log('medium - xxl');
             $window.CompactHeader.init(true);
-//            $window.Atoms.init();
+			if( $('#atomsSvg') ) {
+	            $window.Atoms.init();
+			}
         },
         unmatch: function() {
             // unbind and scripts if possible
@@ -103,6 +105,7 @@
 		if( $( window.location.hash ) ) {
 			$.magnificPopup.open({items: {src: window.location.hash  },type: 'inline'}, 0);
 		}
+
     }
 
     $(window).load(function() {

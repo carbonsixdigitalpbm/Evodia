@@ -6,26 +6,8 @@
 
 <main class="o-page__inner" role="main">
 	@Html.Partial("~/Views/Partials/Home/Cover.cshtml")
-	@RenderSpecials()
+	@Html.Partial("~/Views/Partials/Home/Specialisms.cshtml")
 	@Html.Partial("~/Views/Partials/Home/VacancyPanel.cshtml")
 	@Html.Partial("~/Views/Partials/Home/FeaturedContent.cshtml")
 	@Html.Partial("~/Views/Partials/Home/Quotes.cshtml")
 </main>
-
-@helper RenderSpecials() {
-	string links = "Support engineering,Investment appraisal,Information assurance,Consulting and support,Systems engineering & software,Defence and space,Operational research & modelling, Autonomous systems,Public sector";
-
-	<section class="o-section o-wrap o-wrap--x-large">
-		<h2 class="u-text--dark u-alpha u-center-content">Our specialisms</h2>
-		<div class="o-section__inner u-clearfix u-space-top">
-			<ul class="c-link-list--grid">
-				@foreach( var item in links.Split(',') ) {
-					<li class="c-link-list__item">
-						<a href="" class="c-link-list__link">@item</a>
-					</li>
-				}
-			</ul>
-		</div>
-	</section>
-
-}
