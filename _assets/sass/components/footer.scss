@@ -33,6 +33,18 @@
 		transform: translateX( -1rem );
 	}
 
+	.vcard + .vcard {
+		margin-top: $line-height;
+	}
+
+	.vcard {
+
+		br {
+			display: none;
+		}
+
+	}
+
 }
 
 .c-footer__sub {
@@ -52,9 +64,12 @@
 		margin-right: 1rem;
 	}
 
-	.tel {
-		display: inline-block;
-		margin-right: 1rem;
+	.c-footer {
+		.tel {
+			margin-right: 1rem;
+			display: inline;
+		}
+
 	}
 
 }

@@ -4,32 +4,39 @@
     var homePage = Umbraco.TypedContentAtRoot().First();
     var settings = homePage.Descendants("globalSettings").First();
 
-    var hasPhone = settings.HasValue("phoneNumber") ? true : false;
-    var hasEmail = settings.HasValue("emailAddress") ? true : false;
-	var hasOfficeName = settings.HasValue("officeName");
-    var hasAddress = settings.HasValue("postalAddress") ? true : false;
+	var contacts = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
+
+    if (contacts == null)
+    {
+        return;
+	}
 }
 
-@if( hasPhone || hasEmail || hasAddress )
+
+@foreach (var item in contacts.ToContentSet())
 {
-    <article class="vcard">
-		@if( hasOfficeName ) {
-			<h2 class="vcard__headline u-zeta">@settings.GetPropertyValue("officeName")</h2>
+	var officeName = item.GetPropertyValue<string>("officeName");
+	var phoneNumber = item.GetPropertyValue<string>("phoneNumber");
+    var emailAddress = item.GetPropertyValue<string>("emailAddress");
+    var address = item.GetPropertyValue<string>("address");
+
+	<article class="vcard">
+		@if( !String.IsNullOrEmpty(officeName) )
+		{
+			<h2 class="vcard__headline u-zeta">@officeName</h2>
 		}
-        @if( hasAddress )
+        @if( !String.IsNullOrEmpty(address) )
         {
             <p class="adr">
-                @Html.Raw(@library.ReplaceLineBreaks(settings.GetPropertyValue("postalAddress").ToString()))
+                @Html.Raw(@library.ReplaceLineBreaks( address ))
             </p>
         }
-        @if( hasPhone )
+        @if( !String.IsNullOrEmpty(phoneNumber) )
         {
-            string phoneNumber = settings.GetPropertyValue<string>("phoneNumber");
             <p class="tel">Tel: @phoneNumber</p>
         }
-        @if( hasEmail )
+        @if( !String.IsNullOrEmpty(emailAddress) )
         {
-            string emailAddress = settings.GetPropertyValue<string>("emailAddress");
             @:Email: <a href="mailto:@emailAddress">@emailAddress</a>
         }
     </article>

@@ -4,10 +4,18 @@
 
 =========================================================== */
 
+.vcard + .vcard {
+	margin-top: $line-height;
+}
+
 .s-contact {
 
-	.tel {
-		display: block;
+	.o-page__inner {
+
+		.tel {
+			display: block;
+		}
+
 	}
 
 }

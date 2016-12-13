@@ -6,11 +6,11 @@
     Response.ContentType = "application/json";
 
     var homePage = Umbraco.TypedContentAtRoot().First();
-    var contactPage = homePage.Descendants("contact").FirstOrDefault();
+    var settings = homePage.Descendants("globalSettings").FirstOrDefault();
 
-    if(contactPage != null)
+    if(settings != null)
     {
-        var locations = contactPage.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
+        var locations = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
 
         object json = JObject.FromObject( new {
             offices = from p in locations select new {
