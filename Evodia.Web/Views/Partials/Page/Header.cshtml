@@ -6,6 +6,9 @@
     var settings = homePage.Descendants("globalSettings").First();
     string siteName = settings.GetPropertyValue<string>("websiteName");
 	var phoneNumber = settings.GetPropertyValue<string>("phoneNumber");
+
+	var CVUploadPageId = settings.GetPropertyValue<int>("CVUploadPage");
+	var CVUploadPage = Umbraco.TypedContent( CVUploadPageId );
 }
 
 @**@
@@ -31,7 +34,10 @@
 			@if( !String.IsNullOrEmpty( phoneNumber ) ) {
 				<strong>@phoneNumber</strong>
 			}
-			<a href="" class="c-button c-button--secondary-invert">Upload CV</a>
+			@if( CVUploadPage != null )
+			{
+				<a href="@CVUploadPage.Url" class="c-button c-button--secondary-invert">Upload CV</a>
+			}
 			@Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
 		</div>
 

@@ -99,6 +99,10 @@
         $window.Voyager.init();
 
         MQ.init(breakpoints);
+
+		if( $( window.location.hash ) ) {
+			$.magnificPopup.open({items: {src: window.location.hash  },type: 'inline'}, 0);
+		}
     }
 
     $(window).load(function() {

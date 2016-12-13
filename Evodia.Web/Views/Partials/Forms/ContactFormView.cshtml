@@ -27,17 +27,17 @@ else
     using (Html.BeginUmbracoForm("ProcessFormSubmission", "ContactForm", FormMethod.Post, new { id = "contact-form", @class = "o-form js-form" }))
     {
         @Html.AntiForgeryToken()
-        <div class="o-form__field o-form__field--compact">
+        <div class="o-form__field o-form__field--compact is-required">
             @Html.TextBoxFor(x => x.Name, new { required = "required", @class = "o-input" })
 			@Html.LabelFor(x => x.Name, new { @class = "o-label" })
             @Html.ValidationMessageFor(x => x.Name)
         </div>
-        <div class="o-form__field o-form__field--compact">
+        <div class="o-form__field o-form__field--compact is-required">
             @Html.TextBoxFor(x => x.Email, new { required = "required", @class = "o-input" })
 			@Html.LabelFor(x => x.Email, new { @class = "o-label" })
             @Html.ValidationMessageFor(x => x.Email)
         </div>
-        <div class="o-form__field o-form__field--compact">
+        <div class="o-form__field o-form__field--compact is-required">
 			@Html.TextAreaFor(x => x.Message, new { required = (string)null, @class = "o-input", rows = 6 })
 			@Html.LabelFor(x => x.Message, new { @class = "o-label" })
             @Html.ValidationMessageFor(x => x.Message)

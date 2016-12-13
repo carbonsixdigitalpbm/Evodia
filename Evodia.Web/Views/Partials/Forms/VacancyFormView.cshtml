@@ -24,13 +24,13 @@ else
     {
         @Html.ValidationSummary()
     }
-    
+
     using (Html.BeginUmbracoForm<VacancyFormController>("ProcessVacancyFormSubmission", FormMethod.Post, new {id = "vacancy-form", @class = "c-form js-form"}))
     {
         @Html.AntiForgeryToken()
         <fieldset class="o-form__fieldset c-cv-upload">
             <legend class="o-legend u-hide-text">CV upload form</legend>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.ContactName, new {@class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.ContactName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.ContactName)
@@ -40,32 +40,32 @@ else
                 @Html.LabelFor(x => x.CompanyName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.CompanyName)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.Telephone, new {@class = "o-input", required = "required",})
                 @Html.LabelFor(x => x.Telephone, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Telephone)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.Email, new {@class = "o-input", required = "required", type="email"})
                 @Html.LabelFor(x => x.Email, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Email)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.JobTitle, new { @class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.JobTitle, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.JobTitle)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.SalaryRates, new { @class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.SalaryRates, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.SalaryRates)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.Location, new { @class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.Location, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Location)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextAreaFor(x => x.BriefJobDescription, new { @class = "o-input", required = "required", rows = "5" })
                 @Html.LabelFor(x => x.BriefJobDescription, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.BriefJobDescription)
@@ -77,7 +77,7 @@ else
                     <span class="c-cv-upload__label">Drag and drop CV here</span><br>
                     <span class="c-cv-upload__or">or</span>
                 </span>
-                <div class="c-button c-button--secondary c-cv-upload__upload-field">
+                <div class="c-button c-button--secondary c-cv-upload__upload-field is-required">
                     BROWSE
                     @Html.TextBoxFor(x => x.JobsSpecs, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
                 </div>
@@ -89,4 +89,3 @@ else
         </fieldset>
     }
 }
-

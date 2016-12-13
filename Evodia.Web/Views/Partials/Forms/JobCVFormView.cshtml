@@ -30,17 +30,17 @@ else
         @Html.AntiForgeryToken()
         <fieldset class="o-form__fieldset c-cv-upload">
             <legend class="o-legend u-hide-text">CV upload form</legend>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.FirstName, new { @class = "o-input", required = "required" })
                 @Html.LabelFor(x => x.FirstName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.FirstName)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.SecondName, new { @class = "o-input", required = "required" })
                 @Html.LabelFor(x => x.SecondName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.SecondName)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.Email, new { @class = "o-input", required = "required", type = "email" })
                 @Html.LabelFor(x => x.Email, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Email)
@@ -52,7 +52,7 @@ else
                     <span class="c-cv-upload__label">Drag and drop CV here</span><br>
                     <span class="c-cv-upload__or">or</span>
                 </span>
-                <div class="c-button c-button--secondary c-cv-upload__upload-field">
+                <div class="c-button c-button--secondary c-cv-upload__upload-field is-required">
                     BROWSE
                     @Html.TextBoxFor(x => x.CvAttachment, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
                 </div>
@@ -64,4 +64,3 @@ else
         </fieldset>
     }
 }
-

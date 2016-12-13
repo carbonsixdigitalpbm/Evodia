@@ -31,17 +31,17 @@ else
         @Html.AntiForgeryToken()
         <fieldset class="o-form__fieldset">
             <legend class="o-legend u-hide-text">Generic CV upload form</legend>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.FirstName, new {@class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.FirstName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.FirstName)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.SecondName, new {@class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.SecondName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.SecondName)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.Email, new {@class = "o-input", required = "required", type = "email"})
                 @Html.LabelFor(x => x.Email, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Email)

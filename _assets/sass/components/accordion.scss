@@ -37,10 +37,11 @@
 
 	.c-accordion__header {
 		font-size: 1.8rem;
+		line-height: 1.4;
 		border-top: 1px solid $grey-1;
 		border-bottom: 1px solid $grey-1;
 		margin-top: -1px;
-		padding: 2rem 0 2.1rem;
+		padding: 2rem 4rem 2.1rem 0;
 		display: block;
 		position: relative;
 

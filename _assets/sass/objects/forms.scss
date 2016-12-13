@@ -54,6 +54,17 @@ $line-height-half: $line-height / 4;
 
 //= LABEL ====================================================
 
+.is-required {
+
+	.o-label {
+		&:after {
+			content: "*";
+			color: $red;
+		}
+	}
+
+}
+
 .no-enhance {
 
 	.o-label {
