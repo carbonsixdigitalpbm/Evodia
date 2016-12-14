@@ -9,10 +9,6 @@
 	}
 
 	var headline = Model.GetPropertyValue<string>("specialismsHeadline");
-	var specialismsPageId = Model.GetPropertyValue<int>("specialismsPage");
-	var specialismsPage = Umbraco.TypedContent( specialismsPageId );
-
-	var hasSpecialsPage = specialismsPage != null ? true : false;
 }
 
 <section class="o-section o-wrap o-wrap--x-large">
@@ -25,9 +21,12 @@
 			@foreach (var item in specials.ToContentSet())
 		    {
 				var specialName = item.GetPropertyValue<string>("specialismName");
+				var linkPageId = item.GetPropertyValue<int>("link");
+				var linkPage = Umbraco.TypedContent( linkPageId );
+
 				<li class="c-link-list__item">
-					@if( hasSpecialsPage ) {
-						<a href="@specialismsPage.Url" class="c-link-list__link">@specialName</a>
+					@if( linkPage != null ) {
+						<a href="@linkPage.Url" class="c-link-list__link">@specialName</a>
 					} else {
 						<span class="c-link-list__link">@specialName</span>
 					}

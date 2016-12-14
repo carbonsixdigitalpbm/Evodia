@@ -128,16 +128,6 @@
 
 @include respond-min( $mq-large ) {
 
-	.enhance {
-
-		.c-header {
-			position: absolute;
-			left: 0;
-			right: 0;
-		}
-
-	}
-
 	.c-header__logo-link {
 		margin-top: 3.5rem;
 	}

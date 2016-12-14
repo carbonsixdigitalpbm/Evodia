@@ -10,10 +10,10 @@
 
 @foreach( IPublishedContent item in subPages ) {
     var tileName = item.Name;
-    var description = item.GetPropertyValue<string>("description");
+    var description = item.GetPropertyValue<string>("onSiteDescription");
     var url = item.Url;
 
-    var hasDescription = item.HasValue("description");
+    var hasDescription = !String.IsNullOrEmpty( description ) ? true : false;
     var tileClasses = hasDescription ? null : "c-tile--no-description";
 
     var imageId = item.HasValue("socialMediaImage") ? item.GetPropertyValue<string>("socialMediaImage") : defaultImageId;

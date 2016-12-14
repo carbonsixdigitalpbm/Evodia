@@ -4,13 +4,17 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = null;
+	var docType = Model.DocumentTypeAlias;
 
     Regex rgx = new Regex( "[^0-9a-zA-Z]+" );
-    string pageScope = "s-" + rgx.Replace( Model.DocumentTypeAlias , "");
+    string pageScope = "s-" + rgx.Replace( docType , "");
 
     var homePage = Umbraco.TypedContentAtRoot().First();
     var settings = homePage.Descendants("globalSettings").First();
 
+	if( docType != "contact" && docType != "generalNews" && docType != "jobs" && docType != "job" ) {
+		pageScope = pageScope + " s-has-hero";
+	}
 }
 <!doctype html>
 <html lang="en" class="no-enhance @pageScope">

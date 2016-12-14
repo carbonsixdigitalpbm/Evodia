@@ -4,6 +4,10 @@
 
 =========================================================== */
 
+.c-breadcrumb {
+	font-size: 1.2rem;
+}
+
 .c-breadcrumb__label {
 	@include hide-text;
 }
@@ -43,4 +47,3 @@
 		cursor: default;
 	}
 }
-
