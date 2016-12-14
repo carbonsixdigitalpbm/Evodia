@@ -45,7 +45,7 @@ namespace Evodia.Core.Controllers
 
             var fileSavingOptions = new FileHelperSettings
             {
-                Directory = "CV",
+                Directory = "Job CV",
                 ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " - " + DateTime.Now.Ticks
             };
 

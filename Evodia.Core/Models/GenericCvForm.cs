@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Evodia.Core.Models
@@ -32,8 +33,9 @@ namespace Evodia.Core.Models
         [DisplayName("Availability")]
         public string Availability { get; set; }
 
-        //[Display(Name = "Your CV (Pdf or word file)")]
-        //[Required(ErrorMessage = "Please attach your CV")]
-        //public HttpPostedFileBase Attachment { get; set; }
+        [DisplayName("CV attachment")]
+        [Required(ErrorMessage = "Please attach your CV")]
+        [Utility.Attachment]
+        public HttpPostedFileBase CvAttachment { get; set; }
     }
 }

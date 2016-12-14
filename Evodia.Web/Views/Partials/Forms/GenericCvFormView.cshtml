@@ -29,7 +29,7 @@ else
     using (Html.BeginUmbracoForm<GenericCvFormController>("ProcessGenericCvFormSubmission", FormMethod.Post, new {id = "generic-cv-form", @class = "c-form js-form"}))
     {
         @Html.AntiForgeryToken()
-        <fieldset class="o-form__fieldset">
+        <fieldset class="o-form__fieldset c-cv-upload">
             <legend class="o-legend u-hide-text">Generic CV upload form</legend>
             <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.FirstName, new {@class = "o-input", required = "required"})
@@ -62,6 +62,19 @@ else
                 @Html.TextAreaFor(x => x.Availability, new {@class = "o-input", rows = "4"})
                 @Html.LabelFor(x => x.Availability, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Availability)
+            </div>
+            <div class="o-form__field o-form__field--file">
+                @Html.LabelFor(x => x.CvAttachment, new { @class = "o-label" })
+                <img class="c-cv-upload__cloud" src="/assets/img/upload.png" alt="">
+                <span class="u-delta c-cv-upload__text">
+                    <span class="c-cv-upload__label">Drag and drop CV here</span><br>
+                    <span class="c-cv-upload__or">or</span>
+                </span>
+                <div class="c-button c-button--secondary c-cv-upload__upload-field is-required">
+                    BROWSE
+                    @Html.TextBoxFor(x => x.CvAttachment, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
+                </div>
+                @Html.ValidationMessageFor(x => x.CvAttachment)
             </div>
             <div class="o-form__field o-form__field--submit u-content--right">
                 <button type="submit" class="c-button c-button--primary">Submit</button>

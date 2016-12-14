@@ -13,6 +13,8 @@ namespace Evodia.Core.Controllers
     {
         private readonly MailHelper _mailHelper = new MailHelper();
 
+        private readonly FileHelper _fileHelper = new FileHelper();
+
         public ActionResult RenderGenericCvForm()
         {
             var genericCvForm = new GenericCvForm
@@ -57,6 +59,14 @@ namespace Evodia.Core.Controllers
 
             SaveGenericCvFormSubmission(model);
             SendEmailNotifications(model);
+
+            var fileSavingOptions = new FileHelperSettings
+            {
+                Directory = "Generic CV",
+                ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " - " + DateTime.Now.Ticks
+            };
+
+            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.CvAttachment);
 
             if (Umbraco.TypedContent(Constants.GenericCvFormFolderId).HasValue("redirectPage"))
             {
