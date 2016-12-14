@@ -23,7 +23,7 @@ namespace Evodia.Data.Models
         public string Location {
             get
             {
-                return this.GetProperty<string>("county");
+                return this.GetProperty<string>("class2");
                 
             }
         }
@@ -32,8 +32,16 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.GetProperty<string>("sector");
+                return this.GetProperty<string>("class1");
 
+            }
+        }
+
+        public string SecurityClearanceLevel
+        {
+            get
+            {
+                return this.GetProperty<string>("class3");
             }
         }
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Evodia.Voyager.Domain.Models
@@ -27,10 +23,13 @@ namespace Evodia.Voyager.Domain.Models
         [DisplayName("Sectors")]
         public List<Sector> Sectors { get; set; }
 
-        [DisplayName("Salary")]
-        public List<SelectListItem> MinimumSalary { get; set; }
+        [DisplayName("Security Clearance")]
+        public List<SecurityClearance> SecurityClearances { get; set; }
 
-        public string SelectedSalary { get; set; }
+        //[DisplayName("Salary")]
+        //public List<SelectListItem> MinimumSalary { get; set; }
+
+        //public string SelectedSalary { get; set; }
     }
 
 
@@ -50,6 +49,16 @@ namespace Evodia.Voyager.Domain.Models
         public bool IsSelected { get; set; }
 
         public Sector()
+        {
+        }
+    }
+
+    public class SecurityClearance
+    {
+        public string Name { get; set; }
+        public bool IsSelected { get; set; }
+
+        public SecurityClearance()
         {
         }
     }

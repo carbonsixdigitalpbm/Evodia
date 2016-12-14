@@ -2,7 +2,6 @@
 using System.Linq;
 using Evodia.Data.ExtensionMethods;
 using Evodia.Data.Models;
-using Umbraco.Core;
 using Umbraco.Web;
 
 namespace Evodia.Data.Data
@@ -44,7 +43,7 @@ namespace Evodia.Data.Data
 
             foreach (var job in jobs)
             {
-                var sector = job.PublishedContent.GetPropertyValue<string>("sector");
+                var sector = job.PublishedContent.GetPropertyValue<string>("class1");
 
                 if (!string.IsNullOrWhiteSpace(sector))
                 {
@@ -55,6 +54,25 @@ namespace Evodia.Data.Data
             return jobSectors;
         }
 
+        public static HashSet<string> GetSecurityClearances()
+        {
+            var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
+            var jobSecurityClearances = new HashSet<string>();
+            var jobs = AllJobs(umbracoHelper);
+
+            foreach (var job in jobs)
+            {
+                var sector = job.PublishedContent.GetPropertyValue<string>("class3");
+
+                if (!string.IsNullOrWhiteSpace(sector))
+                {
+                    jobSecurityClearances.Add(sector);
+                }
+            }
+
+            return jobSecurityClearances;
+        }
+
         public static HashSet<string> GetLocations()
         {
             var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
@@ -63,7 +81,7 @@ namespace Evodia.Data.Data
 
             foreach (var job in jobs)
             {
-                var location = job.PublishedContent.GetPropertyValue<string>("county");
+                var location = job.PublishedContent.GetPropertyValue<string>("class2");
 
                 if (!string.IsNullOrWhiteSpace(location))
                 {

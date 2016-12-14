@@ -76,14 +76,30 @@
                 }
             </ul>
         </div>
-
+        
         <div class="o-form__field">
+            @Html.LabelFor(x => x.SecurityClearances, new { @class = "o-label c-pod__headline" })
+            <ul class="o-fieldset__list u-clearfix">
+                @for (var i = 0; i < Model.SecurityClearances.Count; i++)
+                {
+                    <li class="o-fieldset__item o-checkbox">
+                        @Html.HiddenFor(x => x.SecurityClearances[i].Name)
+                        @Html.CheckBoxFor(x => x.SecurityClearances[i].IsSelected, new { @id = Model.SecurityClearances[i].Name, @class = "o-checkbox__input js-security-clearance" })
+                        <label class="o-checkbox__label" for="@Model.SecurityClearances[i].Name">
+                            @Model.SecurityClearances[i].Name
+                        </label>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        @*<div class="o-form__field">
             @Html.LabelFor(x => x.MinimumSalary, new { @class = "o-label c-pod__headline" })
             <div class="o-select">
                 @Html.DropDownListFor(x => x.SelectedSalary, Model.MinimumSalary, "Minimum salary", new { @class = "js-select js-filter-select js-salary" })
             </div>
-            @*@Html.ValidationMessageFor(x => x.MinimumSalary)*@
-        </div>
+            @Html.ValidationMessageFor(x => x.MinimumSalary)
+        </div>*@
 
 		<div class="o-form__field o-form__field--submit">
 			<button type="submit" class="c-button c-button--primary js-search">Search</button>

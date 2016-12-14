@@ -7,9 +7,10 @@ var Voyager = (function($) {
         $keywords = $(".js-keywords"),
         $keywordsOnly = $(".js-keywords-only"),
         $jobTypeCheckboxes = $(".js-jobtype"),
+        $securityClearanceCheckboxes = $('.js-security-clearance'),
         $filterSelects = $(".js-filter-select"),
         $locationSelect = $(".js-location"),
-        $salarySelect = $(".js-salary"),
+        // $salarySelect = $(".js-salary"),
         $sectorTypeCheckboxes = $(".js-sector"),
         $searchButton = $(".js-search"),
         $page = $('html');
@@ -19,7 +20,8 @@ var Voyager = (function($) {
         pageNumber: 0,
         controllerUrl: "",
         jobTypes: [],
-        sectors: []
+        sectors: [],
+        securityClearance: []
     };
 
     var busyLoading;
@@ -29,8 +31,8 @@ var Voyager = (function($) {
             busyLoading = true;
 
             _toggleLoadingClass();
-            //_logRequestParemeters($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
-            _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, $salarySelect.val());
+            _logRequestParemeters($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, settings.securityClearance);
+            _getJobs($keywords.val(), $keywordsOnly.prop("checked"), settings.jobTypes, $locationSelect.val(), settings.sectors, settings.securityClearance);
         }
     };
 
@@ -50,6 +52,12 @@ var Voyager = (function($) {
         $(".js-sector:checkbox:checked").each(function(i) {
             settings.sectors[i] = $(this).attr("id");
         });
+
+        settings.securityClearance = [];
+
+        $(".js-security-clearance:checkbox:checked").each(function(i) {
+            settings.sectors[i] = $(this).attr("id");
+        });
     };
 
     var _resetPageNumber = function() {
@@ -66,7 +74,8 @@ var Voyager = (function($) {
             type: settings.jobTypes.join(),
             location: $locationSelect.val(),
             sector: settings.sectors.join(),
-            salary: $salarySelect.val()
+            // salary: $salarySelect.val(),
+            security: settings.securityClearance.join()
         };
 
         for (item in queryStringParams) {
@@ -105,6 +114,7 @@ var Voyager = (function($) {
         $searchButton.click(function(e) {
             _resetPageNumber();
             _loadJobs();
+
             if (!isLarge) {
                 $.magnificPopup.instance.close();
                 _animateBackToTop();
@@ -116,6 +126,7 @@ var Voyager = (function($) {
         $jobTypeCheckboxes.click(function() {
             _resetPageNumber();
             _getPrevalues();
+
             if (isLarge) {
                 _loadJobs();
             }
@@ -124,6 +135,16 @@ var Voyager = (function($) {
         $sectorTypeCheckboxes.click(function() {
             _resetPageNumber();
             _getPrevalues();
+
+            if (isLarge) {
+                _loadJobs();
+            }
+        });
+
+        $securityClearanceCheckboxes.click(function() {
+            _resetPageNumber();
+            _getPrevalues();
+
             if (isLarge) {
                 _loadJobs();
             }
@@ -139,18 +160,18 @@ var Voyager = (function($) {
         });
     };
 
-    var _logRequestParemeters = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
+    var _logRequestParemeters = function(keywords, keywordsOnly, jobTypes, location, sectors, security) {
         console.log("## Search settings ##");
         console.log("Keywords: " + keywords + ", keywords only: " + keywordsOnly);
         console.log("Job types: " + jobTypes);
         console.log("Location: " + location);
         console.log("Sectors: " + sectors);
-        console.log("Salary: " + salary);
+        console.log("Security: " + security);
         console.log("Page: " + settings.pageNumber);
         console.log("## End of settings ##");
     };
 
-    var _getJobs = function(keywords, keywordsOnly, jobTypes, location, sectors, salary) {
+    var _getJobs = function(keywords, keywordsOnly, jobTypes, location, sectors, security) {
 
         $.ajax({
             type: "POST",
@@ -163,7 +184,7 @@ var Voyager = (function($) {
                 "&type=" + settings.jobTypes +
                 "&location=" + location +
                 "&sector=" + sectors +
-                "&salary=" + salary,
+                "&security=" + security,
             cache: false,
             success: function(result) {
                 var $jobs = $(result.jobs),

@@ -24,7 +24,8 @@ namespace Evodia.Voyager.Controllers
                 JobTypes = GetJobTypesFromAvailableJobs(),
                 Locations = GetJobLocationsFromAvailableJobs(),
                 Sectors = GetJobSectorsFromAvailableJobs(),
-                MinimumSalary = GetMinimumSalaryList()
+                SecurityClearances = GetJobSecurityClearancesFromAvailableJobs()
+                //,MinimumSalary = GetMinimumSalaryList()
             };
 
             var keywords = Request.QueryString["keywords"];
@@ -88,10 +89,10 @@ namespace Evodia.Voyager.Controllers
                 queryString["sector"] = string.Join(",", model.Sectors.Where(t => t.IsSelected).Select(i => i.Name.ToLower()));
             }
 
-            if (!string.IsNullOrWhiteSpace(model.SelectedSalary))
-            {
-                queryString["salary"] = model.SelectedSalary;
-            }
+            //if (!string.IsNullOrWhiteSpace(model.SelectedSalary))
+            //{
+            //    queryString["salary"] = model.SelectedSalary;
+            //}
 
             if (!string.IsNullOrWhiteSpace(model.SelectedLocation))
             {
@@ -153,6 +154,32 @@ namespace Evodia.Voyager.Controllers
             return sectorsList;
         }
 
+        private List<SecurityClearance> GetJobSecurityClearancesFromAvailableJobs()
+        {
+            var securityClearancesList = new List<SecurityClearance>();
+            var securityClearances = JobsRepository.GetSecurityClearances();
+
+            foreach (var sector in securityClearances)
+            {
+                var isSelected = false;
+
+                var queryStringSectors = Request.QueryString["security"];
+
+                if (!string.IsNullOrWhiteSpace(queryStringSectors))
+                {
+                    isSelected = queryStringSectors.ToLower().Contains(sector.ToLower());
+                }
+
+                securityClearancesList.Add(new SecurityClearance()
+                {
+                    Name = sector,
+                    IsSelected = isSelected
+                });
+            }
+
+            return securityClearancesList;
+        }
+
         private List<SelectListItem> GetJobLocationsFromAvailableJobs()
         {
             var locationsList = new List<SelectListItem>();
@@ -180,62 +207,60 @@ namespace Evodia.Voyager.Controllers
             return locationsList;
         }
 
-        private List<SelectListItem> GetMinimumSalaryList()
-        {
-            var locations = new List<SelectListItem>();
-            const int salarySteps = 50;
+        //private List<SelectListItem> GetMinimumSalaryList()
+        //{
+        //    const int salarySteps = 50;
+        //    var salaries = new List<SelectListItem>();
+        //    var isDefaultSelected = false;
+        //    var queryStringSalary = Request.QueryString["salary"];
 
-            var isDefaultSelected = false;
+        //    if (!string.IsNullOrWhiteSpace(queryStringSalary))
+        //    {
+        //        isDefaultSelected = queryStringSalary.Equals("10000");
+        //    }
 
-            var queryStringSalary = Request.QueryString["salary"];
+        //    salaries.Add(new SelectListItem
+        //    {
+        //        Text = "£10,000",
+        //        Value = "10000",
+        //        Selected = isDefaultSelected
+        //    });
 
-            if (!string.IsNullOrWhiteSpace(queryStringSalary))
-            {
-                isDefaultSelected = queryStringSalary.Equals("10000");
-            }
+        //    for (var i = 11; i <= salarySteps; i+=2)
+        //    {
+        //        var increaseRange = 0;
 
-            locations.Add(new SelectListItem
-            {
-                Text = "£10,000",
-                Value = "10000",
-                Selected = isDefaultSelected
-            });
+        //        if (i > 20)
+        //        {
+        //            increaseRange = 1;
+        //        }
 
-            for (var i = 11; i <= salarySteps; i+=2)
-            {
-                var increaseRange = 0;
+        //        var isSelected = false;
 
-                if (i > 20)
-                {
-                    increaseRange = 1;
-                }
+        //        if (!string.IsNullOrWhiteSpace(queryStringSalary))
+        //        {
+        //            isSelected = queryStringSalary.Equals(i + increaseRange + "000");
+        //        }
 
-                var isSelected = false;
+        //        salaries.Add(new SelectListItem
+        //        {
+        //            Text = "£" + (i + increaseRange) + ",000",
+        //            Value = i + increaseRange + "000",
+        //            Selected = isSelected
+        //        });
 
-                if (!string.IsNullOrWhiteSpace(queryStringSalary))
-                {
-                    isSelected = queryStringSalary.Equals(i + increaseRange + "000");
-                }
+        //        if (i >= salarySteps - 1)
+        //        {
+        //            salaries.Add(new SelectListItem
+        //            {
+        //                Text = "£" + (i + increaseRange * 2) + ",000+",
+        //                Value = i + increaseRange * 2 + "000",
+        //                Selected = isSelected
+        //            });
+        //        }
+        //    }
 
-                locations.Add(new SelectListItem
-                {
-                    Text = "£" + (i + increaseRange) + ",000",
-                    Value = i + increaseRange + "000",
-                    Selected = isSelected
-                });
-
-                if (i >= salarySteps - 1)
-                {
-                    locations.Add(new SelectListItem
-                    {
-                        Text = "£" + (i + increaseRange * 2) + ",000+",
-                        Value = i + increaseRange * 2 + "000",
-                        Selected = isSelected
-                    });
-                }
-            }
-
-            return locations;
-        }
+        //    return salaries;
+        //}
     }
 }
