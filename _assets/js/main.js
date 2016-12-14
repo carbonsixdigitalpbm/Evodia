@@ -100,7 +100,7 @@
 
         MQ.init(breakpoints);
 
-		if( $( window.location.hash ) ) {
+		if( $( window.location.hash ).length ) {
 			$.magnificPopup.open({items: {src: window.location.hash  },type: 'inline'}, 0);
 		}
 
