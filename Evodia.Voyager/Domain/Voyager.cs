@@ -242,7 +242,39 @@ namespace Evodia.Voyager.Domain
                     SetNestedContentAttributes(newNode, "attributes", attributes);
                 }
 
+                var startDate = vacancyElement.StartDate;
+
+                if (startDate != null && startDate.Date != null)
+                {
+                    SetUmbracoProperty(newNode, "startDate", startDate.Date.Day + "/" + startDate.Date.Month + "/" + startDate.Date.Year);
+                }
+
+                var endDate = vacancyElement.EndDate;
+
+                if (endDate != null && endDate.Date != null)
+                {
+                    SetUmbracoProperty(newNode, "endDate",
+                        endDate.Date.Day + "/" + endDate.Date.Month + "/" + endDate.Date.Year);
+                }
+                else
+                {
+                    SetUmbracoProperty(newNode, "endDate", "N/a");
+                }
+
+                var displayTo = vacancyElement.DisplayTo;
+
+                if (displayTo != null && displayTo.Date != null)
+                {
+                    SetUmbracoProperty(newNode, "displayTo", displayTo.Date.Day + "/" + displayTo.Date.Month + "/" + displayTo.Date.Year);
+                }
+
                 SetUmbracoProperty(newNode, "jobReference", vacancyElement.JobReference);
+
+                if (!string.IsNullOrEmpty(vacancyElement.ClientJobTitle))
+                {
+                    newNode.Name = vacancyElement.ClientJobTitle;
+                }
+
                 SetUmbracoProperty(newNode, "clientJobTitle", vacancyElement.ClientJobTitle);
                 SetUmbracoProperty(newNode, "jobType", vacancyElement.JobType);
                 SetUmbracoProperty(newNode, "sector", vacancyElement.Sector);

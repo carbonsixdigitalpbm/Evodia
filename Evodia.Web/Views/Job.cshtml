@@ -2,15 +2,21 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
+
     var headline = Model.HasValue("clientJobTitle") ? Model.GetPropertyValue<string>("clientJobTitle") : Model.Name;
+    var jobRef = Model.GetPropertyValue<string>("jobReference");
+    var salary = Model.GetPropertyValue<string>("from");
+    var salaryPer = Model.GetPropertyValue<string>("period").ToLower();
+    var location = Model.GetPropertyValue<string>("town");
+    var jobType = Model.GetPropertyValue<string>("jobType");
+    var duration = Model.GetPropertyValue<string>("duration");
+    var sector = Model.GetPropertyValue<string>("class1");
+    var startDate = Model.GetPropertyValue<string>("startDate");
+    var endDate = Model.GetPropertyValue<string>("endDate");
+    var displayTo = Model.GetPropertyValue<string>("displayTo");
+    var securityClearance = Model.GetPropertyValue<string>("class3");
 
-	var salary = "";
-	var location = Model.GetPropertyValue<string>("county");
-	var jobType = Model.GetPropertyValue<string>("jobType");
-	var duration = Model.GetPropertyValue<string>("duration");
-	var sector = Model.GetPropertyValue<string>("sector");
-
-	var emailPageLink = "mailto:?subject=" + Model.Name + " :Job vacancy" + "&body=" + Request.Url.ToString();
+    var emailPageLink = "mailto:?subject=" + Model.Name + " :Job vacancy" + "&body=" + Request.Url;
 }
 
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
@@ -19,38 +25,79 @@
 		<header class="s-job__header u-clearfix u-space-bottom--large">
 			<div class="o-col o-col--first">
 				<h1>@headline</h1>
-				<ul class="o-list--simple">
-					@if( !string.IsNullOrEmpty( salary ) ) {
-						<li class="o-list__item">
-							<strong>Salary: </strong>
-							@salary
-						</li>
-					}
-					@if( !string.IsNullOrEmpty( location ) ) {
-						<li class="o-list__item">
-							<strong>Location: </strong>
-							<span>@location</span>
-						</li>
-					}
-					@if( !string.IsNullOrEmpty( jobType ) ) {
-						<li class="o-list__item">
-							<strong>Type: </strong>
-							<span>@jobType</span>
-						</li>
-					}
-					@if( !string.IsNullOrEmpty( duration ) ) {
-						<li class="o-list__item">
-							<strong>Duration: </strong>
-							<span>@duration</span>
-						</li>
-					}
-					@if( !string.IsNullOrEmpty( sector ) ) {
-						<li class="o-list__item">
-							<strong>Sector: </strong>
-							<span>@sector</span>
-						</li>
-					}
-				</ul>
+			    <ul class="o-list--simple">
+                    @if (!string.IsNullOrEmpty(jobRef))
+                    {
+                        <li class="o-list__item">
+                            <strong>Job reference: </strong>
+                            @jobRef
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(jobType))
+                    {
+                        <li class="o-list__item">
+                            <strong>Type: </strong>
+                            <span>@jobType</span>
+                        </li>
+                    }
+			        @if (!string.IsNullOrEmpty(salary))
+			        {
+			            <li class="o-list__item">
+			                <strong>Salary: </strong>
+			                £@salary per @salaryPer
+			            </li>
+			        }
+			        @if (!string.IsNullOrEmpty(location))
+			        {
+			            <li class="o-list__item">
+			                <strong>Location: </strong>
+			                <span>@location</span>
+			            </li>
+			        }
+
+			        @if (!string.IsNullOrEmpty(duration))
+			        {
+			            <li class="o-list__item">
+			                <strong>Duration: </strong>
+			                <span>@duration</span>
+			            </li>
+			        }
+			        @if (!string.IsNullOrEmpty(sector))
+			        {
+			            <li class="o-list__item">
+			                <strong>Sector: </strong>
+			                <span>@sector</span>
+			            </li>
+			        }
+                    @if (!string.IsNullOrEmpty(startDate))
+                    {
+                        <li class="o-list__item">
+                            <strong>Start date: </strong>
+                            <span>@startDate</span>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(endDate))
+                    {
+                        <li class="o-list__item">
+                            <strong>End date: </strong>
+                            <span>@endDate</span>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(displayTo))
+                    {
+                        <li class="o-list__item">
+                            <strong>Application deadline: </strong>
+                            <span>@displayTo</span>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(securityClearance))
+                    {
+                        <li class="o-list__item">
+                            <strong>Security Clearance: </strong>
+                            <span>@securityClearance</span>
+                        </li>
+                    }
+			    </ul>
 			</div>
 			<div class="o-col o-col--last">
 				<div class="o-button-list u-space-bottom">
