@@ -3,6 +3,8 @@
 @{
     var homePage = Umbraco.TypedContentAtRoot().First();
     var settings = homePage.Descendants("globalSettings").First();
+
+	var linkHeadline = settings.GetPropertyValue<string>("footerLinksHeadline");
 }
 
 <footer id="footer" class="c-footer" role="contentinfo">
@@ -14,30 +16,12 @@
 	        	@Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
 			</div>
 			<div class="c-footer__col c-footer__col--last">
-				<h2 class="u-beta">Explore</h2>
-				<ul class="o-link-list o-link-list--grid">
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">View our vacancies</a>
-					</li>
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">Consultancy services</a>
-					</li>
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">Candidate applications</a>
-					</li>
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">About us</a>
-					</li>
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">Employment support</a>
-					</li>
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">FAQ's</a>
-					</li>
-					<li class="o-link-list__item">
-						<a href="#" class="o-link-list__link">Resourcing</a>
-					</li>
-				</ul>
+				@if( !string.IsNullOrEmpty(linkHeadline) )
+				{
+					<h2 class="u-beta">@linkHeadline</h2>
+				}
+				@RenderLinks( settings )
+
 			</div>
 		</div>
 		<div class="c-footer__sub">
@@ -46,3 +30,22 @@
 		</div>
 	</div>
 </footer>
+
+@helper RenderLinks( IPublishedContent settings ) {
+    var idList = settings.GetPropertyValue<string>("footerLinks").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+    var navigationLinks = Umbraco.TypedContent(idList).Where("TemplateId > 0");
+
+	if( navigationLinks.Any() )
+	{
+
+		<ul class="o-link-list o-link-list--grid">
+			@foreach( IPublishedContent link in navigationLinks )
+			{
+				<li class="o-link-list__item">
+					<a href="@link.Url" class="o-link-list__link">@link.Name</a>
+				</li>
+			}
+		</ul>
+	}
+
+}
