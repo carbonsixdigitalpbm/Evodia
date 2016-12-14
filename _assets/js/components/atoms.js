@@ -146,7 +146,7 @@ var Atoms = (function ($) {
 	};
 
 	var _init = function( ) {
-		if( $('#atomsSvg') ) {
+		if( $('#atomsSvg').length ) {
 			_defineElements();
 			_defineAnimations();
 			_animateElements();
