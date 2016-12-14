@@ -28,8 +28,8 @@ namespace Evodia.Core.Utility
 
             if (startPage <= 0)
             {
-                endPage -= startPage - 1;
                 startPage = 1;
+                endPage = startPage + 4;
             }
 
             if (endPage > totalPages)
