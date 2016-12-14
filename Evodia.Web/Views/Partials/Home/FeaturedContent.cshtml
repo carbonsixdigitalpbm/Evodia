@@ -1,4 +1,5 @@
 @using Umbraco.Web
+@using Evodia.Core.Models
 @inherits UmbracoViewPage<IPublishedContent>
 @{
 	var covers = Model.GetPropertyValue<List<IPublishedContent>>("featuredContent");
@@ -22,6 +23,8 @@
 		imageUrl = Url.GetCropUrl(image, cropAlias: "16:9", width: 2000, quality: 95, htmlEncode: false).ToString();
 	}
 
+	var link = new LinkPickerModel( item.GetPropertyValue<string>("link") );
+
 	<article class="c-cover" style="background-image: url( @imageUrl );">
 		<div class="c-cover__wrap o-wrap--large">
 			<div class="c-cover__content">
@@ -30,6 +33,11 @@
 				}
 				<div class="c-cover__copy">
 					@item.GetPropertyValue("content")
+
+					@if( !string.IsNullOrEmpty(link.Url) )
+					{
+						<a href="@link.Url" class="c-button c-button--secondary-invert u-space-top" target="@link.Target">@link.Name ></a>
+					}
 				</div>
 			</div>
 		</div>
