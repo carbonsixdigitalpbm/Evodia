@@ -452,13 +452,9 @@
     <Content Include="Config\BaseRestExtensions.config" />
     <Content Include="Config\applications.config" />
     <Content Include="Config\404handlers.config" />
-    <Content Include="Views\Partials\Components\CVUpload.cshtml" />
-    <Content Include="Views\Partials\Components\SocialShare.cshtml" />
-    <Content Include="Views\Partials\Home\Cover.cshtml" />
-    <Content Include="Views\Partials\Home\Quotes.cshtml" />
-    <Content Include="Views\Partials\Home\VacancyPanel.cshtml" />
-    <Content Include="Views\Partials\Jobs\SimilarJobs.cshtml" />
-    <Content Include="Views\Partials\Page\PageHeader.cshtml" />
+    <Content Include="Views\Partials\Components\Atoms.cshtml" />
+    <Content Include="Views\Partials\Components\Pods.cshtml" />
+    <Content Include="Views\Partials\Home\Specialisms.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -494,6 +490,7 @@
     <Content Include="Views\Partials\Blog\RelatedPosts.cshtml" />
     <Content Include="Views\Partials\Components\BlogNewsArchive.cshtml" />
     <Content Include="Views\Partials\Components\Comments.cshtml" />
+    <Content Include="Views\Partials\Components\CVUpload.cshtml" />
     <Content Include="Views\Partials\Components\Favicons.cshtml" />
     <Content Include="Views\Partials\Components\Fonts.cshtml" />
     <Content Include="Views\Partials\Components\FooterLogos.cshtml" />
@@ -502,6 +499,7 @@
     <Content Include="Views\Partials\Components\Sitemap.cshtml" />
     <Content Include="Views\Partials\Components\SocialLinks.cshtml" />
     <Content Include="Views\Partials\Components\SocialMeta.cshtml" />
+    <Content Include="Views\Partials\Components\SocialShare.cshtml" />
     <Content Include="Views\Partials\Forms\AjaxContactFormView.cshtml" />
     <Content Include="Views\Partials\Forms\BasicSearchFormView.cshtml" />
     <Content Include="Views\Partials\Forms\ContactFormView.cshtml" />
@@ -517,9 +515,13 @@
     <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <Content Include="Views\Partials\Home\Cover.cshtml" />
     <Content Include="Views\Partials\Home\FeaturedContent.cshtml" />
+    <Content Include="Views\Partials\Home\Quotes.cshtml" />
+    <Content Include="Views\Partials\Home\VacancyPanel.cshtml" />
     <Content Include="Views\Partials\JobsSurface\GetFilteredJobs.cshtml" />
     <Content Include="Views\Partials\Jobs\JobCard.cshtml" />
+    <Content Include="Views\Partials\Jobs\SimilarJobs.cshtml" />
     <Content Include="Views\Partials\News\NewsFilter.cshtml" />
     <Content Include="Views\Partials\PageComponents\Accordion.cshtml" />
     <Content Include="Views\Partials\PageComponents\Downloads.cshtml" />
@@ -539,6 +541,7 @@
     <Content Include="Views\Partials\Page\FooterNavigation.cshtml" />
     <Content Include="Views\Partials\Page\Header.cshtml" />
     <Content Include="Views\Partials\Page\MainNavigation.cshtml" />
+    <Content Include="Views\Partials\Page\PageHeader.cshtml" />
     <Content Include="Views\Partials\Page\SubNavigation.cshtml" />
     <Content Include="Views\Post.cshtml" />
     <Content Include="Views\PropertyList.cshtml" />

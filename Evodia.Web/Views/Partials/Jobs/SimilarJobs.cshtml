@@ -1,16 +1,61 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
+@{
+    var similarJobs = new List<IPublishedContent>();
+    var podTitle = "Other opportunities";
+
+    if (Model.HasValue("similarJobs"))
+    {
+        var similarJobIds = Model.GetPropertyValue<string>("similarJobs");
+        podTitle = "Similar jobs";
+
+        foreach (var jobId in similarJobIds.Split(','))
+        {
+            var jobPage = Umbraco.TypedContent(jobId);
+
+            if (jobPage != null)
+            {
+                similarJobs.Add(jobPage);
+            }
+        }
+    }
+    else
+    {
+        var currentSector = Model.GetPropertyValue<string>("class1");
+        var jobsRoot = Model.Parent;
+        var allJobs = jobsRoot.Descendants("job");
+
+        similarJobs = allJobs.Where(x => x.GetPropertyValue<string>("class1").Equals(currentSector) && x.Id != Model.Id)
+            .RandomOrder()
+            .Take(3)
+            .ToList();
+    }
+
+    if (!similarJobs.Any())
+    {
+        var jobsRoot = Model.Parent;
+        var allJobs = jobsRoot.Descendants("job");
+
+        similarJobs = allJobs.Where(x => x.Id != Model.Id)
+            .RandomOrder()
+            .Take(3)
+            .ToList();
+    }
+}
 
 <section class="c-pod--listing">
-	<h2 class="c-pod__headline u-zeta">Similar jobs</h2>
-	@RenderJob()
-	@RenderJob()
-	@RenderJob()
+    <h2 class="c-pod__headline u-zeta">@podTitle</h2>
+
+    @foreach (var job in similarJobs)
+    {
+        @RenderJob(job)
+    }
 </section>
-@helper RenderJob() {
-	var headline = "Safety Engineer - Aerospace";
-	var location = "London";
-	var jobType = "Permanent";
+
+@helper RenderJob(IPublishedContent job) {
+	var headline = job.Name;
+	var location = job.GetPropertyValue<string>("class1");
+	var jobType = job.GetPropertyValue<string>("jobType");
 
 	<article class="c-listing--article c-listing--compact-article">
 		<h2 class="c-listing__headline u-zeta">@headline</h2>
@@ -22,7 +67,7 @@
 				<strong>@jobType</strong>
 			</li>
 		</ul>
-		<a href="" class="c-listing__block-link"><span class="u-hide-text">Find out more</span></a>
+		<a href="@job.Url" class="c-listing__block-link"><span class="u-hide-text">Find out more</span></a>
 	</article>
 
 
