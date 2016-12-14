@@ -25,9 +25,9 @@ namespace Evodia.Data.Controllers
         {
         }
 
-        public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "", string type = "")
+        public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string security = "", string type = "")
         {
-            var allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, salary, type);
+            var allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, security, type);
             var queryStringValues = new NameValueCollection();
 
             if (!string.IsNullOrWhiteSpace(keywords))
@@ -50,9 +50,9 @@ namespace Evodia.Data.Controllers
                 queryStringValues.Add("sector", sector);
             }
 
-            if (!string.IsNullOrWhiteSpace(salary))
+            if (!string.IsNullOrWhiteSpace(security))
             {
-                queryStringValues.Add("salary", salary);
+                queryStringValues.Add("salary", security);
             }
 
             if (!string.IsNullOrWhiteSpace(type))
@@ -83,7 +83,7 @@ namespace Evodia.Data.Controllers
             return View(pagedJobs);
         }
 
-        public List<VacancyModel> GetJobsBySearch(string keywords = "", bool titleOnly = false, string location = "", string sector = "", string salary = "", string type = "")
+        public List<VacancyModel> GetJobsBySearch(string keywords = "", bool titleOnly = false, string location = "", string sector = "", string security = "", string type = "")
         {
             List<VacancyModel> allJobs;
 
@@ -108,7 +108,8 @@ namespace Evodia.Data.Controllers
             allJobs = SearchJobsByType(allJobs, type);
             allJobs = SearchJobsByLocation(allJobs, location);
             allJobs = SearchJobsBySector(allJobs, sector);
-            allJobs = SearchJobsBySalary(allJobs, salary);
+            allJobs = SearchJobsBySecurity(allJobs, security);
+            //allJobs = SearchJobsBySalary(allJobs, salary);
 
             return allJobs;
         }
@@ -134,14 +135,26 @@ namespace Evodia.Data.Controllers
             return jobs;
         }
 
-        private static List<VacancyModel> SearchJobsBySalary(List<VacancyModel> jobs, string salaryString)
-        {
-            double salary;
-            var isValidNumber = double.TryParse(salaryString, NumberStyles.Number, null, out salary);
+        //private static List<VacancyModel> SearchJobsBySalary(List<VacancyModel> jobs, string salaryString)
+        //{
+        //    double salary;
+        //    var isValidNumber = double.TryParse(salaryString, NumberStyles.Number, null, out salary);
 
-            if (isValidNumber)
+        //    if (isValidNumber)
+        //    {
+        //        jobs = jobs.Where(j => j.Salary > salary).ToList();
+        //    }
+
+        //    return jobs;
+        //}
+
+        private static List<VacancyModel> SearchJobsBySecurity(List<VacancyModel> jobs, string security)
+        {
+            if (!string.IsNullOrEmpty(security))
             {
-                jobs = jobs.Where(j => j.Salary > salary).ToList();
+                var securityClearances = security.ToLower().Split(',');
+
+                jobs = jobs.Where(j => j.SecurityClearanceLevel.ToLower().ContainsAny(securityClearances, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             return jobs;

@@ -56,7 +56,7 @@ var Voyager = (function($) {
         settings.securityClearance = [];
 
         $(".js-security-clearance:checkbox:checked").each(function(i) {
-            settings.sectors[i] = $(this).attr("id");
+            settings.securityClearance[i] = $(this).attr("id");
         });
     };
 
