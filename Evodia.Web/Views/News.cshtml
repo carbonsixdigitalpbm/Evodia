@@ -110,7 +110,7 @@
                 var image = Umbraco.Media( item.GetPropertyValue<int>("coverImage") );
                 string imageUrl = image.Url + "?width=800&height=343&mode=crop";
 
-                <div class="c-listing__image-wrap">
+                <div class="c-listing__image-wrap u-space-bottom">
                     <img src="@imageUrl" class="c-listing__image" alt="@postheadline"/>
                 </div>
             }
@@ -143,7 +143,7 @@
     string excerpt = item.GetPropertyValue<string>("excerpt");
     string category = "In the media";
 
-    <article class="c-listing--article is-external" itemscope itemtype="http://schema.org/Article">
+    <article class="c-listing--article is-external u-space-bottom" itemscope itemtype="http://schema.org/Article">
         <div class="c-listing__content">
             <h2 class="c-listing__headline" itemprop="name">@postheadline</h2>
             <ul class="c-meta-data">
