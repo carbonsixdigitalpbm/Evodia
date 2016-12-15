@@ -46,7 +46,7 @@ namespace Evodia.Core.Controllers
             var fileSavingOptions = new FileHelperSettings
             {
                 Directory = "Job CV",
-                ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " - " + DateTime.Now.Ticks
+                ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " - " + DateTime.Now.ToString("F")
             };
 
             _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.CvAttachment);

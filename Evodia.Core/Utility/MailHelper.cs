@@ -22,7 +22,7 @@ namespace Evodia.Core.Utility
             if (!string.IsNullOrEmpty(formFolder.GetPropertyValue<string>("internalNotificationAddress")))
             {
                 var email = formFolder.GetPropertyValue<string>("internalNotificationAddress");
-                var emailBody = GenerateMessageFromModel(model);
+                var emailBody = GenerateMessageFromModel(model, formFolder);
 
                 var isValidEmail = IsValidEmail(email);
 
@@ -86,7 +86,7 @@ namespace Evodia.Core.Utility
             return mailMessage;
         }
 
-        private static string GenerateMessageFromModel(object model)
+        private static string GenerateMessageFromModel(object model, IPublishedContent formFolder)
         {
             var emailBody = new StringBuilder();
 
@@ -104,6 +104,30 @@ namespace Evodia.Core.Utility
                         if (propertyInfo.GetValue(model, null) != null)
                         {
                             emailBody.Append("<p><strong>" + DisplayNameHelper.GetDisplayName(propertyInfo) + ": </strong>" + propertyInfo.GetValue(model, null) + "</p>");
+                        }
+                    } else if (propertyInfo.PropertyType == typeof(HttpPostedFileBase))
+                    {
+                        if (propertyInfo.GetValue(model, null) != null)
+                        {
+                            var link = "ftp://176.74.18.115/Uploads/";
+                            var linkPrefix = "";
+
+                            switch (formFolder.Id)
+                            {
+                                case Constants.GenericCvFormFolderId:
+                                    linkPrefix = "Generic CV";
+                                    break;
+                                case Constants.JobCvFormFolderId:
+                                    linkPrefix = "Job CV";
+                                    break;
+                                case Constants.VacancyFormFolderId:
+                                    linkPrefix = "Vacancies";
+                                    break;
+                            }
+
+                            link = link + linkPrefix;
+
+                            emailBody.Append("<p><strong>Attachment: </strong><a href='" + link + "'>Get the file</a>" + "</p>");
                         }
                     }
                 }

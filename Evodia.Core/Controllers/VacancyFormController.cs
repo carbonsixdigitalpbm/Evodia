@@ -51,7 +51,7 @@ namespace Evodia.Core.Controllers
             var fileSavingOptions = new FileHelperSettings
             {
                 Directory = "Vacancies",
-                ParentFolderName = model.ContactName.MakeValidFileName()
+                ParentFolderName = model.ContactName.MakeValidFileName() + " - " + DateTime.Now.ToString("F")
             };
 
             _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.JobsSpecs);
