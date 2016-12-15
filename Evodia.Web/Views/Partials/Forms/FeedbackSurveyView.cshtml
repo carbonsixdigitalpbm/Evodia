@@ -25,7 +25,7 @@ else
         @Html.ValidationSummary()
     }
 
-    using (Html.BeginUmbracoForm<FeedbckSurveyController>("ProcessFeedbackSurveySubmission", FormMethod.Post, new {id = "feedback-survey-form", @class = "c-form js-form"}))
+    using (Html.BeginUmbracoForm<FeedbackSurveyController>("ProcessFeedbackSurveySubmission", FormMethod.Post, new {id = "feedback-survey-form", @class = "c-form js-form"}))
     {
         @Html.AntiForgeryToken()
         <fieldset class="o-form__fieldset c-cv-upload">
@@ -51,8 +51,8 @@ else
                 @Html.ValidationMessageFor(x => x.CompanyName)
             </div>
             <div class="o-form__field o-form__field--compact">
-                @Html.TextBoxFor(x => x.Message, new { @class = "o-input" })
-                @Html.TextAreaFor(x => x.Message, new { @class = "o-label" })
+                @Html.TextAreaFor(x => x.Message, new { @class = "o-input", rows = 6 })
+                @Html.LabelFor(x => x.Message, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Message)
             </div>
             <div class="o-form__field o-form__field--submit u-content--right">

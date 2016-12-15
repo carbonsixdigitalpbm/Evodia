@@ -552,6 +552,7 @@
     <Content Include="Views\TextPage.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\XMLSitemap.cshtml" />
+    <Content Include="Voyager\Upload here.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ using Umbraco.Core.Logging;
 
 namespace Evodia.Core.Controllers
 {
-    public class FeedbckSurveyController : SurfaceController
+    public class FeedbackSurveyController : SurfaceController
     {
         private readonly MailHelper _mailHelper = new MailHelper();
 
@@ -53,7 +53,7 @@ namespace Evodia.Core.Controllers
             try
             {
                 var contentService = Services.ContentService;
-                var feedbackSurvey = contentService.CreateContent(model.Name + " " + model.Email + ", " + model.Email + " - " + DateTime.Now.ToString("d"), Constants.FeedbackSurveyFolderId, Constants.FeedbackSurveyAlias);
+                var feedbackSurvey = contentService.CreateContent(model.Name + ", " + model.Email + " - " + DateTime.Now.ToString("d"), Constants.FeedbackSurveyFolderId, Constants.FeedbackSurveyAlias);
 
                 feedbackSurvey.SetValue("name", model.Name);
                 feedbackSurvey.SetValue("email", model.Email);
