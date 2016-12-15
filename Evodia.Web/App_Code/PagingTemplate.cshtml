@@ -37,7 +37,7 @@
 				<span>&lt;&lt;</span>
 				<span class="u-hide-text">First</span>
 			</a>
-	        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@previous@queryString" class="c-pagination__link c-pagination__link--prev @firstModifierClass" rel="prev" data-page="@previous">
+	        <a href="@umbracoHelper.TypedContent(currentId).Url?page=@previous@queryString" class="c-pagination__link c-pagination__link--prev @firstModifierClass js-page" rel="prev" data-page="@previous">
 				<span>&lt;</span>
 	            <span class="u-hide-text">Previous</span>
 	        </a>
@@ -64,10 +64,11 @@
 
     }
 
-    var next = paging.CurrentPage + 1;
+
     var last = paging.TotalPages;
 	var isLast = paging.CurrentPage < paging.TotalPages ? false : true;
 	var lastModifierClass = isLast ? "is-disabled" : "";
+	var next = !isLast ? paging.CurrentPage + 1 : paging.CurrentPage;
 
 	<div class="c-pagination__nav--next @lastModifierClass">
         <a href="@umbracoHelper.TypedContent(currentId).Url?page=@next@queryString" class="c-pagination__link c-pagination__link--next @lastModifierClass js-page" rel="next" data-page="@next">

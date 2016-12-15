@@ -7,6 +7,7 @@
 @if( Model.DocumentTypeAlias == "news" ) {
 	@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
 }
+@Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
     <main class="o-page__content o-page__content--sidebar-layout s-free-content">
         @RenderBody()
