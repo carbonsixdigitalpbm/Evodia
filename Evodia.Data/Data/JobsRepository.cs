@@ -16,10 +16,10 @@ namespace Evodia.Data.Data
             return desc.Select(e => e.As<VacancyModel>());
         }
 
-        public static HashSet<string> GetTypes()
+        public static SortedSet<string> GetTypes()
         {
             var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            var jobTypes = new HashSet<string>();
+            var jobTypes = new SortedSet<string>();
             var jobs = AllJobs(umbracoHelper);
 
             foreach (var job in jobs)
@@ -35,10 +35,10 @@ namespace Evodia.Data.Data
             return jobTypes;
         }
 
-        public static HashSet<string> GetSectors()
+        public static SortedSet<string> GetSectors()
         {
             var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            var jobSectors = new HashSet<string>();
+            var jobSectors = new SortedSet<string>();
             var jobs = AllJobs(umbracoHelper);
 
             foreach (var job in jobs)
@@ -54,10 +54,10 @@ namespace Evodia.Data.Data
             return jobSectors;
         }
 
-        public static HashSet<string> GetSecurityClearances()
+        public static SortedSet<string> GetSecurityClearances()
         {
             var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            var jobSecurityClearances = new HashSet<string>();
+            var jobSecurityClearances = new SortedSet<string>();
             var jobs = AllJobs(umbracoHelper);
 
             foreach (var job in jobs)
@@ -73,10 +73,10 @@ namespace Evodia.Data.Data
             return jobSecurityClearances;
         }
 
-        public static HashSet<string> GetLocations()
+        public static SortedSet<string> GetLocations()
         {
             var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            var jobLocations = new HashSet<string>();
+            var jobLocations = new SortedSet<string>();
             var jobs = AllJobs(umbracoHelper);
 
             foreach (var job in jobs)

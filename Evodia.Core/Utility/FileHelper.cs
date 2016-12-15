@@ -24,7 +24,7 @@ namespace Evodia.Core.Utility
                 Directory.CreateDirectory(formDirectory);
             }
 
-            var parentFolderPath = Path.Combine(formDirectory, fileSavingOptions.ParentFolderName);
+            var parentFolderPath = Path.Combine(formDirectory, fileSavingOptions.ParentFolderName.MakeValidFileName());
 
             if (!Directory.Exists(parentFolderPath))
             {
