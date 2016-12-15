@@ -5,12 +5,7 @@
     Layout = "Layout.cshtml";
 
     string errorPath = Request.QueryString["aspxerrorpath"];
-    string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
 }
-
-<h1 class="o-page__heading">@headline</h1>
-
-@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
 
 <section class="o-section s-free-content">
 	@if( !string.IsNullOrEmpty(errorPath) )
