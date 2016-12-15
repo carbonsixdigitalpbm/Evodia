@@ -10,19 +10,19 @@ namespace Evodia.Core.Utility
         {
             if (file == null || file.ContentLength <= 0) return;
 
-            var mainPath = HttpContext.Current.Server.MapPath("~/Uploads/" + fileSavingOptions.Directory);
-            if (!Directory.Exists(mainPath))
+            var rootPath = Directory.GetParent(HttpContext.Current.Server.MapPath("/"));
+            var uploadFolder = Path.Combine(rootPath.FullName, "Uploads");
+
+            if (!Directory.Exists(uploadFolder))
             {
-                Directory.CreateDirectory(mainPath);
+                Directory.CreateDirectory(uploadFolder);
             }
 
-            var parentFolderPath = Path.Combine(mainPath, fileSavingOptions.ParentFolderName);
+            var parentFolderPath = Path.Combine(uploadFolder, fileSavingOptions.ParentFolderName);
             if (!Directory.Exists(parentFolderPath))
             {
                 Directory.CreateDirectory(parentFolderPath);
             }
-
-            var uploadsPath = Path.GetPathRoot(AppDomain.CurrentDomain.BaseDirectory);
 
             var filePath = Path.Combine(parentFolderPath, file.FileName.MakeValidFileName());
 

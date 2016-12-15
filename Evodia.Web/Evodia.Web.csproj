@@ -455,6 +455,7 @@
     <Content Include="Views\Partials\Components\Atoms.cshtml" />
     <Content Include="Views\Partials\Components\Pods.cshtml" />
     <Content Include="Views\Partials\Home\Specialisms.cshtml" />
+    <Content Include="Views\Partials\Forms\FeedbackSurveyView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

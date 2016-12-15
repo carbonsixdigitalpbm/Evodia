@@ -1,31 +1,28 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-	var wrapSize = ViewData["wrapSize"] != null ? ViewData["wrapSize"].ToString() : "";
-	var isModal = ViewData != null && ViewData["isModal"].ToString() == "true" ? true : false;
-
+    var isModal = ViewData != null && ViewData["isModal"].ToString() == "true";
     var formSettings = Umbraco.TypedContent(1353);
-
-	var submissionMessage = formSettings.HasValue("submissionMessage") ? formSettings.GetPropertyValue("submissionMessage") : "Thank you";
+    var submissionMessage = formSettings.HasValue("submissionMessage") ? formSettings.GetPropertyValue("submissionMessage") : "Thank you";
     var success = TempData["ValidationPasses"] != null;
 }
 
-@if( success ) {
-	<div class="c-alert c-alert--success c-alert--fixed o-wrap--small">
-		@submissionMessage
-	</div>
+@if (success)
+{
+    <div class="c-alert c-alert--success c-alert--fixed o-wrap--small">
+        @submissionMessage
+    </div>
 }
 
-@if( isModal ) {
-	<section id="apply" class="c-cv-form white-popup mfp-with-anim mfp-hide">
-		@*
-			@Html.Action("RenderUploadCVForm", "UploadCV")
-		*@
-	</section>
-} else {
-	<section id="apply" class="c-cv-form">
-		@*
-			@Html.Action("RenderUploadCVForm", "UploadCV")
-		*@
-	</section>
+@if (isModal)
+{
+    <section id="apply" class="c-cv-form white-popup mfp-with-anim mfp-hide">
+        @Html.Action("RenderJobCvForm", "JobCv")
+    </section>
+}
+else
+{
+    <section id="apply" class="c-cv-form">
+        @Html.Action("RenderJobCvForm", "JobCv")
+    </section>
 }

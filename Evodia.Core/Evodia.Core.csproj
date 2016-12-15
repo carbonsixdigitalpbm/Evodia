@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\FeedbackSurveyController.cs" />
     <Compile Include="Controllers\VacancyFormController.cs" />
     <Compile Include="Controllers\GenericCvFormController.cs" />
     <Compile Include="Controllers\ContactFormController.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="ExtensionMethods\PublishedContentExtensions.cs" />
     <Compile Include="ExtensionMethods\StringExtentions.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
+    <Compile Include="Models\FeedbackSurvey.cs" />
     <Compile Include="Models\GenericCvForm.cs" />
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\JobCvForm.cs" />

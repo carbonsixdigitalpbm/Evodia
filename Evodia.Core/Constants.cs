@@ -17,5 +17,9 @@
         public const int ContactFormForlderId = 1155;
 
         public const string ContactFormAlias = "contactForm";
+
+        public const int FeedbackSurveyFolderId = 1482;
+
+        public const string FeedbackSurveyAlias = "feedbackSurvey";
     }
 }
