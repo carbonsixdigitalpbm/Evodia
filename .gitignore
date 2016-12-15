@@ -306,3 +306,4 @@ Evodia.Web/Config/connectionStrings.config
 Evodia.Web/Views/Master.cshtml
 **/Evodia.Web/bin/
 Evodia.Web/Views/Master.cshtml
+**_assemblies/

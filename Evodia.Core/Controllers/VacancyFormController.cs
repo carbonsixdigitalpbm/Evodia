@@ -18,14 +18,14 @@ namespace Evodia.Core.Controllers
         {
             var vacancyForm = new VacancyForm
             {
-                ContactName = "Paulius Putna",
-                CompanyName = "TGDH",
-                Email = "paulius@tgdh.co.uk",
-                JobTitle = "Web developer",
-                Telephone = "07528 118833",
-                BriefJobDescription = "I want to make websites and stuff",
-                SalaryRates = "Over 9000",
-                Location = "Hampshire"
+                //ContactName = "Paulius Putna",
+                //CompanyName = "TGDH",
+                //Email = "paulius@tgdh.co.uk",
+                //JobTitle = "Web developer",
+                //Telephone = "07528 118833",
+                //BriefJobDescription = "I want to make websites and stuff",
+                //SalaryRates = "Over 9000",
+                //Location = "Hampshire"
             };
 
             return PartialView("~/Views/Partials/Forms/VacancyFormView.cshtml", vacancyForm);

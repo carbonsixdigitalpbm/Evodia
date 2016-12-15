@@ -19,23 +19,22 @@ namespace Evodia.Core.Controllers
         {
             var genericCvForm = new GenericCvForm
             {
-                FirstName = "Paulius",
-                SecondName = "Putna",
-                Email = "paulius@tgdh.co.uk",
-                SecurityClearanceLevel = "Not sure what goes here",
-                Availability = "Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+                //FirstName = "Paulius",
+                //SecondName = "Putna",
+                //Email = "paulius@tgdh.co.uk",
+                //SecurityClearanceLevel = "Not sure what goes here",
+                //Availability = "Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
                 JobPreference = new List<SelectListItem>
                 {
                     new SelectListItem
                     {
                         Text = "Contract",
-                        Value = "Contrac"
+                        Value = "Contract"
                     },
                     new SelectListItem
                     {
                         Text = "Permanent",
-                        Value = "Permanent",
-                        Selected = true
+                        Value = "Permanent"
                     }
                 }
             };

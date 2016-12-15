@@ -18,9 +18,9 @@ namespace Evodia.Core.Controllers
         {
             var jobCvForm = new JobCvForm
             {
-                FirstName = "Paulius",
-                SecondName = "Putna",
-                Email = "paulius@tgdh.co.uk"
+                //FirstName = "Paulius",
+                //SecondName = "Putna",
+                //Email = "paulius@tgdh.co.uk"
             };
 
             return PartialView("~/Views/Partials/Forms/JobCvFormView.cshtml", jobCvForm);

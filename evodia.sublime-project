@@ -24,6 +24,7 @@
             ],
             "folder_exclude_patterns":
             [
+                "_assemblies",
                 ".tmp",
                 ".sass-cache",
                 ".vs",

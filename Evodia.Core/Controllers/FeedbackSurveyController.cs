@@ -16,8 +16,8 @@ namespace Evodia.Core.Controllers
         {
             var feedbackSurvey = new FeedbackSurvey
             {
-                Name = "Paulius",
-                Email = "paulius@tgdh.co.uk"
+                //Name = "Paulius",
+                //Email = "paulius@tgdh.co.uk"
             };
 
             return PartialView("~/Views/Partials/Forms/FeedbackSurveyView.cshtml", feedbackSurvey);
