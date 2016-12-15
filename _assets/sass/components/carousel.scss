@@ -4,6 +4,22 @@
 
 =========================================================== */
 
+.no-enhance {
+
+	.js-carousel {
+
+		.c-carousel__item {
+			display: none;
+
+			&:first-child {
+				display: block;
+			}
+		}
+
+	}
+
+}
+
 .js-carousel {
 
 	.c-carousel__item {

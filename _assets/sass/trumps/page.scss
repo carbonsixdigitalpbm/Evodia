@@ -4,7 +4,7 @@
 
 =========================================================== */
 
-.s-has-hero {
+.enhance.s-has-hero {
 
 	.c-header {
 		width: 100%;
@@ -16,6 +16,26 @@
 
 	.o-page {
 		padding-top: 0 !important;
+	}
+
+}
+
+@include respond-min( $mq-large ) {
+
+	.no-enhance.s-has-hero {
+
+		.c-header {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: none;
+		}
+
+		.o-page {
+			padding-top: 0 !important;
+		}
+
 	}
 
 }

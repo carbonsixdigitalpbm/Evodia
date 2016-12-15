@@ -3,6 +3,23 @@
 	# Accordion
 =========================================================== */
 
+.no-enhance {
+
+	.c-accordion__header {
+		font-size: 1.8rem;
+		line-height: 1.4;
+	}
+
+	.c-accordion__panel {
+
+		& + .c-accordion__header {
+			margin-top: $line-height * 2;
+		}
+
+	}
+
+}
+
 .enhance {
 
 	.c-accordion__panel {

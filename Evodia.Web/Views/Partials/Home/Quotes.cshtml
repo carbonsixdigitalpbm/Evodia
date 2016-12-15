@@ -28,13 +28,19 @@
         return;
     }
 
-    <blockquote class="c-quote">
+    <blockquote class="c-quote c-carousel__item">
 		<div class="c-quote__inner">
 	        <div class="c-quote__copy">
 	            @quote
 	        </div>
 
-	        <footer class="c-quote__src">@source - <span class="u-light">@role</span></footer>
+	        <footer class="c-quote__src">
+				@source
+				@if(!String.IsNullOrEmpty(role) )
+				{
+				@:- <span class="u-light">@role</span>
+				}
+			</footer>
 		</div>
     </blockquote>
 }

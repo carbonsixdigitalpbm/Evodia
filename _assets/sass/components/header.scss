@@ -141,17 +141,30 @@
 	}
 
 
-	.c-header__nav-wrap,
-	.c-header__supplementary {
-		float: right;
-	}
-
 	.c-header__nav-wrap {
+		float: right;
+		text-align: right;
 		margin-top: 4rem;
 		margin-bottom: 2rem;
 	}
 
+
+
 	.c-header__supplementary {
+		display: none;
+	}
+
+
+
+
+}
+
+@include respond-min( $mq-x-large ) {
+
+
+	.c-header__supplementary {
+		display: block;
+		float: right;
 		margin: 4rem 0 2rem;
 
 		.c-button {
@@ -159,6 +172,19 @@
 			font-weight: 500;
 			margin-left: 1rem;
 		}
+
+		a {
+			color: #fff;
+		}
+	}
+
+	.no-flexbox,
+	.no-enhance {
+
+		.c-header__nav-wrap {
+			margin-right: 1.5rem;
+		}
+
 	}
 
 	.flexbox {
@@ -178,7 +204,6 @@
 
 	}
 
-
 }
 
 @include respond-max( $mq-xx-large ) {
@@ -195,6 +220,7 @@
 }
 
 @include respond-min( $mq-xx-large ) {
+
 
 	.c-header__supplementary,
 	.c-header__logo-link {
