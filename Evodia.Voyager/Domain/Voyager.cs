@@ -141,7 +141,7 @@ namespace Evodia.Voyager.Domain
 
                 SetVoyagerProperties(newNode, vacancy);
 
-                _contentService.SaveAndPublishWithStatus(newNode);
+                _contentService.Save(newNode);
 
                 Statistics.Created++;
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Web;
 
 namespace Evodia.Core.Utility
@@ -10,7 +9,7 @@ namespace Evodia.Core.Utility
         {
             if (file == null || file.ContentLength <= 0) return;
 
-            var rootPath = Directory.GetParent(HttpContext.Current.Server.MapPath("/"));
+            var rootPath = Directory.GetParent(Directory.GetParent(HttpContext.Current.Server.MapPath("/")).FullName);
             var uploadFolder = Path.Combine(rootPath.FullName, "Uploads");
 
             if (!Directory.Exists(uploadFolder))
@@ -18,7 +17,15 @@ namespace Evodia.Core.Utility
                 Directory.CreateDirectory(uploadFolder);
             }
 
-            var parentFolderPath = Path.Combine(uploadFolder, fileSavingOptions.ParentFolderName);
+            var formDirectory = Path.Combine(uploadFolder, fileSavingOptions.Directory);
+
+            if (!Directory.Exists(formDirectory))
+            {
+                Directory.CreateDirectory(formDirectory);
+            }
+
+            var parentFolderPath = Path.Combine(formDirectory, fileSavingOptions.ParentFolderName);
+
             if (!Directory.Exists(parentFolderPath))
             {
                 Directory.CreateDirectory(parentFolderPath);

@@ -1,12 +1,12 @@
 @using Evodia.Data.Models;
 @inherits UmbracoViewPage<VacancyModel>
 @{
-	var headline = Model.PublishedContent.HasValue("clientJobTitle") ? Model.PublishedContent.GetPropertyValue<string>("clientJobTitle") : Model.PublishedContent.Name;;
+	var headline = Model.PublishedContent.HasValue("clientJobTitle") ? Model.PublishedContent.GetPropertyValue<string>("clientJobTitle") : Model.PublishedContent.Name;
 	var jobType = Model.JobType;
 	var location = Model.Location;
 	var sector = Model.Sector;
-
-	var itemUrl = Model.Url;
+    var itemUrl = Model.Url;
+    var itemModalUrl = itemUrl + "#apply";
 	var description = Model.PublishedContent.GetPropertyValue<string>("overview");
 }
 
@@ -31,7 +31,7 @@
 	</div>
 	<div class="c-listing__cta">
 		<a href="@itemUrl" class="c-button c-button--secondary">Read more ></a>
-		<a href="@itemUrl#apply" class="c-button c-button--primary">Send CV ></a>
+		<a href="@itemModalUrl" class="c-button c-button--primary">Send CV ></a>
 	</div>
 	<a href="@itemUrl" class="c-listing__block-link"><span class="u-hide-text">Find out more</span></a>
 </article>
