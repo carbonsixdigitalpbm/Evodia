@@ -1,17 +1,7 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var isModal = ViewData != null && ViewData["isModal"].ToString() == "true";
-    var formSettings = Umbraco.TypedContent(1353);
-    var submissionMessage = formSettings.HasValue("submissionMessage") ? formSettings.GetPropertyValue("submissionMessage") : "Thank you";
-    var success = TempData["ValidationPasses"] != null;
-}
-
-@if (success)
-{
-    <div class="c-alert c-alert--success c-alert--fixed o-wrap--small">
-        @submissionMessage
-    </div>
+    var isModal = ViewData != null && ViewData["isModal"].ToString() == "True";
 }
 
 @if (isModal)

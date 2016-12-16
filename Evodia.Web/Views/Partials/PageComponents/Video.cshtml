@@ -1,14 +1,12 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-	var wrapSize = ViewData["wrapSize"];
+    var wrapSize = ViewData["wrapSize"];
 
-    // Add MvcHtmlString when OEmbed is added
-    // var media = Model.GetPropertyValue<MvcHtmlString>("media");
-    // var hasMedia = !MvcHtmlString.IsNullOrEmpty(media);
-    var media = Model.GetPropertyValue<string>("media");
+    //Add MvcHtmlString when OEmbed is added
+    var media = Model.GetPropertyValue<MvcHtmlString>("media");
+    var hasMedia = !MvcHtmlString.IsNullOrEmpty(media);
     var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
-    var hasMedia = !string.IsNullOrEmpty(media);
 }
 
 @if (hasMedia)

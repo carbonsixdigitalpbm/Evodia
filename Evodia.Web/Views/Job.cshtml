@@ -17,99 +17,111 @@
     var securityClearance = Model.GetPropertyValue<string>("class3");
 
     var emailPageLink = "mailto:?subject=" + Model.Name + " :Job vacancy" + "&body=" + Request.Url;
+
+    var formSettings = Umbraco.TypedContent(1353);
+    var submissionMessage = formSettings.HasValue("submissionMessage") ? formSettings.GetPropertyValue("submissionMessage") : "Thank you";
+    var success = TempData["JobCvFormValidationPasses"] != null;
 }
 
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
 	<main class="o-page__content o-page__content--sidebar-layout">
 		<p class="u-space-bottom"><a href="@Model.Ancestor().Url">< Back to results</a></p>
-		<header class="s-job__header u-clearfix u-space-bottom--large">
-			<div class="o-col o-col--first">
-				<h1>@headline</h1>
-			    <ul class="o-list--simple">
-                    @if (!string.IsNullOrEmpty(jobRef))
-                    {
-                        <li class="o-list__item">
-                            <strong>Job reference: </strong>
-                            @jobRef
-                        </li>
-                    }
-                    @if (!string.IsNullOrEmpty(jobType))
-                    {
-                        <li class="o-list__item">
-                            <strong>Type: </strong>
-                            <span>@jobType</span>
-                        </li>
-                    }
-			        @if (!string.IsNullOrEmpty(salary))
-			        {
-			            <li class="o-list__item">
-			                <strong>Salary: </strong>
-			                £@salary per @salaryPer
-			            </li>
-			        }
-			        @if (!string.IsNullOrEmpty(location))
-			        {
-			            <li class="o-list__item">
-			                <strong>Location: </strong>
-			                <span>@location</span>
-			            </li>
-			        }
+	    <header class="s-job__header u-clearfix u-space-bottom--large">
+	        <div class="o-col o-col--first">
+	            <h1>@headline</h1>
+	            <ul class="o-list--simple">
+	                @if (!string.IsNullOrEmpty(jobRef))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Job reference: </strong>
+	                        @jobRef
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(jobType))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Type: </strong>
+	                        <span>@jobType</span>
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(salary))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Salary: </strong>
+	                        £@salary per @salaryPer
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(location))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Location: </strong>
+	                        <span>@location</span>
+	                    </li>
+	                }
 
-			        @if (!string.IsNullOrEmpty(duration))
-			        {
-			            <li class="o-list__item">
-			                <strong>Duration: </strong>
-			                <span>@duration</span>
-			            </li>
-			        }
-			        @if (!string.IsNullOrEmpty(sector))
-			        {
-			            <li class="o-list__item">
-			                <strong>Sector: </strong>
-			                <span>@sector</span>
-			            </li>
-			        }
-                    @if (!string.IsNullOrEmpty(startDate))
-                    {
-                        <li class="o-list__item">
-                            <strong>Start date: </strong>
-                            <span>@startDate</span>
-                        </li>
-                    }
-                    @if (!string.IsNullOrEmpty(endDate))
-                    {
-                        <li class="o-list__item">
-                            <strong>End date: </strong>
-                            <span>@endDate</span>
-                        </li>
-                    }
-                    @if (!string.IsNullOrEmpty(displayTo))
-                    {
-                        <li class="o-list__item">
-                            <strong>Application deadline: </strong>
-                            <span>@displayTo</span>
-                        </li>
-                    }
-                    @if (!string.IsNullOrEmpty(securityClearance))
-                    {
-                        <li class="o-list__item">
-                            <strong>Security Clearance: </strong>
-                            <span>@securityClearance</span>
-                        </li>
-                    }
-			    </ul>
-			</div>
-			<div class="o-col o-col--last">
-				<div class="o-button-list u-space-bottom">
-					@RenderCVButton()
-					<a href="@emailPageLink" class="c-button c-button--secondary c-button--icon">Email job <i class="ico-mail"></i></a>
-					<button href="" class="c-button c-button--secondary c-button--icon u-hide-small u-hide-medium u-hide-large" onclick="window.print();">Print job <i class="ico-print"></i></button>
-				</div>
+	                @if (!string.IsNullOrEmpty(duration))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Duration: </strong>
+	                        <span>@duration</span>
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(sector))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Sector: </strong>
+	                        <span>@sector</span>
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(startDate))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Start date: </strong>
+	                        <span>@startDate</span>
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(endDate))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>End date: </strong>
+	                        <span>@endDate</span>
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(displayTo))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Application deadline: </strong>
+	                        <span>@displayTo</span>
+	                    </li>
+	                }
+	                @if (!string.IsNullOrEmpty(securityClearance))
+	                {
+	                    <li class="o-list__item">
+	                        <strong>Security Clearance: </strong>
+	                        <span>@securityClearance</span>
+	                    </li>
+	                }
+	            </ul>
+	        </div>
+	        <div class="o-col o-col--last">
+	            <div class="o-button-list u-space-bottom">
+	                @RenderCVButton()
+	                <a href="@emailPageLink" class="c-button c-button--secondary c-button--icon">Email job <i class="ico-mail"></i></a>
+	                <button href="" class="c-button c-button--secondary c-button--icon u-hide-small u-hide-medium u-hide-large" onclick="window.print();">Print job <i class="ico-print"></i></button>
+	            </div>
 
-				@Html.Partial("~/Views/Partials/components/SocialShare.cshtml")
-			</div>
-		</header>
-		<section class="s-job__content">
+	            @Html.Partial("~/Views/Partials/components/SocialShare.cshtml")
+	        </div>
+	    </header>
+        
+        @if (success)
+        {
+            <div class="c-alert c-alert--success c-alert--fixed o-wrap--small">
+                @submissionMessage
+            </div>
+        }
+
+	    <section class="s-job__content">
 			@if( Model.HasValue("overview") ) {
 				<hr class="u-space-bottom--large">
 				<h2>Overview</h2>
@@ -124,7 +136,7 @@
 			}
 
 			@Html.Partial("~/Views/Partials/Components/CVUpload.cshtml", Model, new ViewDataDictionary {
-			{"isModal", false}
+			{"isModal", true}
 		})
 		</section>
 	</main>

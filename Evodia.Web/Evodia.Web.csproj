@@ -80,6 +80,10 @@
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dawoe.OEmbedPickerPropertyEditor, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dawoe.OEmbedPickerPropertyEditor.2.0.1\lib\net45\Dawoe.OEmbedPickerPropertyEditor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DTG.Spreadsheet, Version=2.7.0.0, Culture=neutral, PublicKeyToken=7b835b529fb706c3, processorArchitecture=MSIL">
       <HintPath>..\packages\SEOChecker.1.9.4.1\lib\DTG.Spreadsheet.dll</HintPath>
       <Private>True</Private>

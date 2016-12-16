@@ -10,13 +10,13 @@
 
 @if (success)
 {
-    if (folderId != null)
+    @*if (folderId != null)
     {
         var folder = Umbraco.TypedContent(folderId);
         var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
 
         @message
-    }
+    }*@
 }
 else
 {
