@@ -7,13 +7,15 @@
     var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
     var hasQuotes = quotes.Any(x => x.HasValue("quoteMessage"));
     var isSlider = hasQuotes && quotes.Count() > 1;
-    var sliderClass = isSlider ? "js-single-carousel" : "";
+    var sliderClass = isSlider ? "js-carousel" : "";
 }
 
 @if (isSlider)
 {
-    <div class="c-quotes o-wrap o-wrap--@wrapSize o-page-component o-align--@alignment">
-        <div class="u-clearfix @sliderClass">
+	var modifierClass = alignment == "default" ? "c-carousel" : "";
+
+    <div class="c-quotes o-wrap o-wrap--@wrapSize o-page-component @modifierClass">
+        <div class="u-clearfix @sliderClass o-align--@alignment" data-nav="true" data-auto-play="true">
             @foreach (var item in quotes)
             {
                 @RenderQuote(item)
@@ -32,7 +34,8 @@ else
 @helper RenderQuote(IPublishedContent item, string modifierClasses = "")
 {
     var quote = item.GetPropertyValue("quoteMessage");
-    var source = item.GetPropertyValue("source");
+	var source = item.GetPropertyValue<string>("source");
+	var role = item.GetPropertyValue<string>("role");
     var renderQuote = quote != null && quote.ToString() != "";
 
     if (!renderQuote)
@@ -48,11 +51,10 @@ else
 
 	        @if( item.HasValue("source") || item.HasValue("sourceName") ) {
 	            <footer class="c-quote__src">
-					@if( item.HasValue("sourceName") ) {
-						<div class="u-stronger">@item.GetPropertyValue("sourceName")</div>
-					}
-					@if( item.HasValue("source") ) {
-						@source
+					@source
+					@if(!String.IsNullOrEmpty(role) )
+					{
+					@:- <span class="u-light">@role</span>
 					}
 				</footer>
 	        }
