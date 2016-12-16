@@ -15,6 +15,13 @@
 	if( docType != "contact" && docType != "generalNews" && docType != "jobs" && docType != "job" ) {
 		pageScope = pageScope + " s-has-hero";
 	}
+
+    var secureUrl = "https://" +  Request.Url.Host.ToString() + Request.RawUrl.ToString();
+
+    if( !Request.IsSecureConnection )
+    {
+        @* Response.Redirect(secureUrl); *@
+    }
 }
 <!doctype html>
 <html lang="en" class="no-enhance @pageScope">
@@ -36,12 +43,12 @@
          <link rel="author" href="/humants.txt">
 
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="/assets/css/style.afd080b5.css">
+            <link rel="stylesheet" href="/assets/css/style.7b4aafe1.css">
         <!--<![endif]-->
 
         <!--[if lt IE 9]>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <link rel="stylesheet" href="/assets/css/ie.0e5b38d2.css">
+            <link rel="stylesheet" href="/assets/css/ie.3fcd3f31.css">
         <![endif]-->
 
         <script src="/assets/js/head.cbc0266a.js"></script>

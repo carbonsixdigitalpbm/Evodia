@@ -9,6 +9,9 @@ namespace Evodia.Core.Models
         [DisplayName("Job title")]
         public string JobTitle { get; set; }
 
+        [Browsable(false)]
+        public int JobPageId { get; set; }
+
         [DisplayName("Job reference")]
         public string JobReference { get; set; }
 
