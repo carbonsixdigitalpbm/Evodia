@@ -15,7 +15,7 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.GetProperty<string>("jobType");
+                return GetProperty<string>("jobType");
                 
             }
         }
@@ -23,7 +23,7 @@ namespace Evodia.Data.Models
         public string Location {
             get
             {
-                return this.GetProperty<string>("class2");
+                return GetProperty<string>("class2");
                 
             }
         }
@@ -32,7 +32,7 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.GetProperty<string>("class1");
+                return GetProperty<string>("class1");
 
             }
         }
@@ -41,7 +41,7 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.GetProperty<string>("class3");
+                return GetProperty<string>("class3");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Evodia.Data.Models
         {
             get
             {
-                var salaryString = this.GetProperty<string>("from");
+                var salaryString = GetProperty<string>("from");
                 double salary;
                 var isValidNumber = double.TryParse(salaryString, NumberStyles.Number, null, out salary);
 
@@ -59,8 +59,6 @@ namespace Evodia.Data.Models
                 }
 
                 return 0;
-                
-                
             }
         }
     }

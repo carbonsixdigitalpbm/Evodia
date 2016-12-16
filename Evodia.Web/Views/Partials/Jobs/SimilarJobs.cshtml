@@ -52,8 +52,9 @@
     }
 </section>
 
-@helper RenderJob(IPublishedContent job) {
-	var headline = job.Name;
+@helper RenderJob(IPublishedContent job)
+{
+	var headline = job.HasValue("clientJobTitle") ? job.GetPropertyValue<string>("clientJobTitle") : job.Name;
 	var location = job.GetPropertyValue<string>("class1");
 	var jobType = job.GetPropertyValue<string>("jobType");
 
@@ -69,6 +70,4 @@
 		</ul>
 		<a href="@job.Url" class="c-listing__block-link"><span class="u-hide-text">Find out more</span></a>
 	</article>
-
-
 }

@@ -34,7 +34,7 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.PublishedContent.HasValue("jobTitle") ? this.PublishedContent.GetPropertyValue<string>("jobTitle"): this.PublishedContent.Name;
+                return this.PublishedContent.HasValue("clientJobTitle") ? this.PublishedContent.GetPropertyValue<string>("clientJobTitle") : this.PublishedContent.Name;
             }
         }
         public string Url

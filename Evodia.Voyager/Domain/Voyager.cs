@@ -123,7 +123,14 @@ namespace Evodia.Voyager.Domain
 
                 SetVoyagerProperties(nodeToSync, vacancy);
 
-                _contentService.SaveAndPublishWithStatus(nodeToSync);
+                if (nodeToSync.Published)
+                {
+                    _contentService.SaveAndPublishWithStatus(nodeToSync);
+                }
+                else
+                {
+                    _contentService.Save(nodeToSync);
+                }
 
                 Statistics.Updated++;
             }
@@ -233,8 +240,6 @@ namespace Evodia.Voyager.Domain
 
             if (vacancyElement != null)
             {
-                newNode.Name = vacancyElement.JobTitle;
-
                 var attributes = vacancyElement.Attributes;
 
                 if (attributes != null)
@@ -258,7 +263,7 @@ namespace Evodia.Voyager.Domain
                 }
                 else
                 {
-                    SetUmbracoProperty(newNode, "endDate", "N/a");
+                    SetUmbracoProperty(newNode, "endDate", "N/A");
                 }
 
                 var displayTo = vacancyElement.DisplayTo;
@@ -273,9 +278,13 @@ namespace Evodia.Voyager.Domain
                 if (!string.IsNullOrEmpty(vacancyElement.ClientJobTitle))
                 {
                     newNode.Name = vacancyElement.ClientJobTitle;
+                    SetUmbracoProperty(newNode, "clientJobTitle", vacancyElement.ClientJobTitle);
                 }
-
-                SetUmbracoProperty(newNode, "clientJobTitle", vacancyElement.ClientJobTitle);
+                else
+                {
+                    newNode.Name = vacancyElement.JobTitle;
+                    SetUmbracoProperty(newNode, "clientJobTitle", vacancyElement.JobTitle);
+                }
                 SetUmbracoProperty(newNode, "jobType", vacancyElement.JobType);
                 SetUmbracoProperty(newNode, "sector", vacancyElement.Sector);
                 SetUmbracoProperty(newNode, "company", vacancyElement.Company);
