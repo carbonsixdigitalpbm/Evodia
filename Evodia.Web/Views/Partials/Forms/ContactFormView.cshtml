@@ -2,9 +2,9 @@
 @using Evodia.Core.Models
 @inherits UmbracoViewPage<ContactForm>
 @{
-    var success = TempData["ValidationPasses"] != null;
-    var error = TempData["ValidationFailed"] != null;
-    var folderId = TempData["FormFolderId"];
+    var success = TempData["ContactFormValidationPasses"] != null;
+    var error = TempData["ContactFormValidationFailed"] != null;
+    var folderId = TempData["ContactFormFormFolderId"];
     var formLegend = ViewData["legend"] != null ? ViewData["legend"] as string : "";
 }
 

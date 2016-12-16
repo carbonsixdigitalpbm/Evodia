@@ -29,13 +29,13 @@ namespace Evodia.Core.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ValidationFailed"] = "The form validation could not pass. Please check your input.";
+                TempData["ContactFormValidationFailed"] = "The form validation could not pass. Please check your input.";
 
                 return CurrentUmbracoPage();
             }
 
-            TempData["ValidationPasses"] = "The form has been validated successfully.";
-            TempData["FormFolderId"] = Constants.ContactFormForlderId;
+            TempData["ContactFormValidationPasses"] = "The form has been validated successfully.";
+            TempData["ContactFormFormFolderId"] = Constants.ContactFormForlderId;
 
             SaveContactFormSubmission(model);
             SendEmailNotifications(model);
