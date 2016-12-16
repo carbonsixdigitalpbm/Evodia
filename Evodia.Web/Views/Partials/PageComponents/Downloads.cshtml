@@ -6,13 +6,13 @@
 
     var mediaIds = Model.GetPropertyValue<string>("files");
     var hasFiles = !string.IsNullOrEmpty(mediaIds);
-    var hasTitle = Model.HasValue("headline");
+    var title = Model.GetPropertyValue<string>("title");
 }
 
 @if (hasFiles) {
 	<div class="o-wrap o-wrap--@wrapSize o-page-component">
-	    @if (hasTitle) {
-	        <h2>@(Model.GetPropertyValue<string>("headline"))</h2>
+	    @if ( !String.IsNullOrEmpty(title) ) {
+	        <h2>@title</h2>
 	    }
 		@if( Model.HasValue("intro") ) {
 			@Model.GetPropertyValue("intro")
