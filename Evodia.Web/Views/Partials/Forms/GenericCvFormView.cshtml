@@ -6,6 +6,7 @@
     var success = TempData["GenericCvFormValidationPasses"] != null;
     var error = TempData["GenericCvFormValidationFailed"] != null;
     var folderId = TempData["GenericCvFormFolderId"];
+    var formLegend = ViewData["legend"] != null ? ViewData["legend"] as string : "";
 }
 
 @if (success)
@@ -24,13 +25,15 @@ else
     {
         @Html.ValidationSummary()
     }
-
-
+    
     using (Html.BeginUmbracoForm<GenericCvFormController>("ProcessGenericCvFormSubmission", FormMethod.Post, new {id = "generic-cv-form", @class = "c-form js-form"}))
     {
         @Html.AntiForgeryToken()
         <fieldset class="o-form__fieldset c-cv-upload">
-            <legend class="o-legend u-hide-text">Generic CV upload form</legend>
+            @if (!string.IsNullOrWhiteSpace(formLegend))
+            {
+                <legend class="o-legend u-beta u-highlight-text u-space-bottom--small u-strong">@formLegend</legend>
+            }
             <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.FirstName, new {@class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.FirstName, new { @class = "o-label" })

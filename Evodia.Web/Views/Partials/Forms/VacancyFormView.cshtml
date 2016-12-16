@@ -6,6 +6,7 @@
     var success = TempData["VacancyFormValidationPasses"] != null;
     var error = TempData["VacancyFormValidationFailed"] != null;
     var folderId = TempData["VacancyFormFolderId"];
+    var formLegend = ViewData["legend"] != null ? ViewData["legend"] as string : "";
 }
 
 @if (success)
@@ -29,7 +30,10 @@ else
     {
         @Html.AntiForgeryToken()
         <fieldset class="o-form__fieldset c-cv-upload">
-            <legend class="o-legend u-hide-text">CV upload form</legend>
+            @if (!string.IsNullOrWhiteSpace(formLegend))
+            {
+                <legend class="o-legend u-beta u-highlight-text u-space-bottom--small u-strong">@formLegend</legend>
+            }
             <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextBoxFor(x => x.ContactName, new {@class = "o-input", required = "required"})
                 @Html.LabelFor(x => x.ContactName, new { @class = "o-label" })

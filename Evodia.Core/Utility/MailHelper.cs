@@ -4,17 +4,75 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using Umbraco.Web;
 using System.Reflection;
 using System.Text;
+using Evodia.Core.Models;
 using Umbraco.Core.Models;
 
 namespace Evodia.Core.Utility
 {
     public class MailHelper
     {
+        internal void CreateAndSendConsultantNotifications(JobCvForm model, IPublishedContent formFolder, IPublishedContent jobPage)
+        {
+            var hasConsultants = jobPage.HasValue("consultants");
+
+            if (!hasConsultants)
+            {
+                CreateAndSendNotifications(model, formFolder);
+
+                return;
+            }
+
+            var consultants = jobPage.GetPropertyValue<IEnumerable<IPublishedContent>>("consultants");
+
+            if (consultants == null || !consultants.Any(x => x.HasValue("emailAddress")))
+            {
+                CreateAndSendNotifications(model, formFolder);
+
+                return;
+            }
+
+            var consultantEmailAddresses = new List<MailAddress>();
+
+            foreach (var publishedContent in consultants)
+            {
+                if (publishedContent.HasValue("emailAddress"))
+                {
+                    var emailAddress = publishedContent.GetPropertyValue<string>("emailAddress");
+
+                    if (IsValidEmail(emailAddress))
+                    {
+                        consultantEmailAddresses.Add(new MailAddress(emailAddress));
+                    }
+                }
+            }
+
+            if (!consultantEmailAddresses.Any())
+            {
+                CreateAndSendNotifications(model, formFolder);
+
+                return;
+            }
+
+            var emailTemplate = LoadEmailTemplate("EmailTemplate");
+            var emailBody = GenerateMessageFromModel(model, formFolder);
+            var finishedEmail = emailTemplate.Replace("{{Content}}", emailBody);
+
+            foreach (var consultantEmailAddress in consultantEmailAddresses)
+            {
+                var mailMessage = CreateConsultantEmailNotification(jobPage, finishedEmail, formFolder, consultantEmailAddress);
+
+                SendMailMessage(mailMessage);
+            }
+
+            CreateAndSendNotifications(model, formFolder);
+        }
+
         internal void CreateAndSendNotifications(object model, IPublishedContent formFolder)
         {
             var emailTemplate = LoadEmailTemplate("EmailTemplate");
@@ -52,6 +110,54 @@ namespace Evodia.Core.Utility
             }
         }
 
+        private MailMessage CreateConsultantEmailNotification(IPublishedContent jobPage, string emailBody, IPublishedContent formFolder,
+            MailAddress contactAddress)
+        {
+            var jobTitle = jobPage.HasValue("clientJobTitle")
+                ? jobPage.GetPropertyValue<string>("clientJobTitle")
+                : jobPage.Name;
+
+            var jobRerefence = jobPage.GetPropertyValue<string>("jobReference");
+            var emailSubject = "Job CV for: " + jobTitle + " " + jobRerefence;
+            var fromAddress = formFolder.HasValue("fromAddress")
+                ? formFolder.GetPropertyValue<string>("fromAddress")
+                : "noreply@" + HttpContext.Current.Request.Url.Host;
+            var senderName = formFolder.GetPropertyValue<string>("senderName");
+            //var emailCcAddresses = formFolder.GetPropertyValue<string>("internalNotificationCc");
+            //var internalNotificationAddress = formFolder.GetPropertyValue<string>("internalNotificationAddress");
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(fromAddress, senderName),
+                Subject = emailSubject,
+                Body = emailBody,
+                IsBodyHtml = true,
+                To =
+                {
+                    contactAddress
+                }
+            };
+
+            //if (!string.IsNullOrWhiteSpace(internalNotificationAddress))
+            //{
+            //    if (IsValidEmail(internalNotificationAddress))
+            //    {
+            //        mailMessage.CC.Add(internalNotificationAddress);
+            //    }
+            //}
+
+            //if (string.IsNullOrEmpty(emailCcAddresses)) return mailMessage;
+
+            //foreach (var emailAddress in emailCcAddresses.Split(','))
+            //{
+            //    if (IsValidEmail(emailAddress))
+            //    {
+            //        mailMessage.CC.Add(emailAddress);
+            //    }
+            //}
+
+            return mailMessage;
+        }
+
         private MailMessage CreateInternalMailMessage(string emailBody, IPublishedContent formFolder, string contactAddress)
         {
             var fromAddress = formFolder.HasValue("fromAddress")
@@ -86,7 +192,7 @@ namespace Evodia.Core.Utility
             return mailMessage;
         }
 
-        private static string GenerateMessageFromModel(object model, IPublishedContent formFolder)
+        private static string GenerateMessageFromModel(object model, IPublishedContent formFolder = null)
         {
             var emailBody = new StringBuilder();
 

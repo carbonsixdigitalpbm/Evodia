@@ -39,6 +39,10 @@
 	color: $pri;
 }
 
+.u-valign--middle {
+	vertical-align: middle;
+}
+
 .u-space-top {
 	margin-top: $line-height;
 }
@@ -48,7 +52,11 @@
 }
 
 .u-space-bottom {
-	margin-bottom: $line-height
+	margin-bottom: $line-height;
+}
+
+.u-space-bottom--small {
+	margin-bottom: $line-height / 2;
 }
 
 .u-space-bottom--large {

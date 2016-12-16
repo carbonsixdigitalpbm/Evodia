@@ -14,7 +14,7 @@ namespace Evodia.Core.Controllers
 
         private readonly FileHelper _fileHelper = new FileHelper();
 
-        public ActionResult RenderJobCvForm(int jobId)
+        public ActionResult RenderJobCvForm(int jobId, string legend = "")
         {
             var jobPage = Umbraco.TypedContent(jobId);
 
@@ -27,8 +27,14 @@ namespace Evodia.Core.Controllers
 
             if (jobPage != null)
             {
+                jobCvForm.JobPageId = jobPage.Id;
                 jobCvForm.JobTitle = jobPage.HasValue("clientJobTitle") ? jobPage.GetPropertyValue<string>("clientJobTitle") : jobPage.Name;
                 jobCvForm.JobReference = jobPage.HasValue("jobReference") ? jobPage.GetPropertyValue<string>("jobReference") : "Not specified";
+            }
+
+            if (!string.IsNullOrWhiteSpace(legend))
+            {
+                ViewData["legend"] = legend;
             }
 
             return PartialView("~/Views/Partials/Forms/JobCvFormView.cshtml", jobCvForm);
@@ -86,18 +92,27 @@ namespace Evodia.Core.Controllers
             }
         }
 
-        private void SendEmailNotifications(object model)
+        private void SendEmailNotifications(JobCvForm model)
         {
             var formFolder = Umbraco.TypedContent(Constants.JobCvFormFolderId);
+            var jobPage = Umbraco.TypedContent(model.JobPageId);
 
             if (formFolder != null)
             {
-                _mailHelper.CreateAndSendNotifications(model, formFolder);
+                //_mailHelper.CreateAndSendNotifications(model, formFolder);
+
+                if (jobPage != null)
+                {
+                    _mailHelper.CreateAndSendConsultantNotifications(model, formFolder, jobPage);
+                }
+
             }
             else
             {
                 LogHelper.Warn(GetType(), "Couldn't get the form folder with the id: " + Constants.ContactFormForlderId);
             }
+
+
         }
     }
 }
