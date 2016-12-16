@@ -12,8 +12,13 @@ namespace Evodia.Core.Controllers
     {
         private readonly MailHelper _mailHelper = new MailHelper();
 
-        public ActionResult RenderContactForm()
+        public ActionResult RenderContactForm(string legend = "")
         {
+            if (!string.IsNullOrWhiteSpace(legend))
+            {
+                ViewData["legend"] = legend;
+            }
+
             return PartialView("~/Views/Partials/Forms/ContactFormView.cshtml", new ContactForm());
         }
 

@@ -12,13 +12,18 @@ namespace Evodia.Core.Controllers
     {
         private readonly MailHelper _mailHelper = new MailHelper();
 
-        public ActionResult RenderFeedbackSurvey()
+        public ActionResult RenderFeedbackSurvey(string legend)
         {
             var feedbackSurvey = new FeedbackSurvey
             {
                 //Name = "Paulius",
                 //Email = "paulius@tgdh.co.uk"
             };
+
+            if (!string.IsNullOrWhiteSpace(legend))
+            {
+                ViewData["legend"] = legend;
+            }
 
             return PartialView("~/Views/Partials/Forms/FeedbackSurveyView.cshtml", feedbackSurvey);
         }

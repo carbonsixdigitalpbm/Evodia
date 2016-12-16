@@ -3,7 +3,7 @@
 @{
     var wrapSize = ViewData["wrapSize"];
     var formName = Model.GetPropertyValue<string>("form");
-
+    var legend = Model.GetPropertyValue<string>("legend");
 }
 
 @if (!string.IsNullOrWhiteSpace(formName))
@@ -12,25 +12,20 @@
         @switch (formName)
         {
             case "Contact form":
-                @Html.Action("RenderContactForm", "ContactForm")
+                @Html.Action("RenderContactForm", "ContactForm", new { legend = legend })
                 break;
             case "Generic CV":
-                @Html.Action("RenderGenericCvForm", "GenericCvForm")
+                @Html.Action("RenderGenericCvForm", "GenericCvForm", new { legend = legend })
                 break;
             case "Vacancy form":
-                @Html.Action("RenderVacancyForm", "VacancyForm")
+                @Html.Action("RenderVacancyForm", "VacancyForm", new { legend = legend })
                 break;
-            case "Job CV upload":
+            @*case "Job CV upload":
                 @Html.Action("RenderJobCvForm", "JobCv")
-                break;
+                break;*@
             case "Feedback survey":
-                @Html.Action("RenderFeedbackSurvey", "FeedbackSurvey")
+                @Html.Action("RenderFeedbackSurvey", "FeedbackSurvey", new { legend = legend })
                 break;
         }
     </div>
 }
-
-
-
-
-

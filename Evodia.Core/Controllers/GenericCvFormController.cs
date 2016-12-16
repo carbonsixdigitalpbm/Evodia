@@ -15,7 +15,7 @@ namespace Evodia.Core.Controllers
 
         private readonly FileHelper _fileHelper = new FileHelper();
 
-        public ActionResult RenderGenericCvForm()
+        public ActionResult RenderGenericCvForm(string legend)
         {
             var genericCvForm = new GenericCvForm
             {
@@ -38,6 +38,11 @@ namespace Evodia.Core.Controllers
                     }
                 }
             };
+
+            if (!string.IsNullOrWhiteSpace(legend))
+            {
+                ViewData["legend"] = legend;
+            }
 
             return PartialView("~/Views/Partials/Forms/GenericCvFormView.cshtml", genericCvForm);
         }
