@@ -8,6 +8,9 @@ namespace Evodia.Voyager.Domain.VoyagerObjects
         [XmlElement(ElementName = "Vacancy")]
         public Vacancy Vacancy { get; set; }
 
+        [XmlElement(ElementName = "Consultant")]
+        public Consultant Consultant { get; set; }
+
         [XmlElement(ElementName = "Consultants")]
         public Consultants Consultants { get; set; }
     }

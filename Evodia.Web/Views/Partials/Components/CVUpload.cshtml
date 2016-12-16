@@ -17,12 +17,12 @@
 @if (isModal)
 {
     <section id="apply" class="c-cv-form white-popup mfp-with-anim mfp-hide">
-        @Html.Action("RenderJobCvForm", "JobCv")
+        @Html.Action("RenderJobCvForm", "JobCv", new { jobId = Model.Id })
     </section>
 }
 else
 {
     <section id="apply" class="c-cv-form">
-        @Html.Action("RenderJobCvForm", "JobCv")
+        @Html.Action("RenderJobCvForm", "JobCv", new { jobId = Model.Id })
     </section>
 }

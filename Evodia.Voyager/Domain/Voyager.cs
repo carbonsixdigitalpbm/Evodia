@@ -332,12 +332,35 @@ namespace Evodia.Voyager.Domain
                 }
             }
 
+            var consultant = vacancyPosting.Consultant;
             var consultants = vacancyPosting.Consultants;
+
+            var combinedConsultants = new Consultants
+            {
+                Consultant = new List<Consultant>()
+            };
+
+            if (consultant != null)
+            {
+                combinedConsultants.Consultant.Add(consultant);
+                
+            }
 
             if (consultants != null)
             {
-                SetNestedContentConsultants(newNode, "consultants", consultants);
+                if (consultants.Consultant != null)
+                {
+                    foreach (var c in consultants.Consultant)
+                    {
+                        if (combinedConsultants.Consultant.All(x => x.EmailAddress != c.EmailAddress))
+                        {
+                            combinedConsultants.Consultant.Add(c);
+                        }
+                    }
+                }
             }
+
+            SetNestedContentConsultants(newNode, "consultants", combinedConsultants);
         }
 
         private static void SetNestedContentConsultants(IContent newNode, string propertyAlias, Consultants consultants)

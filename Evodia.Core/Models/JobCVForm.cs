@@ -6,6 +6,12 @@ namespace Evodia.Core.Models
 {
     public class JobCvForm
     {
+        [DisplayName("Job title")]
+        public string JobTitle { get; set; }
+
+        [DisplayName("Job reference")]
+        public string JobReference { get; set; }
+
         [DisplayName("First name")]
         [Required(ErrorMessage = "Please enter your first name")]
         public string FirstName { get; set; }

@@ -28,6 +28,8 @@ else
     using (Html.BeginUmbracoForm<JobCvController>("ProcessJobCvFormSubmission", FormMethod.Post, new { id = "vacancy-form", @class = "c-form js-form" }))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.JobTitle)
+        @Html.HiddenFor(x => x.JobReference)
         <fieldset class="o-form__fieldset c-cv-upload">
             <legend class="o-legend u-hide-text">CV upload form</legend>
             <div class="o-form__field o-form__field--compact is-required">

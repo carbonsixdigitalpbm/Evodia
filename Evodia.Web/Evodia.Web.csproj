@@ -432,6 +432,7 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\Voyager.js" />
     <Content Include="Scripts\validate.js" />
     <Content Include="Media\Web.config" />

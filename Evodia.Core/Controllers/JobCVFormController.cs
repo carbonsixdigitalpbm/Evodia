@@ -14,14 +14,22 @@ namespace Evodia.Core.Controllers
 
         private readonly FileHelper _fileHelper = new FileHelper();
 
-        public ActionResult RenderJobCvForm()
+        public ActionResult RenderJobCvForm(int jobId)
         {
+            var jobPage = Umbraco.TypedContent(jobId);
+
             var jobCvForm = new JobCvForm
             {
                 //FirstName = "Paulius",
                 //SecondName = "Putna",
                 //Email = "paulius@tgdh.co.uk"
             };
+
+            if (jobPage != null)
+            {
+                jobCvForm.JobTitle = jobPage.HasValue("clientJobTitle") ? jobPage.GetPropertyValue<string>("clientJobTitle") : jobPage.Name;
+                jobCvForm.JobReference = jobPage.HasValue("jobReference") ? jobPage.GetPropertyValue<string>("jobReference") : "Not specified";
+            }
 
             return PartialView("~/Views/Partials/Forms/JobCvFormView.cshtml", jobCvForm);
         }
