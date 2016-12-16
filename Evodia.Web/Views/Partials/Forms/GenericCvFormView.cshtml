@@ -16,7 +16,9 @@
         var folder = Umbraco.TypedContent(folderId);
         var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
 
-        @message
+		<div class="c-alert c-alert--success c-alert--fixed o-wrap--medium">
+            @message
+        </div>
     }
 }
 else
@@ -25,7 +27,7 @@ else
     {
         @Html.ValidationSummary()
     }
-    
+
     using (Html.BeginUmbracoForm<GenericCvFormController>("ProcessGenericCvFormSubmission", FormMethod.Post, new {id = "generic-cv-form", @class = "c-form js-form"}))
     {
         @Html.AntiForgeryToken()

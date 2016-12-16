@@ -28,6 +28,23 @@
 	}
 }
 
+.c-alert--success,
+.c-alert--error,
+.c-alert--info {
+
+	a,
+	h1,
+	h2,
+	h3,
+	h4 {
+		color: inherit;
+	}
+
+	a {
+		font-weight: $bold;
+	}
+}
+
 .c-alert--success {
 	background-color: $success;
 }
@@ -38,4 +55,42 @@
 
 .c-alert--info {
 	background-color: $pri;
+}
+
+.c-alert--fixed {
+	margin: auto;
+	z-index: 12;
+	text-align: center;
+	padding: 2rem;
+	border-radius: $border-radius;
+	position: fixed;
+	top: 4rem;
+	right: 0;
+	left: 0;
+	opacity: .9;
+	animation-duration: .3s;
+	animation-fill-mode: both;
+//	animation-name: fadeOut;
+	animation-delay: 20s;
+
+	p {
+		padding-bottom: 0;
+	}
+}
+
+@include respond-max( $mq-large ) {
+
+	.c-alert--fixed {
+		left: 1.5rem;
+		right: 1.5rem;
+	}
+
+}
+
+@include respond-min( $mq-large ) {
+
+	.c-alert--fixed {
+		top: 12rem;
+	}
+
 }
