@@ -14,7 +14,7 @@ namespace Evodia.Core.Controllers
 
         private readonly FileHelper _fileHelper = new FileHelper();
 
-        public ActionResult RenderVacancyForm()
+        public ActionResult RenderVacancyForm(string legend)
         {
             var vacancyForm = new VacancyForm
             {
@@ -27,6 +27,11 @@ namespace Evodia.Core.Controllers
                 //SalaryRates = "Over 9000",
                 //Location = "Hampshire"
             };
+
+            if (!string.IsNullOrWhiteSpace(legend))
+            {
+                ViewData["legend"] = legend;
+            }
 
             return PartialView("~/Views/Partials/Forms/VacancyFormView.cshtml", vacancyForm);
         }
