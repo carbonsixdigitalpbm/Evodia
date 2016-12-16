@@ -115,10 +115,10 @@ namespace Evodia.Core.Utility
                             switch (formFolder.Id)
                             {
                                 case Constants.GenericCvFormFolderId:
-                                    linkPrefix = "Generic CV";
+                                    linkPrefix = "Generic_CV";
                                     break;
                                 case Constants.JobCvFormFolderId:
-                                    linkPrefix = "Job CV";
+                                    linkPrefix = "Job_CV";
                                     break;
                                 case Constants.VacancyFormFolderId:
                                     linkPrefix = "Vacancies";
@@ -127,7 +127,7 @@ namespace Evodia.Core.Utility
 
                             link = link + linkPrefix;
 
-                            emailBody.Append("<p><strong>Attachment: </strong><a href='" + link + "'>Get the file</a>" + "</p>");
+                            emailBody.Append("<p><strong>Attachment: </strong><a href='" + link + "'>" + link + "</a>" + "</p>");
                         }
                     }
                 }

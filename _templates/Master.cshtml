@@ -15,6 +15,13 @@
 	if( docType != "contact" && docType != "generalNews" && docType != "jobs" && docType != "job" ) {
 		pageScope = pageScope + " s-has-hero";
 	}
+
+    var secureUrl = "https://" +  Request.Url.Host.ToString() + Request.RawUrl.ToString();
+
+    if( !Request.IsSecureConnection )
+    {
+        @* Response.Redirect(secureUrl); *@
+    }
 }
 <!doctype html>
 <html lang="en" class="no-enhance @pageScope">
