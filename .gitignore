@@ -303,9 +303,5 @@ __pycache__/
 # connectionStrings
 Evodia.Web/Config/connectionStrings.config
 /Evodia.Web/Voyager/*.xml
-Evodia.Web/Views/Master.cshtml
 **/Evodia.Web/bin/
-Evodia.Web/Views/Master.cshtml
 **_assemblies/
-Evodia.Web/Views/Master.cshtml
-Evodia.Web/Views/Master.cshtml

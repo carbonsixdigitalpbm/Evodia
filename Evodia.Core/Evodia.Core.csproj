@@ -94,7 +94,7 @@
     <Compile Include="Controllers\GenericCvFormController.cs" />
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="Controllers\JobCvFormController.cs" />
-    <Compile Include="Evodia\Core\Utility\AttachmentAttribute.cs" />
+    <Compile Include="Utility\AttachmentAttribute.cs" />
     <Compile Include="ExtensionMethods\DateExtentions.cs" />
     <Compile Include="ExtensionMethods\IntExtentions.cs" />
     <Compile Include="ExtensionMethods\PublishedContentExtensions.cs" />

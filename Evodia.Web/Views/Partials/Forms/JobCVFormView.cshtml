@@ -54,7 +54,7 @@ else
                 @Html.ValidationMessageFor(x => x.Email)
             </div>
             <div class="o-form__field o-form__field--file">
-                @Html.LabelFor(x => x.CvAttachment, new { @class = "o-label" })
+                @Html.LabelFor(x => x.Attachment, new { @class = "o-label" })
                 <img class="c-cv-upload__cloud" src="/assets/img/upload.png" alt="">
                 <span class="u-delta c-cv-upload__text">
                     <span class="c-cv-upload__label">Drag and drop CV here</span><br>
@@ -62,9 +62,9 @@ else
                 </span>
                 <div class="c-button c-button--secondary c-cv-upload__upload-field is-required">
                     BROWSE
-                    @Html.TextBoxFor(x => x.CvAttachment, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
+                    @Html.TextBoxFor(x => x.Attachment, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
                 </div>
-                @Html.ValidationMessageFor(x => x.CvAttachment)
+                @Html.ValidationMessageFor(x => x.Attachment)
             </div>
             <div class="o-form__field o-form__field--submit u-content--right">
                 <button type="submit" class="c-button c-button--primary">Submit</button>

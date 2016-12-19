@@ -63,7 +63,7 @@ namespace Evodia.Core.Controllers
                 ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " " + model.JobReference + " - " + DateTime.Now.ToString("F")
             };
 
-            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.CvAttachment);
+            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
 
             if (Umbraco.TypedContent(Constants.JobCvFormFolderId).HasValue("redirectPage"))
             {

@@ -29,8 +29,8 @@ namespace Evodia.Core.Models
         public string Email { get; set; }
 
         [DisplayName("CV attachment")]
-        [Required(ErrorMessage = "Please attach your CV")]
+        [Required(ErrorMessage = "Please attach your file")]
         [Utility.Attachment]
-        public HttpPostedFileBase CvAttachment { get; set; }
+        public HttpPostedFileBase Attachment { get; set; }
     }
 }

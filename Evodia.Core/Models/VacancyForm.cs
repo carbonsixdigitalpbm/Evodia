@@ -36,8 +36,8 @@ namespace Evodia.Core.Models
         public string BriefJobDescription { get; set; }
 
         [DisplayName("Jobs specs")]
-        [Required(ErrorMessage = "Please attach your job specs ")]
+        [Required(ErrorMessage = "Please attach your file")]
         [Utility.Attachment]
-        public HttpPostedFileBase JobsSpecs { get; set; }
+        public HttpPostedFileBase Attachment { get; set; }
     }
 }

@@ -39,9 +39,14 @@
                 "Evodia.Web/Properties",
                 "Evodia.Web/Umbraco_Client",
                 "Evodia.Web/UserControls",
+                "Evodia.Web/Views/Master.cshtml",
                 "Evodia.Web/Xslt"
             ],
             "path": "."
         }
-    ]
+    ],
+    "settings":
+    {
+        "tab_size": 4
+    }
 }

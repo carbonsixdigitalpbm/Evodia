@@ -70,7 +70,7 @@ namespace Evodia.Core.Controllers
                 ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " - " + DateTime.Now.ToString("F")
             };
 
-            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.CvAttachment);
+            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
 
             if (Umbraco.TypedContent(Constants.GenericCvFormFolderId).HasValue("redirectPage"))
             {

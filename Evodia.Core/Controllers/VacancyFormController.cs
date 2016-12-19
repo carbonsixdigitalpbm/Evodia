@@ -59,7 +59,7 @@ namespace Evodia.Core.Controllers
                 ParentFolderName = model.ContactName.MakeValidFileName() + " - " + DateTime.Now.ToString("F")
             };
 
-            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.JobsSpecs);
+            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
 
             if (Umbraco.TypedContent(Constants.VacancyFormFolderId).HasValue("redirectPage"))
             {

@@ -21,13 +21,16 @@ var headScripts = [
 ];
 
 var mainScripts = [
+    paths.assetsFolder + '/_components/jquery-validation/dist/jquery.validate.js',
+    paths.assetsFolder + '/_components/jquery-validation/dist/additional-methods.js',
+    paths.assetsFolder + '/_components/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js',
     paths.assetsFolder + '/_components/slick-carousel/slick/slick.js',
-	paths.assetsFolder + '/_components/Snap.svg/dist/snap.svg.js',
+    paths.assetsFolder + '/_components/Snap.svg/dist/snap.svg.js',
     paths.assetsFolder + '/_components/magnific-popup/dist/jquery.magnific-popup.js',
     paths.assetsFolder + '/_components/onMediaQuery/js/onmediaquery.js',
     paths.assetsFolder + '/_components/jquery.cssAnimateAuto/dist/jquery.cssAnimateAuto.js',
     paths.assetsFolder + '/_components/jquery-selectric/public/jquery.selectric.js',
-	paths.assetsFolder + '/js/components/*.js',
+    paths.assetsFolder + '/js/components/*.js',
     paths.assetsFolder + '/js/main.js'
 ];
 
@@ -68,70 +71,76 @@ var AUTOPREFIXER_BROWSERS = [
 =========================================================== */
 
 // CSS
-gulp.task( 'css', function() {
-    return gulp.src( paths.assetsFolder + '/sass/*.scss' )
-        .pipe( $.newer('.tmp/styles') )
-        .pipe( $.sourcemaps.init() )
-        .pipe( $.sass({
+gulp.task('css', function() {
+    return gulp.src(paths.assetsFolder + '/sass/*.scss')
+        .pipe($.newer('.tmp/styles'))
+        .pipe($.sourcemaps.init())
+        .pipe($.sass({
             precision: 10
         }).on('error', $.sass.logError))
-        .pipe( $.autoprefixer( AUTOPREFIXER_BROWSERS ) )
-        .pipe( gulp.dest('.tmp/styles') )
-        .pipe( $.if( isProduction, $.combineMq({ beautify: false }) ) )
-        .pipe( $.if( isProduction, $.cssnano() ) )
-//        .pipe( $.size({ title: '[CSS]' }) )
-        .pipe( $.sourcemaps.write( './' ) )
-        .pipe( $.if( isProduction, cachebust.resources() ) )
-        .pipe( gulp.dest( paths.assetsBuildFolder + '/css' ) );
-//        .pipe( $.notify({ message: 'CSS: <%= file.relative %>' }) );
+        .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+        .pipe(gulp.dest('.tmp/styles'))
+        .pipe($.if(isProduction, $.combineMq({
+            beautify: false
+        })))
+        .pipe($.if(isProduction, $.cssnano()))
+        //        .pipe( $.size({ title: '[CSS]' }) )
+        .pipe($.sourcemaps.write('./'))
+        .pipe($.if(isProduction, cachebust.resources()))
+        .pipe(gulp.dest(paths.assetsBuildFolder + '/css'));
+    //        .pipe( $.notify({ message: 'CSS: <%= file.relative %>' }) );
 });
 
 // JS
 gulp.task('js', function() {
-    var head = gulp.src( headScripts )
-        .pipe( $.newer('.tmp/scripts') )
-        .pipe( gulp.dest('.tmp/scripts') )
-        .pipe( $.concat('head.js') )
-        .pipe( $.if( isProduction, $.uglify({preserveComments: 'some'}) ) )
-//        .pipe( $.size({title: '[Head JS]'}) )
-        .pipe( $.if( isProduction, cachebust.resources() ) )
-        .pipe( gulp.dest( paths.assetsBuildFolder + '/js') );
-//        .pipe( $.notify({ message: 'JS: <%= file.relative %>' }) );
+    var head = gulp.src(headScripts)
+        .pipe($.newer('.tmp/scripts'))
+        .pipe(gulp.dest('.tmp/scripts'))
+        .pipe($.concat('head.js'))
+        .pipe($.if(isProduction, $.uglify({
+            preserveComments: 'some'
+        })))
+        //        .pipe( $.size({title: '[Head JS]'}) )
+        .pipe($.if(isProduction, cachebust.resources()))
+        .pipe(gulp.dest(paths.assetsBuildFolder + '/js'));
+    //        .pipe( $.notify({ message: 'JS: <%= file.relative %>' }) );
 
-    var main = gulp.src( mainScripts )
-//        .pipe( $.newer('.tmp/scripts') )
-        .pipe( $.sourcemaps.init() )
-        .pipe( $.sourcemaps.write() )
-        .pipe( $.jshint('.jshintrc') )
-        .pipe( $.jshint.reporter('default') )
-//        .pipe( gulp.dest('.tmp/scripts') )
-        .pipe( $.concat('main.js') )
-        .pipe( $.if( isProduction, $.uglify({preserveComments: 'some'}) ) )
-//        .pipe( $.size({title: '[Main JS]'}) )
-        .pipe( $.sourcemaps.write('.') )
-        .pipe( $.if( isProduction, cachebust.resources() ) )
-        .pipe( gulp.dest( paths.assetsBuildFolder + '/js' ) );
-//        .pipe( $.notify({ message: 'JS: <%= file.relative %>' }) );
+    var main = gulp.src(mainScripts)
+        //        .pipe( $.newer('.tmp/scripts') )
+        .pipe($.sourcemaps.init())
+        .pipe($.sourcemaps.write())
+        .pipe($.jshint('.jshintrc'))
+        .pipe($.jshint.reporter('default'))
+        //        .pipe( gulp.dest('.tmp/scripts') )
+        .pipe($.concat('main.js'))
+        .pipe($.if(isProduction, $.uglify({
+            preserveComments: 'some'
+        })))
+        //        .pipe( $.size({title: '[Main JS]'}) )
+        .pipe($.sourcemaps.write('.'))
+        .pipe($.if(isProduction, cachebust.resources()))
+        .pipe(gulp.dest(paths.assetsBuildFolder + '/js'));
+    //        .pipe( $.notify({ message: 'JS: <%= file.relative %>' }) );
 
-    return merge( head, main );
+    return merge(head, main);
 });
 
 // modernizr
-gulp.task('modernizr', function(){
+gulp.task('modernizr', function() {
     return gulp.src([
-        '!' + paths.assetsFolder + '/js/lib/modernizr.js',
-        paths.assetsFolder + '/js/**/*.js',
-        paths.assetsFolder + '/sass/**/*.scss'
-    ])
-    .pipe( $.modernizr({
-        'options': ['setClasses']
-    }) )
-    .pipe( gulp.dest( paths.assetsFolder + '/js/lib') );
+            '!' + paths.assetsFolder + '/js/lib/modernizr.js',
+            paths.assetsFolder + '/js/**/*.js',
+            paths.assetsFolder + '/sass/**/*.scss'
+        ])
+        .pipe($.modernizr({
+            'options': ['setClasses']
+        }))
+        .pipe(gulp.dest(paths.assetsFolder + '/js/lib'));
 });
 
 // IE
-gulp.task( 'ie', function() {
-    return gulp.src( '.tmp/styles/ie.css' )
+gulp.task('ie', function() {
+    return gulp.src('.tmp/styles/ie.css')
         .pipe(
             postcss([
                 require('postcss-unmq')({
@@ -140,37 +149,39 @@ gulp.task( 'ie', function() {
                 })
             ])
         )
-        .pipe( $.pixrem({
+        .pipe($.pixrem({
             rootValue: '62.5%',
             replace: true
-        }) )
-        .pipe( gulp.dest( paths.assetsBuildFolder + '/css/' ) );
-//        .pipe( $.notify({ message: 'CSS: <%= file.relative %>' }) );
+        }))
+        .pipe(gulp.dest(paths.assetsBuildFolder + '/css/'));
+    //        .pipe( $.notify({ message: 'CSS: <%= file.relative %>' }) );
 });
 
 // Optimize images
 gulp.task('images', function() {
-    return gulp.src( paths.assetsFolder + '/img/**/*')
-        .pipe( $.cache( $.imagemin({
+    return gulp.src(paths.assetsFolder + '/img/**/*')
+        .pipe($.cache($.imagemin({
             progressive: true,
             interlaced: true
         })))
-        .pipe( gulp.dest( paths.assetsBuildFolder + '/img') )
-        .pipe( $.size({title: 'images'}) );
-//        .pipe( $.notify({ message: 'images task complete' }) );
+        .pipe(gulp.dest(paths.assetsBuildFolder + '/img'))
+        .pipe($.size({
+            title: 'images'
+        }));
+    //        .pipe( $.notify({ message: 'images task complete' }) );
 });
 
 // Copy fonts
 gulp.task('copyfonts', function() {
-    gulp.src( paths.assetsFolder + '/fonts/**/*')
-    .pipe( $.newer('.tmp/fonts') )
-    .pipe( gulp.dest('.tmp/fonts') )
-    .pipe( gulp.dest( paths.assetsBuildFolder + '/fonts') );
+    gulp.src(paths.assetsFolder + '/fonts/**/*')
+        .pipe($.newer('.tmp/fonts'))
+        .pipe(gulp.dest('.tmp/fonts'))
+        .pipe(gulp.dest(paths.assetsBuildFolder + '/fonts'));
 });
 
 // Clear the image cache to force reoptims
-gulp.task('clearCache', function (done) {
-  return $.cache.clearAll(done);
+gulp.task('clearCache', function(done) {
+    return $.cache.clearAll(done);
 });
 
 // Clean directories
@@ -185,22 +196,22 @@ gulp.task('clean', function() {
 });
 
 // Watch task
-gulp.task( 'watch', function() {
-    gulp.watch( paths.assetsFolder + '/sass/**/*.scss', [ 'css' ] );
-    gulp.watch( paths.assetsFolder + '/js/**/*.js', [ 'js' ] );
-    gulp.watch( paths.assetsFolder + '/images/**/*', ['images'] );
-} );
+gulp.task('watch', function() {
+    gulp.watch(paths.assetsFolder + '/sass/**/*.scss', ['css']);
+    gulp.watch(paths.assetsFolder + '/js/**/*.js', ['js']);
+    gulp.watch(paths.assetsFolder + '/images/**/*', ['images']);
+});
 
 
 // Copy master template with correct asset references
-gulp.task('refAssets', ['css','js'], function() {
-    return gulp.src( paths.templates + '/Master.cshtml')
-        .pipe( $.if( isProduction, cachebust.references() ) )
-        .pipe( gulp.dest( paths.siteFolder + '/Views' ) );
+gulp.task('refAssets', ['css', 'js'], function() {
+    return gulp.src(paths.templates + '/Master.cshtml')
+        .pipe($.if(isProduction, cachebust.references()))
+        .pipe(gulp.dest(paths.siteFolder + '/Views'));
 });
 
 // gulp dev
-gulp.task('dev', ['clean','modernizr'], function() {
+gulp.task('dev', ['clean', 'modernizr'], function() {
     isProduction = false;
     gulp.start('refAssets', 'images', 'watch', 'copyfonts');
 });

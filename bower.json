@@ -12,5 +12,9 @@
     "jquery.cssAnimateAuto": "^0.4.0",
     "jquery-selectric": "https://github.com/lcdsantos/jQuery-Selectric.git#^1.10.1",
     "Snap.svg": "snap.svg#^0.4.1"
+  },
+  "devDependencies": {
+    "jquery-validation": "https://github.com/jzaefferer/jquery-validation.git#^1.16.0",
+    "jquery-validation-unobtrusive": "https://github.com/aspnet/jquery-validation-unobtrusive.git#^3.2.6"
   }
 }
