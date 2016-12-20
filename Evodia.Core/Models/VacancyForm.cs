@@ -27,12 +27,14 @@ namespace Evodia.Core.Models
         public string JobTitle { get; set; }
 
         [DisplayName("Salary/Rates")]
+        [Required(ErrorMessage = "Please enter your desired salary/rates")]
         public string SalaryRates { get; set; }
 
         [DisplayName("Location")]
+        [Required(ErrorMessage = "Please enter job location")]
         public string Location { get; set; }
 
-        [DisplayName("Brief job description")]
+        [DisplayName("How we can help?")]
         public string BriefJobDescription { get; set; }
 
         [DisplayName("Jobs specs")]

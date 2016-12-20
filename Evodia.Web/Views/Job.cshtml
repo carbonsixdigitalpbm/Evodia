@@ -15,7 +15,6 @@
     var endDate = Model.GetPropertyValue<string>("endDate");
     var displayTo = Model.GetPropertyValue<string>("displayTo");
     var securityClearance = Model.GetPropertyValue<string>("class3");
-
     var emailPageLink = "mailto:?subject=" + Model.Name + " :Job vacancy" + "&body=" + Request.Url;
 
     var formSettings = Umbraco.TypedContent(1353);
@@ -47,8 +46,8 @@
 	                @if (!string.IsNullOrEmpty(salary))
 	                {
 	                    <li class="o-list__item">
-	                        <strong>Salary: </strong>
-	                        £@salary per @salaryPer
+	                        <strong>Remuneration: </strong>
+	                        &pound;@salary per @salaryPer
 	                    </li>
 	                }
 	                @if (!string.IsNullOrEmpty(location))
