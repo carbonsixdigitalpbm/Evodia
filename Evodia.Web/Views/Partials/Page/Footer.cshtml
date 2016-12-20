@@ -25,8 +25,15 @@
 			</div>
 		</div>
 		<div class="c-footer__sub">
-			<p class="c-footer__copyright">@(settings.GetPropertyValue<string>("copyrightDisclaimer"))</p>
-			@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
+			<div class="o-col--two-one">
+				<div class="o-col o-col--first u-clearfix">
+					<p class="c-footer__copyright">@(settings.GetPropertyValue<string>("copyrightDisclaimer"))</p>
+					@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
+				</div>
+				<div class="o-col o-col--last c-footer__logos">
+					@Html.Partial("~/Views/Partials/Components/FooterLogos.cshtml")
+				</div>
+			</div>
 		</div>
 	</div>
 </footer>

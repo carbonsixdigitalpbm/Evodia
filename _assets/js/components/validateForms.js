@@ -52,7 +52,7 @@ var ValidateForms = (function($) {
             errorClass: 'is-invalid',
             errorElement: "span",
             errorPlacement: function(error, element) {
-                var $inputWrap = element.closest('.o-form__field')
+                var $inputWrap = element.closest('.o-form__field');
 
                 error.appendTo($inputWrap).addClass('o-validation u-small');
                 $inputWrap.addClass("is-invalid");

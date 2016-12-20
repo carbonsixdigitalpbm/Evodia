@@ -53,6 +53,15 @@
 	padding-top: 2rem;
 }
 
+.c-footer__logos {
+	text-align: center;
+
+	.o-logo {
+		margin: $line-height / 2;
+		display: inline-block;
+	}
+}
+
 @include respond-min( $mq-medium ) {
 
 	.c-footer__copyright,
@@ -70,6 +79,10 @@
 			display: inline;
 		}
 
+	}
+
+	.c-footer__logos.c-footer__logos {
+		text-align: right;
 	}
 
 }
