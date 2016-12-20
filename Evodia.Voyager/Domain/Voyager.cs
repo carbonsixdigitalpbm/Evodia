@@ -25,7 +25,7 @@ namespace Evodia.Voyager.Domain
         private readonly VoyagerApi _api;
 
         private List<SyncFile> _syncFiles;
-         
+
         public Stats Statistics;
 
         public Voyager(IContentService contentService)
@@ -190,7 +190,7 @@ namespace Evodia.Voyager.Domain
                 }
             }
             catch (Exception ex)
-            { 
+            {
                 throw new DuplicateNameException("Erro: " + ex.Message);
             }
         }
@@ -251,15 +251,19 @@ namespace Evodia.Voyager.Domain
 
                 if (startDate != null && startDate.Date != null)
                 {
-                    SetUmbracoProperty(newNode, "startDate", startDate.Date.Day + "/" + startDate.Date.Month + "/" + startDate.Date.Year);
+                    var startDateDayNumber = startDate.Date.Day.Length == 1 ? "0" + startDate.Date.Day : startDate.Date.Day;
+
+                    SetUmbracoProperty(newNode, "startDate", startDateDayNumber + "/" + startDate.Date.Month + "/" + startDate.Date.Year);
                 }
 
                 var endDate = vacancyElement.EndDate;
 
                 if (endDate != null && endDate.Date != null)
                 {
+                    var endDateDayNumber = endDate.Date.Day.Length == 1 ? "0" + endDate.Date.Day : endDate.Date.Day;
+
                     SetUmbracoProperty(newNode, "endDate",
-                        endDate.Date.Day + "/" + endDate.Date.Month + "/" + endDate.Date.Year);
+                        endDateDayNumber + "/" + endDate.Date.Month + "/" + endDate.Date.Year);
                 }
                 else
                 {
@@ -270,7 +274,9 @@ namespace Evodia.Voyager.Domain
 
                 if (displayTo != null && displayTo.Date != null)
                 {
-                    SetUmbracoProperty(newNode, "displayTo", displayTo.Date.Day + "/" + displayTo.Date.Month + "/" + displayTo.Date.Year);
+                    var displayToDayNumber = displayTo.Date.Day.Length == 1 ? "0" + displayTo.Date.Day : displayTo.Date.Day;
+
+                    SetUmbracoProperty(newNode, "displayTo", displayToDayNumber + "/" + displayTo.Date.Month + "/" + displayTo.Date.Year);
                 }
 
                 SetUmbracoProperty(newNode, "jobReference", vacancyElement.JobReference);
@@ -343,7 +349,7 @@ namespace Evodia.Voyager.Domain
             if (consultant != null)
             {
                 combinedConsultants.Consultant.Add(consultant);
-                
+
             }
 
             if (consultants != null)
