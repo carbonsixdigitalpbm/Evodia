@@ -62,6 +62,7 @@
 	.inlinesvg {
 		.c-atoms-canvas {
 			width: 200%;
+			height: 200%;
 			left: -50%;
 			top: -50%;
 
@@ -75,6 +76,7 @@
 	.inlinesvg {
 		.c-atoms-canvas {
 			width: 150%;
+			height: 150%;
 			left: -25%;
 			top: -25%;
 
@@ -89,9 +91,9 @@
 	.inlinesvg {
 		.c-atoms-canvas {
 			width: calc( 100% + 50rem);
+			height: calc( 100% + 50rem);
 			left: -30rem;
 			top: -15rem;
-
 		}
 	}
 
