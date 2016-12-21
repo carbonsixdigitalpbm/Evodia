@@ -15,12 +15,36 @@
 		bottom: 4rem;
 		left: 0;
 		margin: auto;
+	}
 
+}
+
+
+@include respond-max( $mq-small ) {
+
+	.c-carousel--cover {
+		background-color: $pri;
+
+		.c-carousel__item {
+			min-height: 45rem;
+		}
 
 	}
 
 }
 
+@include respond-min-max( $mq-small, $mq-medium ) {
+
+	.c-carousel--cover {
+		background-color: $pri;
+
+		.c-carousel__item {
+			min-height: 34rem;
+		}
+
+	}
+
+}
 
 @include respond-min( $mq-medium ) {
 
