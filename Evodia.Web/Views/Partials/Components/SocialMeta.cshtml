@@ -39,7 +39,7 @@
                   Model.GetPropertyValue<string>("socialMediaImage") :
                   Model.HasValue("coverImage") ?
                   Model.GetPropertyValue<string>("coverImage") :
-                  settings.GetPropertyValue<string>("socialMediaImage");
+                  settings.GetPropertyValue<string>("defaultSocialMediaImage");
 
     if( !string.IsNullOrEmpty(imageId) )
     {
