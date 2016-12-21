@@ -7,7 +7,7 @@
     var jobRef = Model.GetPropertyValue<string>("jobReference");
     var salary = Model.GetPropertyValue<string>("from");
     var salaryPer = Model.GetPropertyValue<string>("period").ToLower();
-    var location = Model.GetPropertyValue<string>("town");
+    var location = Model.GetPropertyValue<string>("class2");
     var jobType = Model.GetPropertyValue<string>("jobType");
     var duration = Model.GetPropertyValue<string>("duration");
     var sector = Model.GetPropertyValue<string>("class1");
@@ -16,6 +16,11 @@
     var displayTo = Model.GetPropertyValue<string>("displayTo");
     var securityClearance = Model.GetPropertyValue<string>("class3");
     var emailPageLink = "mailto:?subject=" + Model.Name + " :Job vacancy" + "&body=" + Request.Url;
+
+	if(jobType == "Permanent")
+	{
+		endDate = "N/A";
+	}
 
     var formSettings = Umbraco.TypedContent(1353);
     var submissionMessage = formSettings.HasValue("submissionMessage") ? formSettings.GetPropertyValue("submissionMessage") : "Thank you";
