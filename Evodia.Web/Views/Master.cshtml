@@ -18,9 +18,9 @@
 
     var secureUrl = "https://" +  Request.Url.Host.ToString() + Request.RawUrl.ToString();
 
-    if( !Request.IsSecureConnection )
+    if(!HttpContext.Current.Request.IsLocal && !Request.IsSecureConnection)
     {
-        @* Response.Redirect(secureUrl); *@
+        Response.Redirect(secureUrl);
     }
 }
 <!doctype html>
@@ -75,7 +75,7 @@
 
         <!--[if gte IE 9]><!-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-            <script src="/assets/js/main.0b7549bf.js"></script>
+            <script src="/assets/js/main.29960502.js"></script>
         <!--<![endif]-->
 
         @if( settings.HasValue("trackingId") ) {

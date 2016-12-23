@@ -18,9 +18,9 @@
 
     var secureUrl = "https://" +  Request.Url.Host.ToString() + Request.RawUrl.ToString();
 
-    if( !Request.IsSecureConnection )
+    if(!HttpContext.Current.Request.IsLocal && !Request.IsSecureConnection)
     {
-        @* Response.Redirect(secureUrl); *@
+        Response.Redirect(secureUrl);
     }
 }
 <!doctype html>
