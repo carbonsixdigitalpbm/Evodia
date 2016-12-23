@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace Evodia.Core.Models
@@ -9,7 +13,7 @@ namespace Evodia.Core.Models
         [DisplayName("Job title")]
         public string JobTitle { get; set; }
 
-        [Browsable(false)]
+        [DoNotInclude]
         public int JobPageId { get; set; }
 
         [DisplayName("Job reference")]
@@ -33,4 +37,20 @@ namespace Evodia.Core.Models
         [Utility.Attachment]
         public HttpPostedFileBase Attachment { get; set; }
     }
+    public class DoNotIncludeAttribute : Attribute
+    {
+    }
+
+    public static class ExtensionsOfPropertyInfo
+    {
+        public static IEnumerable<T> GetAttributes<T>(this PropertyInfo propertyInfo) where T : Attribute
+        {
+            return propertyInfo.GetCustomAttributes(typeof(T), true).Cast<T>();
+        }
+        public static bool IsMarkedWith<T>(this PropertyInfo propertyInfo) where T : Attribute
+        {
+            return propertyInfo.GetAttributes<T>().Any();
+        }
+    }
 }
+

@@ -5,7 +5,7 @@
 @{
     var success = TempData["FeedbackSurveyValidationPasses"] != null;
     var error = TempData["FeedbackSurveyValidationFailed"] != null;
-    var folderId = TempData["FeedbackSurveymFolderId"];
+    var folderId = TempData["FeedbackSurveyFolderId"];
     var formLegend = ViewData["legend"] != null ? ViewData["legend"] as string : "";
 }
 
@@ -56,7 +56,7 @@ else
                 @Html.LabelFor(x => x.CompanyName, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.CompanyName)
             </div>
-            <div class="o-form__field o-form__field--compact">
+            <div class="o-form__field o-form__field--compact is-required">
                 @Html.TextAreaFor(x => x.Message, new { @class = "o-input", rows = 6 })
                 @Html.LabelFor(x => x.Message, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.Message)

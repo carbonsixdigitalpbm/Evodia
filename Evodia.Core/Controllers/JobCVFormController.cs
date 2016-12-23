@@ -80,6 +80,8 @@ namespace Evodia.Core.Controllers
                 var contentService = Services.ContentService;
                 var jobCvForm = contentService.CreateContent(model.FirstName + " " + model.SecondName + ", " + model.Email + " - " + DateTime.Now.ToString("d"), Constants.JobCvFormFolderId, Constants.JobCvFormAlias);
 
+                jobCvForm.SetValue("jobTitle", model.JobTitle);
+                jobCvForm.SetValue("jobReference", model.JobReference);
                 jobCvForm.SetValue("firstName", model.FirstName);
                 jobCvForm.SetValue("secondName", model.SecondName);
                 jobCvForm.SetValue("email", model.Email);

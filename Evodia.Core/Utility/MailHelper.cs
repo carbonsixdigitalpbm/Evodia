@@ -207,7 +207,7 @@ namespace Evodia.Core.Utility
                 {
                     if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(int))
                     {
-                        if (propertyInfo.GetValue(model, null) != null)
+                        if (propertyInfo.GetValue(model, null) != null && !propertyInfo.IsMarkedWith<DoNotIncludeAttribute>())
                         {
                             emailBody.Append("<p><strong>" + DisplayNameHelper.GetDisplayName(propertyInfo) + ": </strong>" + propertyInfo.GetValue(model, null) + "</p>");
                         }
