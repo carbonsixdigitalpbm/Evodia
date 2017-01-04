@@ -8,11 +8,5 @@
 }
 
 <section class="o-section s-free-content u-clearfix">
-	@if( !string.IsNullOrEmpty(errorPath) )
-	{
-		<div class="o-wrap o-wrap--small o-page-component">
-	    	<p>Path @errorPath just  broke the internet. Just kidding, but something unexpeted did happen.</p>
-		</div>
-	}
 	@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
 </section>

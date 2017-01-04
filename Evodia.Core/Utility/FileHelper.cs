@@ -31,7 +31,14 @@ namespace Evodia.Core.Utility
                 Directory.CreateDirectory(parentFolderPath);
             }
 
-            var filePath = Path.Combine(parentFolderPath, file.FileName.MakeValidFileName());
+            var fileName = file.FileName.MakeValidFileName();
+
+            if (!string.IsNullOrWhiteSpace(fileSavingOptions.FilePrefix))
+            {
+                fileName = fileSavingOptions.FilePrefix + " - " + fileName;
+            }
+
+            var filePath = Path.Combine(parentFolderPath, fileName);
 
             file.SaveAs(filePath);
         }
@@ -42,5 +49,7 @@ namespace Evodia.Core.Utility
         public string Directory { get; set; }
 
         public string ParentFolderName { get; set; }
+
+        public string FilePrefix { get; set; }
     }
 }
