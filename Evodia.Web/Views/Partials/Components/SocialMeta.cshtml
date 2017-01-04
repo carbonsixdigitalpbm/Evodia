@@ -6,7 +6,7 @@
     var settings = homePage.Descendants("globalSettings").First();
     var siteUrl = "http://" +  Request.Url.Host;
     var pageUrl = siteUrl + Model.Url;
-    var title = Model.Name + " | " + settings.GetPropertyValue<string>("websiteName");
+    var title = Model.HasValue("sEOTitle") ? Model.GetPropertyValue<string>("sEOTitle") : Model.Name + " | " + settings.GetPropertyValue<string>("websiteName");
     var description = "";
     var hasDescription = Model.HasValue("description");
     var hasExcerpt = Model.HasValue("excerpt");

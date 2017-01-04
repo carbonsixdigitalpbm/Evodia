@@ -5,8 +5,8 @@
     var homePage = Umbraco.TypedContentAtRoot().First();
     var settings = homePage.Descendants("globalSettings").First();
     var followIndex = Model.GetPropertyValue<bool>("dontFollow") ? "NOFOLLOW, NOINDEX" : "FOLLOW, INDEX";
+    var title = Model.HasValue("sEOTitle") ? Model.GetPropertyValue<string>("sEOTitle") : Model.Name + " | " + settings.GetPropertyValue<string>("websiteName");
 
-    var title = Model.Name + " | " + settings.GetPropertyValue<string>("websiteName");
     var description = "";
     var hasDescription = Model.HasValue("description");
     var hasExcerpt = Model.HasValue("excerpt");
