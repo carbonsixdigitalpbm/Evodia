@@ -215,19 +215,19 @@ namespace Evodia.Core.Utility
                     {
                         if (propertyInfo.GetValue(model, null) != null)
                         {
-                            var link = "ftp://176.74.18.115/Uploads/";
+                            var link = "ftp://176.74.18.115/";
                             var linkPrefix = "";
 
                             switch (formFolder.Id)
                             {
                                 case Constants.GenericCvFormFolderId:
-                                    linkPrefix = "Generic_CV";
+                                    linkPrefix = "Generic_CV/";
                                     break;
                                 case Constants.JobCvFormFolderId:
-                                    linkPrefix = "Job_CV";
+                                    linkPrefix = "Job_CV/";
                                     break;
                                 case Constants.VacancyFormFolderId:
-                                    linkPrefix = "Vacancies";
+                                    linkPrefix = "Vacancies/";
                                     break;
                             }
 
