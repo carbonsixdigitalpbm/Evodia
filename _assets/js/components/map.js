@@ -123,7 +123,7 @@ var GMaps = (function($) {
 
         // Asynchronously Load the map API
         var script = document.createElement('script');
-        script.src = "https://maps.googleapis.com/maps/api/js?callback=window.GMaps.initCallback&key=";
+        script.src = "https://maps.googleapis.com/maps/api/js?callback=window.GMaps.initCallback&key=AIzaSyA2jJTkhScbYdBILWA7o0M8Dy4UKlZKWxU";
         document.body.appendChild(script);
 
     };

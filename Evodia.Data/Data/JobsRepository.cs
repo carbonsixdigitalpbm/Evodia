@@ -11,7 +11,7 @@ namespace Evodia.Data.Data
         public static IEnumerable<VacancyModel> AllJobs(UmbracoHelper umbraco)
         {
             var root = VacanciesModel.JobsRoot(umbraco);
-            var desc = root.PublishedContent.Descendants(VacancyModel.TypeAlias);
+            var desc = root.PublishedContent.Descendants(VacancyModel.TypeAlias).OrderByDescending(v => v.CreateDate);
 
             return desc.Select(e => e.As<VacancyModel>());
         }
