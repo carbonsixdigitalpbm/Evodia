@@ -11,13 +11,15 @@ using Umbraco.Web;
 using System.Reflection;
 using System.Text;
 using Evodia.Core.Models;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 
 namespace Evodia.Core.Utility
 {
     public class MailHelper
     {
-        internal void CreateAndSendConsultantNotifications(JobCvForm model, IPublishedContent formFolder, IPublishedContent jobPage)
+        internal void CreateAndSendConsultantNotifications(JobCvForm model, IPublishedContent formFolder,
+            IPublishedContent jobPage)
         {
             var hasConsultants = jobPage.HasValue("consultants");
 
@@ -65,7 +67,8 @@ namespace Evodia.Core.Utility
 
             foreach (var consultantEmailAddress in consultantEmailAddresses)
             {
-                var mailMessage = CreateConsultantEmailNotification(jobPage, finishedEmail, formFolder, consultantEmailAddress);
+                var mailMessage = CreateConsultantEmailNotification(jobPage, finishedEmail, formFolder,
+                    consultantEmailAddress);
 
                 SendMailMessage(mailMessage);
             }
@@ -95,7 +98,7 @@ namespace Evodia.Core.Utility
             if (!formFolder.GetPropertyValue<bool>("sendNotification")) return;
             {
                 var type = model.GetType();
-                var email = (string)type.GetProperty("Email").GetValue(model, null);
+                var email = (string) type.GetProperty("Email").GetValue(model, null);
                 var emailBody = formFolder.GetPropertyValue<IHtmlString>("notificationMessage").ToString();
                 var valuesToReplace = CreateValuesToReplace(model);
 
@@ -110,7 +113,8 @@ namespace Evodia.Core.Utility
             }
         }
 
-        private MailMessage CreateConsultantEmailNotification(IPublishedContent jobPage, string emailBody, IPublishedContent formFolder,
+        private MailMessage CreateConsultantEmailNotification(IPublishedContent jobPage, string emailBody,
+            IPublishedContent formFolder,
             MailAddress contactAddress)
         {
             var jobTitle = jobPage.HasValue("clientJobTitle")
@@ -158,7 +162,8 @@ namespace Evodia.Core.Utility
             return mailMessage;
         }
 
-        private MailMessage CreateInternalMailMessage(string emailBody, IPublishedContent formFolder, string contactAddress)
+        private MailMessage CreateInternalMailMessage(string emailBody, IPublishedContent formFolder,
+            string contactAddress)
         {
             var fromAddress = formFolder.HasValue("fromAddress")
                 ? formFolder.GetPropertyValue<string>("fromAddress")
@@ -205,13 +210,17 @@ namespace Evodia.Core.Utility
             {
                 if (propertyInfo.CanRead)
                 {
-                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(int))
+                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) ||
+                        propertyInfo.PropertyType == typeof(int))
                     {
-                        if (propertyInfo.GetValue(model, null) != null && !propertyInfo.IsMarkedWith<DoNotIncludeAttribute>())
+                        if (propertyInfo.GetValue(model, null) != null &&
+                            !propertyInfo.IsMarkedWith<DoNotIncludeAttribute>())
                         {
-                            emailBody.Append("<p><strong>" + DisplayNameHelper.GetDisplayName(propertyInfo) + ": </strong>" + propertyInfo.GetValue(model, null) + "</p>");
+                            emailBody.Append("<p><strong>" + DisplayNameHelper.GetDisplayName(propertyInfo) +
+                                             ": </strong>" + propertyInfo.GetValue(model, null) + "</p>");
                         }
-                    } else if (propertyInfo.PropertyType == typeof(HttpPostedFileBase))
+                    }
+                    else if (propertyInfo.PropertyType == typeof(HttpPostedFileBase))
                     {
                         if (propertyInfo.GetValue(model, null) != null)
                         {
@@ -233,7 +242,8 @@ namespace Evodia.Core.Utility
 
                             link = link + linkPrefix;
 
-                            emailBody.Append("<p><strong>Attachment: </strong><a href='" + link + "'>" + link + "</a>" + "</p>");
+                            emailBody.Append("<p><strong>Attachment: </strong><a href='" + link + "'>" + link + "</a>" +
+                                             "</p>");
                         }
                     }
                 }
@@ -245,7 +255,9 @@ namespace Evodia.Core.Utility
         private static string LoadEmailTemplate(string emailtemplateName)
         {
             string emailTemplate;
-            using (var reader = new StreamReader(HttpContext.Current.Server.MapPath("~/App_Code/" + emailtemplateName + ".html")))
+            using (
+                var reader =
+                    new StreamReader(HttpContext.Current.Server.MapPath("~/App_Code/" + emailtemplateName + ".html")))
             {
                 emailTemplate = reader.ReadToEnd();
             }
@@ -263,11 +275,13 @@ namespace Evodia.Core.Utility
             {
                 if (propertyInfo.CanRead)
                 {
-                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(int))
+                    if (propertyInfo.PropertyType == typeof(string) || propertyInfo.PropertyType == typeof(bool) ||
+                        propertyInfo.PropertyType == typeof(int))
                     {
                         if (propertyInfo.GetValue(model, null) != null)
                         {
-                            valuesToReplace.Add("{{" + propertyInfo.Name + "}}", propertyInfo.GetValue(model, null).ToString());
+                            valuesToReplace.Add("{{" + propertyInfo.Name + "}}",
+                                propertyInfo.GetValue(model, null).ToString());
                         }
                     }
                 }
@@ -286,14 +300,15 @@ namespace Evodia.Core.Utility
             return emailBody;
         }
 
-        private MailMessage CreateExternalMailMessage(string emailBody, IPublishedContent formFolder, string contactAddress)
+        private MailMessage CreateExternalMailMessage(string emailBody, IPublishedContent formFolder,
+            string contactAddress)
         {
             var fromAddress = formFolder.HasValue("fromAddress")
                 ? formFolder.GetPropertyValue<string>("fromAddress")
                 : "noreply@" + HttpContext.Current.Request.Url.Host;
             var senderName = formFolder.GetPropertyValue<string>("senderName");
-            var emailSubject = formFolder.HasValue("notificationTitle") 
-                ? formFolder.GetPropertyValue<string>("notificationTitle") 
+            var emailSubject = formFolder.HasValue("notificationTitle")
+                ? formFolder.GetPropertyValue<string>("notificationTitle")
                 : "Your form has been received";
 
             var mailMessage = new MailMessage
@@ -313,10 +328,20 @@ namespace Evodia.Core.Utility
 
         private void SendMailMessage(MailMessage mailMessage)
         {
-            using (SmtpClient client = new SmtpClient())
+            using (var client = new SmtpClient())
             {
-                client.Send(mailMessage);
-                mailMessage.Dispose();
+                try
+                {
+                    client.Send(mailMessage);
+
+                    LogHelper.Warn(GetType(), "EMAIL SENT TO: " + mailMessage.To);
+
+                    mailMessage.Dispose();
+                }
+                catch (Exception e)
+                {
+                    LogHelper.Warn(GetType(), "FAILED SENDING EMAIL WITH: " + e.Message);
+                }
             }
         }
 
