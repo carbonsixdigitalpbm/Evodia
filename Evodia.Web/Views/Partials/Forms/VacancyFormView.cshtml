@@ -76,7 +76,7 @@ else
                 @Html.LabelFor(x => x.BriefJobDescription, new { @class = "o-label" })
                 @Html.ValidationMessageFor(x => x.BriefJobDescription)
             </div>
-            <div class="o-form__field o-form__field--file">
+            <div class="o-form__field o-form__field--file js-form__field--file">
                 @Html.LabelFor(x => x.Attachment, new { @class = "o-label" })
                 <img class="c-cv-upload__cloud" src="/assets/img/upload.png" alt="">
                 <span class="u-delta c-cv-upload__text">
@@ -87,6 +87,7 @@ else
                     BROWSE
                     @Html.TextBoxFor(x => x.Attachment, new { type = "file", required = "required", @class = "o-input--file", accepts = "application/pdf, application/msword" })
                 </div>
+                <p class="js-file-message"></p>
                 @Html.ValidationMessageFor(x => x.Attachment)
             </div>
             <div class="o-form__field o-form__field--submit u-content--right">

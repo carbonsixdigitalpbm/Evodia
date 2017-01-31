@@ -33,7 +33,6 @@
                     Message: "required"
                 },
                 messages: {
-
                     Name: "Please enter your name",
                     Email: {
                         required: "Please enter your email address",

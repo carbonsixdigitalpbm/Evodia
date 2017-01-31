@@ -55,6 +55,7 @@ var ValidateForms = (function($) {
                 var $inputWrap = element.closest('.o-form__field');
 
                 error.appendTo($inputWrap).addClass('o-validation u-small');
+                $inputWrap.removeClass("is-valid");
                 $inputWrap.addClass("is-invalid");
             },
             success: function(element) {
@@ -62,38 +63,38 @@ var ValidateForms = (function($) {
             },
         };
 
-        var settings = {
-            debug: true,
-            validClass: 'is-valid',
-            errorClass: 'is-invalid',
-            errorElement: "span",
-            errorPlacement: function(error, element) {
-                error.appendTo(element.closest('.o-form__field')).addClass('o-validation u-small');
+        // var settings = {
+        //     debug: true,
+        //     validClass: 'is-valid',
+        //     errorClass: 'is-invalid',
+        //     errorElement: "span",
+        //     errorPlacement: function(error, element) {
+        //         error.appendTo(element.closest('.o-form__field')).addClass('o-validation u-small');
 
-                element.parent().addClass("is-invalid");
-            },
-            onfocusout: function(element) {
-                var $el = $(element);
+        //         element.parent().addClass("is-invalid");
+        //     },
+        //     onfocusout: function(element) {
+        //         var $el = $(element);
 
-                _hasVal($el, 'has-value');
-                $el.valid();
-            },
-            onclick: function(element) {
-                $(element).valid();
-                _hasVal($(element), 'has-value');
-            },
-            focusInvalid: true,
-            // highlight: function(element, errorClass, validClass) {
-            //     $(element).closest('.o-form__field').addClass("is-invalid").removeClass("is-valid");
-            // },
-            // unhighlight: function(element, errorClass, validClass) {
-            //     $(element).closest('.o-form__field').removeClass("is-invalid").addClass("is-valid");
-            // },
-            success: function(element) {
-                _hasVal($(element), 'has-value');
-                $(element).closest(".o-form__field").removeClass("is-invalid").addClass("is-valid");
-            },
-        };
+        //         _hasVal($el, 'has-value');
+        //         $el.valid();
+        //     },
+        //     onclick: function(element) {
+        //         $(element).valid();
+        //         _hasVal($(element), 'has-value');
+        //     },
+        //     focusInvalid: true,
+        //     // highlight: function(element, errorClass, validClass) {
+        //     //     $(element).closest('.o-form__field').addClass("is-invalid").removeClass("is-valid");
+        //     // },
+        //     // unhighlight: function(element, errorClass, validClass) {
+        //     //     $(element).closest('.o-form__field').removeClass("is-invalid").addClass("is-valid");
+        //     // },
+        //     success: function(element) {
+        //         _hasVal($(element), 'has-value');
+        //         $(element).closest(".o-form__field").removeClass("is-invalid").addClass("is-valid");
+        //     },
+        // };
 
         $.validator.addMethod('filesize', function(value, element, param) {
             return this.optional(element) || (element.files[0].size <= param);
@@ -104,6 +105,21 @@ var ValidateForms = (function($) {
 
         $.validator.setDefaults(generalValidateSettings);
 
+        $("input[type='file']").on("change", function() {
+            var $this = $(this);
+            var isValid = $this.valid();
+            var $attachmentError = $this.parent().next('.js-file-message');
+            var $formWrap = $this.closest('.js-form__field--file');
+
+            if (!isValid) {
+                $formWrap.removeClass('is-valid').addClass('is-invalid');
+                $attachmentError.html("");
+            } else {
+                var fileName = $this.val().replace(/^.*\\/, "");
+
+                $attachmentError.html("File " + fileName + " has been selected");
+            }
+        });
     };
 
     return {

@@ -19,6 +19,14 @@
 		position: relative;
 	}
 
+    p {
+        color: $success;
+    }
+
+    .o-validation {
+        font-size: 1.6rem;
+    }
+
     .o-form__field--file {
         margin-top: $line-height * 2;
         position: relative;
@@ -47,6 +55,7 @@
         }
 
         .c-cv-upload__upload-field {
+            margin-bottom: $line-height;
 
             &:after {
                 content: "";
