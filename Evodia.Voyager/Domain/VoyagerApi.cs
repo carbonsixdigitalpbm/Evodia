@@ -27,7 +27,7 @@ namespace Evodia.Voyager.Domain
 
                 foreach (var file in voyagerDirectory.GetFiles("*.xml"))
                 {
-                    syncedFiles.Add(new SyncFile()
+                    syncedFiles.Add(new SyncFile
                     {
                         FileLocation = file.FullName,
                         FileName = file.Name,
@@ -47,10 +47,12 @@ namespace Evodia.Voyager.Domain
             }
         }
 
-        private DateTime GetJobExportTime(string fileName)
+        private static DateTime GetJobExportTime(string fileName)
         {
-            var ci = new CultureInfo("en-GB");
             const string pattern = "yyyyMddHHmmss";
+
+            var ci = new CultureInfo("en-GB");
+            
             System.Threading.Thread.CurrentThread.CurrentCulture = ci;
             System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
 
@@ -61,7 +63,7 @@ namespace Evodia.Voyager.Domain
             return jobPostDate;
         }
 
-        private string GetJobReferenceNumber(string fileName)
+        private static string GetJobReferenceNumber(string fileName)
         {
             var splitFileName = fileName.Split('_');
             var jobRef = splitFileName[2].Replace(".xml", "");
@@ -76,6 +78,7 @@ namespace Evodia.Voyager.Domain
                 foreach (var file in filesToDelete)
                 {
                     File.Delete(file.FileLocation);
+
                     LogHelper.Info(GetType(), "Deleted XML fle:" + file.FileName);
                 }
             }

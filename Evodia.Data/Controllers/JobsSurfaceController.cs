@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -14,17 +13,12 @@ using Examine.LuceneEngine.SearchCriteria;
 using Examine.SearchCriteria;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
-using Umbraco.Core.Logging;
 using Umbraco.Web;
 
 namespace Evodia.Data.Controllers
 {
     public class JobsSurfaceController : SurfaceController
     {
-        public JobsSurfaceController()
-        {
-        }
-
         public ActionResult GetFilteredJobs(int offset, int size, string keywords = "", bool titleOnly = false, string location = "", string sector = "", string security = "", string type = "")
         {
             var allJobs = GetJobsBySearch(keywords, titleOnly, location, sector, security, type);
@@ -125,12 +119,11 @@ namespace Evodia.Data.Controllers
 
         private static List<VacancyModel> SearchJobsByType(List<VacancyModel> jobs, string type)
         {
-            if (!string.IsNullOrEmpty(type))
-            {
-                var types = type.ToLower().Split(',');
+            if (string.IsNullOrEmpty(type)) return jobs;
+
+            var types = type.ToLower().Split(',');
                 
-                jobs = jobs.Where(j => j.JobType.ToLower().ContainsAny(types, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
+            jobs = jobs.Where(j => j.JobType.ToLower().ContainsAny(types, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return jobs;
         }
@@ -150,24 +143,22 @@ namespace Evodia.Data.Controllers
 
         private static List<VacancyModel> SearchJobsBySecurity(List<VacancyModel> jobs, string security)
         {
-            if (!string.IsNullOrEmpty(security))
-            {
-                var securityClearances = security.ToLower().Split(',');
+            if (string.IsNullOrEmpty(security)) return jobs;
 
-                jobs = jobs.Where(j => j.SecurityClearanceLevel.ToLower().ContainsAny(securityClearances, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
+            var securityClearances = security.ToLower().Split(',');
+
+            jobs = jobs.Where(j => j.SecurityClearanceLevel.ToLower().ContainsAny(securityClearances, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return jobs;
         }
 
         private static List<VacancyModel> SearchJobsBySector(List<VacancyModel> jobs, string sector)
         {
-            if (!string.IsNullOrEmpty(sector) && !sector.Contains("All"))
-            {
-                var sectors = sector.ToLower().Split(',');
+            if (string.IsNullOrEmpty(sector) || sector.Contains("All")) return jobs;
 
-                jobs = jobs.Where(j => j.Sector.ToLower().ContainsAny(sectors, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
+            var sectors = sector.ToLower().Split(',');
+
+            jobs = jobs.Where(j => j.Sector.ToLower().ContainsAny(sectors, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return jobs;
         }

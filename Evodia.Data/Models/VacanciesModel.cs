@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Evodia.Data.ExtensionMethods;
-using Evodia.Data.Models;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Evodia.Data.Data
+namespace Evodia.Data.Models
 {
     public class VacanciesModel : ObjectModelContent
     {

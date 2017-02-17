@@ -15,7 +15,7 @@ namespace Evodia.Data.Models
         /// <param name="content"></param>
         protected ObjectModelContent(IPublishedContent content)
         {
-            this.PublishedContent = content;
+            PublishedContent = content;
         }
 
         public IPublishedContent PublishedContent { get; set; }
@@ -27,24 +27,24 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.PublishedContent.Id;
+                return PublishedContent.Id;
             }
         }
         public string Name
         {
             get
             {
-                return this.PublishedContent.HasValue("clientJobTitle") ? this.PublishedContent.GetPropertyValue<string>("clientJobTitle") : this.PublishedContent.Name;
+                return PublishedContent.HasValue("clientJobTitle") ? PublishedContent.GetPropertyValue<string>("clientJobTitle") : PublishedContent.Name;
             }
         }
         public string Url
         {
             get
             {
-                switch (this.DocumentTypeAlias)
+                switch (DocumentTypeAlias)
                 {
                     default:
-                        return this.PublishedContent.Url;
+                        return PublishedContent.Url;
                 }
             }
         }
@@ -53,13 +53,13 @@ namespace Evodia.Data.Models
         {
             get
             {
-                return this.PublishedContent.DocumentTypeAlias;
+                return PublishedContent.DocumentTypeAlias;
             }
         }
 
         protected T GetProperty<T>(string propertyAlias)
         {
-            return this.PublishedContent.GetPropertyValue<T>(propertyAlias);
+            return PublishedContent.GetPropertyValue<T>(propertyAlias);
         }
 
     }

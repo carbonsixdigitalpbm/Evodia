@@ -20,7 +20,7 @@
 
     if(!HttpContext.Current.Request.IsLocal && !Request.IsSecureConnection)
     {
-        Response.Redirect(secureUrl);
+        Response.RedirectPermanent(secureUrl);
     }
 }
 <!doctype html>
