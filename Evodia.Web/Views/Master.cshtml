@@ -20,7 +20,7 @@
 
     if(!HttpContext.Current.Request.IsLocal && !Request.IsSecureConnection)
     {
-        Response.Redirect(secureUrl);
+        Response.RedirectPermanent(secureUrl);
     }
 }
 <!doctype html>
@@ -43,15 +43,15 @@
          <link rel="author" href="/humants.txt">
 
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="/assets/css/style.44977232.css">
+            <link rel="stylesheet" href="/assets/css/style.css">
         <!--<![endif]-->
 
         <!--[if lt IE 9]>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <link rel="stylesheet" href="/assets/css/ie.8de95a49.css">
+            <link rel="stylesheet" href="/assets/css/ie.css">
         <![endif]-->
 
-        <script src="/assets/js/head.cbc0266a.js"></script>
+        <script src="/assets/js/head.js"></script>
 
         @Html.Partial("~/Views/Partials/Components/Fonts.cshtml")
         @Html.Partial("~/Views/Partials/Components/SocialMeta.cshtml")
@@ -75,7 +75,7 @@
 
         <!--[if gte IE 9]><!-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-            <script src="/assets/js/main.61613d52.js"></script>
+            <script src="/assets/js/main.js"></script>
         <!--<![endif]-->
 
         @if( settings.HasValue("trackingId") ) {
