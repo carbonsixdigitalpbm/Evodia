@@ -8,12 +8,12 @@ using System.Web.Mvc;
 using Evodia.Data.Data;
 using Evodia.Data.ExtensionMethods;
 using Evodia.Data.Models;
-using Examine;
-using Examine.LuceneEngine.SearchCriteria;
-using Examine.SearchCriteria;
 using Umbraco.Core;
 using Umbraco.Web.Mvc;
 using Umbraco.Web;
+using Examine;
+using Examine.SearchCriteria;
+using Examine.LuceneEngine.SearchCriteria;
 
 namespace Evodia.Data.Controllers
 {

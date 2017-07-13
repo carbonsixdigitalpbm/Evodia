@@ -81,8 +81,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="DTG.Spreadsheet, Version=2.7.0.0, Culture=neutral, PublicKeyToken=7b835b529fb706c3, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\DTG.Spreadsheet.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\DTG.Spreadsheet.dll</HintPath>
     </Reference>
     <Reference Include="Examine, Version=0.1.83.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Examine.0.1.83\lib\net45\Examine.dll</HintPath>
@@ -114,8 +113,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LumenWorks.Framework.IO, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\LumenWorks.Framework.IO.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownSharp, Version=1.14.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Markdown.1.14.7\lib\net45\MarkdownSharp.dll</HintPath>
@@ -194,32 +192,41 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PackageGarden.Licensing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\PackageGarden.Licensing.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\PackageGarden.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="Semver, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SEOChecker, Version=1.9.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\SEOChecker.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SEOChecker, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.dll</HintPath>
     </Reference>
-    <Reference Include="SEOChecker.Core, Version=1.9.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\SEOChecker.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SEOChecker.Core, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.Core.dll</HintPath>
     </Reference>
-    <Reference Include="SEOChecker.Extensions, Version=1.9.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\SEOChecker.Extensions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SEOChecker.DataTypes, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.DataTypes.dll</HintPath>
     </Reference>
-    <Reference Include="SEOChecker.Library, Version=1.9.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\SEOChecker.Library.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SEOChecker.Events, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.Events.dll</HintPath>
     </Reference>
-    <Reference Include="SEOChecker.Validators, Version=1.9.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\SEOChecker.Validators.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SEOChecker.Extensions, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SEOChecker.Library, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="SEOChecker.Logging, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="SEOChecker.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="SEOChecker.PropertyEditorConverters, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.PropertyEditorConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="SEOChecker.Validators, Version=1.10.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SEOChecker.1.10.1\lib\SEOChecker.Validators.dll</HintPath>
     </Reference>
     <Reference Include="SQLCE4Umbraco, Version=1.0.6396.36627, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.6.4\lib\net45\SQLCE4Umbraco.dll</HintPath>
@@ -309,10 +316,6 @@
     <Reference Include="umbraco.editorControls, Version=1.0.6396.36634, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.editorControls.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Licensing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SEOChecker.1.9.4.1\lib\Umbraco.Licensing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="umbraco.MacroEngines, Version=1.0.6396.36635, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.6.4\lib\net45\umbraco.MacroEngines.dll</HintPath>
     </Reference>
@@ -336,6 +339,10 @@
   <ItemGroup>
     <Content Include="App_Code\EmailTemplate.html" />
     <Content Include="App_Data\Logs\UmbracoTraceLog.DESKTOP-5BHHJ25.txt" />
+    <Content Include="App_Data\TEMP\ClientDependency\DESKTOP-1RK9U5L-697ca7e63893f2524a7da22a765fcb62-map.xml" />
+    <Content Include="App_Data\TEMP\DistCache\DESKTOP-1RK9U5L\LMW3SVC14ROOT-lastsynced.txt" />
+    <Content Include="App_Data\TEMP\SEOChecker\seochecker-notification.xslt" />
+    <Content Include="App_Data\TEMP\SEOChecker\seochecker-scheduledtask.xslt" />
     <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\agm.js" />
     <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.1.0.js" />
     <Content Include="App_Plugins\AngularGoogleMaps\2.0.3\angular-google-maps.2.1.0.min.js" />
@@ -400,6 +407,23 @@
     <Content Include="assets\img\readme.md" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="Config\BaseRestExtensions.config" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\External\Index\segments.gen" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\External\Index\segments_6" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\External\Index\_2.cfs" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\External\Index\_3.cfs" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\InternalMember\Index\segments.gen" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\InternalMember\Index\segments_4" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\InternalMember\Index\_1.cfs" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\Internal\Index\segments.gen" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\Internal\Index\segments_6" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\Internal\Index\_2.cfs" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\Internal\Index\_3.cfs" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\JobSearch\Index\segments.gen" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\JobSearch\Index\segments_4" />
+    <Content Include="App_Data\TEMP\ExamineIndexes\DESKTOP-1RK9U5L\JobSearch\Index\_1.cfs" />
+    <Content Include="App_Data\TEMP\PluginCache\umbraco-plugins.DESKTOP-1RK9U5L.hash" />
+    <Content Include="App_Data\TEMP\PluginCache\umbraco-plugins.DESKTOP-1RK9U5L.list" />
+    <Content Include="App_Data\TEMP\SEOChecker\SEOChecker.config" />
     <None Include="Config\connectionStrings.config" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
