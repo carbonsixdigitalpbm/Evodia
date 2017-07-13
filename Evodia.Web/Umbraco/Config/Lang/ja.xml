@@ -279,8 +279,6 @@
     <key alias="theFriendliestCommunity">フレンドリーなコミュニティ</key>
     <key alias="linkToPage">ページへリンク</key>
     <key alias="openInNewWindow">リンク ドキュメントを新しいウィンドウまたはタブで開く</key>
-    <key alias="openInFullBody">リンク ドキュメントをウィンドウ全文表示で開く</key>
-    <key alias="openInParentFrame">親フレームでリンク ドキュメントを開く</key>
     <key alias="linkToMedia">メディアへリンク</key>
     <key alias="selectMedia">メディアの選択</key>
     <key alias="selectIcon">アイコンの選択</key>
@@ -1072,8 +1070,6 @@ Runwayをインストールして作られた新しいウェブサイトがど�
     <key alias="postContent">フィールド値の後ろ追加</key>
     <key alias="preContent">フィールド値の前に追加</key>
     <key alias="recursive">再帰的</key>
-    <key alias="removeParagraph">段落タグの消去</key>
-    <key alias="removeParagraphHelp">段落タグ &amp;lt;P&amp;gt; を消去します</key>
     <key alias="standardFields">標準フィールド</key>
     <key alias="uppercase">大文字変換</key>
     <key alias="urlEncode">URLエンコード</key>

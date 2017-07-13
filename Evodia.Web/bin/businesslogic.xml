@@ -119,9 +119,9 @@
         </member>
         <member name="T:umbraco.BusinessLogic.ApplicationBase">
             <summary>
-            ApplicationBase provides an easy to use base class to install event handlers in umbraco.
-            Class inhiriting from ApplcationBase are automaticly registered and instantiated by umbraco on application start.
-            To use, inhirite the ApplicationBase Class and add an empty constructor. 
+            ApplicationBase provides an easy to use base class to install event handlers in Umbraco.
+            Classes inheriting from ApplcationBase are automatically registered and instantiated by Umbraco on application start.
+            To use, inherit the ApplicationBase Class and add an empty constructor. 
             </summary>
         </member>
         <member name="T:umbraco.BusinessLogic.ApplicationRegistrar">
@@ -594,9 +594,8 @@
         </member>
         <member name="P:umbraco.BasePages.BasePage.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="P:umbraco.BasePages.BasePage.ApplicationContext">
             <summary>
@@ -934,6 +933,11 @@
             <returns>
             	<c>true</c> if the specified URL is reserved; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="P:umbraco.GlobalSettings.UmbracoMvcArea">
+            <summary>
+            This returns the string of the MVC Area route.
+            </summary>
         </member>
         <member name="P:umbraco.GlobalSettings.ReservedUrls">
             <summary>
@@ -1740,6 +1744,11 @@
         <member name="P:umbraco.UmbracoSettings.DisallowedUploadFiles">
             <summary>
             File types that will not be allowed to be uploaded via the content/media upload control
+            </summary>
+        </member>
+        <member name="P:umbraco.UmbracoSettings.AllowedUploadFiles">
+            <summary>
+            File types that will be allowed to be uploaded via the content/media upload control
             </summary>
         </member>
         <member name="P:umbraco.UmbracoSettings.ImageFileTypes">

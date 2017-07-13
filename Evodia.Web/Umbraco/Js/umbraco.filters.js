@@ -1,6 +1,6 @@
 /*! umbraco
  * https://github.com/umbraco/umbraco-cms/
- * Copyright (c) 2016 Umbraco HQ;
+ * Copyright (c) 2017 Umbraco HQ;
  * Licensed 
  */
 
@@ -34,6 +34,21 @@ angular.module("umbraco.filters")
         };
 });
 
+/**
+* @ngdoc filter
+* @name umbraco.filters.preserveNewLineInHtml
+* @description 
+* Used when rendering a string as HTML (i.e. with ng-bind-html) to convert line-breaks to <br /> tags
+**/
+angular.module("umbraco.filters").filter('preserveNewLineInHtml', function () {
+  return function (text) {
+	if (!text) {
+		return '';
+	}
+    return text.replace(/\n/g, '<br />');
+  };
+});
+	
 angular.module("umbraco.filters").filter('timespan', function() {
     return function(input) {
       var sec_num = parseInt(input, 10);

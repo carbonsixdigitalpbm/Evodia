@@ -68,6 +68,14 @@
             Also Allows Us To Register Build Provider In Medium Trust
             </summary>
         </member>
+        <member name="M:umbraco.MacroEngines.RazorMacroEngine.GetHash(System.String)">
+            <summary>
+            Generates a hash based on the text string passed in.  This method will detect the 
+            security requirements (is FIPS enabled) and return an appropriate hash.
+            </summary>
+            <param name="text">String value to hash</param>
+            <returns>The hash of the text string</returns>
+        </member>
         <member name="M:umbraco.MacroEngines.RazorMacroEngine.CreateTemporaryRazorFile(System.String,System.String,System.Boolean)">
             <summary>
             Creates A Temporary Razor File
