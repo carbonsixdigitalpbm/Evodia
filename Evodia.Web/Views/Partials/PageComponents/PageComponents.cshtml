@@ -43,7 +43,7 @@
                 @Html.Partial("~/Views/Partials/PageComponents/Downloads.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
                 break;
             case "form":
-                @Html.Partial("~/Views/Partials/PageComponents/Form.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}})
+                @Html.Partial("~/Views/Partials/PageComponents/Form.cshtml", item, new ViewDataDictionary {{"wrapSize",   wrapSize}, {"pageName", Model.Name}})
                 break;
             default:
                 <p>Elements with DocumentTypeAlias <strong>@item.DocumentTypeAlias</strong> has no @@helper</p>

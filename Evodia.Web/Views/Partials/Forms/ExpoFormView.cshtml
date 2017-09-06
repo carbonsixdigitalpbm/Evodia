@@ -1,0 +1,137 @@
+@using Umbraco.Web
+@using Evodia.Core.Models
+@using Evodia.Core.Controllers
+@inherits UmbracoViewPage<ExpoForm>
+@{
+    var success = TempData["ExpoFormValidationPasses"] != null;
+    var error = TempData["ExpoFormValidationFailed"] != null;
+    var folderId = TempData["ExpoFormFormFolderId"];
+    var formLegend = ViewData["legend"] != null ? ViewData["legend"] as string : "";
+
+}
+
+@if (success)
+{
+    if (folderId != null)
+    {
+        var folder = Umbraco.TypedContent(folderId);
+        var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
+
+		<div class="c-alert c-alert--success c-alert--fixed o-wrap--medium">
+            @message
+        </div>
+    }
+
+}
+else
+{
+    if (error)
+    {
+        @Html.ValidationSummary()
+		<p>@TempData["ExpoFormValidationFailed"]</p>
+    }
+
+    using (Html.BeginUmbracoForm("ProcessFormSubmission", "ExpoForm", FormMethod.Post, new { id = "expo-form", @class = "o-form js-form" }))
+    {
+        @Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.PageName)
+
+        <fieldset class="o-form__fieldset">
+            @if (!string.IsNullOrWhiteSpace(formLegend))
+            {
+                <legend class="o-legend u-beta u-highlight-text u-space-bottom--small u-strong">@formLegend</legend>
+            }
+            <div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.FirstName, new {required = "required", @class = "o-input"})
+                @Html.LabelFor(x => x.FirstName, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.FirstName)
+            </div>
+			<div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.Surname, new {required = "required", @class = "o-input"})
+                @Html.LabelFor(x => x.Surname, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.Surname)
+            </div>
+
+            <div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.Email, new {required = "required", @class = "o-input"})
+                @Html.LabelFor(x => x.Email, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+			<div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.ContactNumber, new {required = "required", @class = "o-input"})
+                @Html.LabelFor(x => x.ContactNumber, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.ContactNumber)
+            </div>
+			<div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.ServiceLeaveDate, new {@class = "o-input"})
+                @Html.LabelFor(x => x.ServiceLeaveDate, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.ServiceLeaveDate)
+            </div>
+			<div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.NoticePeriod, new {@class = "o-input"})
+                @Html.LabelFor(x => x.NoticePeriod, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.NoticePeriod)
+            </div>
+
+			@{
+				var securityOptions = "Developed Vetting (DV),Security Check (SC),Counter Terrorist Check (CTC),Baseline Personnel Security Standard (BPSS),None";
+			}
+			<div class="o-form__field o-form__field--compact is-required">
+				@Html.LabelFor(x => x.SecurityClearanceLevel, new { @class = "o-label" })
+				<div class="o-select">
+					<select name="SecurityClearanceLevel" id="SecurityClearanceLevel">
+						<option value="">Security clearance level</option>
+						@foreach (var item in securityOptions.Split(',')) {
+							<option value="@item">@item</option>
+						}
+					</select>
+				</div>
+				@Html.ValidationMessageFor(x => x.SecurityClearanceLevel)
+            </div>
+
+			@{
+				var jobTypeOptions = "Permanent,Contract,Both";
+			}
+			<div class="o-form__field o-form__field--compact is-required">
+				@Html.LabelFor(x => x.JobTypePreference, new { @class = "o-label" })
+				<div class="o-select">
+					<select name="JobTypePreference" id="JobTypePreference">
+						<option value="">Job type preference</option>
+						@foreach (var item in jobTypeOptions.Split(',')) {
+							<option value="@item">@item</option>
+						}
+					</select>
+				</div>
+				@Html.ValidationMessageFor(x => x.JobTypePreference)
+            </div>
+
+			<div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.CurrentLocation, new {required = "required", @class = "o-input"})
+                @Html.LabelFor(x => x.CurrentLocation, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.CurrentLocation)
+            </div>
+
+			<div class="o-form__field">
+            @Html.LabelFor(x => x.LocationPreference, new { @class = "o-label c-pod__headline" })
+            <ul class="o-fieldset__list o-fieldset__list--three u-clearfix">
+
+                @for (var i = 0; i < Model.LocationPreference.Count; i++)
+                {
+                    <li class="o-fieldset__item o-checkbox">
+                        @Html.HiddenFor(x => x.LocationPreference[i].Name)
+                        @Html.CheckBoxFor(x => x.LocationPreference[i].IsSelected, new { @id = Model.LocationPreference[i].Name, @class = "o-checkbox__input" })
+                        <label class="o-checkbox__label" for="@Model.LocationPreference[i].Name">
+                            @Model.LocationPreference[i].Name
+                        </label>
+                    </li>
+                }
+
+            </ul>
+        </div>
+@**@
+            <div class="o-form__field o-form__field--submit u-content--right">
+                <button type="submit" class="c-button c-button--primary">Send form</button>
+            </div>
+        </fieldset>
+    }
+}

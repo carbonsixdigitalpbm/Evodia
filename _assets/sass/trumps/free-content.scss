@@ -10,6 +10,10 @@
 		font-weight: $bold;
 	}
 
+	.o-select {
+		z-index: auto;
+	}
+
 }
 
 @include respond-min( $mq-small ) {

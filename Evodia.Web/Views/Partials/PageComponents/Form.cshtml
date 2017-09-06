@@ -1,10 +1,13 @@
+@using Evodia.Core.Models
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var wrapSize = ViewData["wrapSize"];
+	var pageName = ViewData["pageName"];
     var formName = Model.GetPropertyValue<string>("form");
     var legend = Model.GetPropertyValue<string>("legend");
 }
+
 
 @if (!string.IsNullOrWhiteSpace(formName))
 {
@@ -26,6 +29,16 @@
             case "Feedback survey":
                 @Html.Action("RenderFeedbackSurvey", "FeedbackSurvey", new { legend = legend })
                 break;
+			case "Recruitment expo form":
+				@**@
+				@Html.Action("RenderExpoForm", "ExpoForm", new { legend = legend, pageName = pageName })
+				@**@
+				@*
+				@Html.Partial("~/Views/Partials/Forms/ExpoFormView.cshtml", new ExpoForm {
+					PageName = pageName.ToString()
+				})
+				*@
+				break;
         }
     </div>
 }

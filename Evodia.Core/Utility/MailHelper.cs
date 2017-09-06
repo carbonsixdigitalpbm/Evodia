@@ -13,6 +13,9 @@ using System.Text;
 using Evodia.Core.Models;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
+using System.Diagnostics;
+using Evodia.Core.Controllers;
+using Umbraco.Core;
 
 namespace Evodia.Core.Utility
 {
@@ -204,6 +207,7 @@ namespace Evodia.Core.Utility
             var type = model.GetType();
             var properties = type.GetProperties();
 
+
             emailBody.Append("<h2>Summary of the form: </h2>");
 
             foreach (var propertyInfo in properties)
@@ -246,10 +250,51 @@ namespace Evodia.Core.Utility
                                              "</p>");
                         }
                     }
+                    else if (propertyInfo.PropertyType == typeof(List<Location>)){
+                        if (propertyInfo.GetValue(model, null) != null &&
+                            !propertyInfo.IsMarkedWith<DoNotIncludeAttribute>())
+                        {
+                            var locationList = propertyInfo.GetValue(model, null) as List<Location>;
+                            var locationString = GetResultsFromList(locationList);
+                            emailBody.Append("<p><strong>" + DisplayNameHelper.GetDisplayName(propertyInfo) +
+                                             ": </strong>" + locationString + "</p>");
+
+
+                        }
+
+                    }
                 }
             }
 
             return emailBody.ToString();
+        }
+
+        private static string GetResultsFromList(List<Location> selection)
+        {
+            if (selection == null)
+            {
+                return "N/A";
+            }
+
+            var stringToReturn = "";
+
+            foreach(var item in selection)
+            {
+                if( item.IsSelected )
+                {
+                    if(String.IsNullOrWhiteSpace(stringToReturn)) {
+                        stringToReturn = item.Name + ", ";
+                    } else {
+                        stringToReturn = stringToReturn + System.Environment.NewLine + item.Name + ", ";
+                    }
+                }
+            }
+
+            if(String.IsNullOrWhiteSpace(stringToReturn)) {
+                stringToReturn = "N/A";
+            }
+
+            return stringToReturn.TrimEnd(", ");
         }
 
         private static string LoadEmailTemplate(string emailtemplateName)
