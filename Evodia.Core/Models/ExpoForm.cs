@@ -30,10 +30,10 @@ namespace Evodia.Core.Models
         [DisplayName("Service leave date (if applicable)")]
         public string ServiceLeaveDate { get; set; }
 
-        [DisplayName("Notice Period (if applicable)")]
+        [DisplayName("Notice period (if applicable)")]
         public string NoticePeriod { get; set; }
 
-        [DisplayName("Current Contract end date (if applicable)")]
+        [DisplayName("Current contract end date (if applicable)")]
         public string CurrentContractEndDate { get; set; }
 
         [DisplayName("Security clearance level")]
