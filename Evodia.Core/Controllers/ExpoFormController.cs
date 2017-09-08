@@ -69,6 +69,7 @@ namespace Evodia.Core.Controllers
                 formSubmission.SetValue("emailAddress", model.Email);
                 formSubmission.SetValue("contactNumber", model.ContactNumber);
                 formSubmission.SetValue("serviceLeaveDate", model.ServiceLeaveDate);
+                formSubmission.SetValue("currentContractEndDate", model.CurrentContractEndDate);
                 formSubmission.SetValue("noticePeriod", model.NoticePeriod);
                 formSubmission.SetValue("securityClearanceLevel", model.SecurityClearanceLevel);
                 formSubmission.SetValue("jobTypePreference", model.JobTypePreference);

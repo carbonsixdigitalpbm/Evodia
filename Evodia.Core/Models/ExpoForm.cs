@@ -27,11 +27,14 @@ namespace Evodia.Core.Models
         [Required(ErrorMessage = "Please enter your contact number")]
         public string ContactNumber { get; set; }
 
-        [DisplayName("Service leave date (optional)")]
+        [DisplayName("Service leave date (if applicable)")]
         public string ServiceLeaveDate { get; set; }
 
-        [DisplayName("Notice period (optional)")]
+        [DisplayName("Notice Period (if applicable)")]
         public string NoticePeriod { get; set; }
+
+        [DisplayName("Current Contract end date (if applicable)")]
+        public string CurrentContractEndDate { get; set; }
 
         [DisplayName("Security clearance level")]
         public string SecurityClearanceLevel { get; set; }

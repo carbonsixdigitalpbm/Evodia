@@ -68,6 +68,11 @@ else
                 @Html.ValidationMessageFor(x => x.ServiceLeaveDate)
             </div>
 			<div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.CurrentContractEndDate, new {@class = "o-input"})
+                @Html.LabelFor(x => x.CurrentContractEndDate, new {@class = "o-label"})
+                @Html.ValidationMessageFor(x => x.CurrentContractEndDate)
+            </div>
+			<div class="o-form__field o-form__field--compact">
                 @Html.TextBoxFor(x => x.NoticePeriod, new {@class = "o-input"})
                 @Html.LabelFor(x => x.NoticePeriod, new {@class = "o-label"})
                 @Html.ValidationMessageFor(x => x.NoticePeriod)
