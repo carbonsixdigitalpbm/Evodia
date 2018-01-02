@@ -198,6 +198,8 @@
 		.c-header__nav-wrap {
 			flex-grow: 1;
 			text-align: center;
+			padding-left: 2rem;
+			padding-right: 2rem;
 		}
 
 		.c-header__supplementary {
@@ -218,16 +220,10 @@
 
 	}
 
-
 }
 
 @include respond-min( $mq-xx-large ) {
 
-
-	.c-header__supplementary,
-	.c-header__logo-link {
-		min-width: 39rem;
-	}
 
 	.c-header {
 
