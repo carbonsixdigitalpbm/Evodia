@@ -46,6 +46,13 @@ namespace Evodia.Core.Utility
                     return "th";
             }
         }
+
+        public static bool IsPrimarySite(int id = 0)
+        {
+            const int PrimarySiteRootId = 1153;
+
+            return PrimarySiteRootId == id;
+        }
     }
 
 }
