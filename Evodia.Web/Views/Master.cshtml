@@ -1,6 +1,7 @@
 @using Umbraco.Web
 @using Umbraco.Web.Mvc
 @using System.Text.RegularExpressions
+@using Evodia.Core.Utility
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = null;
@@ -9,11 +10,21 @@
     Regex rgx = new Regex( "[^0-9a-zA-Z]+" );
     string pageScope = "s-" + rgx.Replace( docType , "");
 
-    var homePage = Umbraco.TypedContentAtRoot().First();
-    var settings = homePage.Descendants("globalSettings").First();
+    var homePage = Model.AncestorOrSelf(1);
+	var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
+	var settings = homePage;
+	if (isConsultancySite) {
+		settings = homePage.Descendants("consultancySettings").FirstOrDefault();
+	} else {
+    	settings = homePage.Descendants("globalSettings").FirstOrDefault();
+	}
 
-	if( docType != "contact" && docType != "generalNews" && docType != "jobs" && docType != "job" ) {
+	if( !isConsultancySite && docType != "contact" && docType != "generalNews" && docType != "jobs" && docType != "job" ) {
 		pageScope = pageScope + " s-has-hero";
+	}
+
+	if (isConsultancySite) {
+		pageScope = pageScope + " s-consulting";
 	}
 
     var secureUrl = "https://" +  Request.Url.Host.ToString() + Request.RawUrl.ToString();

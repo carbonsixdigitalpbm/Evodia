@@ -1,8 +1,15 @@
 @using Umbraco.Web
+@using Evodia.Core.Utility
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Umbraco.TypedContentAtRoot().First();
-    var settings = homePage.Descendants("globalSettings").First();
+    var homePage = Model.AncestorOrSelf(1);
+    var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
+	var settings = homePage;
+	if (isConsultancySite) {
+		settings = homePage.Descendants("consultancySettings").FirstOrDefault();
+	} else {
+    	settings = homePage.Descendants("globalSettings").FirstOrDefault();
+	}
 
 	var contacts = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
 
@@ -11,7 +18,6 @@
         return;
 	}
 }
-
 
 @foreach (var item in contacts.ToContentSet())
 {

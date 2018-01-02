@@ -2,7 +2,10 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var homePage = Umbraco.TypedContentAtRoot().First();
-    var settings = homePage.Descendants("globalSettings").First();
+    var settings = homePage.Descendants("globalSettings").FirstOrDefault();
+	if (settings == null) {
+		return;
+	}
     var idList = settings.GetPropertyValue<string>("footerNavigation").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
     var navigationLinks = Umbraco.TypedContent(idList).Where("TemplateId > 0");
 }

@@ -1,9 +1,15 @@
-@using Umbraco.Web
-@using Umbraco.Web.Mvc
+@using Evodia.Core.Utility
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Umbraco.TypedContentAtRoot().First();
-    var settings = homePage.Descendants("globalSettings").First();
+    var homePage = Model.AncestorOrSelf(1);
+    var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
+	var settings = homePage;
+	if (isConsultancySite) {
+		settings = homePage.Descendants("consultancySettings").FirstOrDefault();
+	} else {
+    	settings = homePage.Descendants("globalSettings").FirstOrDefault();
+	}
+
     var socialChannels = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("socialChannels");
     var hasSocialLinks = socialChannels != null;
 }

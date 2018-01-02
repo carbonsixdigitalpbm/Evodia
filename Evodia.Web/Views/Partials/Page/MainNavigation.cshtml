@@ -1,7 +1,8 @@
 @using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Umbraco.TypedContentAtRoot().First();
+	var homePage = Model.AncestorOrSelf(1);
+
     var menuItems = homePage.Children.Where(x => x.IsVisible()
         && x.TemplateId > 0
     );
