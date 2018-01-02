@@ -1,0 +1,24 @@
+@using Evodia.Core.Utility
+@using RJP.MultiUrlPicker.Models
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var homePage = Model.AncestorOrSelf(1);
+    var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
+
+	var settingsAlias = isConsultancySite ? "consultancySettings" : "globalSettings";
+    var settings = homePage.Descendants(settingsAlias).FirstOrDefault();
+	var links = settings.GetPropertyValue<IEnumerable<Link>>("footerLinksNew");
+
+	if (links == null || !links.Any()) {
+		return;
+	}
+}
+
+<ul class="o-link-list o-link-list--grid">
+	@foreach( var item in links )
+	{
+		<li class="o-link-list__item">
+			<a href="@item.Url" class="o-link-list__link" target="@item.Target">@item.Name</a>
+		</li>
+	}
+</ul>

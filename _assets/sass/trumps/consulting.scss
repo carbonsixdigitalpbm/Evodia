@@ -1,0 +1,38 @@
+/* ===========================================================
+
+	# Consulting
+
+=========================================================== */\
+.s-consulting {}
+// styles not being applied without the above
+
+.s-consulting {
+
+	.c-header {
+		color: inherit;
+		background: inherit;
+
+		a {
+			color: inherit;
+		}
+	}
+
+	.c-header__logo-image {
+		width: 20rem;
+		height: 2.6rem;
+	}
+
+}
+
+@include respond-min($mq-medium) {
+
+	.s-consulting {
+
+		.c-header__logo-image {
+			width: 28.8rem;
+			height: 3.8rem;
+		}
+
+	}
+
+}

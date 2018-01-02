@@ -194,6 +194,9 @@
     <Reference Include="PackageGarden.Licensing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SEOChecker.1.10.1\lib\PackageGarden.Licensing.dll</HintPath>
     </Reference>
+    <Reference Include="RJP.MultiUrlPicker, Version=2.1.0.38344, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RJP.UmbracoMultiUrlPicker.2.1.0\lib\net45\RJP.MultiUrlPicker.dll</HintPath>
+    </Reference>
     <Reference Include="Semver, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\semver.1.1.2\lib\net451\Semver.dll</HintPath>
       <Private>True</Private>
@@ -380,6 +383,8 @@
     <Content Include="App_Plugins\NestedContent\Views\nestedcontent.doctypepicker.html" />
     <Content Include="App_Plugins\NestedContent\Views\nestedcontent.editor.html" />
     <Content Include="App_Plugins\NestedContent\Views\nestedcontent.html" />
+    <Content Include="App_Plugins\RJP.MultiUrlPicker\MultiUrlPicker.html" />
+    <Content Include="App_Plugins\RJP.MultiUrlPicker\MultiUrlPicker.js" />
     <Content Include="App_Plugins\SEOChecker\css\seochecker-propertyeditors.css" />
     <Content Include="App_Plugins\SEOChecker\directives\valShowError.js" />
     <Content Include="App_Plugins\SEOChecker\redirects\redirectsController.js" />
