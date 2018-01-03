@@ -40,3 +40,33 @@
 	}
 
 }
+
+@include respond-max( $mq-large ) {
+
+	.s-consulting {
+
+		&.enhance {
+
+			.c-header__toggle-menu-button {
+				background-color: $sec;
+			}
+
+		}
+
+		.c-nav--main {
+
+			.c-nav__link {
+				color: $white;
+
+				&:hover {
+					color: lighten( $pri, 40 );
+				}
+
+				&.is-active {
+					background-color: $pri;
+				}
+			}
+		}
+	}
+
+}

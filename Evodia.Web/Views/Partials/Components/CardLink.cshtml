@@ -1,0 +1,34 @@
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<CardViewModel>
+@{
+	var hasDescription = !String.IsNullOrWhiteSpace(Model.Description);
+	if (hasDescription) {
+		Model.ModifierClass = Model.ModifierClass + " c-tile--no-description";
+	}
+
+	var altText = "";
+	var imageUrl = "";
+	var aspectRatio = "21:9";
+	var imageWidth = 600;
+
+	if(Model.Image != null)
+	{
+		altText = Model.Image.GetPropertyValue<string>("altText");
+		imageUrl = Url.GetCropUrl(Model.Image, cropAlias: aspectRatio, width: imageWidth, htmlEncode: false).ToString();
+	}
+
+}
+
+<div class="c-tile @Model.ModifierClass">
+	<a href="@Model.Url" class="c-tile__link" target="@Model.Target">
+		<div class="c-tile__image-wrap js-lazyload" data-bg="@imageUrl" style="background-image: url(@imageUrl&quality=18);"></div>
+		<div class="c-tile__content">
+			<h3 class="c-tile__name u-delta">@Model.Headline</h3>
+			@if( hasDescription ) {
+				<div class="c-tile__description">
+					<p>@Model.Description</p>
+				</div>
+			}
+		</div>
+	</a>
+</div>

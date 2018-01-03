@@ -134,6 +134,7 @@
     <Compile Include="Controllers\GenericCvFormController.cs" />
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="Controllers\JobCvFormController.cs" />
+    <Compile Include="Models\CardViewModel.cs" />
     <Compile Include="Models\ExpoForm.cs" />
     <Compile Include="Utility\AttachmentAttribute.cs" />
     <Compile Include="ExtensionMethods\DateExtentions.cs" />
