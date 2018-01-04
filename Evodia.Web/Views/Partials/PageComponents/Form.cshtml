@@ -8,7 +8,6 @@
     var legend = Model.GetPropertyValue<string>("legend");
 }
 
-
 @if (!string.IsNullOrWhiteSpace(formName))
 {
     <div class="o-wrap o-wrap--@wrapSize o-page-component">
@@ -17,6 +16,9 @@
             case "Contact form":
                 @Html.Action("RenderContactForm", "ContactForm", new { legend = legend })
                 break;
+			case "Contact form - consulting":
+				@Html.Action("RenderContactConsultingForm", "ContactConsultingForm", new { legend = legend })
+				break;
             case "Generic CV":
                 @Html.Action("RenderGenericCvForm", "GenericCvForm", new { legend = legend })
                 break;
