@@ -1,0 +1,29 @@
+@using Evodia.Core.Models;
+@inherits UmbracoViewPage<HeadingViewModel>
+@{
+    if (string.IsNullOrWhiteSpace(Model.Headline))
+    {
+        return;
+    }
+}
+
+<section class="c-masthead @Model.ModifierClass">
+	<div class="c-masthead__content o-wrap">
+		@switch(Model.Level) {
+			case "h1":
+				<h1 class="c-masthead__headline u-alpha" itemprop="headline">@Model.Headline</h1>
+				break;
+			case "h3":
+				<h3 class="c-masthead__headline u-alpha" itemprop="headline">@Model.Headline</h3>
+				break;
+			default:
+				<h2 class="c-masthead__headline u-alpha" itemprop="headline">@Model.Headline</h2>
+				break;
+		}
+		@if (!String.IsNullOrWhiteSpace(Model.SubHeadline)) {
+			<div class="c-masthead__subheadline o-wrap--center o-wrap--small">
+				@Html.Raw(Model.SubHeadline)
+			</div>
+		}
+	</div>
+</section>

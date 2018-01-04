@@ -1,0 +1,58 @@
+/* ===========================================================
+
+	# Masthead
+
+=========================================================== */
+
+.c-masthead {
+	text-align: center;
+	background-position: center;
+	background-size: cover;
+	padding-top: 12rem;
+	padding-bottom: 12rem;
+}
+
+.c-masthead__headline {
+	color: inherit;
+	padding-bottom: 0;
+	line-height: 1.22;
+	word-wrap: break-word;
+}
+
+.c-masthead__headline,
+.c-masthead__content p {
+	color: inherit;
+	display: inline;
+	background-color: rgba($white, 0.8);
+	box-shadow: 10px 0 0 rgba($white, 0.8), -10px 0 0 rgba($white, 0.8);
+}
+
+
+.c-masthead__subheadline {
+	margin-top: $line-height;
+}
+
+@include respond-min($mq-large) {
+
+	.c-masthead--large {
+		padding-top: 18rem;
+		padding-bottom: 18rem;
+	}
+
+}
+
+@include respond-max($mq-x-large) {
+
+	.c-masthead {
+		background-image: url("/assets/img/atom-illustration-small.jpg");
+	}
+
+}
+
+@include respond-min($mq-x-large) {
+
+	.c-masthead {
+		background-image: url("/assets/img/atom-illustration.jpg");
+	}
+
+}

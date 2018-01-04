@@ -1,7 +1,12 @@
-﻿@using Umbraco.Web
+﻿@using Evodia.Core.Models
+@using Evodia.Core.Utility
+@using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
+
+	var homePage = Model.AncestorOrSelf(1);
+	var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
 @*
     bool hasSubNav = Model.AncestorOrSelf(2).Children().Any(x => x.IsVisible() && x.TemplateId > 0) ? true : false;
     bool hideSubNav = Model.DocumentTypeAlias == "gatewayPage" && Model.Level == 2 ? true : false;
@@ -9,7 +14,15 @@
 }
 
 <main class="o-page__inner" role="main">
-	@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
+	@if (!isConsultancySite) {
+		@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
+	} else {
+		@Html.Partial("~/Views/Partials/Components/Masthead.cshtml", new HeadingViewModel {
+			Headline = Model.GetPropertyValue<string>("headline", Model.Name),
+			Level = "h1",
+			SubHeadline = Model.GetPropertyValue<string>("introduction")
+		})
+	}
 	@Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
 	@RenderBody()
 </main>
