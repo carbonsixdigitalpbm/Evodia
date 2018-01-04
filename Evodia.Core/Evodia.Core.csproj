@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\temp\SEOChecker\SEOChecker.config" />
+    <Compile Include="Models\HeadingViewModel.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

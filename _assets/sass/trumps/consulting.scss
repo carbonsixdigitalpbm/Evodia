@@ -70,3 +70,23 @@
 	}
 
 }
+
+@include respond-min( $mq-large ) {
+
+	.s-consulting {
+
+		.c-nav--main {
+
+			.c-nav__link {
+
+				&.is-active {
+					color: $white;
+				}
+
+			}
+
+		}
+
+	}
+
+}

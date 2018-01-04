@@ -8,8 +8,17 @@
 }
 
 <main class="o-page__inner" role="main">
+
+	<section class="c-masthead c-masthead--large">
+		<div class="c-masthead__content">
+			<h2 class="c-masthead__headline u-alpha">
+				<span class="u-text--blue">creative thinking</span> different view
+			</h2>
+		</div>
+	</section>
+
 	@if (!String.IsNullOrWhiteSpace(intro)) {
-		<div class="o-section o-wrap o-wrap--large u-delta">
+		<div class="o-section--top o-wrap o-wrap--medium u-delta">
 			@Html.Raw(intro)
 		</div>
 	}
