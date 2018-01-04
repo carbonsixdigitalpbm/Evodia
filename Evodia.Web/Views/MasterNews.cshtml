@@ -1,11 +1,24 @@
-﻿@using Umbraco.Web
+﻿@using Evodia.Core.Utility
+@using Evodia.Core.Models
+@using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
+
+	var homePage = Model.AncestorOrSelf(1);
+	var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
 }
 
 @if( Model.DocumentTypeAlias == "news" ) {
-	@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
+	if (!isConsultancySite) {
+		@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
+	} else {
+		@Html.Partial("~/Views/Partials/Components/Masthead.cshtml", new HeadingViewModel {
+			Headline = Model.GetPropertyValue<string>("headline", Model.Name),
+			Level = "h1",
+			SubHeadline = Model.GetPropertyValue<string>("introduction")
+		})
+	}
 }
 @Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
 <div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">

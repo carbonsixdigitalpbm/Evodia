@@ -160,10 +160,10 @@ gulp.task('ie', function() {
 // Optimize images
 gulp.task('images', function() {
     return gulp.src(paths.assetsFolder + '/img/**/*')
-        .pipe($.cache($.imagemin({
-            progressive: true,
-            interlaced: true
-        })))
+		.pipe( $.cache( $.imagemin([
+			$.imagemin.gifsicle({interlaced: true}),
+			$.imagemin.jpegtran({progressive: true})
+		])))
         .pipe(gulp.dest(paths.assetsBuildFolder + '/img'))
         .pipe($.size({
             title: 'images'
@@ -202,7 +202,6 @@ gulp.task('watch', function() {
     gulp.watch(paths.assetsFolder + '/images/**/*', ['images']);
 });
 
-
 // Copy master template with correct asset references
 gulp.task('refAssets', ['css', 'js'], function() {
     return gulp.src(paths.templates + '/Master.cshtml')
@@ -213,11 +212,11 @@ gulp.task('refAssets', ['css', 'js'], function() {
 // gulp dev
 gulp.task('dev', ['clean', 'modernizr'], function() {
     isProduction = false;
-    gulp.start('refAssets', 'watch', 'copyfonts');
+    gulp.start('refAssets', 'images', 'watch', 'copyfonts');
 });
 
 // gulp build
 gulp.task('build', ['clean', 'modernizr'], function() {
     isProduction = true;
-    gulp.start('refAssets', 'copyfonts');
+    gulp.start('refAssets', 'images', 'copyfonts');
 });
