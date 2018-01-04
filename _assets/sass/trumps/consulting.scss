@@ -81,6 +81,26 @@
 
 				&.is-active {
 					color: $white;
+
+					&:hover {
+						color: $white;
+					}
+				}
+
+				&:hover {
+					color: $pri;
+				}
+
+			}
+
+			.c-nav__list--sub {
+
+				.c-nav__link {
+
+					&:hover {
+						color: $white;
+					}
+
 				}
 
 			}
