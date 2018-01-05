@@ -4,6 +4,10 @@
     var menuItems = Model.AncestorOrSelf(2).Children().Where( x => x.IsVisible() && x.TemplateId > 0 );
 }
 
+@if (menuItems == null || !menuItems.Any()) {
+	return;
+}
+
 <ul class="c-nav__list">
     @foreach (var item in menuItems){
         <li class="c-nav__item c-nav__item--parent">
