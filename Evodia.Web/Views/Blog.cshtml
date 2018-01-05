@@ -1,37 +1,80 @@
-﻿@*@using Umbraco.Web
-@using UmbracoStarterKit.Models
-@using UmbracoStarterKit.Utility
-@inherits UmbracoViewPage<Blog>
+﻿@using Umbraco.Web
+@using Evodia.Core.Data
+@using Evodia.Core.Utility
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<IPublishedContent>
 @{
-	Layout = "MasterBlog.cshtml";
+    Layout = "MasterBlog.cshtml";
 
-    var allPosts = Model.AllBlogPosts.ToList();
-	var paging = Paging.GetPages(allPosts.Count, 10);
-	var selectedPosts = allPosts.Skip(paging.Skip).Take(paging.Take).ToList();
+	var qAuthor = Request.QueryString["author"];
+    var qCat = Request.QueryString["category"];
+    var qMonth = Request.QueryString["month"];
+    var qYear = Request.QueryString["year"];
+
+	var allposts = Blog.AllOrderedPosts(Model).ToList().Where(x => x.IsVisible() && x.TemplateId > 0).ToList();
+    var filteredPosts = Blog.FilterSelection(allposts, qAuthor, qCat, qMonth, qYear).ToList();
+
+	var paging = Paging.GetPages(filteredPosts.Count, 5);
+    var selectedArticles = filteredPosts.Skip(paging.Skip).Take(paging.Take).ToList();
 }
 
-<h1>@Model.Headline</h1>
-@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml", Model.Content)
-@if( selectedPosts.Any() )
-{
-    foreach (var post in selectedPosts)
+<section>
+    @if( selectedArticles.Any() )
     {
-        @Html.Partial("~/Views/Partials/Blog/PostCard.cshtml", post)
-    }
-}
-else
-{
-    <p>Sorry, there are currently no posts available</p>
-}
+        foreach( var article in selectedArticles )
+        {
+			var releaseDate = article.GetPropertyValue<DateTime>("releaseDate");
+			var subtitle = releaseDate.ToString("%d") + "<sup>" + Helpers.GetDaySuffix(releaseDate.ToString("%d")) + "</sup>" + releaseDate.ToString(" MMMM yyyy");
 
-<nav class="c-pagination">
-	@PagingTemplate.RenderPaging(paging, Model.Content.Id)
-</nav>
+			@Html.Partial("~/Views/Partials/Components/ArticleSummary.cshtml", new ArticleSummaryViewModel {
+				Image = Umbraco.Media(article.GetPropertyValue<int>("coverImage")),
+				Url = article.Url,
+				Headline = article.GetPropertyValue<string>("headline", article.Name),
+				Subtitle = subtitle,
+				Copy = article.GetPropertyValue<string>("excerpt")
+			})
+        }
+        <nav class="c-pagination">
+            @PagingTemplate.RenderPaging(paging, Model.Id)
+        </nav>
+    }
+    else
+    {
+        <p>Sorry, there currently aren&#39;t any posts available.</p>
+    }
+</section>
 
 @section Sidebar {
-	@Html.Partial("~/Views/Partials/Blog/BlogCategories.cshtml")
-	@if( allPosts.Any() )
-	{
-		@Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts)
+	@{
+		var pageUrl = Model.Url;
+		var home = Model.Site();
+		var categoryRoot = home.Descendants("categories").FirstOrDefault();
+		var authorRoot = home.Descendants("categories").FirstOrDefault();
+		var categoryLinks = Helpers.GetCategoryLinks(categoryRoot, pageUrl, qCat);
+		var authorLinks = Helpers.GetAuthorLinks(authorRoot, pageUrl, qAuthor);
+
+		var dateLinks = Helpers.GetDatesFromSelection(allposts, pageUrl, qMonth, qYear);
 	}
-}*@
+
+	@if (categoryLinks != null) {
+		<div class="c-pod c-pod--light">
+			<h2 class="c-pod__headline">Categories</h2>
+			@Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(categoryLinks))
+		</div>
+    }
+
+	@if (authorLinks != null) {
+		<div class="c-pod c-pod--light">
+			<h2 class="c-pod__headline">Authors</h2>
+			@Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(authorLinks))
+		</div>
+    }
+
+	@if (dateLinks != null) {
+        <div class="c-pod c-pod--light">
+			<h2 class="c-pod__headline">Archive</h2>
+        	@Html.Partial("~/Views/Partials/Components/LinkListSelect.cshtml", new LinkListViewModel(dateLinks))
+		</div>
+    }
+
+}

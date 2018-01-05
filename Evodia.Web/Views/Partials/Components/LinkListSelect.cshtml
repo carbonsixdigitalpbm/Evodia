@@ -1,0 +1,14 @@
+@using Evodia.Core.Models;
+@inherits UmbracoViewPage<LinkListViewModel>
+@{
+    if( Model.Links == null ) {
+        return;
+    }
+}
+
+<select id="@Model.Id" onchange="location = this.options[this.selectedIndex].value;" class="js-select">
+    @foreach( var item in Model.Links ) {
+        var isSelected = item.IsActive ? "selected" : "";
+		<option value="@item.Url" @isSelected class="@item.ModifierClass">@item.Name</option>
+    }
+</select>

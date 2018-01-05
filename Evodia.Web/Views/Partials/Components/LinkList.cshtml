@@ -1,0 +1,18 @@
+@using Evodia.Core.Models;
+@inherits UmbracoViewPage<LinkListViewModel>
+@{
+    if( Model.Links == null ) {
+        return;
+    }
+}
+
+<ul class="c-link-list">
+    @foreach( var item in Model.Links ) {
+        var activeClass = item.IsActive ? "is-active" : "";
+        <li class="c-link-list__item @activeClass">
+            <a href="@item.Url" class="c-link-list__link">
+				<span class="c-link-list__name">@item.Name</span>
+			</a>
+        </li>
+    }
+</ul>

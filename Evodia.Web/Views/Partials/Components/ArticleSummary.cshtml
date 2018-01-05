@@ -1,0 +1,30 @@
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<ArticleSummaryViewModel>
+<article class="c-listing--article" itemscope itemtype="http://schema.org/Article">
+	@if (Model.Image != null) {
+		var imageUrl = Model.Image.Url + "?width=800&height=343&mode=crop";
+
+		<div class="c-listing__image-wrap u-space-bottom">
+			<img src="@imageUrl" class="c-listing__image" alt="@Model.Headline"/>
+		</div>
+	}
+	<div class="c-listing__content">
+		<h2 class="c-listing__headline" itemprop="name">@Model.Headline</h2>
+		<ul class="c-meta-data">
+			@if (!String.IsNullOrWhiteSpace(Model.Subtitle)) {
+				<li class="c-meta-data__item">
+					@Html.Raw(Model.Subtitle)
+				</li>
+			}
+			@*
+			<li class="c-meta-data__item" itemprop="keywords">@category</li>
+			*@
+		</ul>
+		@if (!String.IsNullOrWhiteSpace(Model.Copy)) {
+			<div class="c-listing__description">
+				<p>@Html.Raw(Model.Copy)</p>
+			</div>
+		}
+	</div>
+	<a href="@Model.Url" class="c-listing__block-link" itemprop="url"></a>
+</article>

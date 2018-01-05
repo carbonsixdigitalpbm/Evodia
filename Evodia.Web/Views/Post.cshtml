@@ -1,26 +1,20 @@
 ﻿@using Umbraco.Web
+@using Evodia.Core.Models
 @using Evodia.Core.Utility
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "MasterBlog.cshtml";
 
-    var ci = new System.Globalization.CultureInfo("en-GB");
-    System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-    System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-
     var homePage = Model.AncestorOrSelf(1);
     var blog = homePage.Descendants("blog").First();
-    var allPosts = blog.Descendants("posts").First().Descendants().OrderBy("releaseDate desc");
+    var allPosts = blog.Descendants().Where( x => x.IsVisible() ).OrderBy("releaseDate desc").ToList();
 
     string headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
     DateTime releaseDate = Model.GetPropertyValue<DateTime>("releaseDate");
     string excerpt = Model.GetPropertyValue<string>("excerpt");
-
-    bool hasAuthor = Model.HasValue("author");
-    bool hasCategory = Model.HasValue("category");
 }
 
-<article class="c-article" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="c-article" itemscope itemtype="http://schema.org/Article">
     <header class="c-article__header">
         <h1 class="c-article__heading" itemprop="headline">@headline</h1>
         <ul class="c-meta-data">
@@ -30,40 +24,55 @@
                 </time>
                 <meta itemprop="datePublished" content="@releaseDate.ToString("yyyy-MM-dd")">
             </li>
-            @if( hasAuthor )
-            {
-                var authorId = Model.GetPropertyValue<string>("author");
-                var authorPage = Umbraco.TypedContent(authorId);
-
-                <li class="c-meta-data__item u-hide-mobile" itemprop="author">
-                    <a href="@authorPage.Url" rel="author">@authorPage.Name</a>
-                </li>
-            }
-            @if( hasCategory )
-            {
-                var categoryId = Model.GetPropertyValue<string>("category");
-                var categoryPage = Umbraco.TypedContent(categoryId);
-
-                <li class="c-meta-data__item" itemprop="keywords">
-                    <a href="@categoryPage.Url" rel="category">@categoryPage.Name</a>
-                </li>
-            }
+			@{
+				var cat = Model.GetPropertyValue<List<IPublishedContent>>("category").FirstOrDefault();
+			}
+			@if (cat != null) {
+				<li class="c-meta-data__item" itemprop="keywords">
+					<div rel="category">@cat.Name</div>
+				</li>
+			}
         </ul>
     </header>
-
     <div class="s-free-content u-clearfix" itemprop="articleBody">
-        <div class="c-article__description u-intro" itemprop="description">
+        <div class="c-article__description u-strong u-space-bottom" itemprop="description">
             <p>@excerpt</p>
         </div>
-        @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+
+        @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml", Model, new ViewDataDictionary {{"wrapSize", "large"}})
     </div>
 </article>
 
-@Html.Partial("~/Views/Partials/Blog/RelatedPosts.cshtml")
-@Html.Partial("~/Views/Partials/Components/Comments.cshtml")
-
-
 @section Sidebar {
-   @Html.Partial("~/Views/Partials/Blog/BlogCategories.cshtml")
-   @Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts.ToList())
+	@{
+		var pageUrl = blog.Url;
+		var home = Model.Site();
+		var categoryRoot = home.Descendants("categories").FirstOrDefault();
+		var authorRoot = home.Descendants("categories").FirstOrDefault();
+		var categoryLinks = Helpers.GetCategoryLinks(categoryRoot, pageUrl, "");
+		var authorLinks = Helpers.GetAuthorLinks(authorRoot, pageUrl, "");
+
+		var dateLinks = Helpers.GetDatesFromSelection(allPosts, pageUrl, "", "");
+	}
+
+	@if (categoryLinks != null) {
+		<div class="c-pod c-pod--light">
+			<h2 class="c-pod__headline">Categories</h2>
+			@Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(categoryLinks))
+		</div>
+    }
+
+	@if (authorLinks != null) {
+		<div class="c-pod c-pod--light">
+			<h2 class="c-pod__headline">Authors</h2>
+			@Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(authorLinks))
+		</div>
+    }
+
+	@if (dateLinks != null) {
+        <div class="c-pod c-pod--light">
+			<h2 class="c-pod__headline">Archive</h2>
+        	@Html.Partial("~/Views/Partials/Components/LinkListSelect.cshtml", new LinkListViewModel(dateLinks))
+		</div>
+    }
 }

@@ -23,3 +23,16 @@
 		background-color: $white;
 	}
 }
+
+
+.c-link-list__item {
+
+	&.is-active {
+
+		.c-link-list__link {
+			font-weight: $bold;
+		}
+
+	}
+
+}

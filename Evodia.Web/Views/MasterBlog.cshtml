@@ -1,14 +1,32 @@
-﻿@using Umbraco.Web
+﻿@using Evodia.Core.Utility
+@using Evodia.Core.Models
+@using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
+
+	var homePage = Model.AncestorOrSelf(1);
+	var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
 }
-<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix">
-    <main class="o-page__content o-page__content--sidebar-layout">
+
+@if( Model.DocumentTypeAlias == "news" ) {
+	if (!isConsultancySite) {
+		@Html.Partial("~/Views/Partials/Page/PageHeader.cshtml")
+	} else {
+		@Html.Partial("~/Views/Partials/Components/Masthead.cshtml", new HeadingViewModel {
+			Headline = Model.GetPropertyValue<string>("headline", Model.Name),
+			Level = "h1",
+			SubHeadline = Model.GetPropertyValue<string>("introduction")
+		})
+	}
+}
+@Html.Partial("~/Views/Partials/Page/Breadcrumbs.cshtml")
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content">
         @RenderBody()
     </main>
-    <aside class="o-page__sidebar" role="complementary">
-        @RenderSection("Sidebar", required: false)
+	<aside class="o-page__sidebar" role="complementary">
+		@RenderSection("Sidebar", required: false)
     </aside>
 </div>
 
