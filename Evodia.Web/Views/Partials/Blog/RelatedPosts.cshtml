@@ -3,7 +3,10 @@
 @{
 
     var homePage = Model.AncestorOrSelf(1);
-    var blog = homePage.Descendants("blog").First();
+    var blog = homePage.Descendants("blog").FirstOrDefault();
+	if (blog == null) {
+		return;
+	}
     int categoryId = Model.GetPropertyValue<int>("category");
     bool hasCategory = categoryId != 0 ? true : false;
     int postsToShow = 3;
