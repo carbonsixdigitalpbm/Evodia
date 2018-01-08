@@ -6,7 +6,7 @@
 .s-consulting {}
 // styles not being applied without the above
 
-.s-consulting {
+.s-consulting.s-consulting.s-consulting.s-consulting {
 
 	.c-header {
 		color: inherit;
@@ -43,7 +43,7 @@
 
 @include respond-max( $mq-large ) {
 
-	.s-consulting {
+	.s-consulting.s-consulting.s-consulting.s-consulting {
 
 		&.enhance {
 
@@ -73,7 +73,7 @@
 
 @include respond-min( $mq-large ) {
 
-	.s-consulting {
+	.s-consulting.s-consulting.s-consulting {
 
 		.c-nav--main {
 
