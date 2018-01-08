@@ -1,0 +1,31 @@
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var settings = Model.Descendants("consultancySettings").FirstOrDefault();
+	var cards = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("featuredLinks");
+}
+@if (cards != null && cards.Any()) {
+	var featuredHeadline = Model.GetPropertyValue<string>("featuredHeadline");
+	var defaultImageId = settings != null ? settings.GetPropertyValue<int>("defaultSocialMediaImage") : 0;
+	<section class="o-section o-wrap o-wrap--large">
+		@if (!String.IsNullOrWhiteSpace(featuredHeadline)) {
+			<div class="u-center-content u-space-bottom">
+				<h2 class="u-alpha">@featuredHeadline</h2>
+			</div>
+		}
+		<div class="o-grid--two u-clearfix">
+			@foreach (var item in cards) {
+				var link = new LinkPickerModel(item.GetPropertyValue<string>("link"));
+				var hasLink = !String.IsNullOrWhiteSpace(link.Url);
+
+				@Html.Partial("~/Views/Partials/Components/CardLink.cshtml", new CardViewModel {
+					Image = Umbraco.Media(item.GetPropertyValue<int>("image", defaultImageId)),
+					Headline = item.GetPropertyValue<string>("headline"),
+					Url = hasLink ? link.Url : "",
+					Target = hasLink ? link.Target : "",
+					ModifierClass = "o-grid__item"
+				})
+			}
+		</div>
+	</section>
+}
