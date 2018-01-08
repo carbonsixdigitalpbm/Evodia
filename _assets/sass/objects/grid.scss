@@ -44,6 +44,14 @@
 			display: flex;
 		}
 
+		.o-grid--two {
+
+			.o-grid__item {
+				width: calc(47.5% - 1px);
+			}
+
+		}
+
 	}
 
 }
