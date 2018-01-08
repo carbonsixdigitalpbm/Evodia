@@ -73,6 +73,10 @@
 	color: $white;
 	background-color: $dark-2;
 
+	.c-tile__link {
+		background-color: inherit;
+	}
+
 	.c-tile__name {
 		color: $blue-3;
 	}

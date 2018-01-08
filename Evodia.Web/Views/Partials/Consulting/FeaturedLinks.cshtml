@@ -2,7 +2,7 @@
 @inherits UmbracoViewPage<IPublishedContent>
 @{
 	var settings = Model.Descendants("consultancySettings").FirstOrDefault();
-	var cards = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("featuredLinks");
+	var cards = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("featuredCards");
 }
 @if (cards != null && cards.Any()) {
 	var featuredHeadline = Model.GetPropertyValue<string>("featuredHeadline");
@@ -15,17 +15,43 @@
 		}
 		<div class="o-grid--two u-clearfix">
 			@foreach (var item in cards) {
-				var link = new LinkPickerModel(item.GetPropertyValue<string>("link"));
-				var hasLink = !String.IsNullOrWhiteSpace(link.Url);
+				switch(item.DocumentTypeAlias) {
+					case "cardLink":
+						var link = new LinkPickerModel(item.GetPropertyValue<string>("link"));
+						var hasLink = !String.IsNullOrWhiteSpace(link.Url);
 
-				@Html.Partial("~/Views/Partials/Components/CardLink.cshtml", new CardViewModel {
-					Image = Umbraco.Media(item.GetPropertyValue<int>("image", defaultImageId)),
-					Headline = item.GetPropertyValue<string>("headline"),
-					Url = hasLink ? link.Url : "",
-					Target = hasLink ? link.Target : "",
-					ModifierClass = "o-grid__item"
-				})
+						@Html.Partial("~/Views/Partials/Components/CardLink.cshtml", new CardViewModel {
+							Image = Umbraco.Media(item.GetPropertyValue<int>("image", defaultImageId)),
+							Headline = item.GetPropertyValue<string>("headline"),
+							Url = hasLink ? link.Url : "",
+							Target = hasLink ? link.Target : "",
+							ModifierClass = "o-grid__item"
+						})
+						break;
+					case "cardContent":
+						@RenderContentCard(item)
+						break;
+					default:
+						<p>no doctype</p>
+						break;
+				}
 			}
 		</div>
 	</section>
+}
+
+@helper RenderContentCard(IPublishedContent item) {
+	var headline = item.GetPropertyValue<string>("headline");
+	var description = item.GetPropertyValue<string>("copy");
+
+	<div class="c-tile c-tile--highlight o-grid__item">
+		<div class="c-tile__content">
+			@if (!string.IsNullOrWhiteSpace(headline)) {
+				<h3 class="c-tile__name u-delta">@headline</h3>
+			}
+			@if (!string.IsNullOrWhiteSpace(description)) {
+				<div class="c-tile__description">@Html.Raw(description)</div>
+			}
+		</div>
+	</div>
 }
