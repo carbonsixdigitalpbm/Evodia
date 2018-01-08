@@ -39,6 +39,7 @@ $light-blue-2:				#CEEBF8;
 
 $blue-1:					#0092D3;
 $blue-2:					#0071A5;
+$blue-3:					lighten($blue-1, 25%);
 
 $pri: 						$blue-1;
 $sec: 						$dark-1;

@@ -9,6 +9,7 @@
 }
 
 .c-tile__content {
+	width: 100%;
 	color: $text-colour;
 	padding: 1.8rem 3rem;
 	position: relative;
@@ -63,4 +64,36 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
+}
+
+
+// highlight
+
+.c-tile--highlight {
+	color: $white;
+	background-color: $dark-2;
+
+	.c-tile__name {
+		color: $blue-3;
+	}
+
+	a {
+		color: $blue-3;
+
+		&:hover,
+		&:focus {
+			color: $pri;
+		}
+	}
+
+	.c-tile__content {
+		color: inherit;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+		word-wrap: break-word;
+	}
+
+	.c-tile__description {
+		margin-top: $line-height / 3;
+	}
 }
