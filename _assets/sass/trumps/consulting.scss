@@ -107,6 +107,13 @@
 
 		}
 
+		.c-social__link {
+			&:hover{
+				color: $white !important;
+				background-color: $dark-1;
+			}
+		}
+
 	}
 
 }
