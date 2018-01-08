@@ -1,0 +1,37 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<List<IPublishedContent>>
+@{
+
+    string[] dateList = new string[100];
+    var ii = 0;
+    string previous = string.Empty;
+
+    string url = Model[0].Ancestor().Url;
+
+    foreach( IPublishedContent post in Model )
+    {
+        dateList[ii] = post.GetPropertyValue<DateTime>("releaseDate").ToString("MMMM yyyy");
+        ii++;
+    }
+}
+
+<h3 class="c-pod__headline">Archive</h3>
+<div class="o-select">
+	<select id="dateFilter" onchange="location = this.options[this.selectedIndex].value;">
+	    <option value="">Choose date</option>
+	    @foreach(var date in dateList)
+	    {
+	        var current = date;
+
+	        if( current != previous && date != null )
+	        {
+	            foreach( var part in date.Split(',') )
+	            {
+	                <option value="@url?year=@date.Split(' ')[1].ToLower()&month=@date.Split(' ')[0].ToLower()">@date</option>
+	            }
+	        }
+
+	        previous = date;
+	    }
+	</select>
+</div>

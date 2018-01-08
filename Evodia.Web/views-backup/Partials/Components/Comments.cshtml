@@ -1,0 +1,33 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+
+    var homePage = Model.AncestorOrSelf(1);
+    var settings = homePage.Descendants("globalSettings").First();
+    var disqusShortname = settings.GetPropertyValue<string>("disqusShortname");
+}
+
+@if( !settings.GetPropertyValue<bool>("disableComments") && !string.IsNullOrEmpty(disqusShortname) )
+{
+    if( !Model.GetPropertyValue<bool>("disableComments") )
+    {
+        <aside class="c-comments o-section o-wrap o-wrap--small">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                // Required: on line below, replace text in quotes with your forum shortname
+                var disqus_shortname = '@disqusShortname';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </aside>
+    }
+
+}

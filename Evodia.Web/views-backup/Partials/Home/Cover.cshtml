@@ -1,0 +1,23 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var headline = Model.GetPropertyValue<string>("coverHeadline");
+}
+<section class="c-hero">
+	<div class="c-hero__inner o-section__inner o-wrap">
+		@if( !String.IsNullOrEmpty( headline ) ) {
+			<h1 class="c-hero__headline u-center-content u-mega">@headline</h1>
+		}
+		<div class="o-wrap--center o-wrap--small">
+			@if( Model.HasValue("coverCopy") ) {
+				<div class="u-hide-small u-hide-medium u-hide-large u-center-content">
+					@Model.GetPropertyValue("coverCopy")
+				</div>
+			}
+			@Html.Action("RenderBasicSearchForm", "SearchForm")
+		</div>
+	</div>
+	<div class="t-mouse"></div>
+
+	@Html.Partial("~/Views/Partials/Components/Atoms.cshtml")
+</section>

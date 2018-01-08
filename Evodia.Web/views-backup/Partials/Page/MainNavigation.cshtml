@@ -1,0 +1,55 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var menuItems = homePage.Children.Where(x => x.IsVisible()
+        && x.TemplateId > 0
+    );
+}
+
+<nav id="mainNavigation" class="c-nav c-nav--main js-nav" role="navigation" aria-labelledby="toggle-menu">
+    <ul class="c-nav__list">
+        @foreach (var item in menuItems)
+        {
+            <li class="c-nav__item c-nav__item--parent">
+                <a href="@item.Url" class="c-nav__link @(item.IsAncestorOrSelf(Model) ? "is-active" : null)">
+                    @item.Name
+                </a>
+                @Traverse(item)
+            </li>
+        }
+    </ul>
+</nav>
+
+@* Helper method to traverse through all descendants *@
+@helper Traverse(IPublishedContent node)
+{
+    var maxLevelForNav = 3;
+    var items = node.Children.Where(x => x.IsVisible()
+        && x.TemplateId > 0
+        && x.Level <= maxLevelForNav
+        && x.DocumentTypeAlias != "posts"
+        && x.DocumentTypeAlias != "rSS"
+        && x.DocumentTypeAlias != "authors"
+        && x.DocumentTypeAlias != "categories"
+        && x.DocumentTypeAlias != "generalNews"
+        && x.DocumentTypeAlias != "pressRelease"
+        && x.DocumentTypeAlias != "inTheMedia"
+        && x.DocumentTypeAlias != "job"
+    );
+
+    if ( items.Any() )
+    {
+            <ul class="c-nav__list c-nav__list--sub">
+                @foreach (var item in items)
+                {
+                    <li class="c-nav__item">
+                        <a href="@item.Url" class="c-nav__link @(Model.Id == item.Id ? "is-active" : null)">
+                            @item.Name
+                        </a>
+                        @Traverse(item)
+                    </li>
+                }
+            </ul>
+    }
+}

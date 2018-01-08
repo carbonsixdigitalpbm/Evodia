@@ -1,0 +1,43 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+
+	var contacts = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("officeLocations");
+
+    if (contacts == null)
+    {
+        return;
+	}
+}
+
+
+@foreach (var item in contacts.ToContentSet())
+{
+	var officeName = item.GetPropertyValue<string>("officeName");
+	var phoneNumber = item.GetPropertyValue<string>("phoneNumber");
+    var emailAddress = item.GetPropertyValue<string>("emailAddress");
+    var address = item.GetPropertyValue<string>("address");
+
+	<article class="vcard">
+		@if( !String.IsNullOrEmpty(officeName) )
+		{
+			<h2 class="vcard__headline u-zeta">@officeName</h2>
+		}
+        @if( !String.IsNullOrEmpty(address) )
+        {
+            <p class="adr">
+                @Html.Raw(@library.ReplaceLineBreaks( address ))
+            </p>
+        }
+        @if( !String.IsNullOrEmpty(phoneNumber) )
+        {
+            <p class="tel">Tel: @phoneNumber</p>
+        }
+        @if( !String.IsNullOrEmpty(emailAddress) )
+        {
+            @:Email: <a href="mailto:@emailAddress">@emailAddress</a>
+        }
+    </article>
+}

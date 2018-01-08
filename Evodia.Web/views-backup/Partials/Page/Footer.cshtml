@@ -1,0 +1,58 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+
+	var linkHeadline = settings.GetPropertyValue<string>("footerLinksHeadline");
+}
+
+<footer id="footer" class="c-footer" role="contentinfo">
+	<div class="c-footer__inner o-section o-wrap o-wrap--x-large">
+		<div class="u-clearfix">
+			<div class="c-footer__col c-footer__col--first">
+				<h2 class="u-beta">Contact us</h2>
+				@Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
+	        	@Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
+			</div>
+			<div class="c-footer__col c-footer__col--last">
+				@if( !string.IsNullOrEmpty(linkHeadline) )
+				{
+					<h2 class="u-beta">@linkHeadline</h2>
+				}
+				@RenderLinks( settings )
+
+			</div>
+		</div>
+		<div class="c-footer__sub">
+			<div class="o-col--two-one">
+				<div class="o-col o-col--first u-clearfix">
+					<p class="c-footer__copyright">@(settings.GetPropertyValue<string>("copyrightDisclaimer")) &vert; Created by <a href="http://tgdh.co.uk/" target="_blank" style="color:#fff;">TGDH</a></p>
+					@Html.Partial("~/Views/Partials/Page/FooterNavigation.cshtml")
+				</div>
+				<div class="o-col o-col--last c-footer__logos">
+					@Html.Partial("~/Views/Partials/Components/FooterLogos.cshtml")
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+@helper RenderLinks( IPublishedContent settings ) {
+    var idList = settings.GetPropertyValue<string>("footerLinks").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+    var navigationLinks = Umbraco.TypedContent(idList).Where("TemplateId > 0");
+
+	if( navigationLinks.Any() )
+	{
+
+		<ul class="o-link-list o-link-list--grid">
+			@foreach( IPublishedContent link in navigationLinks )
+			{
+				<li class="o-link-list__item">
+					<a href="@link.Url" class="o-link-list__link">@link.Name</a>
+				</li>
+			}
+		</ul>
+	}
+
+}

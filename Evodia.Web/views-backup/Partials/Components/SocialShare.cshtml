@@ -1,0 +1,34 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	@*
+		maybe look at this for new links: http://sharingbuttons.io/
+	*@
+
+	var homePage = Model.Site();
+	var settings = homePage.Descendants("globalSettings").First();
+	var siteUrl = Request.Url.Host.ToString();
+	var pageUrl = Request.Url.ToString();
+	@* pageUrl = pageUrl.Replace("/", "%2F"); *@
+	var pageName = (Model.HasValue("clientJobTitle") ? Model.GetPropertyValue<string>("clientJobTitle") : Model.Name);
+	var pageImage = siteUrl + Umbraco.TypedMedia( settings.GetPropertyValue<string>("defaultSocialMediaImage") ).Url;
+	var pageMeta = (Model.HasValue("description") ? Model.GetPropertyValue<string>("description") : "");
+
+	string twitterUrl = settings.GetPropertyValue<string>("twitter");
+	var twitterCreator = settings.HasValue("twitter") ? twitterUrl.Split('/').Last() : "Evodia_Ltd";
+
+	var facebookShareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + @pageUrl + "&t=" + @pageName;
+	var twitterShareUrl = "https://twitter.com/intent/tweet?source=" + @pageUrl + "&text=" + @pageName + ":%20http%3A%2F%2F" + @pageUrl + "&via=" + @twitterCreator;
+	var googleShareUrl = "https://plus.google.com/share?url=" + @pageUrl;
+	var linkedInShareUrl = "http://www.linkedin.com/shareArticle?mini=true&url=" + @pageUrl + "&title=" + pageName.Replace(" ", "%20") + "&summary=" + pageMeta.Replace(" ", "%20") + "&source=" + @pageUrl;
+}
+
+<div class="c-share">
+	<p class="c-share__label">Share:</p>
+	<ul class="c-share__list">
+		<li class="c-share__item"><a href="@facebookShareUrl" target="_blank" title="Share on Facebook" class="c-share__link c-share__link--facebook"><i class="ico-facebook"></i><span class="u-hide-text">Facebook</span></a></li>
+		<li class="c-share__item"><a href="@twitterShareUrl" target="_blank" title="Share on Twitter" class="c-share__link c-share__link--twitter"><i class="ico-twitter"></i><span class="u-hide-text">Twitter</span></a></li>
+		<li class="c-share__item"><a href="@googleShareUrl" target="_blank" title="Share on Google Plus" class="c-share__link c-share__link--google"><i class="ico-googleplus"></i><span class="u-hide-text">Google Plus</span></a></li>
+		<li class="c-share__item"><a href="@linkedInShareUrl" target="_blank" title="Share on LinkedIn" class="c-share__link c-share__link--linkedin"><i class="ico-linkedIn"></i><span class="u-hide-text">LinkedIn</span></a></li>
+	</ul>
+</div>

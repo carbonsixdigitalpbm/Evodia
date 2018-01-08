@@ -1,0 +1,69 @@
+﻿@using Evodia.Core.Controllers
+@using Umbraco.Web
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<FeedbackSurvey>
+@{
+    var success = TempData["FeedbackSurveyValidationPasses"] != null;
+    var error = TempData["FeedbackSurveyValidationFailed"] != null;
+    var folderId = TempData["FeedbackSurveyFolderId"];
+    var formLegend = ViewData["legend"] != null ? ViewData["legend"] as string : "";
+}
+
+@if (success)
+{
+    if (folderId != null)
+    {
+        var folder = Umbraco.TypedContent(folderId);
+        var message = folder.GetPropertyValue<IHtmlString>("submissionMessage");
+
+		<div class="c-alert c-alert--success c-alert--fixed o-wrap--medium">
+            @message
+        </div>
+    }
+}
+else
+{
+    if (error)
+    {
+        @Html.ValidationSummary()
+    }
+
+    using (Html.BeginUmbracoForm<FeedbackSurveyController>("ProcessFeedbackSurveySubmission", FormMethod.Post, new {id = "feedback-survey-form", @class = "c-form js-form"}))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset class="o-form__fieldset c-cv-upload">
+            @if (!string.IsNullOrWhiteSpace(formLegend))
+            {
+                <legend class="o-legend u-beta u-highlight-text u-space-bottom--small u-strong">@formLegend</legend>
+            }
+            <div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.Name, new {@class = "o-input", required = "required"})
+                @Html.LabelFor(x => x.Name, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+            <div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.Email, new { @class = "o-input", required = "required", type = "email" })
+                @Html.LabelFor(x => x.Email, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Email)
+            </div>
+            <div class="o-form__field o-form__field--compact is-required">
+                @Html.TextBoxFor(x => x.Telephone, new {@class = "o-input", required = "required",})
+                @Html.LabelFor(x => x.Telephone, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Telephone)
+            </div>
+            <div class="o-form__field o-form__field--compact">
+                @Html.TextBoxFor(x => x.CompanyName, new { @class = "o-input" })
+                @Html.LabelFor(x => x.CompanyName, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.CompanyName)
+            </div>
+            <div class="o-form__field o-form__field--compact is-required">
+                @Html.TextAreaFor(x => x.Message, new { @class = "o-input", rows = 6 })
+                @Html.LabelFor(x => x.Message, new { @class = "o-label" })
+                @Html.ValidationMessageFor(x => x.Message)
+            </div>
+            <div class="o-form__field o-form__field--submit u-content--right">
+                <button type="submit" class="c-button c-button--primary">Submit</button>
+            </div>
+        </fieldset>
+    }
+}

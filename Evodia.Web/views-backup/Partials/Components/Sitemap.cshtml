@@ -1,0 +1,34 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var selection = Model.AncestorOrSelf(1);
+}
+
+<div id="sitemap" class="c-sitemap">
+    @Traverse( selection )
+</div>
+
+@helper Traverse(IPublishedContent node) {
+    const int maxLevelForSitemap = 4;
+    var selection = node.Children.Where( x => x.IsVisible() && x.Level <= maxLevelForSitemap &&
+		x.TemplateId > 0 &&
+		x.DocumentTypeAlias != "notFound" &&
+		x.DocumentTypeAlias != "job"
+	).ToList();
+
+    if ( selection.Any() )
+    {
+        var level = selection.First().Level;
+        string listClass = level > 2 ? "c-sitemap__list--sub" : "c-nav__item--parent";
+
+        <ul class="c-sitemap__list @listClass">
+            @foreach (var item in selection)
+            {
+                <li class="c-sitemap__item c-sitemap__item--level">
+                    <a href="@item.Url" class="c-sitemap__link">@item.Name</a>
+                    @Traverse(item)
+                </li>
+            }
+        </ul>
+    }
+}

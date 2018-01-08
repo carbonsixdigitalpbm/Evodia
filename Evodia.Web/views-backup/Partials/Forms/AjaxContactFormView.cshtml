@@ -1,0 +1,80 @@
+﻿@*@using Umbraco.Web
+@using Evodia.Core.Models
+@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@inherits UmbracoViewPage<ContactForm>
+@{
+    var ajaxOptions = new AjaxOptions
+    {
+        OnBegin = "BeginLoading",
+        OnSuccess = "Success",
+        OnFailure = "Error",
+        HttpMethod = "POST"
+    };
+
+    var htmlAttributes = new
+    {
+        @id = "ajax-contact-form",
+        @class = "c-form js-form js-form--contact"
+    };
+
+    var folderId = TempData["FormFolderId"];
+    var message = "";
+
+    if (folderId != null)
+    {
+        var folder = Umbraco.TypedContent(folderId);
+        message = Html.Encode(folder.GetPropertyValue<IHtmlString>("submissionMessage").ToString().Replace("\n", "<br />"));
+    }
+}
+
+@using (Ajax.BeginForm("ProcessAjaxFormSubmission", null, ajaxOptions, htmlAttributes))
+{
+    @Html.AntiForgeryToken()
+    <fieldset class="o-form__fieldset">
+        <legend class="o-legend">Ajax contact form</legend>
+        <div class="o-form__field">
+            @Html.LabelFor(x => x.Name, new { @class = "o-label" })
+            @Html.TextBoxFor(x => x.Name, new { @required = "required", @class = "o-input", @placeholder = "Name" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div class="o-form__field">
+            @Html.LabelFor(x => x.Email, new { @class = "o-label" })
+            @Html.TextBoxFor(x => x.Email, new { @required = "required", @class = "o-input", @placeholder = "Email address" })
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="o-form__field">
+            @Html.LabelFor(x => x.Message, new { @class = "o-label" })
+            @Html.TextAreaFor(x => x.Message, new { required = (string)null, @class = "o-input", @placeholder = "Message", @rows = 6 })
+            @Html.ValidationMessageFor(x => x.Message)
+        </div>
+        <div class="o-form__field o-form__field--submit">
+            <button type="submit" class="c-button c-button--primary js-ajax-submit-button">Send form</button>
+        </div>
+    </fieldset>
+}
+
+<script>
+    function Success(result) {
+        var $form = $('.js-form--contact');
+
+        $form.html("@Html.Raw(message)");
+    }
+
+    function Error(result) {
+        var $form = $('.js-form--contact');
+
+        $form.html("<h2>Something went wrong</h2><p>Please try again or contact us directly.</p>");
+
+    }
+
+    function BeginLoading() {
+        var $submitButton = $('.js-ajax-submit-button');
+        var $form = $('#ajax-contact-form');
+
+        $submitButton.prop('disabled', 'disabled');
+        $submitButton.addClass('is-disabled');
+        $form.addClass('is-loading');
+    }
+</script>*@
+

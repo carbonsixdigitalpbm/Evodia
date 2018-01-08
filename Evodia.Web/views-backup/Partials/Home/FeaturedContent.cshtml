@@ -1,0 +1,46 @@
+@using Umbraco.Web
+@using Evodia.Core.Models
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var covers = Model.GetPropertyValue<List<IPublishedContent>>("featuredContent");
+    var hasCovers = covers.Any(x => x.HasValue("content"));
+}
+@if( hasCovers ) {
+	<section class="c-carousel c-carousel--invert c-carousel--cover js-carousel" data-dots="true" data-loop="true" data-auto-play="true" data-speed="12000">
+		@foreach( var item in covers ) {
+			@RenderSlide( item )
+		}
+	</section>
+}
+
+@helper RenderSlide( IPublishedContent item ) {
+	var headline = item.GetPropertyValue<string>("headline");
+	var image = Umbraco.TypedMedia( item.GetPropertyValue<int>("image") );
+	var hasImage = image != null ? true : false;
+	var imageUrl = "";
+
+	if( hasImage ) {
+		imageUrl = Url.GetCropUrl(image, cropAlias: "16:9", width: 2000, quality: 95, htmlEncode: false).ToString();
+	}
+
+	var link = new LinkPickerModel( item.GetPropertyValue<string>("link") );
+
+	<article class="c-cover c-carousel__item" style="background-image: url( @imageUrl );">
+		<div class="c-cover__wrap o-wrap--large">
+			<div class="c-cover__content">
+				@if( !string.IsNullOrEmpty(headline) ) {
+					<h1 class="c-cover__headline">@headline</h1>
+				}
+				<div class="c-cover__copy">
+					@item.GetPropertyValue("content")
+
+					@if( !string.IsNullOrEmpty(link.Url) )
+					{
+						<a href="@link.Url" class="c-button c-button--secondary-invert u-space-top" target="@link.Target">@link.Name ></a>
+					}
+				</div>
+			</div>
+		</div>
+	</article>
+
+}

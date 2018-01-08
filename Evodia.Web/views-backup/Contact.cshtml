@@ -1,0 +1,24 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+    var headline = Model.HasValue("headline") ? Model.GetPropertyValue<string>("headline") : Model.Name;
+}
+
+<main class="o-page__inner" role="main">
+	<section id="mapCanvas" class="c-map c-map--21-9"></section>
+	<section class="o-section o-wrap o-wrap--large o-col--two-one u-clearfix">
+		<div class="o-col o-col--first">
+		    <h1 class="u-space-bottom--small">@headline</h1>
+		    @Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml")
+		</div>
+		<div class="o-col o-col--last u-space-top--large">
+			@Html.Partial("~/Views/Partials/Page/ContactDetails.cshtml")
+			@Model.GetPropertyValue("additionalContent")
+			<nav class="c-nav--sub u-space-top u-hide-large u-hide--x-large u-hide-xx-large" role="navigation">
+				<h2 class="u-hide-text">Other pages in this section</h2>
+				@Html.Partial("~/Views/Partials/Page/SubNavigation.cshtml")
+			</nav>
+		</div>
+	</section>
+</main>

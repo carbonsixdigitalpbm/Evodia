@@ -1,0 +1,22 @@
+﻿@using Umbraco.Web
+@using Evodia.Voyager.Domain.Models
+@inherits UmbracoViewPage<BasicSearchForm>
+
+@using (Html.BeginUmbracoForm("ProcessBasicFormSubmission", "SearchForm", FormMethod.Post, new { id = "search-form", @class = "c-form js-form u-space-top" }))
+{
+    @Html.AntiForgeryToken()
+        <div class="o-form__field o-form__field--compact s-search s-search__keyword o-input-wrap o-input-wrap--search">
+			<i class="ico-search" role="decoration"></i>
+        	@Html.TextBoxFor(x => x.Keywords, new { @class = "o-input" })
+			@Html.LabelFor(x => x.Keywords, new { @class = "o-label" })
+            @Html.ValidationMessageFor(x => x.Keywords)
+        </div>
+        <div class="o-checkbox">
+            @Html.CheckBoxFor(x => x.TitleOnly, new { @class = "o-checkbox__input" })
+			@Html.LabelFor(x => x.TitleOnly, new { @class = "o-checkbox__label" })
+            @Html.ValidationMessageFor(x => x.TitleOnly)
+        </div>
+		<div class="o-form__field o-form__field--submit u-center-content">
+			<button type="submit" class="c-button c-button--secondary-invert">Search ></button>
+		</div>
+}

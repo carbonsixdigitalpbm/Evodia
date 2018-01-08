@@ -1,0 +1,25 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+    var idList = settings.GetPropertyValue<string>("footerNavigation").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+    var navigationLinks = Umbraco.TypedContent(idList).Where("TemplateId > 0");
+}
+
+@if( navigationLinks.Any() )
+{
+
+    <nav class="c-nav--footer">
+        <ul class="c-nav__list">
+            @foreach( IPublishedContent link in navigationLinks )
+            {
+                <li class="c-nav__item">
+                    <a href="@link.Url" class="c-nav__link">
+                        @link.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

@@ -1,0 +1,61 @@
+﻿@using Umbraco.Web
+@using Evodia.Core.ExtensionMethods
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Model.AncestorOrSelf(1);
+    var settings = homePage.Descendants("globalSettings").First();
+    var logos = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("footerLogos");
+
+    if (logos != null)
+    {
+		<h2 class="u-hide-text">Accreditations:</h2>
+        <div class="o-logo-wrap">
+            @foreach (var item in logos.Where(l => l.HasValue("title")).ToContentSet())
+            {
+                @RenderLogo(item)
+            }
+        </div>
+    }
+}
+
+@helper RenderLogo(IPublishedContent item)
+{
+    var imageTitle = item.GetPropertyValue<string>("title");
+    var externalUrl = item.GetPropertyValue<string>("logoUrl");
+
+    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="o-logo">
+        @if (item.HasValue("logo"))
+        {
+            var imageId = item.GetPropertyValue<string>("logo");
+            var image = Umbraco.TypedMedia(imageId);
+
+            if (!string.IsNullOrEmpty(externalUrl) && externalUrl.IsValidUrl())
+            {
+                <a href="@externalUrl" title="@imageTitle" itemprop="" class="o-logo__link" target="_blank">
+                    <img src="@image.Url?height=64" itemprop="thumbnail" alt="@imageTitle" class="o-logo__image"/>
+                </a>
+            }
+            else
+            {
+                <span itemprop="" class="o-logo__link" target="_blank">
+                    <img src="@image.Url?height=64" itemprop="thumbnail" alt="@imageTitle" class="o-logo__image" />
+                </span>
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(externalUrl))
+            {
+                <a href="@externalUrl" title="@imageTitle" itemprop="" class="o-logo__link" target="_blank">
+                    <p class="o-logo__name">@imageTitle</p>
+                </a>
+            }
+            else
+            {
+                <span itemprop="" class="o-logo__link" target="_blank">
+                    <p class="o-logo__name">@imageTitle</p>
+                </span>
+            }
+        }
+    </figure>
+}

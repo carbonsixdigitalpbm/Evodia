@@ -1,0 +1,13 @@
+﻿@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+}
+
+<main class="o-page__inner" role="main">
+	@Html.Partial("~/Views/Partials/Home/Cover.cshtml")
+	@Html.Partial("~/Views/Partials/Home/Specialisms.cshtml")
+	@Html.Partial("~/Views/Partials/Home/VacancyPanel.cshtml")
+	@Html.Partial("~/Views/Partials/Home/FeaturedContent.cshtml")
+	@Html.Partial("~/Views/Partials/Home/Quotes.cshtml")
+</main>

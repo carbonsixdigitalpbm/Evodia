@@ -1,0 +1,75 @@
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var wrapSize = ViewData["wrapSize"];
+    var mediaIds = Model.GetPropertyValue<string>("gallery");
+    bool hasImages = mediaIds != null ? true : false;
+}
+
+@if( hasImages ) {
+    var alignment = Model.GetPropertyValue<string>("alignment") != null ? Model.GetPropertyValue<string>("alignment").ToLower() : "default";
+
+    if( alignment == "full screen width" ) {
+        alignment = "full";
+        @renderGallery( Model, mediaIds, alignment, "o-page-component" )
+    } else {
+        <div class="o-wrap o-wrap--@wrapSize o-page-component">
+            @renderGallery( Model, mediaIds, alignment, "" )
+        </div>
+    }
+
+}
+
+@helper renderGallery( IPublishedContent item, string mediaIds, string alignment, string elementClasses ) {
+    var caption = item.GetPropertyValue<string>("caption");
+    var hasRatio = item.HasValue("aspectRatio") ? true : false;
+    var aspectRatio = hasRatio ? item.GetPropertyValue<string>("aspectRatio") : null;
+    var aspectRatioClass = hasRatio ? "c-gallery--" + aspectRatio.Replace(":", "-") : "c-gallery--4-3";
+
+
+    <figure class="c-gallery c-carousel--invert c-carousel--images o-media @aspectRatioClass o-align--@alignment @elementClasses">
+        <div class="c-gallery__inner js-carousel js-modal" data-modal-type="gallery" data-nav="true" data-loop="true" data-auto-play="true" data-dots="true">
+            @foreach( string mediaId in mediaIds.ToString().Split(',') )
+            {
+                var media = Umbraco.TypedMedia(mediaId);
+                if (media.DocumentTypeAlias == "Image")
+                {
+                    @RenderImage(media, aspectRatio, alignment)
+                }
+                if (media.Descendants("Image").Any())
+                {
+                    foreach (IPublishedContent image in media.Descendants("Image"))
+                    {
+                        @RenderImage(image, aspectRatio, alignment)
+                    }
+                }
+            }
+        </div>
+        @if( caption != "" )
+        {
+            <figcaption class="c-caption">
+                @caption
+            </figcaption>
+        }
+    </figure>
+
+
+}
+
+@helper RenderImage( IPublishedContent item, string ratio, string alignment )
+{
+    var image = item;
+    var aspectRatio = ratio == null ? "4:3" : ratio;
+    var imageUrl = image.Url + "?width=1200&quality=85";
+
+    int imageWidth = alignment == "full" ? 1600 : alignment == "left" || alignment == "right" ? 500 : 800;
+    var imageCropUrlLow = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, quality: 18, htmlEncode: false).ToString();
+    var imageCropUrlHigh = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, quality: 85, htmlEncode: false).ToString();
+    var caption = image.GetPropertyValue<string>("caption");
+    var altText = image.GetPropertyValue<string>("altText");
+
+
+    <a href="@imageUrl" target="_blank" class="c-gallery__item">
+        <img src="@imageCropUrlLow" data-src="@imageCropUrlHigh" class="c-gallery__image js-lazyload" alt="@altText" data-test="@aspectRatio" />
+    </a>
+}

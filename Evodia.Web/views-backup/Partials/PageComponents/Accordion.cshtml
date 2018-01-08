@@ -1,0 +1,31 @@
+@using Umbraco.Web
+@using Evodia.Core.ExtensionMethods
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var wrapSize = ViewData["wrapSize"];
+
+    var accordion = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("accordionContent");
+    bool hasTabs = accordion != null ? true : false;
+}
+
+@if( hasTabs )
+{
+    <div class="o-wrap o-wrap--@wrapSize o-page-component">
+        <div class="c-accordion js-accordion">
+            @foreach( IPublishedContent item in accordion.ToContentSet() )
+            {
+				var uniqueId = StringExtentions.CreateGuid();
+
+                var tabName = item.GetPropertyValue<string>("tabName");
+                var content = item.GetPropertyValue<HtmlString>("mainContent");
+
+                <h2 id="accordion-header-@uniqueId" class="c-accordion__header js-accordion__header">@tabName</h2>
+                <div id="accordion-panel-@uniqueId" class="c-accordion__panel js-accordion__panel">
+                    <div class="c-accordion__panel-inner">
+                        @content
+                    </div>
+                </div>
+            }
+        </div>
+</div>
+}

@@ -1,0 +1,52 @@
+@using Umbraco.Web
+@using Evodia.Core.Utility
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var subPages = Model.Children.Where( x => x.IsVisible() );
+	var homePage = Model.AncestorOrSelf(1);
+	var isConsultancySite = !Helpers.IsPrimarySite(homePage.Id);
+	var settings = homePage;
+	if (isConsultancySite) {
+		settings = homePage.Descendants("consultancySettings").FirstOrDefault();
+	} else {
+    	settings = homePage.Descendants("globalSettings").FirstOrDefault();
+	}
+
+    var defaultImageId = settings.GetPropertyValue<string>("defaultSocialMediaImage");
+}
+
+@foreach( IPublishedContent item in subPages ) {
+    var tileName = item.Name;
+    var description = item.GetPropertyValue<string>("onSiteDescription");
+    var url = item.Url;
+
+    var hasDescription = !String.IsNullOrEmpty( description ) ? true : false;
+    var tileClasses = hasDescription ? null : "c-tile--no-description";
+
+    var imageId = item.HasValue("socialMediaImage") ? item.GetPropertyValue<string>("socialMediaImage") : defaultImageId;
+    var image = Umbraco.TypedMedia( imageId );
+    var altText = "";
+    var imageUrl = "";
+    var aspectRatio = "21:9";
+    var imageWidth = 600;
+
+    if(image != null)
+    {
+        altText = image.GetPropertyValue<string>("altText");
+        imageUrl = Url.GetCropUrl(image, cropAlias: aspectRatio, width: imageWidth, htmlEncode: false).ToString();
+    }
+
+    <div class="c-tile @tileClasses o-grid__item">
+        <a href="@url" class="c-tile__link">
+            <div class="c-tile__image-wrap js-lazyload" data-bg="@imageUrl" style="background-image: url(@imageUrl&quality=18);"></div>
+            <div class="c-tile__content">
+                <h3 class="c-tile__name u-delta">@tileName</h3>
+                @if( hasDescription ) {
+                    <div class="c-tile__description">
+                        <p>@description</p>
+                    </div>
+                }
+            </div>
+        </a>
+    </div>
+}

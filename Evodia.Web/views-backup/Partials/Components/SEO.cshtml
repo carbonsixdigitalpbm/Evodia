@@ -1,0 +1,42 @@
+@using System.Text.RegularExpressions;
+@using Umbraco.Web
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Umbraco.TypedContentAtRoot().First();
+    var settings = homePage.Descendants("globalSettings").First();
+    var followIndex = Model.GetPropertyValue<bool>("dontFollow") ? "NOFOLLOW, NOINDEX" : "FOLLOW, INDEX";
+    var title = Model.HasValue("sEOTitle") ? Model.GetPropertyValue<string>("sEOTitle") : Model.Name + " | " + settings.GetPropertyValue<string>("websiteName");
+
+    var description = "";
+    var hasDescription = Model.HasValue("description");
+    var hasExcerpt = Model.HasValue("excerpt");
+
+    var pattern  = "<.*?>|\\r\\n?|\\n";
+
+    if( hasDescription )
+    {
+        description = Model.GetPropertyValue<string>("description");
+    }
+    else if( hasExcerpt )
+    {
+        description = Model.GetPropertyValue<string>("excerpt");
+    }
+    else
+    {
+        var hasContent = Model.HasValue("mainContent");
+        var content = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("mainContent");
+
+        if( hasContent && content.Any(x => x.DocumentTypeAlias == "text") )
+        {
+            description = content.First(x => x.DocumentTypeAlias == "text").GetPropertyValue<HtmlString>("mainContent").ToString();
+        }
+    }
+
+    description = Regex.Replace(description, pattern, String.Empty);
+
+}
+
+<title>@title</title>
+<meta name="description" content="@description.Truncate(160)">
+<meta name="robots" content="@followIndex">
+

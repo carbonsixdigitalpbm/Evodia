@@ -1,0 +1,44 @@
+@using Umbraco.Web
+@using System.Text.RegularExpressions
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+	var wrapSize = ViewData["wrapSize"];
+
+    var tabs = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("tabsList").ToList();
+    var hasTabs = Model.HasValue("tabsList") && tabs.Any();
+    const string pattern = @"[^0-9a-zA-Z]+";
+    var rgx = new Regex(pattern);
+}
+
+@if (hasTabs)
+{
+    <div class="c-tabs js-tabs o-wrap o-wrap--@wrapSize o-page-component">
+        <nav class="c-tabs__nav">
+            <ul class="c-tabs__nav-list" role="tablist">
+                @foreach (var tab in tabs.ToContentSet())
+                {
+                    var tabName = tab.GetPropertyValue<string>("tabName");
+                    var sectionId = "#" + rgx.Replace(tabName, "").ToLower();
+
+                    <li class="c-tabs__nav-item" role="presentation">
+                        <a href="@sectionId" class="c-tabs__nav-tab" role="tab" aria-controls="@sectionId" aria-selected="true">@tabName</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+
+        <div class="c-tabs__content">
+            @foreach (var tab in tabs.ToContentSet())
+            {
+                var tabName = tab.GetPropertyValue<string>("tabName");
+                var sectionId = "#" + rgx.Replace(tabName, "").ToLower();
+                var content = tab.GetPropertyValue<HtmlString>("mainContent");
+
+                <section id="@sectionId" class="c-tabs__content-tab" role="tabpanel">
+                    @content
+                </section>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,37 @@
+﻿@*@using Umbraco.Web
+@using UmbracoStarterKit.Models
+@using UmbracoStarterKit.Utility
+@inherits UmbracoViewPage<Blog>
+@{
+	Layout = "MasterBlog.cshtml";
+
+    var allPosts = Model.AllBlogPosts.ToList();
+	var paging = Paging.GetPages(allPosts.Count, 10);
+	var selectedPosts = allPosts.Skip(paging.Skip).Take(paging.Take).ToList();
+}
+
+<h1>@Model.Headline</h1>
+@Html.Partial("~/Views/Partials/PageComponents/PageComponents.cshtml", Model.Content)
+@if( selectedPosts.Any() )
+{
+    foreach (var post in selectedPosts)
+    {
+        @Html.Partial("~/Views/Partials/Blog/PostCard.cshtml", post)
+    }
+}
+else
+{
+    <p>Sorry, there are currently no posts available</p>
+}
+
+<nav class="c-pagination">
+	@PagingTemplate.RenderPaging(paging, Model.Content.Id)
+</nav>
+
+@section Sidebar {
+	@Html.Partial("~/Views/Partials/Blog/BlogCategories.cshtml")
+	@if( allPosts.Any() )
+	{
+		@Html.Partial("~/Views/Partials/Components/BlogNewsArchive.cshtml", allPosts)
+	}
+}*@

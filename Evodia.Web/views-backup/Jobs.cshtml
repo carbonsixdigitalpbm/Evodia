@@ -1,0 +1,92 @@
+﻿@using System.Globalization
+@using Evodia.Core.Utility
+@using Evodia.Data.Controllers
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = "Master.cshtml";
+
+    var ci = new CultureInfo("en-GB");
+
+    System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+    System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+
+    var keywords = Request.QueryString["keywords"];
+    var titleOnly = Request.QueryString["titleonly"];
+    var type = Request.QueryString["type"];
+    var location = Request.QueryString["location"];
+    var sector = Request.QueryString["sector"];
+    var salary = Request.QueryString["salary"];
+    var page = Request.QueryString["page"];
+    var titleOnlySearch = false;
+    int pageNumber;
+    var result = int.TryParse(page, out pageNumber);
+
+
+    if (!string.IsNullOrWhiteSpace(titleOnly) && titleOnly.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+    {
+        titleOnlySearch = Convert.ToBoolean(titleOnly);
+    }
+
+    if (!string.IsNullOrWhiteSpace(page))
+    {
+        int.TryParse(page, out pageNumber);
+    }
+
+    var jobsSurface = new JobsSurfaceController();
+    var filteredJobs = jobsSurface.GetJobsBySearch(keywords, titleOnlySearch, location, sector, salary, type);
+    var paging = Paging.GetPages(filteredJobs.Count, 5, pageNumber);
+    var pagedJobs = filteredJobs.Skip(paging.Skip).Take(paging.Take);
+}
+
+@*<p>keywords: @keywords</p>
+<p>titleonly: @titleOnly</p>
+<p>type: @type</p>
+<p>location: @location</p>
+<p>sector: @sector</p>
+<p>salary: @salary</p>*@
+<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+    <aside class="o-page__sidebar s-jobs__sidebar">
+        @Html.Action("RenderFullSearchForm", "SearchForm")
+    </aside>
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content js-loading-target">
+        <div class="c-alert c-alert--info">
+            <p class="u-delta">Results: <strong class="js-count">@filteredJobs.Count</strong></p>
+        </div>
+        <div id="jobs-target">
+            @foreach (var job in pagedJobs)
+            {
+                @Html.Partial("~/Views/Partials/Jobs/JobCard.cshtml", job)
+            }
+        </div>
+        <div id="pagination-target" class="c-pagination">
+            @if (paging.EndPage > 1)
+            {
+                @PagingTemplate.RenderPaging(paging, Model.Id)
+            }
+        </div>
+    </main>
+</div>
+
+
+
+@*<div class="o-page__inner o-wrap o-wrap--x-large u-clearfix s-layout-sidebar o-section">
+    <aside class="o-page__sidebar c-nav c-nav--sub" role="navigation">
+        @Html.Action("RenderFullSearchForm", "SearchForm", new { keywords = TempData["Keywords"], titleOnly = TempData["TitleOnly"] })
+    </aside>
+    <main class="o-page__content o-page__content--sidebar-layout s-free-content">
+        <div id="jobs-target"></div>
+    </main>
+</div>*@
+
+@*
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="~/Scripts/Voyager.js"></script>
+<script>
+	jQuery(document).ready( function() {
+	    var jobsTarget = '#jobs-target',
+	        navTarget = "#pagination-target";
+
+		Voyager.init('@Url.Action("GetFilteredJobs", "JobsSurface")', jobsTarget, navTarget);
+	});
+</script>
+*@
