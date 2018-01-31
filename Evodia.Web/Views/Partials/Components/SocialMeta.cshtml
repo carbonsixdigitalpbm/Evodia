@@ -44,7 +44,9 @@
     if( !string.IsNullOrEmpty(imageId) )
     {
         var image = Umbraco.TypedMedia(imageId);
-        imageUrl = siteUrl + Url.GetCropUrl(image, cropAlias: "open-graph", width: 1024, quality: 85, htmlEncode: false).ToString();
+		if (image != null) {
+        	imageUrl = siteUrl + Url.GetCropUrl(image, cropAlias: "open-graph", width: 1024, quality: 85, htmlEncode: false).ToString();
+		}
     }
 }
 
