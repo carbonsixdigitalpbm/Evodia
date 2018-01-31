@@ -30,7 +30,7 @@
 
 
 .c-masthead__subheadline {
-	margin-top: $line-height;
+	margin-top: $line-height / 2;
 }
 
 @include respond-min($mq-large) {
