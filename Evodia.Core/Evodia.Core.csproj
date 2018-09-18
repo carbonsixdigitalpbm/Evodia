@@ -136,6 +136,7 @@
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="Controllers\JobCvFormController.cs" />
     <Compile Include="Data\Blog.cs" />
+    <Compile Include="Events\UmbracoEvents.cs" />
     <Compile Include="Models\ArticleSummaryViewModel.cs" />
     <Compile Include="Models\CardViewModel.cs" />
     <Compile Include="Models\ContactConsultingForm.cs" />

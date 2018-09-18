@@ -19,11 +19,6 @@ namespace Evodia.Core.Controllers
         {
             var genericCvForm = new GenericCvForm
             {
-                //FirstName = "Paulius",
-                //SecondName = "Putna",
-                //Email = "paulius@tgdh.co.uk",
-                //SecurityClearanceLevel = "Not sure what goes here",
-                //Availability = "Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
                 JobPreference = new List<SelectListItem>
                 {
                     new SelectListItem
@@ -61,7 +56,6 @@ namespace Evodia.Core.Controllers
             TempData["GenericCvFormValidationPasses"] = "The form has been validated successfully.";
             TempData["GenericCvFormFolderId"] = Constants.GenericCvFormFolderId;
 
-            SaveGenericCvFormSubmission(model);
             SendEmailNotifications(model);
 
             var fileSavingOptions = new FileHelperSettings
@@ -70,7 +64,9 @@ namespace Evodia.Core.Controllers
                 ParentFolderName = model.FirstName.MakeValidFileName() + " " + model.SecondName.MakeValidFileName() + " - " + DateTime.Now.ToString("F")
             };
 
-            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
+            var filePath = _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
+
+            SaveGenericCvFormSubmission(model, filePath);
 
             if (Umbraco.TypedContent(Constants.GenericCvFormFolderId).HasValue("redirectPage"))
             {
@@ -80,7 +76,7 @@ namespace Evodia.Core.Controllers
             return RedirectToCurrentUmbracoPage();
         }
 
-        private void SaveGenericCvFormSubmission(GenericCvForm model)
+        private void SaveGenericCvFormSubmission(GenericCvForm model, string filePath)
         {
             try
             {
@@ -93,6 +89,7 @@ namespace Evodia.Core.Controllers
                 genericCvForm.SetValue("securityClearanceLevel", model.SecurityClearanceLevel);
                 genericCvForm.SetValue("jobPreference", model.SelectedJobPreference);
                 genericCvForm.SetValue("availability", model.Availability);
+                genericCvForm.SetValue("filePath", filePath);
 
                 contentService.SaveAndPublishWithStatus(genericCvForm);
             }

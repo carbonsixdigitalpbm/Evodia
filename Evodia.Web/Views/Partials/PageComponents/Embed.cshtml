@@ -1,4 +1,4 @@
-@using Umbraco.Web
+﻿@using Umbraco.Web
 @inherits UmbracoViewPage<IPublishedContent>
 @{
 	var wrapSize = ViewData["wrapSize"];
@@ -11,12 +11,12 @@
 @if( hasCode )
 {
 	if( alignment == "full" ) {
-		<div class="o-page-component o-align--@alignment o-media--video">
+		<div class="o-page-component o-align--@alignment">
 	        @Html.Raw(code)
 	    </div>
 	} else {
 		<div class="o-wrap o-wrap--@wrapSize o-page-component">
-			<div class="o-align--@alignment o-media--video">
+			<div class="o-align--@alignment">
 				@Html.Raw(code)
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-@using Umbraco.Web
+﻿@using Umbraco.Web
 @using Evodia.Core.Models
 @using Evodia.Core.Controllers
 @inherits UmbracoViewPage<ExpoForm>
@@ -122,11 +122,10 @@ else
             </div>
 
 			<div class="o-form__field">
-            @*
+			@*
             @Html.LabelFor(x => x.LocationPreference, new { @class = "o-label c-pod__headline" })
             *@
             <label class="o-label c-pod__headline" for="LocationPreference">Location preference (select all that apply)</label>
-            
             <ul class="o-fieldset__list o-fieldset__list--three u-clearfix">
 
                 @for (var i = 0; i < Model.LocationPreference.Count; i++)

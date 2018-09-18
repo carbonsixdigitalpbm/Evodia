@@ -305,3 +305,4 @@ Evodia.Web/Config/connectionStrings.config
 /Evodia.Web/Voyager/*.xml
 **/Evodia.Web/bin/
 **_assemblies/
+Evodia.Web/Media/

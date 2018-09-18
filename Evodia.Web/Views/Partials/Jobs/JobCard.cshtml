@@ -1,4 +1,4 @@
-@using Evodia.Data.Models;
+﻿@using Evodia.Data.Models;
 @inherits UmbracoViewPage<VacancyModel>
 @{
 	var headline = Model.PublishedContent.HasValue("clientJobTitle") ? Model.PublishedContent.GetPropertyValue<string>("clientJobTitle") : Model.PublishedContent.Name;

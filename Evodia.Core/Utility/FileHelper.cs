@@ -5,9 +5,9 @@ namespace Evodia.Core.Utility
 {
     public class FileHelper
     {
-        public void SaveFormAttachmentToServer(FileHelperSettings fileSavingOptions, HttpPostedFileBase file)
+        public string SaveFormAttachmentToServer(FileHelperSettings fileSavingOptions, HttpPostedFileBase file)
         {
-            if (file == null || file.ContentLength <= 0) return;
+            if (file == null || file.ContentLength <= 0) return string.Empty;
 
             var rootPath = Directory.GetParent(Directory.GetParent(HttpContext.Current.Server.MapPath("/")).FullName);
             var uploadFolder = Path.Combine(rootPath.FullName, "Uploads");
@@ -41,6 +41,8 @@ namespace Evodia.Core.Utility
             var filePath = Path.Combine(parentFolderPath, fileName);
 
             file.SaveAs(filePath);
+
+            return filePath;
         }
     }
 

@@ -18,12 +18,7 @@ namespace Evodia.Core.Controllers
         {
             var jobPage = Umbraco.TypedContent(jobId);
 
-            var jobCvForm = new JobCvForm
-            {
-                //FirstName = "Paulius",
-                //SecondName = "Putna",
-                //Email = "paulius@tgdh.co.uk"
-            };
+            var jobCvForm = new JobCvForm();
 
             if (jobPage != null)
             {
@@ -54,7 +49,7 @@ namespace Evodia.Core.Controllers
             TempData["JobCvFormValidationPasses"] = "The form has been validated successfully.";
             TempData["JobCvFormFolderId"] = Constants.JobCvFormFolderId;
 
-            SaveJobCvFormSubmission(model);
+            
             SendEmailNotifications(model);
 
             var fileSavingOptions = new FileHelperSettings
@@ -64,7 +59,9 @@ namespace Evodia.Core.Controllers
                 FilePrefix = model.JobReference
             };
 
-            _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
+            var filePath = _fileHelper.SaveFormAttachmentToServer(fileSavingOptions, model.Attachment);
+
+            SaveJobCvFormSubmission(model, filePath);
 
             if (Umbraco.TypedContent(Constants.JobCvFormFolderId).HasValue("redirectPage"))
             {
@@ -74,7 +71,7 @@ namespace Evodia.Core.Controllers
             return RedirectToCurrentUmbracoPage();
         }
 
-        private void SaveJobCvFormSubmission(JobCvForm model)
+        private void SaveJobCvFormSubmission(JobCvForm model, string filePath)
         {
             try
             {
@@ -86,6 +83,7 @@ namespace Evodia.Core.Controllers
                 jobCvForm.SetValue("firstName", model.FirstName);
                 jobCvForm.SetValue("secondName", model.SecondName);
                 jobCvForm.SetValue("email", model.Email);
+                jobCvForm.SetValue("filePath", filePath);
 
                 contentService.SaveAndPublishWithStatus(jobCvForm);
             }

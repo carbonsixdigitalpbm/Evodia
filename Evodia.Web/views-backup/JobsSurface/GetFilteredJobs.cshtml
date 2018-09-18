@@ -1,7 +1,0 @@
-﻿@using Evodia.Data.Models;
-@inherits UmbracoViewPage<IEnumerable<VacancyModel>>
-
-@foreach (var item in Model)
-{
-	@Html.Partial("~/Views/Partials/Jobs/JobCard.cshtml", item)
-}
